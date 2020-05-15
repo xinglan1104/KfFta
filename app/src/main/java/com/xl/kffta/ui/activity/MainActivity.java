@@ -1,6 +1,6 @@
 package com.xl.kffta.ui.activity;
 
-import android.os.Bundle;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -8,16 +8,16 @@ import android.view.View;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.xl.kffta.R;
+import com.xl.kffta.base.BaseActivity;
 
-import androidx.appcompat.app.AppCompatActivity;
+import org.jetbrains.annotations.NotNull;
+
 import androidx.appcompat.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected void initViews() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -51,5 +51,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void handleMessage(@NotNull Message message) {
+
+    }
+
+    @NotNull
+    @Override
+    public String getLoggerTag() {
+        return null;
     }
 }

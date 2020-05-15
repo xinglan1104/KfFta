@@ -42,6 +42,9 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
+        initViews()
+        initListener()
+        initData()
     }
 
     protected class MyHandler(activity: BaseActivity) : Handler() {
