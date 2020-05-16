@@ -5,7 +5,7 @@ package com.xl.kffta.net
  * @date 2020-05-06 15:43
  * 描述：请求回调
  */
-interface ResponseHandler<T> {
+interface ResponseCallback {
     fun onError(msg: String?)
-    fun onSuccess(result: T)
+    fun onSuccess(result: Any?)
 }

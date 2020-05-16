@@ -21,29 +21,30 @@ class NetManager private constructor() {
     }
 
     fun sendRequest(req: RequestBuilder) {
-        val paramsMap = hashMapOf<String, String>()
-        paramsMap["CompanyCode"] = "kaifeng"
-        paramsMap["Username"] = "admin"
-        paramsMap["Password"] = "111111"
+        if (req.params == null) {
+            req.callback?.onError("没有入参")
+            return
+        }
         val builder = FormBody.Builder()
         // 追加表单信息
-        for ((key, value) in paramsMap) {
+        for ((key, value) in req.params) {
             builder.add(key, value)
         }
         val formBody = builder.build()
         val request = Request.Builder()
-            .url("https://test.dynamictier.com/services2/serviceapi/web/AccountSignIn?format=json")
-            .post(formBody)
-            .build()
+                .url(req.url)
+                .post(formBody)
+                .build()
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-
+                req.callback?.onError(e.message)
             }
 
             override fun onResponse(call: Call, response: Response) {
                 val result = response.body?.string()
                 Log.e("NetManager", "{$result}")
+                req.callback?.onSuccess(result)
             }
 
         })
