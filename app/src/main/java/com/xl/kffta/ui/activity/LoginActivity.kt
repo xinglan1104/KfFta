@@ -49,6 +49,7 @@ class LoginActivity : BaseActivity(), ILoginView {
         runOnUiThread {
             // 登录成功
             startActivity<MainActivity>()
+            finish()
         }
     }
 
