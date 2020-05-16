@@ -32,10 +32,11 @@ class NetManager private constructor() {
         }
         val formBody = builder.build()
         val request = Request.Builder()
-                .url(req.url)
-                .post(formBody)
-                .build()
+            .url(req.url)
+            .post(formBody)
+            .build()
 
+        Log.d("net", request.toString())
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 req.callback?.onError(e.message)

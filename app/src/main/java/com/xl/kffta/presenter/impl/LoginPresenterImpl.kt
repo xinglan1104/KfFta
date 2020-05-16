@@ -1,13 +1,16 @@
 package com.xl.kffta.presenter.impl
 
+import android.text.TextUtils
 import android.util.Log
 import com.xl.kffta.net.NetManager
 import com.xl.kffta.net.RequestBuilder
 import com.xl.kffta.net.ResponseCallback
 import com.xl.kffta.presenter.interf.ILoginPresenter
+import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.view.ILoginView
+import org.json.JSONObject
 
-class LoginPresenterImpl() : ILoginPresenter {
+class LoginPresenterImpl : ILoginPresenter {
     private var loginView: ILoginView? = null
     fun unBindView() {
         if (loginView != null) {
@@ -25,18 +28,37 @@ class LoginPresenterImpl() : ILoginPresenter {
         val requestBuilder = RequestBuilder()
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/AccountSignIn?format=json"
         val paramsMap = hashMapOf<String, String>()
-        paramsMap["CompanyCode"] = "kaifeng"
-        paramsMap["Username"] = "admin"
-        paramsMap["Password"] = "111111"
+        paramsMap["CompanyCode"] = ComCode
+        paramsMap["Username"] = name
+        paramsMap["Password"] = pwd
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {
-                TODO("Not yet implemented")
+                loginView?.loginFail(msg ?: "请求失败")
             }
 
             override fun onSuccess(result: Any?) {
-                val r = result as String
-                Log.d("LoginPresenterImpl", "callback获取：$r")
+                val jsonData = result as String
+                Log.d("LoginPresenterImpl", "callback获取：$jsonData")
+                if (!TextUtils.isEmpty(jsonData)) {
+                    val jsonObject = JSONObject(jsonData)
+                    try {
+                        // 获取ErrorCode,<0时错误
+                        val errorCode = jsonObject.optInt("ErrorCode", -1)
+                        if (errorCode < 0) {
+                            loginView?.loginFail(jsonObject.optString("Error", "fail"))
+                        } else {
+                            // 请求成功，把token保存下来
+                            ApplicationParams.TOKEN = jsonObject.optString("Token", "")
+                            Log.d("net", "TOKEN:${ApplicationParams.TOKEN}")
+                            loginView?.loginSuccess()
+                        }
+                    } catch (e: Exception) {
+                        loginView?.loginFail(e.message ?: "解析错误")
+                    }
+                } else {
+                    loginView?.loginFail("请求返回为空")
+                }
             }
 
         }

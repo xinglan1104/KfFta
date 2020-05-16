@@ -35,7 +35,6 @@ public class RequestBuilder {
      * 超时时间
      */
     private int mTimeOutLength = 1000;
-    private RequestBean mRequestBean = new RequestBean();
 
     /**
      * 构造参数 每个请求都需要context，action
