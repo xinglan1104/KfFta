@@ -2,7 +2,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/common_bg"
     android:orientation="vertical">
 
     <include layout="@layout/layout_title_bar" />
+
+    <EditText
+        android:id="@+id/pwd_comcode_et"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="@dimen/login_left_right_margin"
+        android:layout_marginTop="80dp"
+        android:layout_marginRight="@dimen/login_left_right_margin"
+        android:background="@drawable/login_et_bg"
+        android:hint="公司编号"
+        android:paddingLeft="15dp" />
+
+    <EditText
+        android:id="@+id/pwd_name_et"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="@dimen/login_left_right_margin"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="@dimen/login_left_right_margin"
+        android:background="@drawable/login_et_bg"
+        android:hint="用户名"
+        android:paddingLeft="15dp" />
+
+    <EditText
+        android:id="@+id/pwd_email_et"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="@dimen/login_left_right_margin"
+        android:background="@drawable/login_et_bg"
+        android:hint="邮箱"
+        android:paddingLeft="15dp" />
+
+    <Button
+        android:id="@+id/pwd_submit_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/selector_forget_pwd_btn"
+        android:enabled="false"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="提  交"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
 </LinearLayout>

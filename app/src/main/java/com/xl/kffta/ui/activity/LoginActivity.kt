@@ -12,7 +12,7 @@ import org.jetbrains.anko.startActivity
 /**
  * @author created by zhanghaochen
  * @date 2020-05-15 16:08
- * 描述：
+ * 描述：登录界面
  */
 class LoginActivity : BaseActivity(), ILoginView {
 
@@ -42,6 +42,10 @@ class LoginActivity : BaseActivity(), ILoginView {
                     mPresenter?.LoginRequest(user_name_et.text.toString().trim(), user_pwd_et.text.toString().trim(), "kaifeng")
                 }
             }
+        }
+        // 忘记密码的按钮
+        login_forget_pwd_tv.setOnClickListener {
+            startActivity<ForgetPwdActivity>()
         }
     }
 

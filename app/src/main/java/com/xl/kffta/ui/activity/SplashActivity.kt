@@ -12,7 +12,7 @@ import org.jetbrains.anko.startActivity
 /**
  * @author created by zhanghaochen
  * @date 2020-03-27 14:33
- * 描述：
+ * 描述：欢迎页面
  */
 class SplashActivity : BaseActivity(), ViewPropertyAnimatorListener {
     override fun handleMessage(message: Message) {
