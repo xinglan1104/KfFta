@@ -49,6 +49,10 @@ dependencies {
     implementation "org.jetbrains.anko:anko:0.10.8"
     implementation "com.roughike:bottom-bar:2.3.1"
     implementation 'com.github.bumptech.glide:glide:4.10.0'
+    implementation 'com.afollestad.material-dialogs:core:3.3.0'
+
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'  //1.0.5及以前版本的老用户升级需谨慎，API改动过大
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.2'  //没有使用特殊Header，可以不加这行
 
     // okhttp
     implementation "com.squareup.okhttp3:okhttp:4.5.0"

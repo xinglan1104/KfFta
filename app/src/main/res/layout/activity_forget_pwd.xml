@@ -16,6 +16,7 @@
         android:layout_marginRight="@dimen/login_left_right_margin"
         android:background="@drawable/login_et_bg"
         android:hint="公司编号"
+        android:maxLines="1"
         android:paddingLeft="15dp" />
 
     <EditText
@@ -27,6 +28,7 @@
         android:layout_marginRight="@dimen/login_left_right_margin"
         android:background="@drawable/login_et_bg"
         android:hint="用户名"
+        android:maxLines="1"
         android:paddingLeft="15dp" />
 
     <EditText
@@ -38,6 +40,7 @@
         android:layout_marginRight="@dimen/login_left_right_margin"
         android:background="@drawable/login_et_bg"
         android:hint="邮箱"
+        android:maxLines="1"
         android:paddingLeft="15dp" />
 
     <Button

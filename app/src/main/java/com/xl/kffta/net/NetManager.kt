@@ -32,9 +32,9 @@ class NetManager private constructor() {
         }
         val formBody = builder.build()
         val request = Request.Builder()
-            .url(req.url)
-            .post(formBody)
-            .build()
+                .url(req.url)
+                .post(formBody)
+                .build()
 
         Log.d("net", request.toString())
         client.newCall(request).enqueue(object : Callback {
@@ -45,7 +45,11 @@ class NetManager private constructor() {
             override fun onResponse(call: Call, response: Response) {
                 val result = response.body?.string()
                 Log.e("NetManager", "{$result}")
-                req.callback?.onSuccess(result)
+                if (result == null) {
+                    req.callback?.onError("返回内容为空")
+                } else {
+                    req.callback?.onSuccess(result)
+                }
             }
 
         })

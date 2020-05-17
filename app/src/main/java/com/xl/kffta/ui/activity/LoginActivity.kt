@@ -39,7 +39,7 @@ class LoginActivity : BaseActivity(), ILoginView {
                     myToast("请输入密码")
                 }
                 else -> {
-                    mPresenter?.LoginRequest(user_name_et.text.toString().trim(), user_pwd_et.text.toString().trim(), "kaifeng")
+                    mPresenter?.loginRequest(user_name_et.text.toString().trim(), user_pwd_et.text.toString().trim(), "kaifeng")
                 }
             }
         }

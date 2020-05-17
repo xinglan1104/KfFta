@@ -24,7 +24,7 @@ class LoginPresenterImpl : ILoginPresenter {
         }
     }
 
-    override fun LoginRequest(name: String, pwd: String, ComCode: String) {
+    override fun loginRequest(name: String, pwd: String, ComCode: String) {
         val requestBuilder = RequestBuilder()
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/AccountSignIn?format=json"
         val paramsMap = hashMapOf<String, String>()
@@ -37,11 +37,10 @@ class LoginPresenterImpl : ILoginPresenter {
                 loginView?.loginFail(msg ?: "请求失败")
             }
 
-            override fun onSuccess(result: Any?) {
-                val jsonData = result as String
-                Log.d("LoginPresenterImpl", "callback获取：$jsonData")
-                if (!TextUtils.isEmpty(jsonData)) {
-                    val jsonObject = JSONObject(jsonData)
+            override fun onSuccess(jsonString: String) {
+                Log.d("LoginPresenterImpl", "callback获取：$jsonString")
+                if (!TextUtils.isEmpty(jsonString)) {
+                    val jsonObject = JSONObject(jsonString)
                     try {
                         // 获取ErrorCode,<0时错误
                         val errorCode = jsonObject.optInt("ErrorCode", -1)

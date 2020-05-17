@@ -7,5 +7,5 @@ package com.xl.kffta.net
  */
 interface ResponseCallback {
     fun onError(msg: String?)
-    fun onSuccess(result: Any?)
+    fun onSuccess(jsonString: String)
 }
