@@ -6,13 +6,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.adapter.TakeOrderAdapter
 import com.xl.kffta.base.BaseActivity
+import com.xl.kffta.model.TakeOrderBean
+import com.xl.kffta.presenter.impl.TakeOrderPresenterImpl
+import com.xl.kffta.view.ITakeOrderView
 
 /**
  * @author zhanghaochen
  * date 2020-05-17
  * 描述：领取任务的界面
  */
-class TakeOrderActivity : BaseActivity() {
+class TakeOrderActivity : BaseActivity(), ITakeOrderView {
+    var mPresenter: TakeOrderPresenterImpl? = TakeOrderPresenterImpl()
+
     val mRecycler by lazy {
         findViewById<RecyclerView>(R.id.take_recycler)
     }
@@ -41,6 +46,36 @@ class TakeOrderActivity : BaseActivity() {
         }
         mRecycler.layoutManager = layoutManager
         mRecycler.adapter = mAdapter
+    }
+
+    override fun initData() {
+        mPresenter?.queryTask("0", "0", "30")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mPresenter?.bindView(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter?.unBindView()
+    }
+
+    override fun refreshAllSuccess(takeOrderBean: TakeOrderBean) {
 
     }
+
+    override fun refreshAllFail(msg: String) {
+
+    }
+
+    override fun loadMoreSuccess(takeOrderBean: TakeOrderBean) {
+
+    }
+
+    override fun loadMoreFail(msg: String) {
+
+    }
+
 }

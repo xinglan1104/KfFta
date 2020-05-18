@@ -36,7 +36,8 @@ class NetManager private constructor() {
                 .post(formBody)
                 .build()
 
-        Log.d("net", request.toString())
+        Log.d("NetManager", request.toString())
+        Log.d("NetManager", formBody.toString())
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 req.callback?.onError(e.message)
@@ -51,7 +52,6 @@ class NetManager private constructor() {
                     req.callback?.onSuccess(result)
                 }
             }
-
         })
     }
 }
