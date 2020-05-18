@@ -1,5 +1,6 @@
 package com.xl.kffta.ui.activity;
 
+import android.content.Intent;
 import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
@@ -48,7 +49,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.main_take_order) {
-
+            startActivity(new Intent(MainActivity.this, TakeOrderActivity.class));
         } else if (id == R.id.main_execute_order) {
 
         }

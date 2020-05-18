@@ -2,13 +2,14 @@ package com.xl.kffta.presenter.impl
 
 import android.text.TextUtils
 import android.util.Log
+import com.google.gson.Gson
+import com.xl.kffta.model.UserInfoBean
 import com.xl.kffta.net.NetManager
 import com.xl.kffta.net.RequestBuilder
 import com.xl.kffta.net.ResponseCallback
 import com.xl.kffta.presenter.interf.ILoginPresenter
 import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.view.ILoginView
-import org.json.JSONObject
 
 class LoginPresenterImpl : ILoginPresenter {
     private var loginView: ILoginView? = null
@@ -40,17 +41,21 @@ class LoginPresenterImpl : ILoginPresenter {
             override fun onSuccess(jsonString: String) {
                 Log.d("LoginPresenterImpl", "callback获取：$jsonString")
                 if (!TextUtils.isEmpty(jsonString)) {
-                    val jsonObject = JSONObject(jsonString)
+                    // 直接把Json转换成javaBean
                     try {
-                        // 获取ErrorCode,<0时错误
-                        val errorCode = jsonObject.optInt("ErrorCode", -1)
-                        if (errorCode < 0) {
-                            loginView?.loginFail(jsonObject.optString("Error", "fail"))
+                        val userInfoBean = Gson().fromJson(jsonString, UserInfoBean::class.java)
+                        if (userInfoBean == null) {
+                            loginView?.loginFail("解析错误")
                         } else {
-                            // 请求成功，把token保存下来
-                            ApplicationParams.TOKEN = jsonObject.optString("Token", "")
-                            Log.d("net", "TOKEN:${ApplicationParams.TOKEN}")
-                            loginView?.loginSuccess()
+                            // 获取ErrorCode,<0时错误
+                            if (userInfoBean.errorCode < 0) {
+                                loginView?.loginFail(userInfoBean.error ?: "解析错误")
+                            } else {
+                                // 请求成功，把token保存下来
+                                ApplicationParams.TOKEN = userInfoBean.token
+                                Log.d("net", "TOKEN:${ApplicationParams.TOKEN}")
+                                loginView?.loginSuccess()
+                            }
                         }
                     } catch (e: Exception) {
                         loginView?.loginFail(e.message ?: "解析错误")
