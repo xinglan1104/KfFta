@@ -8,6 +8,7 @@
     <include layout="@layout/layout_title_bar" />
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/take_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:srlAccentColor="@android:color/white"
@@ -20,6 +21,7 @@
             android:layout_height="wrap_content" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/take_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

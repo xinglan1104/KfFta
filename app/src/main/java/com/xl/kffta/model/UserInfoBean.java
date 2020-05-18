@@ -249,14 +249,14 @@ public class UserInfoBean implements Serializable {
         private String Timezone;
         private boolean InvisibleMode;
         private String CurrentProductTemplateInfo;
-        private List<Integer> ParentPath;
-        private List<Integer> RoleIDs;
+        private List<Long> ParentPath;
+        private List<Long> RoleIDs;
         private List<RoleBean> Role;
-        private List<Integer> DepartmentIDs;
+        private List<Long> DepartmentIDs;
         private List<DepartmentBean> Department;
-        private List<Integer> GroupIDs;
-        private List<String> Group;
-        private List<Integer> LabelIDs;
+        private List<Long> GroupIDs;
+        private List<DepartmentBean> Group;
+        private List<Long> LabelIDs;
         private List<SessionInfoBean> SessionInfo;
 
         public String getDesc() {
@@ -747,19 +747,19 @@ public class UserInfoBean implements Serializable {
             this.CurrentProductTemplateInfo = CurrentProductTemplateInfo;
         }
 
-        public List<Integer> getParentPath() {
+        public List<Long> getParentPath() {
             return ParentPath;
         }
 
-        public void setParentPath(List<Integer> ParentPath) {
+        public void setParentPath(List<Long> ParentPath) {
             this.ParentPath = ParentPath;
         }
 
-        public List<Integer> getRoleIDs() {
+        public List<Long> getRoleIDs() {
             return RoleIDs;
         }
 
-        public void setRoleIDs(List<Integer> RoleIDs) {
+        public void setRoleIDs(List<Long> RoleIDs) {
             this.RoleIDs = RoleIDs;
         }
 
@@ -771,11 +771,11 @@ public class UserInfoBean implements Serializable {
             this.Role = Role;
         }
 
-        public List<Integer> getDepartmentIDs() {
+        public List<Long> getDepartmentIDs() {
             return DepartmentIDs;
         }
 
-        public void setDepartmentIDs(List<Integer> DepartmentIDs) {
+        public void setDepartmentIDs(List<Long> DepartmentIDs) {
             this.DepartmentIDs = DepartmentIDs;
         }
 
@@ -787,27 +787,27 @@ public class UserInfoBean implements Serializable {
             this.Department = Department;
         }
 
-        public List<Integer> getGroupIDs() {
+        public List<Long> getGroupIDs() {
             return GroupIDs;
         }
 
-        public void setGroupIDs(List<Integer> GroupIDs) {
+        public void setGroupIDs(List<Long> GroupIDs) {
             this.GroupIDs = GroupIDs;
         }
 
-        public List<String> getGroup() {
+        public List<DepartmentBean> getGroup() {
             return Group;
         }
 
-        public void setGroup(List<String> Group) {
+        public void setGroup(List<DepartmentBean> Group) {
             this.Group = Group;
         }
 
-        public List<Integer> getLabelIDs() {
+        public List<Long> getLabelIDs() {
             return LabelIDs;
         }
 
-        public void setLabelIDs(List<Integer> LabelIDs) {
+        public void setLabelIDs(List<Long> LabelIDs) {
             this.LabelIDs = LabelIDs;
         }
 
@@ -866,7 +866,7 @@ public class UserInfoBean implements Serializable {
             private String DF8;
             private String DF9;
             private String DF10;
-            private List<String> Operations;
+//            private List<String> Operations;
 
             public int getID() {
                 return ID;
@@ -1036,13 +1036,13 @@ public class UserInfoBean implements Serializable {
                 this.DF10 = DF10;
             }
 
-            public List<String> getOperations() {
-                return Operations;
-            }
-
-            public void setOperations(List<String> Operations) {
-                this.Operations = Operations;
-            }
+//            public List<String> getOperations() {
+//                return Operations;
+//            }
+//
+//            public void setOperations(List<String> Operations) {
+//                this.Operations = Operations;
+//            }
         }
 
         public static class DepartmentBean {
@@ -1105,12 +1105,12 @@ public class UserInfoBean implements Serializable {
             private String DF8;
             private String DF9;
             private String DF10;
-            private List<Integer> ParentPath;
-            private List<String> Labels;
-            private List<Integer> DepartmentManagerIDs;
-            private List<String> DepartmentManager;
-            private List<Integer> BusinessAreaIDs;
-            private List<String> BusinessArea;
+            private List<Long> ParentPath;
+            private List<Long> Labels;
+            private List<Long> DepartmentManagerIDs;
+            //            private List<String> DepartmentManager;
+            private List<Long> BusinessAreaIDs;
+//            private List<String> BusinessArea;
 
             public int getID() {
                 return ID;
@@ -1312,53 +1312,53 @@ public class UserInfoBean implements Serializable {
                 this.DF10 = DF10;
             }
 
-            public List<Integer> getParentPath() {
+            public List<Long> getParentPath() {
                 return ParentPath;
             }
 
-            public void setParentPath(List<Integer> ParentPath) {
+            public void setParentPath(List<Long> ParentPath) {
                 this.ParentPath = ParentPath;
             }
 
-            public List<String> getLabels() {
+            public List<Long> getLabels() {
                 return Labels;
             }
 
-            public void setLabels(List<String> Labels) {
+            public void setLabels(List<Long> Labels) {
                 this.Labels = Labels;
             }
 
-            public List<Integer> getDepartmentManagerIDs() {
+            public List<Long> getDepartmentManagerIDs() {
                 return DepartmentManagerIDs;
             }
 
-            public void setDepartmentManagerIDs(List<Integer> DepartmentManagerIDs) {
+            public void setDepartmentManagerIDs(List<Long> DepartmentManagerIDs) {
                 this.DepartmentManagerIDs = DepartmentManagerIDs;
             }
 
-            public List<String> getDepartmentManager() {
-                return DepartmentManager;
-            }
+//            public List<String> getDepartmentManager() {
+//                return DepartmentManager;
+//            }
+//
+//            public void setDepartmentManager(List<String> DepartmentManager) {
+//                this.DepartmentManager = DepartmentManager;
+//            }
 
-            public void setDepartmentManager(List<String> DepartmentManager) {
-                this.DepartmentManager = DepartmentManager;
-            }
-
-            public List<Integer> getBusinessAreaIDs() {
+            public List<Long> getBusinessAreaIDs() {
                 return BusinessAreaIDs;
             }
 
-            public void setBusinessAreaIDs(List<Integer> BusinessAreaIDs) {
+            public void setBusinessAreaIDs(List<Long> BusinessAreaIDs) {
                 this.BusinessAreaIDs = BusinessAreaIDs;
             }
 
-            public List<String> getBusinessArea() {
-                return BusinessArea;
-            }
-
-            public void setBusinessArea(List<String> BusinessArea) {
-                this.BusinessArea = BusinessArea;
-            }
+//            public List<String> getBusinessArea() {
+//                return BusinessArea;
+//            }
+//
+//            public void setBusinessArea(List<String> BusinessArea) {
+//                this.BusinessArea = BusinessArea;
+//            }
         }
 
         public static class SessionInfoBean {
