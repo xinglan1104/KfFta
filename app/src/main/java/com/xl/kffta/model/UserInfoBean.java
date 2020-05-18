@@ -239,7 +239,7 @@ public class UserInfoBean implements Serializable {
         private String Timestamp;
         private String CheckReleaseNoteDate;
         private boolean IsChannelManager;
-        private int ID;
+        private long ID;
         private String UserName;
         private String DisplayName;
         private int CompanyID;
@@ -667,11 +667,11 @@ public class UserInfoBean implements Serializable {
             this.IsChannelManager = IsChannelManager;
         }
 
-        public int getID() {
+        public long getID() {
             return ID;
         }
 
-        public void setID(int ID) {
+        public void setID(long ID) {
             this.ID = ID;
         }
 

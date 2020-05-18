@@ -7,4 +7,5 @@ package com.xl.kffta.util
  */
 object ApplicationParams {
     public var TOKEN: String = ""
+    public var USER_ID: Long = 0L
 }

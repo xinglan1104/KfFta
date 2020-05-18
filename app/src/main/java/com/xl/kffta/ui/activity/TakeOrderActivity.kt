@@ -63,7 +63,9 @@ class TakeOrderActivity : BaseActivity(), ITakeOrderView {
     }
 
     override fun refreshAllSuccess(takeOrderBean: TakeOrderBean) {
-
+        runOnUiThread {
+            mAdapter.notifyDataChange(takeOrderBean)
+        }
     }
 
     override fun refreshAllFail(msg: String) {

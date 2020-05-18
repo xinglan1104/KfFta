@@ -15,6 +15,7 @@ import com.xl.kffta.viewholder.TakeOderViewHolder
  * 描述：领取任务adapter
  */
 class TakeOrderAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val mDatas = ArrayList<TakeOrderBean.DataBean>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_takeorder, parent, false)
 
@@ -22,15 +23,19 @@ class TakeOrderAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return mDatas.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val holder = holder as TakeOderViewHolder
-        holder.setData(TakeOrderBean())
+        holder.setData(mDatas[position])
     }
 
     fun notifyDataChange(takeOrderBean: TakeOrderBean) {
-
+        if (!takeOrderBean.data.isNullOrEmpty()) {
+            mDatas.clear()
+            mDatas.addAll(takeOrderBean.data)
+            notifyDataSetChanged()
+        }
     }
 }

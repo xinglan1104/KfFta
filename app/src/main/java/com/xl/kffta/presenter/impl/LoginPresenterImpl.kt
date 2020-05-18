@@ -43,7 +43,7 @@ class LoginPresenterImpl : ILoginPresenter {
                 if (!TextUtils.isEmpty(jsonString)) {
                     // 直接把Json转换成javaBean
                     try {
-                        val userInfoBean = Gson().fromJson(jsonString, UserInfoBean::class.java)
+                        val userInfoBean: UserInfoBean? = Gson().fromJson(jsonString, UserInfoBean::class.java)
                         if (userInfoBean == null) {
                             loginView?.loginFail("解析错误")
                         } else {
@@ -53,6 +53,7 @@ class LoginPresenterImpl : ILoginPresenter {
                             } else {
                                 // 请求成功，把token保存下来
                                 ApplicationParams.TOKEN = userInfoBean.token
+                                ApplicationParams.USER_ID = userInfoBean.user?.id ?: 0L
                                 Log.d("net", "TOKEN:${ApplicationParams.TOKEN}")
                                 loginView?.loginSuccess()
                             }
