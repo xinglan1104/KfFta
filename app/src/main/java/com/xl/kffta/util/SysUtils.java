@@ -3,10 +3,15 @@ package com.xl.kffta.util;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 import com.xl.kffta.base.App;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import androidx.annotation.ColorRes;
 import androidx.core.content.ContextCompat;
@@ -319,6 +324,21 @@ public class SysUtils {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    public static String getDateTimestamp(String date) {
+        if (TextUtils.isEmpty(date)) {
+            return "";
+        }
+        String time = date.replaceAll("/", "");
+        time = time.replace("(", "");
+        time = time.replace(")", "");
+        time = time.replace("Date", "");
+        long timestamp = SysUtils.parseLong(time);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+        Date sdDate = new Date(timestamp);
+        return simpleDateFormat.format(sdDate);
     }
 
 }

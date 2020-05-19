@@ -1,4 +1,4 @@
-package com.xl.kffta.ui.activity
+package com.xl.kffta.ui.activity.singletask
 
 import android.os.Message
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,6 +9,7 @@ import com.xl.kffta.base.BaseActivity
 import com.xl.kffta.model.TakeOrderBean
 import com.xl.kffta.presenter.impl.TakeOrderPresenterImpl
 import com.xl.kffta.view.ITakeOrderView
+import kotlinx.android.synthetic.main.layout_title_bar.*
 
 /**
  * @author zhanghaochen
@@ -35,6 +36,11 @@ class TakeOrderActivity : BaseActivity(), ITakeOrderView {
     }
 
     override fun initViews() {
+        // 设置标题名字
+        title_name.text = "领取任务"
+        title_left.setOnClickListener {
+            finish()
+        }
         val layoutManager = object : LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false) {
             override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
                 try {

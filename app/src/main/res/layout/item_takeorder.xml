@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -14,64 +15,86 @@
         <TextView
             android:id="@+id/take_1_label"
             android:layout_width="120dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:gravity="center_vertical"
-            android:text="抽取方案" />
+            android:text="抽取方案"
+            android:textColor="@color/text_label"
+            android:textSize="16sp" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/take_1_value"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_toRightOf="@id/take_1_label"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
+            android:textColor="@color/text_value"
+            android:textSize="16sp"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform"
             tools:text="随机抽取随机抽取随机抽取" />
 
         <TextView
             android:id="@+id/take_2_label"
             android:layout_width="120dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_below="@id/take_1_label"
-            android:layout_marginTop="10dp"
             android:gravity="center_vertical"
-            android:text="执法开始时间" />
+            android:text="执法开始时间"
+            android:textColor="@color/text_label"
+            android:textSize="16sp" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/take_2_value"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_alignBottom="@id/take_2_label"
             android:layout_toRightOf="@id/take_2_label"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
+            android:textColor="@color/text_value"
+            android:textSize="16sp"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform"
             tools:text="随机抽取随机抽取随机抽取" />
 
         <TextView
             android:id="@+id/take_3_label"
             android:layout_width="120dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_below="@id/take_2_label"
-            android:layout_marginTop="10dp"
             android:gravity="center_vertical"
-            android:text="执法结束时间" />
+            android:text="执法结束时间"
+            android:textColor="@color/text_label"
+            android:textSize="16sp" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/take_3_value"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_alignBottom="@id/take_3_label"
             android:layout_toRightOf="@id/take_3_label"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
+            android:textColor="@color/text_value"
+            android:textSize="16sp"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform"
             tools:text="随机抽取随机抽取随机抽取" />
 
         <LinearLayout
             android:id="@+id/take_info_layout1"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="35dp"
             android:layout_below="@id/take_3_label"
             android:orientation="horizontal">
 
@@ -80,7 +103,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="领取" />
+                android:background="@drawable/selector_common_btn"
+                android:enabled="true"
+                android:text="领取"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
             <View
                 android:layout_width="0dp"
@@ -92,7 +119,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="退回" />
+                android:background="@drawable/shape_grey_btn"
+                android:text="退回"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
             <View
                 android:layout_width="0dp"
@@ -104,7 +134,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="详情" />
+                android:background="@drawable/shape_info_btn"
+                android:text="详情"
+                android:textColor="#0b255f"
+                android:textSize="16sp" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -112,7 +145,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/take_main_view"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorAccent" />
+        android:layout_marginTop="8dp"
+        android:background="@color/text_value" />
 
 </RelativeLayout>

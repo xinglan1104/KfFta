@@ -20,6 +20,14 @@ class TakeOderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         const val GET_TASK_HAVE_NOT = 2
     }
 
+    interface HolderItemClickListener {
+        fun onTakeClick()
+        fun onBackClick()
+        fun onInfoClick()
+    }
+
+    var mHolderItemClickListener: HolderItemClickListener? = null
+
     val caseType by lazy {
         itemView.findViewById<TextView>(R.id.take_1_value)
     }
@@ -39,13 +47,29 @@ class TakeOderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.findViewById<Button>(R.id.take_btn3)
     }
 
-    public fun setData(takeOrderBean: TakeOrderBean.DataBean) {
-        caseType.text = SysUtils.getSafeString(takeOrderBean.govermentEnforcementScheme?.name)
-        startTime.text = SysUtils.getSafeString(takeOrderBean.startDate)
-        endTime.text = SysUtils.getSafeString(takeOrderBean.endDate)
+    /**
+     * 设置点击事件
+     */
+    fun setHolderItemClickListener(holderItemClickListener: HolderItemClickListener) {
+        this.mHolderItemClickListener = holderItemClickListener
+    }
 
-        // pendingOwnerId包含用户id，说明领取过了
-        val takeState = if (takeOrderBean.pendingOwnerIDs.contains(ApplicationParams.USER_ID)) {
+    fun setData(takeOrderBean: TakeOrderBean.DataBean) {
+        caseType.text = SysUtils.getSafeString(takeOrderBean.govermentEnforcementScheme?.name)
+        startTime.text = SysUtils.getDateTimestamp(takeOrderBean.startDate)
+        endTime.text = SysUtils.getDateTimestamp(takeOrderBean.endDate)
+
+        takeBtn.setOnClickListener {
+            mHolderItemClickListener?.onTakeClick()
+        }
+        backBtn.setOnClickListener {
+            mHolderItemClickListener?.onBackClick()
+        }
+        infoBtn.setOnClickListener {
+            mHolderItemClickListener?.onInfoClick()
+        }
+        // owenerids包含用户id，说明领取过了
+        val takeState = if (takeOrderBean.ownerIDs.contains(ApplicationParams.USER_ID)) {
             GET_TASK_OK
         } else {
             GET_TASK_HAVE_NOT
