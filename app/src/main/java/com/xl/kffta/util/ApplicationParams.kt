@@ -6,6 +6,6 @@ package com.xl.kffta.util
  * 描述：
  */
 object ApplicationParams {
-    public var TOKEN: String = ""
+    public var TOKEN: String by SpUtil("TOKEN", "")
     public var USER_ID: Long = 0L
 }

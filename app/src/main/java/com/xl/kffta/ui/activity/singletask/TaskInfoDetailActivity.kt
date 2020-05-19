@@ -1,13 +1,18 @@
 package com.xl.kffta.ui.activity.singletask
 
 import android.os.Message
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
+import com.xl.kffta.adapter.TaskInfoDetailAdapter
 import com.xl.kffta.base.BaseActivity
 import com.xl.kffta.model.TaskInfoBean
 import com.xl.kffta.model.TaskItemInfo
 import com.xl.kffta.presenter.impl.TaskInfoDetailImpl
+import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.util.SysUtils
 import com.xl.kffta.view.ITaskInfoDetailView
+import kotlinx.android.synthetic.main.activity_taskinfo_detail.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
 
 /**
@@ -25,6 +30,10 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
 
     private var mDatas = ArrayList<TaskItemInfo>()
 
+    private val mAdapter by lazy {
+        TaskInfoDetailAdapter(this)
+    }
+
     private var mPresenter: TaskInfoDetailImpl? = TaskInfoDetailImpl()
     override fun getLayoutId(): Int {
         return R.layout.activity_taskinfo_detail
@@ -33,7 +42,9 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
     override fun handleMessage(message: Message) {
         when (message.what) {
             HANDLER_REFRESH -> {
-
+                val data = message.obj as TaskInfoBean
+                initItemData(data)
+                mAdapter?.notifyDataChange(mDatas)
             }
         }
     }
@@ -47,6 +58,26 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
             finish()
         }
         title_name.text = "任务信息"
+    }
+
+    override fun initListener() {
+        task_info_recycler.layoutManager = object : LinearLayoutManager(this) {
+            override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
+                try {
+                    super.onLayoutChildren(recycler, state)
+                } catch (ignored: Exception) {
+                }
+            }
+        }
+        task_info_recycler.adapter = mAdapter
+
+        // 下面两个按钮
+        task_info_get.setOnClickListener {
+            DialogUtil.showCommonDialog(this, "确认领取任务")
+        }
+        task_info_back.setOnClickListener {
+            DialogUtil.showCommonDialog(this, "确认退回任务")
+        }
     }
 
     override fun initData() {
@@ -74,11 +105,11 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
         mDatas.add(TaskItemInfo("待接收执法人", peoplesStr.toString(), isTitle = false, isCheckList = false))
 
         mDatas.add(TaskItemInfo("执法人数", taskInfoBean.data?.requiredQuantity.toString(), isTitle = false, isCheckList = false))
-        mDatas.add(TaskItemInfo("执法开始时间", taskInfoBean.data?.startDate
+        mDatas.add(TaskItemInfo("执法开始时间", SysUtils.getDateTimestamp(taskInfoBean.data?.startDate)
                 ?: "", isTitle = false, isCheckList = false))
-        mDatas.add(TaskItemInfo("执法截止时间", taskInfoBean.data?.endDate
+        mDatas.add(TaskItemInfo("执法截止时间", SysUtils.getDateTimestamp(taskInfoBean.data?.endDate)
                 ?: "", isTitle = false, isCheckList = false))
-        mDatas.add(TaskItemInfo("创建时间", taskInfoBean.data?.createTime
+        mDatas.add(TaskItemInfo("创建时间", SysUtils.getDateTimestamp(taskInfoBean.data?.createTime)
                 ?: "", isTitle = false, isCheckList = false))
 
         val checkList = taskInfoBean.data?.checkList
@@ -86,9 +117,8 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
             mDatas.add(TaskItemInfo("事项清单", "", isTitle = true, isCheckList = false))
             checkList.forEach {
                 mDatas.add(TaskItemInfo("事件清单", it.name
-                        ?: "", isTitle = false, isCheckList = false, checkListId = it.id))
+                        ?: "", isTitle = false, isCheckList = true, checkListId = it.id))
             }
-
         }
     }
 
@@ -107,6 +137,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
     }
 
     override fun loadViewFail(msg: String) {
-
+        myToast(msg)
     }
+
 }

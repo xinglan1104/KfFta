@@ -55,12 +55,13 @@ class TakeOrderActivity : BaseActivity(), ITakeOrderView {
     }
 
     override fun initData() {
-        mPresenter?.queryTask("0", "0", "30")
+
     }
 
     override fun onResume() {
         super.onResume()
         mPresenter?.bindView(this)
+        mPresenter?.queryTask("0", "0", "30")
     }
 
     override fun onDestroy() {
