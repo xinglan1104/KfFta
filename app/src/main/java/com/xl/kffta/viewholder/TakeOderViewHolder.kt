@@ -1,7 +1,6 @@
 package com.xl.kffta.viewholder
 
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
@@ -38,13 +37,16 @@ class TakeOderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.findViewById<TextView>(R.id.take_3_value)
     }
     val takeBtn by lazy {
-        itemView.findViewById<Button>(R.id.take_btn1)
+        itemView.findViewById<TextView>(R.id.take_btn1)
     }
     val backBtn by lazy {
-        itemView.findViewById<Button>(R.id.take_btn2)
+        itemView.findViewById<TextView>(R.id.take_btn2)
     }
     val infoBtn by lazy {
-        itemView.findViewById<Button>(R.id.take_btn3)
+        itemView.findViewById<TextView>(R.id.take_btn3)
+    }
+    val emptyView by lazy {
+        itemView.findViewById<View>(R.id.take_empty_1)
     }
 
     /**
@@ -77,9 +79,15 @@ class TakeOderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         when (takeState) {
             GET_TASK_OK -> {
                 takeBtn.text = "已领取"
+                takeBtn.isEnabled = false
+                emptyView.visibility = View.GONE
+                backBtn.visibility = View.GONE
             }
             GET_TASK_HAVE_NOT -> {
                 takeBtn.text = "领取"
+                takeBtn.isEnabled = true
+                emptyView.visibility = View.VISIBLE
+                backBtn.visibility = View.VISIBLE
             }
         }
     }

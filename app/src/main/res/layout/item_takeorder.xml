@@ -98,46 +98,52 @@
             android:layout_below="@id/take_3_label"
             android:orientation="horizontal">
 
-            <Button
+            <TextView
                 android:id="@+id/take_btn1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/selector_common_btn"
                 android:enabled="true"
+                android:gravity="center"
                 android:text="领取"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
             <View
+                android:id="@+id/take_empty_1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2" />
 
-            <Button
+            <TextView
                 android:id="@+id/take_btn2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/shape_grey_btn"
+                android:gravity="center"
                 android:text="退回"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="normal" />
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2" />
 
-            <Button
+            <TextView
                 android:id="@+id/take_btn3"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/shape_info_btn"
+                android:gravity="center"
                 android:text="详情"
                 android:textColor="#0b255f"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="normal" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -146,6 +152,6 @@
         android:layout_height="1dp"
         android:layout_below="@id/take_main_view"
         android:layout_marginTop="8dp"
-        android:background="@color/text_value" />
+        android:background="#2f959595" />
 
 </RelativeLayout>

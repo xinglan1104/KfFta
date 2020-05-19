@@ -43,6 +43,7 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         initStateBar()
         setContentView(getLayoutId())
+        initParams()
         initViews()
         initListener()
         initData()
@@ -87,6 +88,10 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
     }
 
     open protected fun initViews() {
+
+    }
+
+    open protected fun initParams() {
 
     }
 

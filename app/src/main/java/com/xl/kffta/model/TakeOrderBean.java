@@ -281,7 +281,7 @@ public class TakeOrderBean implements Serializable {
         private int ExcutionStatus;
         private GovermentEnforcementSchemeBean GovermentEnforcementScheme;
         private int GovermentEnforcementSchemeID;
-        private int ID;
+        private long ID;
         private int PageCode;
         private int RequiredQuantity;
         private String StartDate;
@@ -382,11 +382,11 @@ public class TakeOrderBean implements Serializable {
             this.GovermentEnforcementSchemeID = GovermentEnforcementSchemeID;
         }
 
-        public int getID() {
+        public long getID() {
             return ID;
         }
 
-        public void setID(int ID) {
+        public void setID(long ID) {
             this.ID = ID;
         }
 

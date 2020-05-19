@@ -2,6 +2,7 @@ package com.xl.kffta.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -339,6 +340,18 @@ public class SysUtils {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
         Date sdDate = new Date(timestamp);
         return simpleDateFormat.format(sdDate);
+    }
+
+    public static Activity getActivity(Context context) {
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity) context;
+            }
+
+            context = ((ContextWrapper) context).getBaseContext();
+        }
+
+        return null;
     }
 
 }
