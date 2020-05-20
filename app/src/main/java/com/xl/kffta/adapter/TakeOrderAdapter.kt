@@ -43,12 +43,13 @@ class TakeOrderAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView
 
                 }
 
-                override fun onInfoClick() {
+                override fun onInfoClick(getState: Int) {
                     val intent = Intent()
                     val activity = SysUtils.getActivity(context)
                     activity?.let { parentActivity ->
                         intent.setClass(parentActivity, TaskInfoDetailActivity::class.java)
                         intent.putExtra(TaskInfoDetailActivity.TASK_ID, it.id)
+                        intent.putExtra(TaskInfoDetailActivity.TASK_GET_STATE, getState)
                         parentActivity.startActivity(intent)
                     }
                 }

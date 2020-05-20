@@ -22,7 +22,7 @@ class TakeOderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     interface HolderItemClickListener {
         fun onTakeClick()
         fun onBackClick()
-        fun onInfoClick()
+        fun onInfoClick(getState: Int)
     }
 
     var mHolderItemClickListener: HolderItemClickListener? = null
@@ -61,15 +61,7 @@ class TakeOderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         startTime.text = SysUtils.getDateTimestamp(takeOrderBean.startDate)
         endTime.text = SysUtils.getDateTimestamp(takeOrderBean.endDate)
 
-        takeBtn.setOnClickListener {
-            mHolderItemClickListener?.onTakeClick()
-        }
-        backBtn.setOnClickListener {
-            mHolderItemClickListener?.onBackClick()
-        }
-        infoBtn.setOnClickListener {
-            mHolderItemClickListener?.onInfoClick()
-        }
+
         // owenerids包含用户id，说明领取过了
         val takeState = if (takeOrderBean.ownerIDs.contains(ApplicationParams.USER_ID)) {
             GET_TASK_OK
@@ -89,6 +81,15 @@ class TakeOderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 emptyView.visibility = View.VISIBLE
                 backBtn.visibility = View.VISIBLE
             }
+        }
+        takeBtn.setOnClickListener {
+            mHolderItemClickListener?.onTakeClick()
+        }
+        backBtn.setOnClickListener {
+            mHolderItemClickListener?.onBackClick()
+        }
+        infoBtn.setOnClickListener {
+            mHolderItemClickListener?.onInfoClick(takeState)
         }
     }
 }

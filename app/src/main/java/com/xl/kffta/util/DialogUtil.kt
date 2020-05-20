@@ -16,7 +16,12 @@ import org.jetbrains.anko.find
  * 描述：dialog工具类
  */
 object DialogUtil {
-    fun showCommonDialog(context: Context, message: String) {
+    interface OnDialogOkClick {
+        // 点击了ok的监听
+        fun onDialogOkClick()
+    }
+
+    fun showCommonDialog(context: Context, message: String, dialogOkClick: OnDialogOkClick) {
         val view: View = LayoutInflater.from(context).inflate(R.layout.dialog_common, null)
         MaterialDialog(context).show {
             customView(view = view, noVerticalPadding = true, dialogWrapContent = true)
@@ -26,6 +31,11 @@ object DialogUtil {
             cancelOnTouchOutside(false)
             customView.find<TextView>(R.id.common_dialog_msg).text = message
             customView.find<TextView>(R.id.common_dialog_cancel).setOnClickListener {
+                this.dismiss()
+            }
+            // 确认的时候，需要发送个请求
+            customView.find<TextView>(R.id.common_dialog_ok).setOnClickListener {
+                dialogOkClick.onDialogOkClick()
                 this.dismiss()
             }
         }

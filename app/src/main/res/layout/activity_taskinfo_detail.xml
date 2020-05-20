@@ -34,9 +34,11 @@
             android:textSize="16sp" />
 
         <View
+            android:id="@+id/task_bottom_empty"
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_weight="0.2" />
+
         <TextView
             android:id="@+id/task_info_back"
             android:layout_width="0dp"
