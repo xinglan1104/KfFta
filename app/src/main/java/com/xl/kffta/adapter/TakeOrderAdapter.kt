@@ -10,8 +10,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.xl.kffta.R
+import com.xl.kffta.model.SimpleResponseBean
 import com.xl.kffta.model.TakeOrderBean
-import com.xl.kffta.model.TaskGetOrCancel
 import com.xl.kffta.net.ResponseCallback
 import com.xl.kffta.net.taskmanager.TaskNetManager
 import com.xl.kffta.ui.activity.receivetask.TaskInfoDetailActivity
@@ -60,7 +60,7 @@ class TakeOrderAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView
                                     if (!TextUtils.isEmpty(jsonString)) {
                                         // 直接把Json转换成javaBean
                                         try {
-                                            val taskGetOrCancel: TaskGetOrCancel? = Gson().fromJson(jsonString, TaskGetOrCancel::class.java)
+                                            val taskGetOrCancel: SimpleResponseBean? = Gson().fromJson(jsonString, SimpleResponseBean::class.java)
                                             if (taskGetOrCancel == null) {
                                                 context.runOnUiThread {
                                                     Toast.makeText(context, "解析错误", Toast.LENGTH_SHORT).show()
@@ -115,7 +115,7 @@ class TakeOrderAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView
                                     if (!TextUtils.isEmpty(jsonString)) {
                                         // 直接把Json转换成javaBean
                                         try {
-                                            val taskGetOrCancel: TaskGetOrCancel? = Gson().fromJson(jsonString, TaskGetOrCancel::class.java)
+                                            val taskGetOrCancel: SimpleResponseBean? = Gson().fromJson(jsonString, SimpleResponseBean::class.java)
                                             if (taskGetOrCancel == null) {
                                                 context.runOnUiThread {
                                                     Toast.makeText(context, "解析错误", Toast.LENGTH_SHORT).show()

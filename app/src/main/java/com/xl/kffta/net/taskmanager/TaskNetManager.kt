@@ -1,5 +1,7 @@
 package com.xl.kffta.net.taskmanager
 
+import com.google.gson.Gson
+import com.xl.kffta.model.TaskInfoBean
 import com.xl.kffta.net.NetManager
 import com.xl.kffta.net.RequestBuilder
 import com.xl.kffta.net.ResponseCallback
@@ -63,6 +65,23 @@ object TaskNetManager {
         paramsMap["CommonSearchKey"] = searchStr
         // 查询执行任务，应是已领取的
         paramsMap["SearchParam"] = "Claimed=true"
+        requestBuilder.addParams(paramsMap)
+        requestBuilder.callback = callback
+        NetManager.manager.sendRequest(requestBuilder)
+    }
+
+    /**
+     * 更新任务状态，主要是变成执行任务
+     */
+    fun updateTaskState(taskInfoBean: TaskInfoBean, callback: ResponseCallback) {
+        val requestBuilder = RequestBuilder()
+        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/AddOrUpdateObject?format=json"
+        val paramsMap = hashMapOf<String, String>()
+        paramsMap["Token"] = ApplicationParams.TOKEN
+        paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask"
+        paramsMap["PageCode"] = "0"
+        paramsMap["IsUpdateReference"] = "false"
+        paramsMap["Data"] = Gson().toJson(taskInfoBean)
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = callback
         NetManager.manager.sendRequest(requestBuilder)

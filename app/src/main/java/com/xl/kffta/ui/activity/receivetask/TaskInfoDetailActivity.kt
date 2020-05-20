@@ -9,7 +9,7 @@ import com.google.gson.Gson
 import com.xl.kffta.R
 import com.xl.kffta.adapter.TaskInfoDetailAdapter
 import com.xl.kffta.base.BaseActivity
-import com.xl.kffta.model.TaskGetOrCancel
+import com.xl.kffta.model.SimpleResponseBean
 import com.xl.kffta.model.TaskInfoBean
 import com.xl.kffta.model.TaskItemInfo
 import com.xl.kffta.net.ResponseCallback
@@ -33,6 +33,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
          * 任务信息详情页
          */
         const val TYPE_RECEIVE_TASK = 10
+
         /**
          * 执行任务信息的详情页
          */
@@ -40,16 +41,19 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
 
         const val INFO_TYPE = "infoType"
         const val TASK_ID = "taskId"
+
         //判断是否已经领取
         const val TASK_GET_STATE = "taskGetState"
         const val HANDLER_REFRESH = 0x101
 
         const val HANDLER_GET_SUCCESS = 0x102
         const val HANDLER_CANCEL_SUCCESS = 0x103
+        const val HANDLER_START_SUCCESS = 0x104
     }
 
     private var taskId: Long = 0
     private var taskGetState = 0
+
     // 区分显示的内容
     private var mInfoType = 10
 
@@ -58,6 +62,8 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
     private val mAdapter by lazy {
         TaskInfoDetailAdapter(this)
     }
+
+    private var mTaskInfoBean: TaskInfoBean? = null
 
     private var mPresenter: TaskInfoDetailImpl? = TaskInfoDetailImpl()
     override fun getLayoutId(): Int {
@@ -70,6 +76,8 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                 val data = message.obj as TaskInfoBean
                 initItemData(data)
                 mAdapter?.notifyDataChange(mDatas)
+                mTaskInfoBean = data
+                task_info_bottom_layout?.visibility = View.VISIBLE
             }
             HANDLER_GET_SUCCESS -> {
                 // 领取成功后，更新按钮样式
@@ -77,6 +85,9 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                 task_info_get.text = "已领取"
                 task_bottom_empty.visibility = View.GONE
                 task_info_back.visibility = View.GONE
+            }
+            HANDLER_START_SUCCESS -> {
+                finish()
             }
         }
     }
@@ -147,7 +158,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                                     if (!TextUtils.isEmpty(jsonString)) {
                                         // 直接把Json转换成javaBean
                                         try {
-                                            val taskGetOrCancel: TaskGetOrCancel? = Gson().fromJson(jsonString, TaskGetOrCancel::class.java)
+                                            val taskGetOrCancel: SimpleResponseBean? = Gson().fromJson(jsonString, SimpleResponseBean::class.java)
                                             if (taskGetOrCancel == null) {
                                                 myToast("解析错误")
                                             } else {
@@ -183,7 +194,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                                     if (!TextUtils.isEmpty(jsonString)) {
                                         // 直接把Json转换成javaBean
                                         try {
-                                            val taskGetOrCancel: TaskGetOrCancel? = Gson().fromJson(jsonString, TaskGetOrCancel::class.java)
+                                            val taskGetOrCancel: SimpleResponseBean? = Gson().fromJson(jsonString, SimpleResponseBean::class.java)
                                             if (taskGetOrCancel == null) {
                                                 myToast("解析错误")
                                             } else {
@@ -210,7 +221,47 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
             }
             TYPE_EXECUTE_TASK -> {
                 task_info_get.setOnClickListener {
+                    // 确认执行任务
+                    DialogUtil.showCommonDialog(this, "确认开始执法吗", object : DialogUtil.OnDialogOkClick {
+                        override fun onDialogOkClick() {
+                            mTaskInfoBean?.let {
+                                //
+                                it.data.excutionStatus = 1
+                                TaskNetManager.updateTaskState(it, object : ResponseCallback {
+                                    override fun onError(msg: String?) {
+                                        myToast(msg ?: "执行出错")
+                                    }
 
+                                    override fun onSuccess(jsonString: String) {
+                                        if (!TextUtils.isEmpty(jsonString)) {
+                                            // 直接把Json转换成javaBean
+                                            try {
+                                                val simpleResponse: SimpleResponseBean? = Gson().fromJson(jsonString, SimpleResponseBean::class.java)
+                                                if (simpleResponse == null) {
+                                                    myToast("解析错误")
+                                                } else {
+                                                    // 获取ErrorCode,<0时错误
+                                                    if (simpleResponse.errorCode < 0) {
+                                                        myToast(simpleResponse.error ?: "解析错误")
+                                                    } else {
+                                                        // success
+                                                        mHandler.obtainMessage(HANDLER_START_SUCCESS).sendToTarget()
+                                                        myToast("已开始执行")
+                                                    }
+                                                }
+                                            } catch (e: Exception) {
+                                                myToast(e.message ?: "解析错误")
+                                            }
+                                        } else {
+                                            myToast("请求返回为空")
+                                        }
+                                    }
+
+                                })
+                            }
+                        }
+
+                    })
                 }
                 task_info_back.setOnClickListener {
                     finish()
