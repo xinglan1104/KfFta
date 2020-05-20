@@ -40,7 +40,8 @@ class TakeOrderPresenterImpl : ITakeOrderPresenter {
         paramsMap["Skip"] = skip
         paramsMap["Take"] = take
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask"
-        paramsMap["SearchParam"] = "Claimed=true"
+        // 查询所有任务，不带这个参数
+//        paramsMap["SearchParam"] = "Claimed=true"
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {

@@ -59,6 +59,13 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                 initItemData(data)
                 mAdapter?.notifyDataChange(mDatas)
             }
+            HANDLER_GET_SUCCESS -> {
+                // 领取成功后，更新按钮样式
+                task_info_get.isEnabled = false
+                task_info_get.text = "已领取"
+                task_bottom_empty.visibility = View.GONE
+                task_info_back.visibility = View.GONE
+            }
         }
     }
 

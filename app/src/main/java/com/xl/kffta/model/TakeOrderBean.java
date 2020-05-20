@@ -372,7 +372,7 @@ public class TakeOrderBean implements Serializable {
             this.Owner = Owner;
         }
 
-        public List<?> getOwnerIDs() {
+        public List<Long> getOwnerIDs() {
             return OwnerIDs;
         }
 
