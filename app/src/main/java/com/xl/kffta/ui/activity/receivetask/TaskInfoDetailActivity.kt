@@ -29,6 +29,16 @@ import kotlinx.android.synthetic.main.layout_title_bar.*
  */
 class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
     companion object {
+        /**
+         * 任务信息详情页
+         */
+        const val TYPE_RECEIVE_TASK = 10
+        /**
+         * 执行任务信息的详情页
+         */
+        const val TYPE_EXECUTE_TASK = 11
+
+        const val INFO_TYPE = "infoType"
         const val TASK_ID = "taskId"
         //判断是否已经领取
         const val TASK_GET_STATE = "taskGetState"
@@ -40,6 +50,8 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
 
     private var taskId: Long = 0
     private var taskGetState = 0
+    // 区分显示的内容
+    private var mInfoType = 10
 
     private var mDatas = ArrayList<TaskItemInfo>()
 
@@ -72,27 +84,41 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
     override fun initParams() {
         taskId = intent.getLongExtra(TASK_ID, 0)
         taskGetState = intent.getIntExtra(TASK_GET_STATE, 0)
+        mInfoType = intent.getIntExtra(INFO_TYPE, 0)
     }
 
     override fun initViews() {
         title_left.setOnClickListener {
             finish()
         }
-        title_name.text = "任务信息"
 
-        // 根据是否已经领取，搞最下面的按钮
-        if (taskGetState == TakeOderViewHolder.GET_TASK_OK) {
-            // 已领取
-            task_info_get.isEnabled = false
-            task_info_get.text = "已领取"
-            task_bottom_empty.visibility = View.GONE
-            task_info_back.visibility = View.GONE
-        } else {
-            task_info_get.isEnabled = true
-            task_info_get.text = "领取"
-            task_bottom_empty.visibility = View.VISIBLE
-            task_info_back.visibility = View.VISIBLE
+        when (mInfoType) {
+            TYPE_RECEIVE_TASK -> {
+                title_name.text = "任务信息"
+                task_info_get.text = "领取"
+                task_info_back.text = "退回"
+
+                // 根据是否已经领取，搞最下面的按钮
+                if (taskGetState == TakeOderViewHolder.GET_TASK_OK) {
+                    // 已领取
+                    task_info_get.isEnabled = false
+                    task_info_get.text = "已领取"
+                    task_bottom_empty.visibility = View.GONE
+                    task_info_back.visibility = View.GONE
+                } else {
+                    task_info_get.isEnabled = true
+                    task_info_get.text = "领取"
+                    task_bottom_empty.visibility = View.VISIBLE
+                    task_info_back.visibility = View.VISIBLE
+                }
+            }
+            TYPE_EXECUTE_TASK -> {
+                title_name.text = "执法信息"
+                task_info_get.text = "确认"
+                task_info_back.text = "其他执法"
+            }
         }
+
     }
 
     override fun initListener() {
@@ -107,78 +133,91 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
         task_info_recycler.adapter = mAdapter
 
         // 下面两个按钮
-        task_info_get.setOnClickListener {
-            DialogUtil.showCommonDialog(this, "确认领取任务", object : DialogUtil.OnDialogOkClick {
-                override fun onDialogOkClick() {
-                    TaskNetManager.getOrCancelTask(taskId.toString(), true, object : ResponseCallback {
-                        override fun onError(msg: String?) {
-                            myToast(msg ?: "领取出错")
-                        }
-
-                        override fun onSuccess(jsonString: String) {
-                            if (!TextUtils.isEmpty(jsonString)) {
-                                // 直接把Json转换成javaBean
-                                try {
-                                    val taskGetOrCancel: TaskGetOrCancel? = Gson().fromJson(jsonString, TaskGetOrCancel::class.java)
-                                    if (taskGetOrCancel == null) {
-                                        myToast("解析错误")
-                                    } else {
-                                        // 获取ErrorCode,<0时错误
-                                        if (taskGetOrCancel.errorCode < 0) {
-                                            myToast(taskGetOrCancel.error ?: "解析错误")
-                                        } else {
-                                            // success
-                                            mHandler.obtainMessage(HANDLER_GET_SUCCESS).sendToTarget()
-                                            myToast("领取成功")
-                                        }
-                                    }
-                                } catch (e: Exception) {
-                                    myToast(e.message ?: "解析错误")
+        when (mInfoType) {
+            TYPE_RECEIVE_TASK -> {
+                task_info_get.setOnClickListener {
+                    DialogUtil.showCommonDialog(this, "确认领取任务", object : DialogUtil.OnDialogOkClick {
+                        override fun onDialogOkClick() {
+                            TaskNetManager.getOrCancelTask(taskId.toString(), true, object : ResponseCallback {
+                                override fun onError(msg: String?) {
+                                    myToast(msg ?: "领取出错")
                                 }
-                            } else {
-                                myToast("请求返回为空")
-                            }
+
+                                override fun onSuccess(jsonString: String) {
+                                    if (!TextUtils.isEmpty(jsonString)) {
+                                        // 直接把Json转换成javaBean
+                                        try {
+                                            val taskGetOrCancel: TaskGetOrCancel? = Gson().fromJson(jsonString, TaskGetOrCancel::class.java)
+                                            if (taskGetOrCancel == null) {
+                                                myToast("解析错误")
+                                            } else {
+                                                // 获取ErrorCode,<0时错误
+                                                if (taskGetOrCancel.errorCode < 0) {
+                                                    myToast(taskGetOrCancel.error ?: "解析错误")
+                                                } else {
+                                                    // success
+                                                    mHandler.obtainMessage(HANDLER_GET_SUCCESS).sendToTarget()
+                                                    myToast("领取成功")
+                                                }
+                                            }
+                                        } catch (e: Exception) {
+                                            myToast(e.message ?: "解析错误")
+                                        }
+                                    } else {
+                                        myToast("请求返回为空")
+                                    }
+                                }
+                            })
                         }
                     })
                 }
-            })
-        }
-        task_info_back.setOnClickListener {
-            DialogUtil.showCommonDialog(this, "确认退回任务", object : DialogUtil.OnDialogOkClick {
-                override fun onDialogOkClick() {
-                    TaskNetManager.getOrCancelTask(taskId.toString(), false, object : ResponseCallback {
-                        override fun onError(msg: String?) {
-                            myToast(msg ?: "退回出错")
-                        }
-
-                        override fun onSuccess(jsonString: String) {
-                            if (!TextUtils.isEmpty(jsonString)) {
-                                // 直接把Json转换成javaBean
-                                try {
-                                    val taskGetOrCancel: TaskGetOrCancel? = Gson().fromJson(jsonString, TaskGetOrCancel::class.java)
-                                    if (taskGetOrCancel == null) {
-                                        myToast("解析错误")
-                                    } else {
-                                        // 获取ErrorCode,<0时错误
-                                        if (taskGetOrCancel.errorCode < 0) {
-                                            myToast(taskGetOrCancel.error ?: "解析错误")
-                                        } else {
-                                            // success
-                                            mHandler.obtainMessage(HANDLER_CANCEL_SUCCESS).sendToTarget()
-                                            myToast("退回成功")
-                                        }
-                                    }
-                                } catch (e: Exception) {
-                                    myToast(e.message ?: "解析错误")
+                task_info_back.setOnClickListener {
+                    DialogUtil.showCommonDialog(this, "确认退回任务", object : DialogUtil.OnDialogOkClick {
+                        override fun onDialogOkClick() {
+                            TaskNetManager.getOrCancelTask(taskId.toString(), false, object : ResponseCallback {
+                                override fun onError(msg: String?) {
+                                    myToast(msg ?: "退回出错")
                                 }
-                            } else {
-                                myToast("请求返回为空")
-                            }
+
+                                override fun onSuccess(jsonString: String) {
+                                    if (!TextUtils.isEmpty(jsonString)) {
+                                        // 直接把Json转换成javaBean
+                                        try {
+                                            val taskGetOrCancel: TaskGetOrCancel? = Gson().fromJson(jsonString, TaskGetOrCancel::class.java)
+                                            if (taskGetOrCancel == null) {
+                                                myToast("解析错误")
+                                            } else {
+                                                // 获取ErrorCode,<0时错误
+                                                if (taskGetOrCancel.errorCode < 0) {
+                                                    myToast(taskGetOrCancel.error ?: "解析错误")
+                                                } else {
+                                                    // success
+                                                    mHandler.obtainMessage(HANDLER_CANCEL_SUCCESS).sendToTarget()
+                                                    myToast("退回成功")
+                                                }
+                                            }
+                                        } catch (e: Exception) {
+                                            myToast(e.message ?: "解析错误")
+                                        }
+                                    } else {
+                                        myToast("请求返回为空")
+                                    }
+                                }
+                            })
                         }
                     })
                 }
-            })
+            }
+            TYPE_EXECUTE_TASK -> {
+                task_info_get.setOnClickListener {
+
+                }
+                task_info_back.setOnClickListener {
+                    finish()
+                }
+            }
         }
+
     }
 
     override fun initData() {
@@ -188,39 +227,70 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
     private fun initItemData(taskInfoBean: TaskInfoBean) {
         // 清空数据
         mDatas.clear()
-        mDatas.add(TaskItemInfo("企业名称", taskInfoBean.data?.business?.businessName
-                ?: "", isTitle = false, isCheckList = false))
-        mDatas.add(TaskItemInfo("统一代码", taskInfoBean.data?.business?.businessLicenseRegistrationNumber
-                ?: "", isTitle = false, isCheckList = false))
-        mDatas.add(TaskItemInfo("经营场所", taskInfoBean.data?.business?.dom
-                ?: "", isTitle = false, isCheckList = false))
-        mDatas.add(TaskItemInfo("抽取方案", taskInfoBean.data?.govermentEnforcementScheme?.name
-                ?: "", isTitle = false, isCheckList = false))
-        // 执法人可能有多个
-        val peoples = taskInfoBean.data?.pendingOwner
-        val peoplesStr = StringBuilder()
-        peoples?.forEach {
-            peoplesStr.append(SysUtils.getSafeString(it.userName))
-            peoplesStr.append(" ")
-        }
-        mDatas.add(TaskItemInfo("待接收执法人", peoplesStr.toString(), isTitle = false, isCheckList = false))
+        when (mInfoType) {
+            TYPE_RECEIVE_TASK -> {
+                mDatas.add(TaskItemInfo("企业名称", taskInfoBean.data?.business?.businessName
+                        ?: "", isTitle = false, isCheckList = false))
+                mDatas.add(TaskItemInfo("统一代码", taskInfoBean.data?.business?.businessLicenseRegistrationNumber
+                        ?: "", isTitle = false, isCheckList = false))
+                mDatas.add(TaskItemInfo("经营场所", taskInfoBean.data?.business?.dom
+                        ?: "", isTitle = false, isCheckList = false))
+                mDatas.add(TaskItemInfo("抽取方案", taskInfoBean.data?.govermentEnforcementScheme?.name
+                        ?: "", isTitle = false, isCheckList = false))
+                // 执法人可能有多个
+                val peoples = taskInfoBean.data?.pendingOwner
+                val peoplesStr = StringBuilder()
+                peoples?.forEach {
+                    peoplesStr.append(SysUtils.getSafeString(it.userName))
+                    peoplesStr.append("  ")
+                }
+                mDatas.add(TaskItemInfo("待接收执法人", peoplesStr.toString(), isTitle = false, isCheckList = false))
 
-        mDatas.add(TaskItemInfo("执法人数", taskInfoBean.data?.requiredQuantity.toString(), isTitle = false, isCheckList = false))
-        mDatas.add(TaskItemInfo("执法开始时间", SysUtils.getDateTimestamp(taskInfoBean.data?.startDate)
-                ?: "", isTitle = false, isCheckList = false))
-        mDatas.add(TaskItemInfo("执法截止时间", SysUtils.getDateTimestamp(taskInfoBean.data?.endDate)
-                ?: "", isTitle = false, isCheckList = false))
-        mDatas.add(TaskItemInfo("创建时间", SysUtils.getDateTimestamp(taskInfoBean.data?.createTime)
-                ?: "", isTitle = false, isCheckList = false))
+                mDatas.add(TaskItemInfo("执法人数", taskInfoBean.data?.requiredQuantity.toString(), isTitle = false, isCheckList = false))
+                mDatas.add(TaskItemInfo("执法开始时间", SysUtils.getDateTimestamp(taskInfoBean.data?.startDate)
+                        ?: "", isTitle = false, isCheckList = false))
+                mDatas.add(TaskItemInfo("执法截止时间", SysUtils.getDateTimestamp(taskInfoBean.data?.endDate)
+                        ?: "", isTitle = false, isCheckList = false))
+                mDatas.add(TaskItemInfo("创建时间", SysUtils.getDateTimestamp(taskInfoBean.data?.createTime)
+                        ?: "", isTitle = false, isCheckList = false))
 
-        val checkList = taskInfoBean.data?.checkList
-        if (!checkList.isNullOrEmpty()) {
-            mDatas.add(TaskItemInfo("事项清单", "", isTitle = true, isCheckList = false))
-            checkList.forEach {
-                mDatas.add(TaskItemInfo("事件清单", it.name
-                        ?: "", isTitle = false, isCheckList = true, checkListId = it.id))
+                val checkList = taskInfoBean.data?.checkList
+                if (!checkList.isNullOrEmpty()) {
+                    mDatas.add(TaskItemInfo("事项清单", "", isTitle = true, isCheckList = false))
+                    checkList.forEach {
+                        mDatas.add(TaskItemInfo("事件清单", it.name
+                                ?: "", isTitle = false, isCheckList = true, checkListId = it.id))
+                    }
+                }
+            }
+            TYPE_EXECUTE_TASK -> {
+                mDatas.add(TaskItemInfo(label = "企业名称", value = taskInfoBean.data?.business?.businessName
+                        ?: ""))
+                mDatas.add(TaskItemInfo(label = "经营场所", value = taskInfoBean.data?.business?.dom
+                        ?: ""))
+                // 执法人可能有多个
+                val owners = taskInfoBean.data?.owner
+                val ownerStr = StringBuilder()
+                owners?.forEach {
+                    ownerStr.append(SysUtils.getSafeString(it.userName))
+                    ownerStr.append("  ")
+                }
+                mDatas.add(TaskItemInfo(label = "执法人", value = ownerStr.toString()))
+                mDatas.add(TaskItemInfo(label = "执法时间", value = SysUtils.getDateTimestamp(taskInfoBean.data?.excuteTime)))
+                mDatas.add(TaskItemInfo(label = "检查结果", value = taskInfoBean.data?.result ?: ""))
+                mDatas.add(TaskItemInfo(label = "备注", value = taskInfoBean.data?.note ?: ""))
+
+                val checkList = taskInfoBean.data?.checkList
+                if (!checkList.isNullOrEmpty()) {
+                    mDatas.add(TaskItemInfo("事项清单", "", isTitle = true, isCheckList = false))
+                    checkList.forEach {
+                        mDatas.add(TaskItemInfo("事件清单", it.name
+                                ?: "", isTitle = false, isCheckList = true, checkListId = it.id))
+                    }
+                }
             }
         }
+
     }
 
     override fun onResume() {

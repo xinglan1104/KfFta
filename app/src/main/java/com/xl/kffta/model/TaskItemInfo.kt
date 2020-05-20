@@ -6,9 +6,9 @@ package com.xl.kffta.model
  * 描述：
  */
 data class TaskItemInfo(
-        var label: String,
-        var value: String,
-        var isTitle: Boolean,
-        var isCheckList: Boolean,
+        var label: String = "",
+        var value: String = "",
+        var isTitle: Boolean = false,
+        var isCheckList: Boolean = false,
         var checkListId: Int = 0
 )

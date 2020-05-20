@@ -159,6 +159,7 @@ class TakeOrderAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView
                     activity?.let { parentActivity ->
                         intent.setClass(parentActivity, TaskInfoDetailActivity::class.java)
                         intent.putExtra(TaskInfoDetailActivity.TASK_ID, it.id)
+                        intent.putExtra(TaskInfoDetailActivity.INFO_TYPE, TaskInfoDetailActivity.TYPE_RECEIVE_TASK)
                         intent.putExtra(TaskInfoDetailActivity.TASK_GET_STATE, getState)
                         parentActivity.startActivity(intent)
                     }

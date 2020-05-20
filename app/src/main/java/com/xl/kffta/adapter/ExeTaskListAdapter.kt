@@ -1,6 +1,7 @@
 package com.xl.kffta.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.model.TakeOrderBean
+import com.xl.kffta.ui.activity.receivetask.TaskInfoDetailActivity
 import com.xl.kffta.util.SysUtils
 import org.jetbrains.anko.find
 
@@ -17,7 +19,7 @@ import org.jetbrains.anko.find
  * @date 2020-05-20 15:26
  * 描述：执行任务列表页的适配器
  */
-class ExeTaskListAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ExeTaskListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mDatas = ArrayList<TakeOrderBean.DataBean>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ExeTaskItemHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_exe_list, parent, false))
@@ -41,6 +43,18 @@ class ExeTaskListAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.V
             } else {
                 exeHolder.exeState.text = "完成"
                 exeHolder.exeGo.visibility = View.GONE
+            }
+
+            exeHolder.exeGo.setOnClickListener {
+                val intent = Intent()
+                val activity = SysUtils.getActivity(context)
+                activity?.let { parentActivity ->
+                    intent.setClass(parentActivity, TaskInfoDetailActivity::class.java)
+                    intent.putExtra(TaskInfoDetailActivity.TASK_ID, dataBean.id)
+                    intent.putExtra(TaskInfoDetailActivity.INFO_TYPE, TaskInfoDetailActivity.TYPE_EXECUTE_TASK)
+//                    intent.putExtra(TaskInfoDetailActivity.TASK_GET_STATE, getState)
+                    parentActivity.startActivity(intent)
+                }
             }
 
             holder.itemView.setOnClickListener {

@@ -51,6 +51,22 @@ public class TaskInfoBean implements Serializable {
     public static class DataBean {
         private int ID;
         private int CompanyID;
+        private String Note;
+        private String Result;
+        private List<OwnerBean> Owner;
+
+        public String getResult() {
+            return Result;
+        }
+
+        public void setResult(String result) {
+            Result = result;
+        }
+
+        public String getNote() {
+            return Note;
+        }
+
         private String Timestamp;
         private String CreateTime;
         private int GovermentEnforcementSchemeID;
@@ -68,6 +84,18 @@ public class TaskInfoBean implements Serializable {
         private List<PendingOwnerBean> PendingOwner;
         private List<Integer> CheckListIDs;
         private List<CheckListBean> CheckList;
+
+        public void setNote(String note) {
+            Note = note;
+        }
+
+        public List<OwnerBean> getOwner() {
+            return Owner;
+        }
+
+        public void setOwner(List<OwnerBean> owner) {
+            Owner = owner;
+        }
 
         public int getID() {
             return ID;
@@ -2245,6 +2273,36 @@ public class TaskInfoBean implements Serializable {
 
             public void setSessionInfo(List<?> SessionInfo) {
                 this.SessionInfo = SessionInfo;
+            }
+        }
+
+        public static class OwnerBean {
+            private long ID;
+            private String UserName;
+            private String DisplayName;
+
+            public long getID() {
+                return ID;
+            }
+
+            public void setID(long ID) {
+                this.ID = ID;
+            }
+
+            public String getUserName() {
+                return UserName;
+            }
+
+            public void setUserName(String userName) {
+                UserName = userName;
+            }
+
+            public String getDisplayName() {
+                return DisplayName;
+            }
+
+            public void setDisplayName(String displayName) {
+                DisplayName = displayName;
             }
         }
 
