@@ -30,4 +30,23 @@ object DialogUtil {
             }
         }
     }
+
+    /**
+     * 事件清单详情的dialog
+     */
+    fun showCheckListDialog(context: Context, title: String, provide: String, detail: String) {
+        val dialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_checklist, null)
+        MaterialDialog(context).show {
+            customView(view = dialogView, noVerticalPadding = true)
+            this.cornerRadius(10f)
+            cancelOnTouchOutside(false)
+            val customView = getCustomView()
+            customView.find<TextView>(R.id.dialog_check_title).text = title
+            customView.find<TextView>(R.id.dialog_check_provide).text = provide
+            customView.find<TextView>(R.id.dialog_check_content).text = detail
+            customView.find<TextView>(R.id.dialog_check_close).setOnClickListener {
+                this.dismiss()
+            }
+        }
+    }
 }

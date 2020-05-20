@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.model.CheckListItemBean
+import com.xl.kffta.util.DialogUtil
 import org.jetbrains.anko.find
 
 /**
@@ -54,7 +55,7 @@ class CheckListAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView
                     holder.value.setTextColor(context.resources.getColorStateList(R.color.btn_common_color))
                     holder.value.setOnClickListener {
                         // 点击了,弹dialog
-
+                        DialogUtil.showCheckListDialog(context, "${checkItem.label}详情", checkItem.dialogName, checkItem.dialogValue)
                     }
                 } else {
                     holder.value.setTextColor(context.resources.getColorStateList(R.color.text_value))
