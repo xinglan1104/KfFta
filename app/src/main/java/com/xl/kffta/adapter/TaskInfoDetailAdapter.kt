@@ -1,14 +1,16 @@
 package com.xl.kffta.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.model.TaskItemInfo
+import com.xl.kffta.ui.activity.singletask.CheckListActivity
+import com.xl.kffta.util.SysUtils
 
 /**
  * @author zhanghaochen
@@ -50,7 +52,13 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
                     if (it.isCheckList) {
                         holder.value.setTextColor(context.resources.getColorStateList(R.color.btn_common_color))
                         holder.value.setOnClickListener {
-                            Toast.makeText(context, taskItemInfo.checkListId.toString(), Toast.LENGTH_LONG).show()
+                            // 点击了事件清单，跳转至事件清单
+                            val activity = SysUtils.getActivity(context)
+                            activity?.apply {
+                                val intent = Intent(this, CheckListActivity::class.java)
+                                intent.putExtra(CheckListActivity.CHECKLIST_ID, taskItemInfo.checkListId)
+                                startActivity(intent)
+                            }
                         }
                     } else {
                         holder.value.setTextColor(context.resources.getColorStateList(R.color.text_value))

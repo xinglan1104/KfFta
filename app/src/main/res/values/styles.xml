@@ -21,4 +21,26 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <style name="CommonItemLabel">
+        <item name="android:layout_width">@dimen/label_width</item>
+        <item name="android:layout_height">@dimen/line_height</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_label</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="CommonItemValue">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_value</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+    </style>
 </resources>
