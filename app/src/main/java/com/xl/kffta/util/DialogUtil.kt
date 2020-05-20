@@ -20,9 +20,9 @@ object DialogUtil {
         val view: View = LayoutInflater.from(context).inflate(R.layout.dialog_common, null)
         MaterialDialog(context).show {
             customView(view = view, noVerticalPadding = true, dialogWrapContent = true)
-            maxWidth(R.dimen.login_left_right_margin)
+            maxWidth(R.dimen.common_dialog_width)
             val customView = getCustomView()
-            this.cornerRadius(0F)
+            this.cornerRadius(10F)
             cancelOnTouchOutside(false)
             customView.find<TextView>(R.id.common_dialog_msg).text = message
             customView.find<TextView>(R.id.common_dialog_cancel).setOnClickListener {

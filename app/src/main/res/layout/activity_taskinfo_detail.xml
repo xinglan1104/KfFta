@@ -13,13 +13,13 @@
         android:id="@+id/task_info_bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:background="@color/common_bg"
+        android:orientation="horizontal"
         android:paddingTop="20dp"
-        android:paddingBottom="30dp"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:paddingBottom="30dp">
 
         <TextView
             android:id="@+id/task_info_get"
@@ -33,6 +33,10 @@
             android:textColor="@color/white"
             android:textSize="16sp" />
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="0.2" />
         <TextView
             android:id="@+id/task_info_back"
             android:layout_width="0dp"
@@ -44,18 +48,13 @@
             android:text="退回"
             android:textColor="@color/white"
             android:textSize="16sp" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:layout_weight="0.2" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/task_info_recycler"
         android:layout_width="match_parent"
-        android:background="@color/common_bg"
         android:layout_height="match_parent"
         android:layout_above="@id/task_info_bottom_layout"
-        android:layout_below="@id/task_info_detail_title" />
+        android:layout_below="@id/task_info_detail_title"
+        android:background="@color/common_bg" />
 </RelativeLayout>

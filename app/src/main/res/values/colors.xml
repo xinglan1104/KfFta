@@ -14,6 +14,8 @@
     <color name="text_label">#313131</color>
     <color name="text_value">#959595</color>
 
+    <color name="divider_color">#2f959595</color>
+
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
 </resources>
