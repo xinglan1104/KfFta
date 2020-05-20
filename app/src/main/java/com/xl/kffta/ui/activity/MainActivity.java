@@ -22,7 +22,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initViews() {
         findViewById(R.id.title_left).setVisibility(View.GONE);
-        ((TextView) findViewById(R.id.title_name)).setText("任务大厅");
+        ((TextView) findViewById(R.id.title_name)).setText("智慧执法");
     }
 
     @Override
@@ -54,6 +54,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             startActivity(new Intent(MainActivity.this, TakeOrderActivity.class));
         } else if (id == R.id.main_execute_order) {
             startActivity(new Intent(MainActivity.this, ExecuteListActivity.class));
+        } else if (id == R.id.btn3) {
+
         }
     }
 
