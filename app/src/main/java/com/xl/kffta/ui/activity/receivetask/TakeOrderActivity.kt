@@ -9,6 +9,7 @@ import com.xl.kffta.base.BaseActivity
 import com.xl.kffta.model.TakeOrderBean
 import com.xl.kffta.presenter.impl.TakeOrderPresenterImpl
 import com.xl.kffta.view.ITakeOrderView
+import kotlinx.android.synthetic.main.activity_takeorder.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
 
 /**
@@ -52,6 +53,10 @@ class TakeOrderActivity : BaseActivity(), ITakeOrderView {
         }
         mRecycler.layoutManager = layoutManager
         mRecycler.adapter = mAdapter
+
+        // todo 先禁用刷新功能
+        take_refresh_layout.setEnableRefresh(false)
+        take_refresh_layout.setEnableLoadMore(false)
     }
 
     override fun initData() {

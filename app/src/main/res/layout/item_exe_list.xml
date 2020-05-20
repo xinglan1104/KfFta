@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/exe_item_main_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/exe_1_label"
+            android:layout_width="@dimen/label_width"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:text="抽取方案"
+            android:textColor="@color/text_label"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/exe_1_value"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_toRightOf="@id/exe_1_label"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textColor="@color/text_value"
+            android:textSize="16sp"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform"
+            tools:text="随机抽取随机抽取随机抽取" />
+
+        <TextView
+            android:id="@+id/exe_2_label"
+            android:layout_width="@dimen/label_width"
+            android:layout_height="48dp"
+            android:layout_below="@id/exe_1_label"
+            android:gravity="center_vertical"
+            android:text="执法开始时间"
+            android:textColor="@color/text_label"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/exe_2_value"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignBottom="@id/exe_2_label"
+            android:layout_toRightOf="@id/exe_2_label"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textColor="@color/text_value"
+            android:textSize="16sp"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform"
+            tools:text="随机抽取随机抽取随机抽取" />
+
+        <TextView
+            android:id="@+id/exe_3_label"
+            android:layout_width="@dimen/label_width"
+            android:layout_height="48dp"
+            android:layout_below="@id/exe_2_label"
+            android:gravity="center_vertical"
+            android:text="执法结束时间"
+            android:textColor="@color/text_label"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/exe_3_value"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignBottom="@id/exe_3_label"
+            android:layout_toRightOf="@id/exe_3_label"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textColor="@color/text_value"
+            android:textSize="16sp"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform"
+            tools:text="随机抽取随机抽取随机抽取" />
+
+        <TextView
+            android:id="@+id/exe_4_label"
+            android:layout_width="@dimen/label_width"
+            android:layout_height="48dp"
+            android:layout_below="@id/exe_3_label"
+            android:gravity="center_vertical"
+            android:text="执法状态"
+            android:textColor="@color/text_label"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/exe_4_value"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignBottom="@id/exe_4_label"
+            android:layout_toRightOf="@id/exe_4_label"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textColor="@color/text_value"
+            android:textSize="16sp"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform"
+            tools:text="随机抽取随机抽取随机抽取" />
+
+        <TextView
+            android:id="@+id/exe_item_go"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_below="@id/exe_4_label"
+            android:layout_marginTop="14dp"
+            android:background="@color/btn_common_color"
+            android:gravity="center"
+            android:text="执行"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/exe_item_main_view"
+        android:layout_marginTop="8dp"
+        android:background="#2f959595" />
+
+</RelativeLayout>

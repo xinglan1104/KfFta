@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author created by zhanghaochen
  * @date 2020-05-18 16:00
- * 描述：领取任务的实例类
+ * 描述：领取任务,查询执行任务的实例类
  */
 public class TakeOrderBean implements Serializable {
     private FieldsBean Fields;

@@ -47,4 +47,24 @@ object TaskNetManager {
         requestBuilder.callback = callback
         NetManager.manager.sendRequest(requestBuilder)
     }
+
+    /**
+     * 查询执行任务的列表
+     */
+    fun queryExecuteTaskList(pageCode: Int, pageSize: Int, searchStr: String, callback: ResponseCallback?) {
+        val requestBuilder = RequestBuilder()
+        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjects?format=json"
+        val paramsMap = hashMapOf<String, String>()
+        paramsMap["Token"] = ApplicationParams.TOKEN
+        paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask"
+        paramsMap["PageCode"] = pageCode.toString()
+        paramsMap["Skip"] = "0"
+        paramsMap["Take"] = pageSize.toString()
+        paramsMap["CommonSearchKey"] = searchStr
+        // 查询执行任务，应是已领取的
+        paramsMap["SearchParam"] = "Claimed=true"
+        requestBuilder.addParams(paramsMap)
+        requestBuilder.callback = callback
+        NetManager.manager.sendRequest(requestBuilder)
+    }
 }

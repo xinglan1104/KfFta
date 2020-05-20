@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.xl.kffta.R;
 import com.xl.kffta.base.BaseActivity;
+import com.xl.kffta.ui.activity.executetask.ExecuteListActivity;
 import com.xl.kffta.ui.activity.receivetask.TakeOrderActivity;
 
 import org.jetbrains.annotations.NotNull;
@@ -52,7 +53,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (id == R.id.main_take_order) {
             startActivity(new Intent(MainActivity.this, TakeOrderActivity.class));
         } else if (id == R.id.main_execute_order) {
-
+            startActivity(new Intent(MainActivity.this, ExecuteListActivity.class));
         }
     }
 
