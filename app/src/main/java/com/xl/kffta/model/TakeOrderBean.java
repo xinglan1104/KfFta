@@ -8,26 +8,12 @@ import java.util.List;
 /**
  * @author created by zhanghaochen
  * @date 2020-05-18 16:00
- * 描述：
+ * 描述：领取任务的实例类
  */
 public class TakeOrderBean implements Serializable {
-
-    /**
-     * Fields : {"BusinessID":"企业","OwnerIDs":"执法人","ExcuteTime":"执法时间","ExcutionStatus":"执法状态","Result":"检查结果","Note":"备注","DepartmentID":"部门","GovermentEnforcementSchemeID":"抽取方案","PendingOwnerIDs":"待领取执法人","RequiredQuantity":"执法人数","StartDate":"执法开始时间","EndDate":"执法截至时间","CreateTime":"创建时间","CheckListIDs":"事项清单编号","CheckList.Name":"检查项目名称"}
-     * Data : [{"Business":{"BusinessName":"开封谈笑之间商贸有限公司","ID":3699},"BusinessID":3699,"CheckList":[{"ID":1,"Code":"00001","Name":"各个公司是否按照规定使用公司名称改变名称是否按照规定办理变更登记"}],"CheckListIDs":[1],"CompanyID":4578,"CreateTime":"/Date(1589528735355)/","Department":{"ID":903,"Name":"Admin"},"DepartmentID":903,"EndDate":"/Date(1590019200000)/","ExcuteTime":"/Date(-62135596800000)/","ExcutionStatus":0,"GovermentEnforcementScheme":{"ID":9,"Name":"随机抽取"},"GovermentEnforcementSchemeID":9,"ID":11,"Owner":[],"OwnerIDs":[],"PageCode":0,"PendingOwner":[{"ID":10448,"DisplayName":"紫南"},{"ID":10449,"DisplayName":"南春"}],"PendingOwnerIDs":[10448,10449],"RequiredQuantity":2,"StartDate":"/Date(1588723200000)/"},{"Business":{"BusinessName":"河南威立胜建筑劳务有限公司","ID":3695},"BusinessID":3695,"CheckList":[{"ID":1,"Code":"00001","Name":"各个公司是否按照规定使用公司名称改变名称是否按照规定办理变更登记"}],"CheckListIDs":[1],"CompanyID":4578,"CreateTime":"/Date(1589528735314)/","Department":{"ID":903,"Name":"Admin"},"DepartmentID":903,"EndDate":"/Date(1590019200000)/","ExcuteTime":"/Date(-62135596800000)/","ExcutionStatus":0,"GovermentEnforcementScheme":{"ID":9,"Name":"随机抽取"},"GovermentEnforcementSchemeID":9,"ID":10,"Owner":[],"OwnerIDs":[],"PageCode":0,"PendingOwner":[{"ID":10448,"DisplayName":"紫南"},{"ID":10449,"DisplayName":"南春"}],"PendingOwnerIDs":[10449,10448],"RequiredQuantity":2,"StartDate":"/Date(1588723200000)/"},{"Business":{"BusinessName":"河南达克斯特科技有限公司","ID":3690},"BusinessID":3690,"CheckList":[{"ID":4,"Code":"00004","Name":"检查公司是否有漏税情况"}],"CheckListIDs":[4],"CompanyID":4578,"CreateTime":"/Date(1589528735265)/","Department":{"ID":913,"Name":"法制科"},"DepartmentID":913,"EndDate":"/Date(1590019200000)/","ExcuteTime":"/Date(-62135596800000)/","ExcutionStatus":0,"GovermentEnforcementScheme":{"ID":9,"Name":"随机抽取"},"GovermentEnforcementSchemeID":9,"ID":9,"Owner":[],"OwnerIDs":[],"PageCode":0,"PendingOwner":[{"ID":10492,"DisplayName":"法制科3"}],"PendingOwnerIDs":[10492],"RequiredQuantity":1,"StartDate":"/Date(1588723200000)/"},{"Business":{"BusinessName":"河南达克斯特科技有限公司","ID":3690},"BusinessID":3690,"CheckList":[{"ID":1,"Code":"00001","Name":"各个公司是否按照规定使用公司名称改变名称是否按照规定办理变更登记"}],"CheckListIDs":[1],"CompanyID":4578,"CreateTime":"/Date(1589528734684)/","Department":{"ID":903,"Name":"Admin"},"DepartmentID":903,"EndDate":"/Date(1590019200000)/","ExcuteTime":"/Date(-62135596800000)/","ExcutionStatus":0,"GovermentEnforcementScheme":{"ID":9,"Name":"随机抽取"},"GovermentEnforcementSchemeID":9,"ID":8,"Owner":[],"OwnerIDs":[],"PageCode":0,"PendingOwner":[{"ID":10450,"DisplayName":"紫安"},{"ID":10449,"DisplayName":"南春"}],"PendingOwnerIDs":[10450,10449],"RequiredQuantity":2,"StartDate":"/Date(1588723200000)/"},{"Business":{"BusinessName":"河南威特衡器有限公司开封分公司","ID":3676},"BusinessID":3676,"CheckList":[{"ID":4,"Code":"00004","Name":"检查公司是否有漏税情况"}],"CheckListIDs":[4],"CompanyID":4578,"CreateTime":"/Date(1589523340386)/","Department":{"ID":913,"Name":"法制科"},"DepartmentID":913,"EndDate":"/Date(-62135596800000)/","ExcuteTime":"/Date(-62135596800000)/","ExcutionStatus":0,"GovermentEnforcementScheme":{"ID":10,"Name":"测试方案"},"GovermentEnforcementSchemeID":10,"ID":7,"Owner":[],"OwnerIDs":[],"PageCode":0,"PendingOwner":[{"ID":10491,"DisplayName":"法制科2"},{"ID":10461,"DisplayName":"法制科1"}],"PendingOwnerIDs":[10461,10491],"RequiredQuantity":2,"StartDate":"/Date(-62135596800000)/"},{"Business":{"BusinessName":"河南省淘口令商贸有限公司","ID":3678},"BusinessID":3678,"CheckList":[{"ID":4,"Code":"00004","Name":"检查公司是否有漏税情况"}],"CheckListIDs":[4],"CompanyID":4578,"CreateTime":"/Date(1589523340333)/","Department":{"ID":913,"Name":"法制科"},"DepartmentID":913,"EndDate":"/Date(-62135596800000)/","ExcuteTime":"/Date(-62135596800000)/","ExcutionStatus":0,"GovermentEnforcementScheme":{"ID":10,"Name":"测试方案"},"GovermentEnforcementSchemeID":10,"ID":6,"Owner":[{"ID":10461,"DisplayName":"法制科1"},{"ID":10491,"DisplayName":"法制科2"}],"OwnerIDs":[10491,10461],"PageCode":0,"PendingOwner":[],"PendingOwnerIDs":[],"RequiredQuantity":2,"StartDate":"/Date(-62135596800000)/"},{"Business":{"BusinessName":"河南达克斯特科技有限公司","ID":3690},"BusinessID":3690,"CheckList":[{"ID":4,"Code":"00004","Name":"检查公司是否有漏税情况"}],"CheckListIDs":[4],"CompanyID":4578,"CreateTime":"/Date(1589523339974)/","Department":{"ID":913,"Name":"法制科"},"DepartmentID":913,"EndDate":"/Date(-62135596800000)/","ExcuteTime":"/Date(-62135596800000)/","ExcutionStatus":0,"GovermentEnforcementScheme":{"ID":10,"Name":"测试方案"},"GovermentEnforcementSchemeID":10,"ID":5,"Owner":[],"OwnerIDs":[],"PageCode":0,"PendingOwner":[{"ID":10461,"DisplayName":"法制科1"},{"ID":10491,"DisplayName":"法制科2"}],"PendingOwnerIDs":[10491,10461],"RequiredQuantity":2,"StartDate":"/Date(-62135596800000)/"},{"Business":{},"BusinessID":0,"CheckList":[],"CompanyID":4578,"CreateTime":"/Date(1587869292689)/","Department":{"ID":912,"Name":"办公室"},"DepartmentID":912,"EndDate":"/Date(1588176000000)/","ExcuteTime":"/Date(1587830400000)/","ExcutionStatus":0,"GovermentEnforcementScheme":{"ID":9,"Name":"随机抽取"},"GovermentEnforcementSchemeID":9,"ID":2,"Note":"无备注","Owner":[{"ID":10450,"DisplayName":"紫安"}],"OwnerIDs":[10450],"PageCode":0,"PendingOwner":[{"ID":10448,"DisplayName":"紫南"}],"PendingOwnerIDs":[10448],"RequiredQuantity":2,"Result":"无违法行为","StartDate":"/Date(1587830400000)/"},{"Business":{},"BusinessID":0,"CheckList":[],"CompanyID":4578,"CreateTime":"/Date(1587869231572)/","Department":{"ID":903,"Name":"Admin"},"DepartmentID":903,"EndDate":"/Date(1588176000000)/","ExcuteTime":"/Date(1587830400000)/","ExcutionStatus":0,"GovermentEnforcementScheme":{"ID":5,"Name":"是否有违法卫生行为"},"GovermentEnforcementSchemeID":5,"ID":1,"Note":"无备注","Owner":[{"ID":10423,"DisplayName":"admin"}],"OwnerIDs":[10423],"PageCode":0,"PendingOwner":[{"ID":10449,"DisplayName":"南春"}],"PendingOwnerIDs":[10449],"RequiredQuantity":2,"Result":"无违法行为","StartDate":"/Date(1587830400000)/"}]
-     * Error : null
-     * ErrorCode : 0
-     * ResponseStatus : null
-     * EncryptionData : null
-     * AESEncryptionKey : null
-     */
-
     private FieldsBean Fields;
     private String Error;
     private int ErrorCode;
-    private String ResponseStatus;
-    private String EncryptionData;
-    private String AESEncryptionKey;
     private List<DataBean> Data;
 
     public FieldsBean getFields() {
@@ -54,30 +40,6 @@ public class TakeOrderBean implements Serializable {
         this.ErrorCode = ErrorCode;
     }
 
-    public String getResponseStatus() {
-        return ResponseStatus;
-    }
-
-    public void setResponseStatus(String ResponseStatus) {
-        this.ResponseStatus = ResponseStatus;
-    }
-
-    public String getEncryptionData() {
-        return EncryptionData;
-    }
-
-    public void setEncryptionData(String EncryptionData) {
-        this.EncryptionData = EncryptionData;
-    }
-
-    public String getAESEncryptionKey() {
-        return AESEncryptionKey;
-    }
-
-    public void setAESEncryptionKey(String AESEncryptionKey) {
-        this.AESEncryptionKey = AESEncryptionKey;
-    }
-
     public List<DataBean> getData() {
         return Data;
     }
@@ -87,24 +49,6 @@ public class TakeOrderBean implements Serializable {
     }
 
     public static class FieldsBean {
-        /**
-         * BusinessID : 企业
-         * OwnerIDs : 执法人
-         * ExcuteTime : 执法时间
-         * ExcutionStatus : 执法状态
-         * Result : 检查结果
-         * Note : 备注
-         * DepartmentID : 部门
-         * GovermentEnforcementSchemeID : 抽取方案
-         * PendingOwnerIDs : 待领取执法人
-         * RequiredQuantity : 执法人数
-         * StartDate : 执法开始时间
-         * EndDate : 执法截至时间
-         * CreateTime : 创建时间
-         * CheckListIDs : 事项清单编号
-         * CheckList.Name : 检查项目名称
-         */
-
         private String BusinessID;
         private String OwnerIDs;
         private String ExcuteTime;
@@ -244,32 +188,6 @@ public class TakeOrderBean implements Serializable {
     }
 
     public static class DataBean {
-        /**
-         * Business : {"BusinessName":"开封谈笑之间商贸有限公司","ID":3699}
-         * BusinessID : 3699
-         * CheckList : [{"ID":1,"Code":"00001","Name":"各个公司是否按照规定使用公司名称改变名称是否按照规定办理变更登记"}]
-         * CheckListIDs : [1]
-         * CompanyID : 4578
-         * CreateTime : /Date(1589528735355)/
-         * Department : {"ID":903,"Name":"Admin"}
-         * DepartmentID : 903
-         * EndDate : /Date(1590019200000)/
-         * ExcuteTime : /Date(-62135596800000)/
-         * ExcutionStatus : 0
-         * GovermentEnforcementScheme : {"ID":9,"Name":"随机抽取"}
-         * GovermentEnforcementSchemeID : 9
-         * ID : 11
-         * Owner : []
-         * OwnerIDs : []
-         * PageCode : 0
-         * PendingOwner : [{"ID":10448,"DisplayName":"紫南"},{"ID":10449,"DisplayName":"南春"}]
-         * PendingOwnerIDs : [10448,10449]
-         * RequiredQuantity : 2
-         * StartDate : /Date(1588723200000)/
-         * Note : 无备注
-         * Result : 无违法行为
-         */
-
         private BusinessBean Business;
         private int BusinessID;
         private int CompanyID;

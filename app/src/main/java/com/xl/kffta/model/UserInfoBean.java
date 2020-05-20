@@ -25,14 +25,9 @@ public class UserInfoBean implements Serializable {
 
     private String Token;
     private UserBean User;
-    private String BindType;
-    private String BindInfo;
     private String CompanyName;
     private String Error;
     private int ErrorCode;
-    private String ResponseStatus;
-    private String EncryptionData;
-    private String AESEncryptionKey;
 
     public String getToken() {
         return Token;
@@ -48,22 +43,6 @@ public class UserInfoBean implements Serializable {
 
     public void setUser(UserBean User) {
         this.User = User;
-    }
-
-    public String getBindType() {
-        return BindType;
-    }
-
-    public void setBindType(String BindType) {
-        this.BindType = BindType;
-    }
-
-    public String getBindInfo() {
-        return BindInfo;
-    }
-
-    public void setBindInfo(String BindInfo) {
-        this.BindInfo = BindInfo;
     }
 
     public String getCompanyName() {
@@ -90,104 +69,7 @@ public class UserInfoBean implements Serializable {
         this.ErrorCode = ErrorCode;
     }
 
-    public String getResponseStatus() {
-        return ResponseStatus;
-    }
-
-    public void setResponseStatus(String ResponseStatus) {
-        this.ResponseStatus = ResponseStatus;
-    }
-
-    public String getEncryptionData() {
-        return EncryptionData;
-    }
-
-    public void setEncryptionData(String EncryptionData) {
-        this.EncryptionData = EncryptionData;
-    }
-
-    public String getAESEncryptionKey() {
-        return AESEncryptionKey;
-    }
-
-    public void setAESEncryptionKey(String AESEncryptionKey) {
-        this.AESEncryptionKey = AESEncryptionKey;
-    }
-
     public static class UserBean {
-        /**
-         * Desc : null
-         * RealName : null
-         * AccountCode : null
-         * Password : 96e79218965eb72c92a549dd5a330112
-         * Email : 76834423@qq.com
-         * MobilePhone : null
-         * Status : 0
-         * UserType : 0
-         * Level : null
-         * Files : null
-         * R1 : null
-         * R2 : null
-         * DF1 : null
-         * DF2 : null
-         * DF3 : null
-         * DF4 : null
-         * DF5 : null
-         * DF6 : null
-         * DF7 : null
-         * DF8 : null
-         * DF9 : null
-         * DF10 : 6643443
-         * AdditionInfo : null
-         * UpperAccountID : 0
-         * UpperAccount : null
-         * ResetPassOnNextLogin : false
-         * ParentPath : [0,10423]
-         * RoleIDs : [982]
-         * Role : [{"ID":982,"CompanyID":4578,"Name":"admin","Desc":null,"Status":1,"Operations":[],"LastModifyByID":-1,"Timestamp":"/Date(1587370700796)/","PageCode":0,"CreatorID":-1,"CreateTime":"/Date(1587370700796)/","AdditionInfo":null,"DF1":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null}]
-         * Operation : null
-         * ModuleIDs : null
-         * DepartmentIDs : [903]
-         * Department : [{"ID":903,"CompanyID":4578,"Name":"Admin","DepartmentCode":"admin","ParentID":0,"Parent":null,"ParentPath":[0,903],"Status":1,"OrganizationType":0,"LastModifyByID":10423,"Timestamp":"/Date(1588918252470)/","Labels":[],"DepartmentManagerIDs":[],"DepartmentManager":[],"ColorCode":null,"PageCode":0,"BusinessAreaIDs":[1430],"BusinessArea":[],"CreatorID":-1,"CreateTime":"/Date(1587370697568)/","AdditionInfo":null,"DF1":"刘强","DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null}]
-         * GroupIDs : []
-         * Group : []
-         * LabelIDs : []
-         * SessionInfo : [{"Key":"cx23vtds0bsz1z5aox5cag1r","Value":"222.67.12.195","ValuePage":"","Direction":0,"ExtraInfo":null,"InnerReference":null}]
-         * LastActivityTime : /Date(1589797810016)/
-         * Delegator : null
-         * ChannelAdmin : null
-         * UploadFileFolder : null
-         * TempUploadFileFolder : null
-         * WorkflowPrivilegeMode : false
-         * ThemeID : 0
-         * InitPassword : null
-         * IgnoreLangTranslation : false
-         * RoundDecimal : 2
-         * CurrencyRoundDecimal : 2
-         * CurrencySumRoundDecimal : 2
-         * RateRoundDecimal : 5
-         * CurrencyComparisonRoundDecimal : 2
-         * ComparisonRoundDecimal : 2
-         * IsOwner : true
-         * PageCode : 0
-         * CreatorID : -1
-         * CreateTime : /Date(1587370703644)/
-         * LastModifyByID : -1
-         * Timestamp : /Date(1589797846852)/
-         * CheckReleaseNoteDate : /Date(1588089600000)/
-         * IsChannelManager : false
-         * ID : 10423
-         * UserName : admin
-         * DisplayName : admin
-         * CompanyID : 4578
-         * Representative : null
-         * Lang : zh-CN
-         * TimezoneStr : null
-         * Timezone : {"Id":null,"DisplayName":"","StandardName":"","DaylightName":"","BaseUtcOffset":"PT0S","SupportsDaylightSavingTime":false}
-         * InvisibleMode : false
-         * CurrentProductTemplateInfo : null
-         */
-
         private String Desc;
         private String RealName;
         private String AccountCode;
@@ -198,18 +80,6 @@ public class UserInfoBean implements Serializable {
         private int UserType;
         private String Level;
         private String Files;
-        private String R1;
-        private String R2;
-        private String DF1;
-        private String DF2;
-        private String DF3;
-        private String DF4;
-        private String DF5;
-        private String DF6;
-        private String DF7;
-        private String DF8;
-        private String DF9;
-        private String DF10;
         private String AdditionInfo;
         private int UpperAccountID;
         private String UpperAccount;
@@ -217,27 +87,13 @@ public class UserInfoBean implements Serializable {
         private String Operation;
         private String ModuleIDs;
         private String LastActivityTime;
-        private String Delegator;
-        private String ChannelAdmin;
-        private String UploadFileFolder;
-        private String TempUploadFileFolder;
-        private boolean WorkflowPrivilegeMode;
         private int ThemeID;
         private String InitPassword;
         private boolean IgnoreLangTranslation;
-        private int RoundDecimal;
-        private int CurrencyRoundDecimal;
-        private int CurrencySumRoundDecimal;
-        private int RateRoundDecimal;
-        private int CurrencyComparisonRoundDecimal;
-        private int ComparisonRoundDecimal;
         private boolean IsOwner;
-        private int PageCode;
         private int CreatorID;
         private String CreateTime;
-        private int LastModifyByID;
         private String Timestamp;
-        private String CheckReleaseNoteDate;
         private boolean IsChannelManager;
         private long ID;
         private String UserName;
@@ -249,14 +105,8 @@ public class UserInfoBean implements Serializable {
         private TimezoneBean Timezone;
         private boolean InvisibleMode;
         private String CurrentProductTemplateInfo;
-        private List<Integer> ParentPath;
-        private List<Integer> RoleIDs;
         private List<RoleBean> Role;
-        private List<Integer> DepartmentIDs;
         private List<DepartmentBean> Department;
-        private List<?> GroupIDs;
-        private List<?> Group;
-        private List<?> LabelIDs;
         private List<SessionInfoBean> SessionInfo;
 
         public String getDesc() {
@@ -339,101 +189,6 @@ public class UserInfoBean implements Serializable {
             this.Files = Files;
         }
 
-        public String getR1() {
-            return R1;
-        }
-
-        public void setR1(String R1) {
-            this.R1 = R1;
-        }
-
-        public String getR2() {
-            return R2;
-        }
-
-        public void setR2(String R2) {
-            this.R2 = R2;
-        }
-
-        public String getDF1() {
-            return DF1;
-        }
-
-        public void setDF1(String DF1) {
-            this.DF1 = DF1;
-        }
-
-        public String getDF2() {
-            return DF2;
-        }
-
-        public void setDF2(String DF2) {
-            this.DF2 = DF2;
-        }
-
-        public String getDF3() {
-            return DF3;
-        }
-
-        public void setDF3(String DF3) {
-            this.DF3 = DF3;
-        }
-
-        public String getDF4() {
-            return DF4;
-        }
-
-        public void setDF4(String DF4) {
-            this.DF4 = DF4;
-        }
-
-        public String getDF5() {
-            return DF5;
-        }
-
-        public void setDF5(String DF5) {
-            this.DF5 = DF5;
-        }
-
-        public String getDF6() {
-            return DF6;
-        }
-
-        public void setDF6(String DF6) {
-            this.DF6 = DF6;
-        }
-
-        public String getDF7() {
-            return DF7;
-        }
-
-        public void setDF7(String DF7) {
-            this.DF7 = DF7;
-        }
-
-        public String getDF8() {
-            return DF8;
-        }
-
-        public void setDF8(String DF8) {
-            this.DF8 = DF8;
-        }
-
-        public String getDF9() {
-            return DF9;
-        }
-
-        public void setDF9(String DF9) {
-            this.DF9 = DF9;
-        }
-
-        public String getDF10() {
-            return DF10;
-        }
-
-        public void setDF10(String DF10) {
-            this.DF10 = DF10;
-        }
 
         public String getAdditionInfo() {
             return AdditionInfo;
@@ -491,46 +246,6 @@ public class UserInfoBean implements Serializable {
             this.LastActivityTime = LastActivityTime;
         }
 
-        public String getDelegator() {
-            return Delegator;
-        }
-
-        public void setDelegator(String Delegator) {
-            this.Delegator = Delegator;
-        }
-
-        public String getChannelAdmin() {
-            return ChannelAdmin;
-        }
-
-        public void setChannelAdmin(String ChannelAdmin) {
-            this.ChannelAdmin = ChannelAdmin;
-        }
-
-        public String getUploadFileFolder() {
-            return UploadFileFolder;
-        }
-
-        public void setUploadFileFolder(String UploadFileFolder) {
-            this.UploadFileFolder = UploadFileFolder;
-        }
-
-        public String getTempUploadFileFolder() {
-            return TempUploadFileFolder;
-        }
-
-        public void setTempUploadFileFolder(String TempUploadFileFolder) {
-            this.TempUploadFileFolder = TempUploadFileFolder;
-        }
-
-        public boolean isWorkflowPrivilegeMode() {
-            return WorkflowPrivilegeMode;
-        }
-
-        public void setWorkflowPrivilegeMode(boolean WorkflowPrivilegeMode) {
-            this.WorkflowPrivilegeMode = WorkflowPrivilegeMode;
-        }
-
         public int getThemeID() {
             return ThemeID;
         }
@@ -555,68 +270,12 @@ public class UserInfoBean implements Serializable {
             this.IgnoreLangTranslation = IgnoreLangTranslation;
         }
 
-        public int getRoundDecimal() {
-            return RoundDecimal;
-        }
-
-        public void setRoundDecimal(int RoundDecimal) {
-            this.RoundDecimal = RoundDecimal;
-        }
-
-        public int getCurrencyRoundDecimal() {
-            return CurrencyRoundDecimal;
-        }
-
-        public void setCurrencyRoundDecimal(int CurrencyRoundDecimal) {
-            this.CurrencyRoundDecimal = CurrencyRoundDecimal;
-        }
-
-        public int getCurrencySumRoundDecimal() {
-            return CurrencySumRoundDecimal;
-        }
-
-        public void setCurrencySumRoundDecimal(int CurrencySumRoundDecimal) {
-            this.CurrencySumRoundDecimal = CurrencySumRoundDecimal;
-        }
-
-        public int getRateRoundDecimal() {
-            return RateRoundDecimal;
-        }
-
-        public void setRateRoundDecimal(int RateRoundDecimal) {
-            this.RateRoundDecimal = RateRoundDecimal;
-        }
-
-        public int getCurrencyComparisonRoundDecimal() {
-            return CurrencyComparisonRoundDecimal;
-        }
-
-        public void setCurrencyComparisonRoundDecimal(int CurrencyComparisonRoundDecimal) {
-            this.CurrencyComparisonRoundDecimal = CurrencyComparisonRoundDecimal;
-        }
-
-        public int getComparisonRoundDecimal() {
-            return ComparisonRoundDecimal;
-        }
-
-        public void setComparisonRoundDecimal(int ComparisonRoundDecimal) {
-            this.ComparisonRoundDecimal = ComparisonRoundDecimal;
-        }
-
         public boolean isIsOwner() {
             return IsOwner;
         }
 
         public void setIsOwner(boolean IsOwner) {
             this.IsOwner = IsOwner;
-        }
-
-        public int getPageCode() {
-            return PageCode;
-        }
-
-        public void setPageCode(int PageCode) {
-            this.PageCode = PageCode;
         }
 
         public int getCreatorID() {
@@ -635,28 +294,12 @@ public class UserInfoBean implements Serializable {
             this.CreateTime = CreateTime;
         }
 
-        public int getLastModifyByID() {
-            return LastModifyByID;
-        }
-
-        public void setLastModifyByID(int LastModifyByID) {
-            this.LastModifyByID = LastModifyByID;
-        }
-
         public String getTimestamp() {
             return Timestamp;
         }
 
         public void setTimestamp(String Timestamp) {
             this.Timestamp = Timestamp;
-        }
-
-        public String getCheckReleaseNoteDate() {
-            return CheckReleaseNoteDate;
-        }
-
-        public void setCheckReleaseNoteDate(String CheckReleaseNoteDate) {
-            this.CheckReleaseNoteDate = CheckReleaseNoteDate;
         }
 
         public boolean isIsChannelManager() {
@@ -747,22 +390,6 @@ public class UserInfoBean implements Serializable {
             this.CurrentProductTemplateInfo = CurrentProductTemplateInfo;
         }
 
-        public List<Integer> getParentPath() {
-            return ParentPath;
-        }
-
-        public void setParentPath(List<Integer> ParentPath) {
-            this.ParentPath = ParentPath;
-        }
-
-        public List<Integer> getRoleIDs() {
-            return RoleIDs;
-        }
-
-        public void setRoleIDs(List<Integer> RoleIDs) {
-            this.RoleIDs = RoleIDs;
-        }
-
         public List<RoleBean> getRole() {
             return Role;
         }
@@ -771,44 +398,12 @@ public class UserInfoBean implements Serializable {
             this.Role = Role;
         }
 
-        public List<Integer> getDepartmentIDs() {
-            return DepartmentIDs;
-        }
-
-        public void setDepartmentIDs(List<Integer> DepartmentIDs) {
-            this.DepartmentIDs = DepartmentIDs;
-        }
-
         public List<DepartmentBean> getDepartment() {
             return Department;
         }
 
         public void setDepartment(List<DepartmentBean> Department) {
             this.Department = Department;
-        }
-
-        public List<?> getGroupIDs() {
-            return GroupIDs;
-        }
-
-        public void setGroupIDs(List<?> GroupIDs) {
-            this.GroupIDs = GroupIDs;
-        }
-
-        public List<?> getGroup() {
-            return Group;
-        }
-
-        public void setGroup(List<?> Group) {
-            this.Group = Group;
-        }
-
-        public List<?> getLabelIDs() {
-            return LabelIDs;
-        }
-
-        public void setLabelIDs(List<?> LabelIDs) {
-            this.LabelIDs = LabelIDs;
         }
 
         public List<SessionInfoBean> getSessionInfo() {
@@ -921,18 +516,6 @@ public class UserInfoBean implements Serializable {
             private int PageCode;
             private int CreatorID;
             private String CreateTime;
-            private String AdditionInfo;
-            private String DF1;
-            private String DF2;
-            private String DF3;
-            private String DF4;
-            private String DF5;
-            private String DF6;
-            private String DF7;
-            private String DF8;
-            private String DF9;
-            private String DF10;
-            private List<?> Operations;
 
             public int getID() {
                 return ID;
@@ -1014,101 +597,6 @@ public class UserInfoBean implements Serializable {
                 this.CreateTime = CreateTime;
             }
 
-            public String getAdditionInfo() {
-                return AdditionInfo;
-            }
-
-            public void setAdditionInfo(String AdditionInfo) {
-                this.AdditionInfo = AdditionInfo;
-            }
-
-            public String getDF1() {
-                return DF1;
-            }
-
-            public void setDF1(String DF1) {
-                this.DF1 = DF1;
-            }
-
-            public String getDF2() {
-                return DF2;
-            }
-
-            public void setDF2(String DF2) {
-                this.DF2 = DF2;
-            }
-
-            public String getDF3() {
-                return DF3;
-            }
-
-            public void setDF3(String DF3) {
-                this.DF3 = DF3;
-            }
-
-            public String getDF4() {
-                return DF4;
-            }
-
-            public void setDF4(String DF4) {
-                this.DF4 = DF4;
-            }
-
-            public String getDF5() {
-                return DF5;
-            }
-
-            public void setDF5(String DF5) {
-                this.DF5 = DF5;
-            }
-
-            public String getDF6() {
-                return DF6;
-            }
-
-            public void setDF6(String DF6) {
-                this.DF6 = DF6;
-            }
-
-            public String getDF7() {
-                return DF7;
-            }
-
-            public void setDF7(String DF7) {
-                this.DF7 = DF7;
-            }
-
-            public String getDF8() {
-                return DF8;
-            }
-
-            public void setDF8(String DF8) {
-                this.DF8 = DF8;
-            }
-
-            public String getDF9() {
-                return DF9;
-            }
-
-            public void setDF9(String DF9) {
-                this.DF9 = DF9;
-            }
-
-            public String getDF10() {
-                return DF10;
-            }
-
-            public void setDF10(String DF10) {
-                this.DF10 = DF10;
-            }
-
-            public List<?> getOperations() {
-                return Operations;
-            }
-
-            public void setOperations(List<?> Operations) {
-                this.Operations = Operations;
-            }
         }
 
         public static class DepartmentBean {
@@ -1161,22 +649,6 @@ public class UserInfoBean implements Serializable {
             private int CreatorID;
             private String CreateTime;
             private String AdditionInfo;
-            private String DF1;
-            private String DF2;
-            private String DF3;
-            private String DF4;
-            private String DF5;
-            private String DF6;
-            private String DF7;
-            private String DF8;
-            private String DF9;
-            private String DF10;
-            private List<Integer> ParentPath;
-            private List<?> Labels;
-            private List<?> DepartmentManagerIDs;
-            private List<?> DepartmentManager;
-            private List<Integer> BusinessAreaIDs;
-            private List<?> BusinessArea;
 
             public int getID() {
                 return ID;
@@ -1297,134 +769,6 @@ public class UserInfoBean implements Serializable {
             public void setAdditionInfo(String AdditionInfo) {
                 this.AdditionInfo = AdditionInfo;
             }
-
-            public String getDF1() {
-                return DF1;
-            }
-
-            public void setDF1(String DF1) {
-                this.DF1 = DF1;
-            }
-
-            public String getDF2() {
-                return DF2;
-            }
-
-            public void setDF2(String DF2) {
-                this.DF2 = DF2;
-            }
-
-            public String getDF3() {
-                return DF3;
-            }
-
-            public void setDF3(String DF3) {
-                this.DF3 = DF3;
-            }
-
-            public String getDF4() {
-                return DF4;
-            }
-
-            public void setDF4(String DF4) {
-                this.DF4 = DF4;
-            }
-
-            public String getDF5() {
-                return DF5;
-            }
-
-            public void setDF5(String DF5) {
-                this.DF5 = DF5;
-            }
-
-            public String getDF6() {
-                return DF6;
-            }
-
-            public void setDF6(String DF6) {
-                this.DF6 = DF6;
-            }
-
-            public String getDF7() {
-                return DF7;
-            }
-
-            public void setDF7(String DF7) {
-                this.DF7 = DF7;
-            }
-
-            public String getDF8() {
-                return DF8;
-            }
-
-            public void setDF8(String DF8) {
-                this.DF8 = DF8;
-            }
-
-            public String getDF9() {
-                return DF9;
-            }
-
-            public void setDF9(String DF9) {
-                this.DF9 = DF9;
-            }
-
-            public String getDF10() {
-                return DF10;
-            }
-
-            public void setDF10(String DF10) {
-                this.DF10 = DF10;
-            }
-
-            public List<Integer> getParentPath() {
-                return ParentPath;
-            }
-
-            public void setParentPath(List<Integer> ParentPath) {
-                this.ParentPath = ParentPath;
-            }
-
-            public List<?> getLabels() {
-                return Labels;
-            }
-
-            public void setLabels(List<?> Labels) {
-                this.Labels = Labels;
-            }
-
-            public List<?> getDepartmentManagerIDs() {
-                return DepartmentManagerIDs;
-            }
-
-            public void setDepartmentManagerIDs(List<?> DepartmentManagerIDs) {
-                this.DepartmentManagerIDs = DepartmentManagerIDs;
-            }
-
-            public List<?> getDepartmentManager() {
-                return DepartmentManager;
-            }
-
-            public void setDepartmentManager(List<?> DepartmentManager) {
-                this.DepartmentManager = DepartmentManager;
-            }
-
-            public List<Integer> getBusinessAreaIDs() {
-                return BusinessAreaIDs;
-            }
-
-            public void setBusinessAreaIDs(List<Integer> BusinessAreaIDs) {
-                this.BusinessAreaIDs = BusinessAreaIDs;
-            }
-
-            public List<?> getBusinessArea() {
-                return BusinessArea;
-            }
-
-            public void setBusinessArea(List<?> BusinessArea) {
-                this.BusinessArea = BusinessArea;
-            }
         }
 
         public static class SessionInfoBean {
@@ -1441,8 +785,6 @@ public class UserInfoBean implements Serializable {
             private String Value;
             private String ValuePage;
             private int Direction;
-            private String ExtraInfo;
-            private String InnerReference;
 
             public String getKey() {
                 return Key;
@@ -1474,22 +816,6 @@ public class UserInfoBean implements Serializable {
 
             public void setDirection(int Direction) {
                 this.Direction = Direction;
-            }
-
-            public String getExtraInfo() {
-                return ExtraInfo;
-            }
-
-            public void setExtraInfo(String ExtraInfo) {
-                this.ExtraInfo = ExtraInfo;
-            }
-
-            public String getInnerReference() {
-                return InnerReference;
-            }
-
-            public void setInnerReference(String InnerReference) {
-                this.InnerReference = InnerReference;
             }
         }
     }

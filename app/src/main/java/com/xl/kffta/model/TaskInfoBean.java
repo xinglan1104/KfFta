@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author created by zhanghaochen
  * @date 2020-05-19 16:43
- * 描述：
+ * 描述：任务信息实例类
  */
 public class TaskInfoBean implements Serializable {
 
@@ -20,21 +20,9 @@ public class TaskInfoBean implements Serializable {
      * AESEncryptionKey : null
      */
 
-    private Object Blocks;
     private DataBean Data;
     private String Error;
     private int ErrorCode;
-    private Object ResponseStatus;
-    private Object EncryptionData;
-    private Object AESEncryptionKey;
-
-    public Object getBlocks() {
-        return Blocks;
-    }
-
-    public void setBlocks(Object Blocks) {
-        this.Blocks = Blocks;
-    }
 
     public DataBean getData() {
         return Data;
@@ -60,114 +48,26 @@ public class TaskInfoBean implements Serializable {
         this.ErrorCode = ErrorCode;
     }
 
-    public Object getResponseStatus() {
-        return ResponseStatus;
-    }
-
-    public void setResponseStatus(Object ResponseStatus) {
-        this.ResponseStatus = ResponseStatus;
-    }
-
-    public Object getEncryptionData() {
-        return EncryptionData;
-    }
-
-    public void setEncryptionData(Object EncryptionData) {
-        this.EncryptionData = EncryptionData;
-    }
-
-    public Object getAESEncryptionKey() {
-        return AESEncryptionKey;
-    }
-
-    public void setAESEncryptionKey(Object AESEncryptionKey) {
-        this.AESEncryptionKey = AESEncryptionKey;
-    }
-
     public static class DataBean {
-        /**
-         * __type : CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask, CloudEasy.ERP.BL.Model
-         * ID : 9
-         * Reference : []
-         * CompanyID : 4578
-         * Note : null
-         * LastModifyByID : 10423
-         * Timestamp : /Date(1589528735265)/
-         * AdditionInfo : null
-         * Files : null
-         * DF1 : null
-         * DF2 : null
-         * DF3 : null
-         * DF4 : null
-         * DF5 : null
-         * DF6 : null
-         * DF7 : null
-         * DF8 : null
-         * DF9 : null
-         * DF10 : null
-         * CreateTime : /Date(1589528735265)/
-         * CreatorID : 10423
-         * PageCode : 0
-         * GovermentEnforcementSchemeID : 9
-         * GovermentEnforcementScheme : {"ID":9,"Code":"0005","Reference":[],"CompanyID":4578,"Note":"","LastModifyByID":10423,"Timestamp":"/Date(1589528713724)/","AdditionInfo":null,"Files":null,"DF1":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null,"CreateTime":"/Date(1587710154996)/","CreatorID":10423,"PageCode":0,"VirtualFieldsCache":null,"Name":"随机抽取","Reason":"定期抽取","Status":1,"CheckListIDs":[1,4],"CustomZoneIDs":[93913],"DeparmentPeopleIncluded":[{"DepartmentID":903,"Department":{"ID":903,"CompanyID":4578,"Name":"Admin","DepartmentCode":"admin","ParentID":0,"Parent":null,"ParentPath":[0,903],"Status":1,"OrganizationType":0,"LastModifyByID":10423,"Timestamp":"/Date(1588918252470)/","Labels":[],"DepartmentManagerIDs":[],"DepartmentManager":[],"ColorCode":null,"PageCode":0,"BusinessAreaIDs":[1430],"BusinessArea":[],"CreatorID":-1,"CreateTime":"/Date(1587370697568)/","AdditionInfo":null,"DF1":"刘强","DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null},"PeopleQuantity":2},{"DepartmentID":913,"Department":{"ID":913,"CompanyID":4578,"Name":"法制科","DepartmentCode":"000000008","ParentID":0,"Parent":null,"ParentPath":[0,913],"Status":1,"OrganizationType":0,"LastModifyByID":10423,"Timestamp":"/Date(1588919517136)/","Labels":[],"DepartmentManagerIDs":[],"DepartmentManager":[],"ColorCode":null,"PageCode":0,"BusinessAreaIDs":[1432],"BusinessArea":[],"CreatorID":10423,"CreateTime":"/Date(1587433081038)/","AdditionInfo":null,"DF1":"李伟","DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null},"PeopleQuantity":1}],"CheckBusinessQuantity":3,"AndOr":0,"StarDate":"/Date(-62135596800000)/","EndDate":"/Date(-62135596800000)/","BusinessExcelFile":null,"BusinessIDs":[],"ResponseTimeQuantity":0}
-         * OwnerIDs : []
-         * Owner : []
-         * PendingOwnerIDs : [10492]
-         * PendingOwner : [{"Desc":null,"RealName":null,"AccountCode":null,"Password":"96e79218965eb72c92a549dd5a330112","Email":null,"MobilePhone":null,"Status":0,"UserType":0,"Level":null,"Files":null,"R1":null,"R2":null,"DF1":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null,"AdditionInfo":null,"UpperAccountID":0,"UpperAccount":null,"ResetPassOnNextLogin":false,"ParentPath":[0,10492],"RoleIDs":[982],"Role":[],"Operation":null,"ModuleIDs":null,"DepartmentIDs":[913],"Department":[],"GroupIDs":[],"Group":[],"LabelIDs":[],"SessionInfo":[],"LastActivityTime":"/Date(1589778761662)/","Delegator":null,"ChannelAdmin":null,"UploadFileFolder":null,"TempUploadFileFolder":null,"WorkflowPrivilegeMode":false,"ThemeID":0,"InitPassword":null,"IgnoreLangTranslation":false,"RoundDecimal":2,"CurrencyRoundDecimal":2,"CurrencySumRoundDecimal":2,"RateRoundDecimal":5,"CurrencyComparisonRoundDecimal":2,"ComparisonRoundDecimal":2,"IsOwner":false,"PageCode":0,"CreatorID":10423,"CreateTime":"/Date(1589523318324)/","LastModifyByID":10423,"Timestamp":"/Date(1589778798292)/","CheckReleaseNoteDate":"/Date(-62135596800000)/","IsChannelManager":false,"ID":10492,"UserName":"法制科3","DisplayName":"法制科3","CompanyID":4578,"Representative":null,"Lang":"zh-CN","TimezoneStr":null,"Timezone":null,"InvisibleMode":false,"CurrentProductTemplateInfo":null}]
-         * RequiredQuantity : 1
-         * DepartmentID : 913
-         * Department : {"ID":913,"CompanyID":4578,"Name":"法制科","DepartmentCode":"000000008","ParentID":0,"Parent":null,"ParentPath":[0,913],"Status":1,"OrganizationType":0,"LastModifyByID":10423,"Timestamp":"/Date(1588919517136)/","Labels":[],"DepartmentManagerIDs":[],"DepartmentManager":[],"ColorCode":null,"PageCode":0,"BusinessAreaIDs":[1432],"BusinessArea":[],"CreatorID":10423,"CreateTime":"/Date(1587433081038)/","AdditionInfo":null,"DF1":"李伟","DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null}
-         * BusinessID : 3690
-         * Business : {"ID":3690,"CompanyID":4578,"BusinessCode":null,"BusinessName":"河南达克斯特科技有限公司","BusinessCompanyID":0,"BusinessCompany":null,"SupplierStatus":0,"SupplierRelationshipTypeAttrID":0,"SupplierRelationshipTypeAttr":null,"CustomerRelationshipTypeAttrID":0,"CustomerRelationshipTypeAttr":null,"SalesChannelTypeAttrID":0,"SalesChannelTypeAttr":null,"PurchaseChannelTypeAttrID":0,"PurchaseChannelTypeAttr":null,"CustomerStatus":0,"BusinessRegistrationStatus":0,"RevkDate":"/Date(-62135596800000)/","DOM":"河南自贸试验区开封片区郑开大道296号自贸大厦A座209室住所集中地","OPFrom":"/Date(1609286400000)/","RegistrationOrgnization":null,"ApprDate":"/Date(1547510400000)/","BizAddrLatitude":0,"BizAddrLongitude":0,"RegOrg":"开封市市场监督管理局自贸区服务中心","Grade":0,"Score":0,"UnClaimDepartmentIDs":[],"BusinessLocalAssociationDepartmentID":0,"CustomZoneID":93913,"NameAbbr":null,"DefaultContactID":0,"DefaultShippingAddressID":0,"DefaultShippingAddress":null,"BusinessAreaIDs":[1432],"BusinessArea":[],"OwnerID":0,"Owner":null,"OwnerDepartmentID":0,"OwnerDepartment":null,"ExtraUserIDs":[],"ExtraUser":[],"ExtraDepartmentIDs":[903,913],"ExtraDepartment":[],"BusinessTypeIDs":[-3],"BusinessType":[],"SupplierRank":0,"CustomerRank":0,"SupplierRankAttrID":0,"SupplierRankAttr":null,"CustomerRankAttrID":0,"CustomerRankAttr":null,"CustomerClassificationAttrID":0,"CustomerClassificationAttr":null,"SupplierClassificationAttrID":0,"SupplierClassificationAttr":null,"WarehouseIDs":[],"Warehouse":[],"WarehouseBinIDs":[],"WarehouseBin":[],"WarehouseDeliveryRouteIDs":[],"WarehouseDeliveryRoute":[],"Representative":"程建设","MainBusinessIDs":[],"MainBusiness":[],"AdditionBusinessIDs":[],"AdditionBusiness":[],"CreateTime":"/Date(1588907129749)/","LastSupplierAuditTime":"/Date(-62135596800000)/","LastCustomerAuditTime":"/Date(-62135596800000)/","SupplierAuditExpire":"/Date(-62135596800000)/","CustomerAuditExpire":"/Date(-62135596800000)/","BrandRepresent":null,"OperationModeIDs":[],"OperationMode":[],"URL":null,"BusinessLicenseRegistrationNumber":"141000022987563416","TaxRegistrationCertificateNumber":null,"TaxRate":0,"BusinessRegistrationTime":"/Date(1547510400000)/","OrganizationCode":null,"RegisteredCapital":100,"RegisteredCurrencyID":0,"RegisteredCurrency":null,"BusinessLicenseExpire":"/Date(-62135596800000)/","RegistrationLevelID":0,"RegistrationLevel":null,"IndustryTypeIDs":[1428],"IndustryType":[],"ParentCompanyID":0,"ParentCompany":null,"SourceIDs":[],"Source":[],"Files":"4578|CloudEasy.ERP.BL.Model.Directory.Business|CloudEasy.ERP.BL.Model.Directory.Business_20200508_7e8f97fba0da47e69d8691c193dae31b|","Desc":null,"AdditionInfo":null,"LabelIDs":[],"CreatorID":10423,"DF1":null,"DF10":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"LastModifyByID":10423,"PageCode":0,"Timestamp":"/Date(1589525960298)/"}
-         * CheckListIDs : [4]
-         * CheckList : [{"ID":4,"Code":"00004","Reference":[],"CompanyID":4578,"Note":"","LastModifyByID":10423,"Timestamp":"/Date(1587693429992)/","AdditionInfo":"","Files":"4578|CloudEasy.ERP.BL.Model.Government.CheckList|CloudEasy.ERP.BL.Model.Government.CheckList_20200424_8af17f682c654b618b76f1d96f5bc849|","DF1":"","DF2":"","DF3":"","DF4":"","DF5":"","DF6":"","DF7":"","DF8":"","DF9":"","DF10":"","CreateTime":"/Date(1587693051575)/","CreatorID":10423,"PageCode":0,"VirtualFieldsCache":null,"Name":"检查公司是否有漏税情况","DepartmentIDs":[913],"Department":[],"IndustryTypeIDs":[1428],"IndustryType":[],"Frequency":1,"FrequencyQuantity":2,"Percentage":12,"FreeTradeZonePriviledgeIDs":[9],"ProvincialPriviledgeIDs":[7],"JointDisciplinaryInfoIDs":[],"LicensePenaltyInformationIDs":[],"CoRegulateMeasuresIDs":[],"BusinessRegistrationIDs":[13],"MarketEntryAndAppointmentIDs":[12]}]
-         * ExcuteTime : /Date(-62135596800000)/
-         * ExcutionStatus : 0
-         * Result : null
-         * StartDate : /Date(1588723200000)/
-         * EndDate : /Date(1590019200000)/
-         * RequiredResponseHours : 3
-         */
-
-        private String __type;
         private int ID;
         private int CompanyID;
-        private Object Note;
-        private int LastModifyByID;
         private String Timestamp;
-        private Object AdditionInfo;
-        private Object Files;
         private String CreateTime;
-        private int CreatorID;
-        private int PageCode;
         private int GovermentEnforcementSchemeID;
         private GovermentEnforcementSchemeBean GovermentEnforcementScheme;
         private int RequiredQuantity;
         private int DepartmentID;
-        private DepartmentBeanX Department;
         private int BusinessID;
         private BusinessBean Business;
         private String ExcuteTime;
         private int ExcutionStatus;
-        private Object Result;
         private String StartDate;
         private String EndDate;
         private int RequiredResponseHours;
-        private List<?> Reference;
-        private List<?> OwnerIDs;
-        private List<?> Owner;
         private List<Integer> PendingOwnerIDs;
         private List<PendingOwnerBean> PendingOwner;
         private List<Integer> CheckListIDs;
         private List<CheckListBean> CheckList;
-
-        public String get__type() {
-            return __type;
-        }
-
-        public void set__type(String __type) {
-            this.__type = __type;
-        }
 
         public int getID() {
             return ID;
@@ -185,22 +85,6 @@ public class TaskInfoBean implements Serializable {
             this.CompanyID = CompanyID;
         }
 
-        public Object getNote() {
-            return Note;
-        }
-
-        public void setNote(Object Note) {
-            this.Note = Note;
-        }
-
-        public int getLastModifyByID() {
-            return LastModifyByID;
-        }
-
-        public void setLastModifyByID(int LastModifyByID) {
-            this.LastModifyByID = LastModifyByID;
-        }
-
         public String getTimestamp() {
             return Timestamp;
         }
@@ -209,44 +93,12 @@ public class TaskInfoBean implements Serializable {
             this.Timestamp = Timestamp;
         }
 
-        public Object getAdditionInfo() {
-            return AdditionInfo;
-        }
-
-        public void setAdditionInfo(Object AdditionInfo) {
-            this.AdditionInfo = AdditionInfo;
-        }
-
-        public Object getFiles() {
-            return Files;
-        }
-
-        public void setFiles(Object Files) {
-            this.Files = Files;
-        }
-
         public String getCreateTime() {
             return CreateTime;
         }
 
         public void setCreateTime(String CreateTime) {
             this.CreateTime = CreateTime;
-        }
-
-        public int getCreatorID() {
-            return CreatorID;
-        }
-
-        public void setCreatorID(int CreatorID) {
-            this.CreatorID = CreatorID;
-        }
-
-        public int getPageCode() {
-            return PageCode;
-        }
-
-        public void setPageCode(int PageCode) {
-            this.PageCode = PageCode;
         }
 
         public int getGovermentEnforcementSchemeID() {
@@ -281,14 +133,6 @@ public class TaskInfoBean implements Serializable {
             this.DepartmentID = DepartmentID;
         }
 
-        public DepartmentBeanX getDepartment() {
-            return Department;
-        }
-
-        public void setDepartment(DepartmentBeanX Department) {
-            this.Department = Department;
-        }
-
         public int getBusinessID() {
             return BusinessID;
         }
@@ -321,14 +165,6 @@ public class TaskInfoBean implements Serializable {
             this.ExcutionStatus = ExcutionStatus;
         }
 
-        public Object getResult() {
-            return Result;
-        }
-
-        public void setResult(Object Result) {
-            this.Result = Result;
-        }
-
         public String getStartDate() {
             return StartDate;
         }
@@ -351,30 +187,6 @@ public class TaskInfoBean implements Serializable {
 
         public void setRequiredResponseHours(int RequiredResponseHours) {
             this.RequiredResponseHours = RequiredResponseHours;
-        }
-
-        public List<?> getReference() {
-            return Reference;
-        }
-
-        public void setReference(List<?> Reference) {
-            this.Reference = Reference;
-        }
-
-        public List<?> getOwnerIDs() {
-            return OwnerIDs;
-        }
-
-        public void setOwnerIDs(List<?> OwnerIDs) {
-            this.OwnerIDs = OwnerIDs;
-        }
-
-        public List<?> getOwner() {
-            return Owner;
-        }
-
-        public void setOwner(List<?> Owner) {
-            this.Owner = Owner;
         }
 
         public List<Integer> getPendingOwnerIDs() {
@@ -410,57 +222,15 @@ public class TaskInfoBean implements Serializable {
         }
 
         public static class GovermentEnforcementSchemeBean {
-            /**
-             * ID : 9
-             * Code : 0005
-             * Reference : []
-             * CompanyID : 4578
-             * Note :
-             * LastModifyByID : 10423
-             * Timestamp : /Date(1589528713724)/
-             * AdditionInfo : null
-             * Files : null
-             * DF1 : null
-             * DF2 : null
-             * DF3 : null
-             * DF4 : null
-             * DF5 : null
-             * DF6 : null
-             * DF7 : null
-             * DF8 : null
-             * DF9 : null
-             * DF10 : null
-             * CreateTime : /Date(1587710154996)/
-             * CreatorID : 10423
-             * PageCode : 0
-             * VirtualFieldsCache : null
-             * Name : 随机抽取
-             * Reason : 定期抽取
-             * Status : 1
-             * CheckListIDs : [1,4]
-             * CustomZoneIDs : [93913]
-             * DeparmentPeopleIncluded : [{"DepartmentID":903,"Department":{"ID":903,"CompanyID":4578,"Name":"Admin","DepartmentCode":"admin","ParentID":0,"Parent":null,"ParentPath":[0,903],"Status":1,"OrganizationType":0,"LastModifyByID":10423,"Timestamp":"/Date(1588918252470)/","Labels":[],"DepartmentManagerIDs":[],"DepartmentManager":[],"ColorCode":null,"PageCode":0,"BusinessAreaIDs":[1430],"BusinessArea":[],"CreatorID":-1,"CreateTime":"/Date(1587370697568)/","AdditionInfo":null,"DF1":"刘强","DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null},"PeopleQuantity":2},{"DepartmentID":913,"Department":{"ID":913,"CompanyID":4578,"Name":"法制科","DepartmentCode":"000000008","ParentID":0,"Parent":null,"ParentPath":[0,913],"Status":1,"OrganizationType":0,"LastModifyByID":10423,"Timestamp":"/Date(1588919517136)/","Labels":[],"DepartmentManagerIDs":[],"DepartmentManager":[],"ColorCode":null,"PageCode":0,"BusinessAreaIDs":[1432],"BusinessArea":[],"CreatorID":10423,"CreateTime":"/Date(1587433081038)/","AdditionInfo":null,"DF1":"李伟","DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null},"PeopleQuantity":1}]
-             * CheckBusinessQuantity : 3
-             * AndOr : 0
-             * StarDate : /Date(-62135596800000)/
-             * EndDate : /Date(-62135596800000)/
-             * BusinessExcelFile : null
-             * BusinessIDs : []
-             * ResponseTimeQuantity : 0
-             */
-
             private int ID;
             private String Code;
             private int CompanyID;
             private String Note;
             private int LastModifyByID;
             private String Timestamp;
-            private Object AdditionInfo;
-            private Object Files;
             private String CreateTime;
             private int CreatorID;
             private int PageCode;
-            private Object VirtualFieldsCache;
             private String Name;
             private String Reason;
             private int Status;
@@ -468,13 +238,10 @@ public class TaskInfoBean implements Serializable {
             private int AndOr;
             private String StarDate;
             private String EndDate;
-            private Object BusinessExcelFile;
             private int ResponseTimeQuantity;
-            private List<?> Reference;
             private List<Integer> CheckListIDs;
             private List<Integer> CustomZoneIDs;
             private List<DeparmentPeopleIncludedBean> DeparmentPeopleIncluded;
-            private List<?> BusinessIDs;
 
             public int getID() {
                 return ID;
@@ -524,22 +291,6 @@ public class TaskInfoBean implements Serializable {
                 this.Timestamp = Timestamp;
             }
 
-            public Object getAdditionInfo() {
-                return AdditionInfo;
-            }
-
-            public void setAdditionInfo(Object AdditionInfo) {
-                this.AdditionInfo = AdditionInfo;
-            }
-
-            public Object getFiles() {
-                return Files;
-            }
-
-            public void setFiles(Object Files) {
-                this.Files = Files;
-            }
-
             public String getCreateTime() {
                 return CreateTime;
             }
@@ -562,14 +313,6 @@ public class TaskInfoBean implements Serializable {
 
             public void setPageCode(int PageCode) {
                 this.PageCode = PageCode;
-            }
-
-            public Object getVirtualFieldsCache() {
-                return VirtualFieldsCache;
-            }
-
-            public void setVirtualFieldsCache(Object VirtualFieldsCache) {
-                this.VirtualFieldsCache = VirtualFieldsCache;
             }
 
             public String getName() {
@@ -628,28 +371,12 @@ public class TaskInfoBean implements Serializable {
                 this.EndDate = EndDate;
             }
 
-            public Object getBusinessExcelFile() {
-                return BusinessExcelFile;
-            }
-
-            public void setBusinessExcelFile(Object BusinessExcelFile) {
-                this.BusinessExcelFile = BusinessExcelFile;
-            }
-
             public int getResponseTimeQuantity() {
                 return ResponseTimeQuantity;
             }
 
             public void setResponseTimeQuantity(int ResponseTimeQuantity) {
                 this.ResponseTimeQuantity = ResponseTimeQuantity;
-            }
-
-            public List<?> getReference() {
-                return Reference;
-            }
-
-            public void setReference(List<?> Reference) {
-                this.Reference = Reference;
             }
 
             public List<Integer> getCheckListIDs() {
@@ -674,14 +401,6 @@ public class TaskInfoBean implements Serializable {
 
             public void setDeparmentPeopleIncluded(List<DeparmentPeopleIncludedBean> DeparmentPeopleIncluded) {
                 this.DeparmentPeopleIncluded = DeparmentPeopleIncluded;
-            }
-
-            public List<?> getBusinessIDs() {
-                return BusinessIDs;
-            }
-
-            public void setBusinessIDs(List<?> BusinessIDs) {
-                this.BusinessIDs = BusinessIDs;
             }
 
             public static class DeparmentPeopleIncludedBean {
@@ -759,23 +478,13 @@ public class TaskInfoBean implements Serializable {
                     private String Name;
                     private String DepartmentCode;
                     private int ParentID;
-                    private Object Parent;
                     private int Status;
                     private int OrganizationType;
                     private int LastModifyByID;
                     private String Timestamp;
-                    private Object ColorCode;
                     private int PageCode;
                     private int CreatorID;
                     private String CreateTime;
-                    private Object AdditionInfo;
-                    private String DF1;
-                    private List<Integer> ParentPath;
-                    private List<?> Labels;
-                    private List<?> DepartmentManagerIDs;
-                    private List<?> DepartmentManager;
-                    private List<Integer> BusinessAreaIDs;
-                    private List<?> BusinessArea;
 
                     public int getID() {
                         return ID;
@@ -817,14 +526,6 @@ public class TaskInfoBean implements Serializable {
                         this.ParentID = ParentID;
                     }
 
-                    public Object getParent() {
-                        return Parent;
-                    }
-
-                    public void setParent(Object Parent) {
-                        this.Parent = Parent;
-                    }
-
                     public int getStatus() {
                         return Status;
                     }
@@ -857,14 +558,6 @@ public class TaskInfoBean implements Serializable {
                         this.Timestamp = Timestamp;
                     }
 
-                    public Object getColorCode() {
-                        return ColorCode;
-                    }
-
-                    public void setColorCode(Object ColorCode) {
-                        this.ColorCode = ColorCode;
-                    }
-
                     public int getPageCode() {
                         return PageCode;
                     }
@@ -889,308 +582,10 @@ public class TaskInfoBean implements Serializable {
                         this.CreateTime = CreateTime;
                     }
 
-                    public Object getAdditionInfo() {
-                        return AdditionInfo;
-                    }
-
-                    public void setAdditionInfo(Object AdditionInfo) {
-                        this.AdditionInfo = AdditionInfo;
-                    }
-
-                    public String getDF1() {
-                        return DF1;
-                    }
-
-                    public void setDF1(String DF1) {
-                        this.DF1 = DF1;
-                    }
-
-                    public List<Integer> getParentPath() {
-                        return ParentPath;
-                    }
-
-                    public void setParentPath(List<Integer> ParentPath) {
-                        this.ParentPath = ParentPath;
-                    }
-
-                    public List<?> getLabels() {
-                        return Labels;
-                    }
-
-                    public void setLabels(List<?> Labels) {
-                        this.Labels = Labels;
-                    }
-
-                    public List<?> getDepartmentManagerIDs() {
-                        return DepartmentManagerIDs;
-                    }
-
-                    public void setDepartmentManagerIDs(List<?> DepartmentManagerIDs) {
-                        this.DepartmentManagerIDs = DepartmentManagerIDs;
-                    }
-
-                    public List<?> getDepartmentManager() {
-                        return DepartmentManager;
-                    }
-
-                    public void setDepartmentManager(List<?> DepartmentManager) {
-                        this.DepartmentManager = DepartmentManager;
-                    }
-
-                    public List<Integer> getBusinessAreaIDs() {
-                        return BusinessAreaIDs;
-                    }
-
-                    public void setBusinessAreaIDs(List<Integer> BusinessAreaIDs) {
-                        this.BusinessAreaIDs = BusinessAreaIDs;
-                    }
-
-                    public List<?> getBusinessArea() {
-                        return BusinessArea;
-                    }
-
-                    public void setBusinessArea(List<?> BusinessArea) {
-                        this.BusinessArea = BusinessArea;
-                    }
                 }
             }
         }
 
-        public static class DepartmentBeanX {
-            /**
-             * ID : 913
-             * CompanyID : 4578
-             * Name : 法制科
-             * DepartmentCode : 000000008
-             * ParentID : 0
-             * Parent : null
-             * ParentPath : [0,913]
-             * Status : 1
-             * OrganizationType : 0
-             * LastModifyByID : 10423
-             * Timestamp : /Date(1588919517136)/
-             * Labels : []
-             * DepartmentManagerIDs : []
-             * DepartmentManager : []
-             * ColorCode : null
-             * PageCode : 0
-             * BusinessAreaIDs : [1432]
-             * BusinessArea : []
-             * CreatorID : 10423
-             * CreateTime : /Date(1587433081038)/
-             * AdditionInfo : null
-             * DF1 : 李伟
-             * DF2 : null
-             * DF3 : null
-             * DF4 : null
-             * DF5 : null
-             * DF6 : null
-             * DF7 : null
-             * DF8 : null
-             * DF9 : null
-             * DF10 : null
-             */
-
-            private int ID;
-            private int CompanyID;
-            private String Name;
-            private String DepartmentCode;
-            private int ParentID;
-            private Object Parent;
-            private int Status;
-            private int OrganizationType;
-            private int LastModifyByID;
-            private String Timestamp;
-            private Object ColorCode;
-            private int PageCode;
-            private int CreatorID;
-            private String CreateTime;
-            private Object AdditionInfo;
-            private String DF1;
-            private List<Integer> ParentPath;
-            private List<?> Labels;
-            private List<?> DepartmentManagerIDs;
-            private List<?> DepartmentManager;
-            private List<Integer> BusinessAreaIDs;
-            private List<?> BusinessArea;
-
-            public int getID() {
-                return ID;
-            }
-
-            public void setID(int ID) {
-                this.ID = ID;
-            }
-
-            public int getCompanyID() {
-                return CompanyID;
-            }
-
-            public void setCompanyID(int CompanyID) {
-                this.CompanyID = CompanyID;
-            }
-
-            public String getName() {
-                return Name;
-            }
-
-            public void setName(String Name) {
-                this.Name = Name;
-            }
-
-            public String getDepartmentCode() {
-                return DepartmentCode;
-            }
-
-            public void setDepartmentCode(String DepartmentCode) {
-                this.DepartmentCode = DepartmentCode;
-            }
-
-            public int getParentID() {
-                return ParentID;
-            }
-
-            public void setParentID(int ParentID) {
-                this.ParentID = ParentID;
-            }
-
-            public Object getParent() {
-                return Parent;
-            }
-
-            public void setParent(Object Parent) {
-                this.Parent = Parent;
-            }
-
-            public int getStatus() {
-                return Status;
-            }
-
-            public void setStatus(int Status) {
-                this.Status = Status;
-            }
-
-            public int getOrganizationType() {
-                return OrganizationType;
-            }
-
-            public void setOrganizationType(int OrganizationType) {
-                this.OrganizationType = OrganizationType;
-            }
-
-            public int getLastModifyByID() {
-                return LastModifyByID;
-            }
-
-            public void setLastModifyByID(int LastModifyByID) {
-                this.LastModifyByID = LastModifyByID;
-            }
-
-            public String getTimestamp() {
-                return Timestamp;
-            }
-
-            public void setTimestamp(String Timestamp) {
-                this.Timestamp = Timestamp;
-            }
-
-            public Object getColorCode() {
-                return ColorCode;
-            }
-
-            public void setColorCode(Object ColorCode) {
-                this.ColorCode = ColorCode;
-            }
-
-            public int getPageCode() {
-                return PageCode;
-            }
-
-            public void setPageCode(int PageCode) {
-                this.PageCode = PageCode;
-            }
-
-            public int getCreatorID() {
-                return CreatorID;
-            }
-
-            public void setCreatorID(int CreatorID) {
-                this.CreatorID = CreatorID;
-            }
-
-            public String getCreateTime() {
-                return CreateTime;
-            }
-
-            public void setCreateTime(String CreateTime) {
-                this.CreateTime = CreateTime;
-            }
-
-            public Object getAdditionInfo() {
-                return AdditionInfo;
-            }
-
-            public void setAdditionInfo(Object AdditionInfo) {
-                this.AdditionInfo = AdditionInfo;
-            }
-
-            public String getDF1() {
-                return DF1;
-            }
-
-            public void setDF1(String DF1) {
-                this.DF1 = DF1;
-            }
-
-
-            public List<Integer> getParentPath() {
-                return ParentPath;
-            }
-
-            public void setParentPath(List<Integer> ParentPath) {
-                this.ParentPath = ParentPath;
-            }
-
-            public List<?> getLabels() {
-                return Labels;
-            }
-
-            public void setLabels(List<?> Labels) {
-                this.Labels = Labels;
-            }
-
-            public List<?> getDepartmentManagerIDs() {
-                return DepartmentManagerIDs;
-            }
-
-            public void setDepartmentManagerIDs(List<?> DepartmentManagerIDs) {
-                this.DepartmentManagerIDs = DepartmentManagerIDs;
-            }
-
-            public List<?> getDepartmentManager() {
-                return DepartmentManager;
-            }
-
-            public void setDepartmentManager(List<?> DepartmentManager) {
-                this.DepartmentManager = DepartmentManager;
-            }
-
-            public List<Integer> getBusinessAreaIDs() {
-                return BusinessAreaIDs;
-            }
-
-            public void setBusinessAreaIDs(List<Integer> BusinessAreaIDs) {
-                this.BusinessAreaIDs = BusinessAreaIDs;
-            }
-
-            public List<?> getBusinessArea() {
-                return BusinessArea;
-            }
-
-            public void setBusinessArea(List<?> BusinessArea) {
-                this.BusinessArea = BusinessArea;
-            }
-        }
 
         public static class BusinessBean {
             /**
