@@ -48,19 +48,19 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <activity
-            android:name=".ui.activity.singletask.TakeOrderActivity"
+            android:name=".ui.activity.receivetask.TakeOrderActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".ui.activity.singletask.TaskInfoDetailActivity"
+            android:name=".ui.activity.receivetask.TaskInfoDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".ui.activity.singletask.CheckListActivity"
+            android:name=".ui.activity.receivetask.CheckListActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

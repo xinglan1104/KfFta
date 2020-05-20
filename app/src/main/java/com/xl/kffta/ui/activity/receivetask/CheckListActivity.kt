@@ -1,4 +1,4 @@
-package com.xl.kffta.ui.activity.singletask
+package com.xl.kffta.ui.activity.receivetask
 
 import android.os.Message
 import android.text.TextUtils

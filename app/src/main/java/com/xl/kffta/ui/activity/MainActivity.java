@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.xl.kffta.R;
 import com.xl.kffta.base.BaseActivity;
-import com.xl.kffta.ui.activity.singletask.TakeOrderActivity;
+import com.xl.kffta.ui.activity.receivetask.TakeOrderActivity;
 
 import org.jetbrains.annotations.NotNull;
 

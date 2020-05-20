@@ -14,7 +14,7 @@ import com.xl.kffta.model.TakeOrderBean
 import com.xl.kffta.model.TaskGetOrCancel
 import com.xl.kffta.net.ResponseCallback
 import com.xl.kffta.net.taskmanager.TaskNetManager
-import com.xl.kffta.ui.activity.singletask.TaskInfoDetailActivity
+import com.xl.kffta.ui.activity.receivetask.TaskInfoDetailActivity
 import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.util.SysUtils

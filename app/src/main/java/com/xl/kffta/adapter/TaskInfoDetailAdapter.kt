@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.model.TaskItemInfo
-import com.xl.kffta.ui.activity.singletask.CheckListActivity
+import com.xl.kffta.ui.activity.receivetask.CheckListActivity
 import com.xl.kffta.util.SysUtils
 
 /**
