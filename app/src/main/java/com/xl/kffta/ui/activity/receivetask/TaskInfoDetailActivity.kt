@@ -1,18 +1,15 @@
 package com.xl.kffta.ui.activity.receivetask
 
 import android.os.Message
-import android.text.TextUtils
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import com.xl.kffta.R
 import com.xl.kffta.adapter.TaskInfoDetailAdapter
 import com.xl.kffta.base.BaseActivity
-import com.xl.kffta.model.SimpleResponseBean
 import com.xl.kffta.model.TaskInfoBean
 import com.xl.kffta.model.TaskItemInfo
-import com.xl.kffta.net.ResponseCallback
+import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.net.taskmanager.TaskNetManager
 import com.xl.kffta.presenter.impl.TaskInfoDetailImpl
 import com.xl.kffta.util.DialogUtil
@@ -149,35 +146,16 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                 task_info_get.setOnClickListener {
                     DialogUtil.showCommonDialog(this, "确认领取任务", object : DialogUtil.OnDialogOkClick {
                         override fun onDialogOkClick() {
-                            TaskNetManager.getOrCancelTask(taskId.toString(), true, object : ResponseCallback {
-                                override fun onError(msg: String?) {
-                                    myToast(msg ?: "领取出错")
+                            TaskNetManager.getOrCancelTask(taskId.toString(), true, object : ResponseObjectCallback {
+                                override fun onError(msg: String) {
+                                    myToast(msg)
                                 }
 
-                                override fun onSuccess(jsonString: String) {
-                                    if (!TextUtils.isEmpty(jsonString)) {
-                                        // 直接把Json转换成javaBean
-                                        try {
-                                            val taskGetOrCancel: SimpleResponseBean? = Gson().fromJson(jsonString, SimpleResponseBean::class.java)
-                                            if (taskGetOrCancel == null) {
-                                                myToast("解析错误")
-                                            } else {
-                                                // 获取ErrorCode,<0时错误
-                                                if (taskGetOrCancel.errorCode < 0) {
-                                                    myToast(taskGetOrCancel.error ?: "解析错误")
-                                                } else {
-                                                    // success
-                                                    mHandler.obtainMessage(HANDLER_GET_SUCCESS).sendToTarget()
-                                                    myToast("领取成功")
-                                                }
-                                            }
-                                        } catch (e: Exception) {
-                                            myToast(e.message ?: "解析错误")
-                                        }
-                                    } else {
-                                        myToast("请求返回为空")
-                                    }
+                                override fun onSuccess(obj: Any) {
+                                    mHandler.obtainMessage(HANDLER_GET_SUCCESS).sendToTarget()
+                                    myToast("领取成功")
                                 }
+
                             })
                         }
                     })
@@ -185,35 +163,16 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                 task_info_back.setOnClickListener {
                     DialogUtil.showCommonDialog(this, "确认退回任务", object : DialogUtil.OnDialogOkClick {
                         override fun onDialogOkClick() {
-                            TaskNetManager.getOrCancelTask(taskId.toString(), false, object : ResponseCallback {
-                                override fun onError(msg: String?) {
-                                    myToast(msg ?: "退回出错")
+                            TaskNetManager.getOrCancelTask(taskId.toString(), false, object : ResponseObjectCallback {
+                                override fun onError(msg: String) {
+                                    myToast(msg)
                                 }
 
-                                override fun onSuccess(jsonString: String) {
-                                    if (!TextUtils.isEmpty(jsonString)) {
-                                        // 直接把Json转换成javaBean
-                                        try {
-                                            val taskGetOrCancel: SimpleResponseBean? = Gson().fromJson(jsonString, SimpleResponseBean::class.java)
-                                            if (taskGetOrCancel == null) {
-                                                myToast("解析错误")
-                                            } else {
-                                                // 获取ErrorCode,<0时错误
-                                                if (taskGetOrCancel.errorCode < 0) {
-                                                    myToast(taskGetOrCancel.error ?: "解析错误")
-                                                } else {
-                                                    // success
-                                                    mHandler.obtainMessage(HANDLER_CANCEL_SUCCESS).sendToTarget()
-                                                    myToast("退回成功")
-                                                }
-                                            }
-                                        } catch (e: Exception) {
-                                            myToast(e.message ?: "解析错误")
-                                        }
-                                    } else {
-                                        myToast("请求返回为空")
-                                    }
+                                override fun onSuccess(obj: Any) {
+                                    mHandler.obtainMessage(HANDLER_CANCEL_SUCCESS).sendToTarget()
+                                    myToast("退回成功")
                                 }
+
                             })
                         }
                     })
@@ -227,34 +186,14 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                             mTaskInfoBean?.let {
                                 //
                                 it.data.excutionStatus = 1
-                                TaskNetManager.updateTaskState(it, object : ResponseCallback {
-                                    override fun onError(msg: String?) {
-                                        myToast(msg ?: "执行出错")
+                                TaskNetManager.updateTaskState(it, object : ResponseObjectCallback {
+                                    override fun onError(msg: String) {
+                                        myToast(msg)
                                     }
 
-                                    override fun onSuccess(jsonString: String) {
-                                        if (!TextUtils.isEmpty(jsonString)) {
-                                            // 直接把Json转换成javaBean
-                                            try {
-                                                val simpleResponse: SimpleResponseBean? = Gson().fromJson(jsonString, SimpleResponseBean::class.java)
-                                                if (simpleResponse == null) {
-                                                    myToast("解析错误")
-                                                } else {
-                                                    // 获取ErrorCode,<0时错误
-                                                    if (simpleResponse.errorCode < 0) {
-                                                        myToast(simpleResponse.error ?: "解析错误")
-                                                    } else {
-                                                        // success
-                                                        mHandler.obtainMessage(HANDLER_START_SUCCESS).sendToTarget()
-                                                        myToast("已开始执行")
-                                                    }
-                                                }
-                                            } catch (e: Exception) {
-                                                myToast(e.message ?: "解析错误")
-                                            }
-                                        } else {
-                                            myToast("请求返回为空")
-                                        }
+                                    override fun onSuccess(obj: Any) {
+                                        mHandler.obtainMessage(HANDLER_START_SUCCESS).sendToTarget()
+                                        myToast("已开始执行")
                                     }
 
                                 })

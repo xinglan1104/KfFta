@@ -36,7 +36,7 @@ class ExeTaskListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerVi
             exeHolder.caseType.text = dataBean.govermentEnforcementScheme?.name ?: ""
             exeHolder.startTime.text = SysUtils.getDateTimestamp(dataBean.startDate)
             exeHolder.endTime.text = SysUtils.getDateTimestamp(dataBean.endDate)
-            // todo 执法状态，应该是0表示等待，我猜的
+            // todo 执法状态，应该是0表示等待，1是完成
             if (dataBean.excutionStatus == 0) {
                 exeHolder.exeState.text = "等待"
                 exeHolder.exeGo.visibility = View.VISIBLE

@@ -1,10 +1,16 @@
 package com.xl.kffta.net.taskmanager
 
+import android.text.TextUtils
+import android.util.Log
 import com.google.gson.Gson
+import com.xl.kffta.model.CheckListBean
+import com.xl.kffta.model.SimpleResponseBean
+import com.xl.kffta.model.TakeOrderBean
 import com.xl.kffta.model.TaskInfoBean
 import com.xl.kffta.net.NetManager
 import com.xl.kffta.net.RequestBuilder
 import com.xl.kffta.net.ResponseCallback
+import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.util.ApplicationParams
 
 /**
@@ -13,10 +19,11 @@ import com.xl.kffta.util.ApplicationParams
  * 描述：
  */
 object TaskNetManager {
+    const val TAG = "TaskNetManager"
     /**
      * 根据id查询事件清单详情
      */
-    fun queryCheckListById(id: String, callback: ResponseCallback) {
+    fun queryCheckListById(id: String, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjectByID?format=json"
         val paramsMap = hashMapOf<String, String>()
@@ -26,14 +33,43 @@ object TaskNetManager {
         paramsMap["ReferenceLevel"] = "1"
         paramsMap["ID"] = id
         requestBuilder.addParams(paramsMap)
-        requestBuilder.callback = callback
+        requestBuilder.callback = object : ResponseCallback {
+            override fun onError(msg: String?) {
+                callback.onError(msg ?: "请求错误")
+            }
+
+            override fun onSuccess(jsonString: String) {
+                Log.d(TAG, "callback获取：$jsonString")
+                if (!TextUtils.isEmpty(jsonString)) {
+                    // 直接把Json转换成javaBean
+                    try {
+                        val checkListBean: CheckListBean? = Gson().fromJson(jsonString, CheckListBean::class.java)
+                        if (checkListBean == null) {
+                            callback.onError("解析错误")
+                        } else {
+                            // 获取ErrorCode,<0时错误
+                            if (checkListBean.errorCode < 0) {
+                                callback.onError(checkListBean.error ?: "解析错误")
+                            } else {
+                                // success
+                                callback.onSuccess(checkListBean)
+                            }
+                        }
+                    } catch (e: Exception) {
+                        callback.onError(e.message ?: "解析错误")
+                    }
+                } else {
+                    callback.onError("请求返回为空")
+                }
+            }
+        }
         NetManager.manager.sendRequest(requestBuilder)
     }
 
     /**
      * 领取或者退回任务
      */
-    fun getOrCancelTask(id: String, get: Boolean, callback: ResponseCallback) {
+    fun getOrCancelTask(id: String, get: Boolean, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjectByID?format=json"
         val paramsMap = hashMapOf<String, String>()
@@ -46,14 +82,43 @@ object TaskNetManager {
         }
         paramsMap["ID"] = id
         requestBuilder.addParams(paramsMap)
-        requestBuilder.callback = callback
+        requestBuilder.callback = object : ResponseCallback {
+            override fun onError(msg: String?) {
+                callback.onError(msg ?: "操作出错")
+            }
+
+            override fun onSuccess(jsonString: String) {
+                if (!TextUtils.isEmpty(jsonString)) {
+                    // 直接把Json转换成javaBean
+                    try {
+                        val taskGetOrCancel: SimpleResponseBean? = Gson().fromJson(jsonString, SimpleResponseBean::class.java)
+                        if (taskGetOrCancel == null) {
+                            callback.onError("解析错误")
+                        } else {
+                            // 获取ErrorCode,<0时错误
+                            if (taskGetOrCancel.errorCode < 0) {
+                                callback.onError(taskGetOrCancel.error ?: "解析错误")
+                            } else {
+                                // success
+                                callback.onSuccess("领取成功")
+                            }
+                        }
+                    } catch (e: Exception) {
+                        callback.onError(e.message ?: "解析错误")
+
+                    }
+                } else {
+                    callback.onError("请求返回为空")
+                }
+            }
+        }
         NetManager.manager.sendRequest(requestBuilder)
     }
 
     /**
      * 查询执行任务的列表
      */
-    fun queryExecuteTaskList(pageCode: Int, pageSize: Int, searchStr: String, callback: ResponseCallback?) {
+    fun queryExecuteTaskList(pageCode: Int, pageSize: Int, searchStr: String, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()
@@ -66,14 +131,43 @@ object TaskNetManager {
         // 查询执行任务，应是已领取的
         paramsMap["SearchParam"] = "Claimed=true"
         requestBuilder.addParams(paramsMap)
-        requestBuilder.callback = callback
+        requestBuilder.callback = object : ResponseCallback {
+            override fun onError(msg: String?) {
+                callback.onError(msg ?: "请求错误")
+            }
+
+            override fun onSuccess(jsonString: String) {
+                Log.d("ExecuteListActivity", "callback获取：$jsonString")
+                if (!TextUtils.isEmpty(jsonString)) {
+                    // 直接把Json转换成javaBean
+                    try {
+                        val exeTaskListBean: TakeOrderBean? = Gson().fromJson(jsonString, TakeOrderBean::class.java)
+                        if (exeTaskListBean == null) {
+                            callback.onError("解析错误")
+                        } else {
+                            // 获取ErrorCode,<0时错误
+                            if (exeTaskListBean.errorCode < 0) {
+                                callback.onError(exeTaskListBean.error ?: "解析错误")
+                            } else {
+                                // success
+                                callback.onSuccess(exeTaskListBean)
+                            }
+                        }
+                    } catch (e: Exception) {
+                        callback.onError(e.message ?: "解析错误")
+                    }
+                } else {
+                    callback.onError("请求返回为空")
+                }
+            }
+        }
         NetManager.manager.sendRequest(requestBuilder)
     }
 
     /**
      * 更新任务状态，主要是变成执行任务
      */
-    fun updateTaskState(taskInfoBean: TaskInfoBean, callback: ResponseCallback) {
+    fun updateTaskState(taskInfoBean: TaskInfoBean, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/AddOrUpdateObject?format=json"
         val paramsMap = hashMapOf<String, String>()
@@ -83,7 +177,35 @@ object TaskNetManager {
         paramsMap["IsUpdateReference"] = "false"
         paramsMap["Data"] = Gson().toJson(taskInfoBean)
         requestBuilder.addParams(paramsMap)
-        requestBuilder.callback = callback
+        requestBuilder.callback = object : ResponseCallback {
+            override fun onError(msg: String?) {
+                callback.onError(msg ?: "执行出错")
+            }
+
+            override fun onSuccess(jsonString: String) {
+                if (!TextUtils.isEmpty(jsonString)) {
+                    // 直接把Json转换成javaBean
+                    try {
+                        val simpleResponse: SimpleResponseBean? = Gson().fromJson(jsonString, SimpleResponseBean::class.java)
+                        if (simpleResponse == null) {
+                            callback.onError("解析错误")
+                        } else {
+                            // 获取ErrorCode,<0时错误
+                            if (simpleResponse.errorCode < 0) {
+                                callback.onError(simpleResponse.error ?: "解析错误")
+                            } else {
+                                // success
+                                callback.onSuccess("success")
+                            }
+                        }
+                    } catch (e: Exception) {
+                        callback.onError(e.message ?: "解析错误")
+                    }
+                } else {
+                    callback.onError("请求返回为空")
+                }
+            }
+        }
         NetManager.manager.sendRequest(requestBuilder)
     }
 }

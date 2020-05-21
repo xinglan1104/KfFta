@@ -2,8 +2,6 @@ package com.xl.kffta.ui.activity.executetask
 
 import android.content.Context
 import android.os.Message
-import android.text.TextUtils
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -11,12 +9,11 @@ import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import com.xl.kffta.R
 import com.xl.kffta.adapter.ExeTaskListAdapter
 import com.xl.kffta.base.BaseActivity
 import com.xl.kffta.model.TakeOrderBean
-import com.xl.kffta.net.ResponseCallback
+import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.net.taskmanager.TaskNetManager
 import kotlinx.android.synthetic.main.activity_execute.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
@@ -95,35 +92,15 @@ class ExecuteListActivity : BaseActivity() {
      */
     private fun sendRequest() {
         TaskNetManager.queryExecuteTaskList(0, 50, exe_list_search?.text.toString()
-                ?: "", object : ResponseCallback {
-            override fun onError(msg: String?) {
-                myToast(msg ?: "请求错误")
+                ?: "", object : ResponseObjectCallback {
+            override fun onError(msg: String) {
+                myToast(msg)
             }
 
-            override fun onSuccess(jsonString: String) {
-                Log.d("ExecuteListActivity", "callback获取：$jsonString")
-                if (!TextUtils.isEmpty(jsonString)) {
-                    // 直接把Json转换成javaBean
-                    try {
-                        val exeTaskListBean: TakeOrderBean? = Gson().fromJson(jsonString, TakeOrderBean::class.java)
-                        if (exeTaskListBean == null) {
-                            myToast("解析错误")
-                        } else {
-                            // 获取ErrorCode,<0时错误
-                            if (exeTaskListBean.errorCode < 0) {
-                                myToast(exeTaskListBean.error ?: "解析错误")
-                            } else {
-                                // success
-                                mHandler.obtainMessage(HANDLER_REFRESH_ALL, exeTaskListBean).sendToTarget()
-                            }
-                        }
-                    } catch (e: Exception) {
-                        myToast(e.message ?: "解析错误")
-                    }
-                } else {
-                    myToast("请求返回为空")
-                }
+            override fun onSuccess(obj: Any) {
+                mHandler.obtainMessage(HANDLER_REFRESH_ALL, obj).sendToTarget()
             }
+
         })
     }
 

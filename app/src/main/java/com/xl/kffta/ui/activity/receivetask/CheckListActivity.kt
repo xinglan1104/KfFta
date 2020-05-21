@@ -1,17 +1,15 @@
 package com.xl.kffta.ui.activity.receivetask
 
 import android.os.Message
-import android.text.TextUtils
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import com.xl.kffta.R
 import com.xl.kffta.adapter.CheckListAdapter
 import com.xl.kffta.base.BaseActivity
 import com.xl.kffta.model.CheckListBean
 import com.xl.kffta.model.CheckListItemBean
-import com.xl.kffta.net.ResponseCallback
+import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.net.taskmanager.TaskNetManager
 import kotlinx.android.synthetic.main.activity_checklist.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
@@ -135,35 +133,15 @@ class CheckListActivity : BaseActivity() {
     }
 
     private fun sendRequest() {
-        TaskNetManager.queryCheckListById(mCheckListId.toString(), object : ResponseCallback {
-            override fun onError(msg: String?) {
-                myToast(msg ?: "请求错误")
+        TaskNetManager.queryCheckListById(mCheckListId.toString(), object : ResponseObjectCallback {
+            override fun onError(msg: String) {
+                myToast(msg)
             }
 
-            override fun onSuccess(jsonString: String) {
-                Log.d("CheckListActivity", "callback获取：$jsonString")
-                if (!TextUtils.isEmpty(jsonString)) {
-                    // 直接把Json转换成javaBean
-                    try {
-                        val checkListBean: CheckListBean? = Gson().fromJson(jsonString, CheckListBean::class.java)
-                        if (checkListBean == null) {
-                            myToast("解析错误")
-                        } else {
-                            // 获取ErrorCode,<0时错误
-                            if (checkListBean.errorCode < 0) {
-                                myToast(checkListBean.error ?: "解析错误")
-                            } else {
-                                // success
-                                mHandler.obtainMessage(HANDLER_GET_SUCCESS, checkListBean).sendToTarget()
-                            }
-                        }
-                    } catch (e: Exception) {
-                        myToast(e.message ?: "解析错误")
-                    }
-                } else {
-                    myToast("请求返回为空")
-                }
+            override fun onSuccess(obj: Any) {
+                mHandler.obtainMessage(HANDLER_GET_SUCCESS, obj).sendToTarget()
             }
+
         })
     }
 }
