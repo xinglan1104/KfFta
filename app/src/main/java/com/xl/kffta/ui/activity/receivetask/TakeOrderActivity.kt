@@ -66,7 +66,7 @@ class TakeOrderActivity : BaseActivity(), ITakeOrderView {
     override fun onResume() {
         super.onResume()
         mPresenter?.bindView(this)
-        mPresenter?.queryTask("0", "0", "30")
+        mPresenter?.queryTask("0", "0", "50")
     }
 
     override fun onDestroy() {
