@@ -161,4 +161,53 @@ object ProjectCheckTaskManager {
         }
         NetManager.manager.sendRequest(requestBuilder)
     }
+
+    /**
+     * 查询执行项目检查任务的列表
+     */
+    fun queryExecuteJointTaskList(pageCode: Int, pageSize: Int, searchStr: String, callback: ResponseObjectCallback) {
+        val requestBuilder = RequestBuilder()
+        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjects?format=json"
+        val paramsMap = hashMapOf<String, String>()
+        paramsMap["Token"] = ApplicationParams.TOKEN
+        paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentJointSupervisionTask"
+        paramsMap["PageCode"] = pageCode.toString()
+        paramsMap["Skip"] = "0"
+        paramsMap["Take"] = pageSize.toString()
+        paramsMap["CommonSearchKey"] = searchStr
+        // 查询执行任务，应是已领取的
+        paramsMap["SearchParam"] = "Claimed=true"
+        requestBuilder.addParams(paramsMap)
+        requestBuilder.callback = object : ResponseCallback {
+            override fun onError(msg: String?) {
+                callback.onError(msg ?: "请求错误")
+            }
+
+            override fun onSuccess(jsonString: String) {
+                Log.d(TAG, "callback获取：$jsonString")
+                if (!TextUtils.isEmpty(jsonString)) {
+                    // 直接把Json转换成javaBean
+                    try {
+                        val jointTaskBean: JointTaskBean? = Gson().fromJson(jsonString, JointTaskBean::class.java)
+                        if (jointTaskBean == null) {
+                            callback.onError("解析错误")
+                        } else {
+                            // 获取ErrorCode,<0时错误
+                            if (jointTaskBean.errorCode < 0) {
+                                callback.onError(jointTaskBean.error ?: "解析错误")
+                            } else {
+                                // success
+                                callback.onSuccess(jointTaskBean)
+                            }
+                        }
+                    } catch (e: Exception) {
+                        callback.onError(e.message ?: "解析错误")
+                    }
+                } else {
+                    callback.onError("请求返回为空")
+                }
+            }
+        }
+        NetManager.manager.sendRequest(requestBuilder)
+    }
 }
