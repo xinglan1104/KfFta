@@ -14,10 +14,8 @@ import com.xl.kffta.util.SysUtils
  * 描述：领取任务viewholder
  */
 class TakeOderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    companion object {
-        const val GET_TASK_OK = 1
-        const val GET_TASK_HAVE_NOT = 2
-    }
+    private val GET_TASK_OK = 1
+    private val GET_TASK_HAVE_NOT = 2
 
     interface HolderItemClickListener {
         fun onTakeClick()

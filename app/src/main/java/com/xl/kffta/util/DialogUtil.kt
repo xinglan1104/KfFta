@@ -59,4 +59,24 @@ object DialogUtil {
             }
         }
     }
+
+    /**
+     * 检查阶段的详情弹窗
+     */
+    fun showJointRiskDialog(context: Context, stage: String, department: String, riskInfo: String) {
+        val dialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_joint_riskinfo, null)
+        MaterialDialog(context).show {
+            customView(view = dialogView, noVerticalPadding = true)
+            this.cornerRadius(10f)
+            cancelOnTouchOutside(false)
+
+            val customView = getCustomView()
+            customView.find<TextView>(R.id.dialog_joint_risk_stage).text = stage
+            customView.find<TextView>(R.id.dialog_joint_department).text = department
+            customView.find<TextView>(R.id.dialog_joint_risk_info).text = riskInfo
+            customView.find<TextView>(R.id.dialog_joint_close).setOnClickListener {
+                this.dismiss()
+            }
+        }
+    }
 }

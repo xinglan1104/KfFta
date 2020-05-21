@@ -70,7 +70,7 @@ class TakeOrderAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView
                     // 退回任务
                     DialogUtil.showCommonDialog(context, "确认退回任务", object : DialogUtil.OnDialogOkClick {
                         override fun onDialogOkClick() {
-                            TaskNetManager.getOrCancelTask(it.id.toString(), true, object : ResponseObjectCallback {
+                            TaskNetManager.getOrCancelTask(it.id.toString(), false, object : ResponseObjectCallback {
                                 override fun onError(msg: String) {
                                     context.runOnUiThread {
                                         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()

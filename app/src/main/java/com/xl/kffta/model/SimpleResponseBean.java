@@ -1,11 +1,13 @@
 package com.xl.kffta.model;
 
+import java.io.Serializable;
+
 /**
  * @author created by zhanghaochen
  * @date 2020-05-20 14:10
  * 描述：只有错误代码和信息的实例类
  */
-public class SimpleResponseBean {
+public class SimpleResponseBean implements Serializable {
 
     private String Error;
     private int ErrorCode;

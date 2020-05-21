@@ -71,7 +71,7 @@ object TaskNetManager {
      */
     fun getOrCancelTask(id: String, get: Boolean, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjectByID?format=json"
+        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/ClaimOrUnClaim?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask"

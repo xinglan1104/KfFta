@@ -15,7 +15,7 @@ import com.xl.kffta.util.SysUtils
 /**
  * @author zhanghaochen
  * Date: 2020/5/19
- * 描述：
+ * 描述：任务详情页的适配器
  */
 class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {

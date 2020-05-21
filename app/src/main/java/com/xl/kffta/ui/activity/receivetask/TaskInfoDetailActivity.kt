@@ -15,7 +15,6 @@ import com.xl.kffta.presenter.impl.TaskInfoDetailImpl
 import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.util.SysUtils
 import com.xl.kffta.view.ITaskInfoDetailView
-import com.xl.kffta.viewholder.TakeOderViewHolder
 import kotlinx.android.synthetic.main.activity_taskinfo_detail.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
 
@@ -47,6 +46,9 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
         const val HANDLER_CANCEL_SUCCESS = 0x103
         const val HANDLER_START_SUCCESS = 0x104
     }
+
+    private val GET_TASK_OK = 1
+    private val GET_TASK_HAVE_NOT = 2
 
     private var taskId: Long = 0
     private var taskGetState = 0
@@ -107,7 +109,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                 task_info_back.text = "退回"
 
                 // 根据是否已经领取，搞最下面的按钮
-                if (taskGetState == TakeOderViewHolder.GET_TASK_OK) {
+                if (taskGetState == GET_TASK_OK) {
                     // 已领取
                     task_info_get.isEnabled = false
                     task_info_get.text = "已领取"
@@ -229,7 +231,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                         ?: "", isTitle = false, isCheckList = false))
                 // 执法人可能有多个
                 val peoples = taskInfoBean.data?.pendingOwner
-                val peoplesStr = StringBuilder()
+                val peoplesStr = StringBuilder("")
                 peoples?.forEach {
                     peoplesStr.append(SysUtils.getSafeString(it.userName))
                     peoplesStr.append("  ")
@@ -260,7 +262,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                         ?: ""))
                 // 执法人可能有多个
                 val owners = taskInfoBean.data?.owner
-                val ownerStr = StringBuilder()
+                val ownerStr = StringBuilder("")
                 owners?.forEach {
                     ownerStr.append(SysUtils.getSafeString(it.userName))
                     ownerStr.append("  ")

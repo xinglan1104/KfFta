@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/joint_info_title"
+        layout="@layout/layout_title_bar" />
+
+    <LinearLayout
+        android:id="@+id/joint_info_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/common_bg"
+        android:orientation="horizontal"
+        android:paddingTop="20dp"
+        android:paddingBottom="30dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/joint_info_get"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_common_btn"
+            android:enabled="true"
+            android:gravity="center"
+            android:text="领取"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <View
+            android:id="@+id/joint_bottom_empty"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="0.2" />
+
+        <TextView
+            android:id="@+id/joint_info_back"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_grey_btn"
+            android:enabled="true"
+            android:gravity="center"
+            android:text="退回"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/joint_info_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/joint_info_bottom_layout"
+        android:layout_below="@id/joint_info_title"
+        android:background="@color/common_bg" />
+</RelativeLayout>

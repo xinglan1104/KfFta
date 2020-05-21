@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:text="施工阶段风险点详情"
+        android:textColor="@color/text_label"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
+        <TextView
+            android:layout_width="@dimen/label_width"
+            android:layout_height="wrap_content"
+            android:text="施工阶段"
+            android:textColor="@color/text_label"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/dialog_joint_risk_stage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.2"
+            android:textColor="@color/text_value"
+            android:textSize="14sp"
+            tools:text="撒打算打算打算打算撒打算打算打算打算撒打算大" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
+        <TextView
+            android:layout_width="@dimen/label_width"
+            android:layout_height="wrap_content"
+            android:text="部门"
+            android:textColor="@color/text_label"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/dialog_joint_department"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.2"
+            android:textColor="@color/text_value"
+            android:textSize="14sp"
+            tools:text="撒打算打算打算打算撒打算打算打算打算撒打算大" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
+        <TextView
+            android:layout_width="@dimen/label_width"
+            android:layout_height="wrap_content"
+            android:text="检查风险点"
+            android:textColor="@color/text_label"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/dialog_joint_risk_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.2"
+            android:textColor="@color/text_value"
+            android:textSize="14sp"
+            tools:text="撒打算打算打算打算撒打算打算打算打算撒打算大" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/divider_color" />
+
+    <TextView
+        android:id="@+id/dialog_joint_close"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/dialog_check_line"
+        android:gravity="center"
+        android:text="关闭"
+        android:textColor="@color/text_label"
+        android:textSize="18sp" />
+</LinearLayout>

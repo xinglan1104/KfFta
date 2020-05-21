@@ -1,5 +1,6 @@
 package com.xl.kffta.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * @date 2020-05-20 11:34
  * 描述：事件清单实例类
  */
-public class CheckListBean {
+public class CheckListBean implements Serializable {
     private DataBean Data;
     private String Error;
     private int ErrorCode;
