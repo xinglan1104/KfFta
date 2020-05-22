@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.model.TakeOrderBean
+import com.xl.kffta.net.taskmanager.TaskNetManager
 import com.xl.kffta.ui.activity.receivetask.TaskInfoDetailActivity
 import com.xl.kffta.util.SysUtils
 import org.jetbrains.anko.find
@@ -36,8 +37,7 @@ class ExeTaskListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerVi
             exeHolder.caseType.text = dataBean.govermentEnforcementScheme?.name ?: ""
             exeHolder.startTime.text = SysUtils.getDateTimestamp(dataBean.startDate)
             exeHolder.endTime.text = SysUtils.getDateTimestamp(dataBean.endDate)
-            // todo 执法状态，应该是0表示等待，1是完成
-            if (dataBean.excutionStatus == 0) {
+            if (dataBean.excutionStatus == TaskNetManager.TASK_EXCUTIONSTATUS_PENDING) {
                 exeHolder.exeState.text = "等待"
                 exeHolder.exeGo.visibility = View.VISIBLE
             } else {

@@ -20,6 +20,8 @@ import com.xl.kffta.util.ApplicationParams
  */
 object TaskNetManager {
     const val TAG = "TaskNetManager"
+    const val TASK_EXCUTIONSTATUS_PENDING = 0
+    const val TASK_EXCUTIONSTATUS_APPROVED = 1
     /**
      * 根据id查询事件清单详情
      */

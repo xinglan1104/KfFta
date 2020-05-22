@@ -35,10 +35,13 @@ class JointTaskInfoActivity : BaseActivity() {
     }
 
     private val HANDLER_REFRESH = 0x501
+    private val HANDLER_START_JOINT_TASK_SUCCESS = 0x502
 
     private var mId = 0
     private var mInfoType = JOINT_TASK_TYPE_RECEIVE
     private var mTaskState = JointTaskListAdapter.TASK_HAS_NOT_TAKE
+
+    private var mJointTaskBean: JointTaskInfoBean? = null
 
     private val mDatas = ArrayList<JointTaskInfoItem>()
     private val mAdapter by lazy {
@@ -55,9 +58,13 @@ class JointTaskInfoActivity : BaseActivity() {
                 val data = message.obj
                 if (data is JointTaskInfoBean) {
                     initDataItems(data)
+                    mJointTaskBean = data
                     mAdapter?.notifyDataChange(mDatas)
                     joint_info_bottom_layout.visibility = View.VISIBLE
                 }
+            }
+            HANDLER_START_JOINT_TASK_SUCCESS -> {
+                finish()
             }
         }
     }
@@ -159,6 +166,26 @@ class JointTaskInfoActivity : BaseActivity() {
 
                 joint_info_get.setOnClickListener {
                     // 执行项目检查任务
+                    DialogUtil.showCommonDialog(this, "确认执行检查任务", object : DialogUtil.OnDialogOkClick {
+                        override fun onDialogOkClick() {
+                            mJointTaskBean?.let { jointTaskInfoBean ->
+                                jointTaskInfoBean.data.acceptStatus = JointTaskManager.AcceptStatusApproved
+                                JointTaskManager.updateJointTaskState(jointTaskInfoBean, object : ResponseObjectCallback {
+                                    override fun onError(msg: String) {
+                                        myToast(msg)
+                                    }
+
+                                    override fun onSuccess(obj: Any) {
+                                        mHandler.obtainMessage(HANDLER_START_JOINT_TASK_SUCCESS).sendToTarget()
+                                        myToast("已开始执行")
+                                    }
+
+                                })
+                            }
+
+                        }
+
+                    })
                 }
             }
         }

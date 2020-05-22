@@ -214,4 +214,49 @@ object JointTaskManager {
         }
         NetManager.manager.sendRequest(requestBuilder)
     }
+
+    /**
+     * 更新任务状态，主要是变成执行任务
+     */
+    fun updateJointTaskState(jointTaskBean: JointTaskInfoBean, callback: ResponseObjectCallback) {
+        val requestBuilder = RequestBuilder()
+        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/AddOrUpdateObject?format=json"
+        val paramsMap = hashMapOf<String, String>()
+        paramsMap["Token"] = ApplicationParams.TOKEN
+        paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentJointSupervisionTask"
+        paramsMap["PageCode"] = "0"
+        paramsMap["IsUpdateReference"] = "false"
+        paramsMap["Data"] = Gson().toJson(jointTaskBean)
+        requestBuilder.addParams(paramsMap)
+        requestBuilder.callback = object : ResponseCallback {
+            override fun onError(msg: String?) {
+                callback.onError(msg ?: "执行出错")
+            }
+
+            override fun onSuccess(jsonString: String) {
+                if (!TextUtils.isEmpty(jsonString)) {
+                    // 直接把Json转换成javaBean
+                    try {
+                        val simpleResponse: SimpleResponseBean? = Gson().fromJson(jsonString, SimpleResponseBean::class.java)
+                        if (simpleResponse == null) {
+                            callback.onError("解析错误")
+                        } else {
+                            // 获取ErrorCode,<0时错误
+                            if (simpleResponse.errorCode < 0) {
+                                callback.onError(simpleResponse.error ?: "解析错误")
+                            } else {
+                                // success
+                                callback.onSuccess("success")
+                            }
+                        }
+                    } catch (e: Exception) {
+                        callback.onError(e.message ?: "解析错误")
+                    }
+                } else {
+                    callback.onError("请求返回为空")
+                }
+            }
+        }
+        NetManager.manager.sendRequest(requestBuilder)
+    }
 }

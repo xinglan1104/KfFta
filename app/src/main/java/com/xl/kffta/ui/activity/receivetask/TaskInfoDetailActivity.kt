@@ -181,14 +181,14 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                 }
             }
             TYPE_EXECUTE_TASK -> {
-                task_info_get.setOnClickListener {
+                task_info_get.setOnClickListener { _ ->
                     // 确认执行任务
                     DialogUtil.showCommonDialog(this, "确认开始执法吗", object : DialogUtil.OnDialogOkClick {
                         override fun onDialogOkClick() {
-                            mTaskInfoBean?.let {
+                            mTaskInfoBean?.let { taskInfoBean ->
                                 //
-                                it.data.excutionStatus = 1
-                                TaskNetManager.updateTaskState(it, object : ResponseObjectCallback {
+                                taskInfoBean.data.excutionStatus = TaskNetManager.TASK_EXCUTIONSTATUS_APPROVED
+                                TaskNetManager.updateTaskState(taskInfoBean, object : ResponseObjectCallback {
                                     override fun onError(msg: String) {
                                         myToast(msg)
                                     }
