@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
-import com.xl.kffta.adapter.TaskInfoDetailAdapter
+import com.xl.kffta.adapter.task.TaskInfoDetailAdapter
 import com.xl.kffta.base.BaseActivity
 import com.xl.kffta.model.TaskInfoBean
 import com.xl.kffta.model.TaskItemInfo

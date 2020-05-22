@@ -10,7 +10,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
-import com.xl.kffta.adapter.ExeTaskListAdapter
+import com.xl.kffta.adapter.task.ExeTaskListAdapter
 import com.xl.kffta.base.BaseActivity
 import com.xl.kffta.model.TakeOrderBean
 import com.xl.kffta.net.ResponseObjectCallback
@@ -25,10 +25,8 @@ import kotlinx.android.synthetic.main.layout_title_bar.*
  */
 class ExecuteListActivity : BaseActivity() {
 
-    companion object {
-        const val HANDLER_REFRESH_ALL = 0x301
-        const val HANDLER_SEND_ET = 0x302
-    }
+    private val HANDLER_REFRESH_ALL = 0x301
+    private val HANDLER_SEND_ET = 0x302
 
     private val mAdapter by lazy {
         ExeTaskListAdapter(this)

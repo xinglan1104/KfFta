@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.xl.kffta.R;
 import com.xl.kffta.base.BaseActivity;
+import com.xl.kffta.ui.activity.executejointtask.ExecuteJointTaskListActivity;
 import com.xl.kffta.ui.activity.executetask.ExecuteListActivity;
 import com.xl.kffta.ui.activity.receivejointtask.JointTaskListActivity;
 import com.xl.kffta.ui.activity.receivetask.TakeOrderActivity;
@@ -33,6 +34,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.main_layout_1).setOnClickListener(this);
         findViewById(R.id.main_layout_2).setOnClickListener(this);
         findViewById(R.id.main_layout_3).setOnClickListener(this);
+        findViewById(R.id.main_layout_4).setOnClickListener(this);
     }
 
     @Override
@@ -60,6 +62,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             startActivity(new Intent(MainActivity.this, ExecuteListActivity.class));
         } else if (id == R.id.main_layout_3) {
             startActivity(new Intent(MainActivity.this, JointTaskListActivity.class));
+        } else if (id == R.id.main_layout_4) {
+            startActivity(new Intent(MainActivity.this, ExecuteJointTaskListActivity.class));
         }
     }
 

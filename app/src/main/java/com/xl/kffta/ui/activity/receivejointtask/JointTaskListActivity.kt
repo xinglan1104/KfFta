@@ -4,11 +4,11 @@ import android.os.Message
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
-import com.xl.kffta.adapter.JointTaskListAdapter
+import com.xl.kffta.adapter.jointtask.JointTaskListAdapter
 import com.xl.kffta.base.BaseActivity
 import com.xl.kffta.model.JointTaskBean
 import com.xl.kffta.net.ResponseObjectCallback
-import com.xl.kffta.net.taskmanager.ProjectCheckTaskManager
+import com.xl.kffta.net.taskmanager.JointTaskManager
 import kotlinx.android.synthetic.main.activity_takeorder.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
 
@@ -74,7 +74,7 @@ class JointTaskListActivity : BaseActivity() {
     }
 
     private fun sendRequest() {
-        ProjectCheckTaskManager.queryAllJointTask(mPageIndex, mPageSize, object : ResponseObjectCallback {
+        JointTaskManager.queryAllJointTask(mPageIndex, mPageSize, object : ResponseObjectCallback {
             override fun onError(msg: String) {
                 myToast(msg)
             }

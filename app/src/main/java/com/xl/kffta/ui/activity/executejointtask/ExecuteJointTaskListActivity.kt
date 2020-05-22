@@ -6,10 +6,15 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
+import com.xl.kffta.adapter.jointtask.ExeJointTaskListAdapter
 import com.xl.kffta.base.BaseActivity
+import com.xl.kffta.model.JointTaskBean
+import com.xl.kffta.net.ResponseObjectCallback
+import com.xl.kffta.net.taskmanager.JointTaskManager
 import kotlinx.android.synthetic.main.activity_execute.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
 
@@ -19,13 +24,36 @@ import kotlinx.android.synthetic.main.layout_title_bar.*
  * 描述：执行项目检查任务的列表
  */
 class ExecuteJointTaskListActivity : BaseActivity() {
+
+    private val HANDLER_REFRESH = 0x601
+    private val HANDLER_SEND_ET = 0x603
+
+    private var mPageIndex = 0
+    private var mPageSize = 50
+
+    private val mAdapter by lazy {
+        ExeJointTaskListAdapter(this)
+    }
+
     override fun getLayoutId(): Int {
         // 直接复用执行执法任务的界面
         return R.layout.activity_execute
     }
 
     override fun handleMessage(message: Message) {
-
+        when (message.what) {
+            HANDLER_REFRESH -> {
+                val data = message.obj
+                if (data is JointTaskBean) {
+                    mAdapter.notifyDataChange(data.data)
+                }
+            }
+            HANDLER_SEND_ET -> {
+                // 根据搜索内容查询
+                sendRequest()
+                mHandler.removeMessages(HANDLER_SEND_ET)
+            }
+        }
     }
 
     override fun initViews() {
@@ -42,8 +70,39 @@ class ExecuteJointTaskListActivity : BaseActivity() {
                 }
             }
         }
+        exe_list_recycler.adapter = mAdapter
     }
 
+    override fun initListener() {
+        // 设置编辑框的逻辑
+        exe_list_search.doAfterTextChanged {
+            // 避免频繁操作输入框，先把之前的消息都remove掉
+            mHandler.removeMessages(HANDLER_SEND_ET)
+            mHandler.sendEmptyMessageDelayed(HANDLER_SEND_ET, 300)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sendRequest()
+    }
+
+    /**
+     * 发送请求，内容为输入框里的东西
+     */
+    private fun sendRequest() {
+        JointTaskManager.queryExecuteJointTaskList(mPageIndex, mPageSize, exe_list_search?.text.toString()
+            ?: "", object : ResponseObjectCallback {
+            override fun onError(msg: String) {
+                myToast(msg)
+            }
+
+            override fun onSuccess(obj: Any) {
+                mHandler.obtainMessage(HANDLER_REFRESH, obj).sendToTarget()
+            }
+
+        })
+    }
 
     // 点击其他地方隐藏键盘和光标
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {

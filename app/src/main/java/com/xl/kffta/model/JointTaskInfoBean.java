@@ -98,7 +98,7 @@ public class JointTaskInfoBean implements Serializable {
         private String __type;
         private int ID;
         private int CompanyID;
-        private Object Note;
+        private String Note;
         private int LastModifyByID;
         private String Timestamp;
         private Object AdditionInfo;
@@ -124,7 +124,7 @@ public class JointTaskInfoBean implements Serializable {
         private OwnerBean Owner;
         private int AcceptStatus;
         private String CheckDate;
-        private Object Result;
+        private String Result;
         private int ExcutionStatus;
         private List<?> Reference;
         private List<Integer> GovermentProjectRiskIDs;
@@ -154,11 +154,11 @@ public class JointTaskInfoBean implements Serializable {
             this.CompanyID = CompanyID;
         }
 
-        public Object getNote() {
+        public String getNote() {
             return Note;
         }
 
-        public void setNote(Object Note) {
+        public void setNote(String Note) {
             this.Note = Note;
         }
 
@@ -362,11 +362,11 @@ public class JointTaskInfoBean implements Serializable {
             this.CheckDate = CheckDate;
         }
 
-        public Object getResult() {
+        public String getResult() {
             return Result;
         }
 
-        public void setResult(Object Result) {
+        public void setResult(String Result) {
             this.Result = Result;
         }
 

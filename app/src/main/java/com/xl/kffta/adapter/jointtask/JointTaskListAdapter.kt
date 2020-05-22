@@ -1,4 +1,4 @@
-package com.xl.kffta.adapter
+package com.xl.kffta.adapter.jointtask
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.model.JointTaskBean
 import com.xl.kffta.net.ResponseObjectCallback
-import com.xl.kffta.net.taskmanager.ProjectCheckTaskManager
+import com.xl.kffta.net.taskmanager.JointTaskManager
 import com.xl.kffta.ui.activity.receivejointtask.JointTaskInfoActivity
 import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.util.SysUtils
@@ -50,7 +50,7 @@ class JointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recycler
             jointHolder.value3.text = SysUtils.getDateTimestamp(jointBean.checkDate)
 
             // todo AcceptStatus判断是否领取，Approved = 3，pending = 1
-            val takeState = if (jointBean.acceptStatus == ProjectCheckTaskManager.AcceptStatusApproved) {
+            val takeState = if (jointBean.acceptStatus == JointTaskManager.AcceptStatusApproved) {
                 TASK_HAS_TAKE
             } else {
                 TASK_HAS_NOT_TAKE
@@ -73,7 +73,7 @@ class JointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recycler
             jointHolder.btn1.setOnClickListener {
                 DialogUtil.showCommonDialog(context, "确认领取检查任务", object : DialogUtil.OnDialogOkClick {
                     override fun onDialogOkClick() {
-                        ProjectCheckTaskManager.getOrCancelJointTask(jointBean.id.toString(), true, object : ResponseObjectCallback {
+                        JointTaskManager.getOrCancelJointTask(jointBean.id.toString(), true, object : ResponseObjectCallback {
                             override fun onError(msg: String) {
                                 context.runOnUiThread {
                                     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
@@ -84,7 +84,7 @@ class JointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recycler
                                 // 最好的办法就是改变数据源，刷新自己
                                 context.runOnUiThread {
                                     Toast.makeText(context, "领取成功", Toast.LENGTH_SHORT).show()
-                                    jointBean.acceptStatus = ProjectCheckTaskManager.AcceptStatusApproved
+                                    jointBean.acceptStatus = JointTaskManager.AcceptStatusApproved
                                     notifyItemChanged(position)
                                 }
                             }
@@ -96,7 +96,7 @@ class JointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recycler
             jointHolder.btn2.setOnClickListener {
                 DialogUtil.showCommonDialog(context, "确认退回检查任务", object : DialogUtil.OnDialogOkClick {
                     override fun onDialogOkClick() {
-                        ProjectCheckTaskManager.getOrCancelJointTask(jointBean.id.toString(), false, object : ResponseObjectCallback {
+                        JointTaskManager.getOrCancelJointTask(jointBean.id.toString(), false, object : ResponseObjectCallback {
                             override fun onError(msg: String) {
                                 context.runOnUiThread {
                                     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
@@ -121,6 +121,7 @@ class JointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recycler
                 activity?.let { parentActivity ->
                     intent.setClass(parentActivity, JointTaskInfoActivity::class.java)
                     intent.putExtra(JointTaskInfoActivity.JOINT_TASK_ID, jointBean.id)
+                    intent.putExtra(JointTaskInfoActivity.JOINT_TASK_TYPE, JointTaskInfoActivity.JOINT_TASK_TYPE_RECEIVE)
                     intent.putExtra(JointTaskInfoActivity.JOINT_TASK_STATE, takeState)
                     parentActivity.startActivity(intent)
                 }

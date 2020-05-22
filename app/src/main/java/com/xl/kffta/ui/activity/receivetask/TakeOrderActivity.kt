@@ -4,7 +4,7 @@ import android.os.Message
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
-import com.xl.kffta.adapter.TakeOrderAdapter
+import com.xl.kffta.adapter.task.TakeOrderAdapter
 import com.xl.kffta.base.BaseActivity
 import com.xl.kffta.model.TakeOrderBean
 import com.xl.kffta.presenter.impl.TakeOrderPresenterImpl

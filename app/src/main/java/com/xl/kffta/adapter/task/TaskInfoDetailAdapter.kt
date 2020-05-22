@@ -1,4 +1,4 @@
-package com.xl.kffta.adapter
+package com.xl.kffta.adapter.task
 
 import android.content.Context
 import android.content.Intent

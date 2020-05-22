@@ -17,10 +17,14 @@ import com.xl.kffta.util.ApplicationParams
  * Date: 2020/5/20
  * 描述：项目检查任务的管理类
  */
-object ProjectCheckTaskManager {
+object JointTaskManager {
     const val TAG = "TaskNetManager"
+    // 接受状态
     const val AcceptStatusApproved = 3
     const val AcceptStatusPending = 1
+    // 执行状态，已完成和等待
+    const val ExcutionStatus_Complete = 1
+    const val ExcutionStatus_Pending = 0
     /**
      * 查询所有的项目检查任务
      */
@@ -175,8 +179,8 @@ object ProjectCheckTaskManager {
         paramsMap["Skip"] = "0"
         paramsMap["Take"] = pageSize.toString()
         paramsMap["CommonSearchKey"] = searchStr
-        // 查询执行任务，应是已领取的
-        paramsMap["SearchParam"] = "Claimed=true"
+        // 查询执行项目检查任务，应是已领取的，未执行的
+        paramsMap["SearchParam"] = "Claimed=true&ExcutionStatus=${ExcutionStatus_Pending}"
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {
