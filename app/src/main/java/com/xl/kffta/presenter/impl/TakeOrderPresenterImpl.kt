@@ -29,7 +29,7 @@ class TakeOrderPresenterImpl : ITakeOrderPresenter {
     }
 
     /**
-     * 查询领取的执法任务
+     * 查询领取的执法任务(待领取，待执行等)
      */
     override fun queryTask(pageCode: String, skip: String, take: String) {
         val requestBuilder = RequestBuilder()
@@ -40,8 +40,8 @@ class TakeOrderPresenterImpl : ITakeOrderPresenter {
         paramsMap["Skip"] = skip
         paramsMap["Take"] = take
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask"
-        // 查询所有任务，不带这个参数
-//        paramsMap["SearchParam"] = "Claimed=true"
+        // 查询待领取的未执行执法任务
+        paramsMap["SearchParam"] = "Claimed=false"
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {

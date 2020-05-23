@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.layout_title_bar.*
 /**
  * @author zhanghaochen
  * date 2020-05-17
- * 描述：领取任务的界面
+ * 描述：待领取任务的界面
  */
 class TakeOrderActivity : BaseActivity(), ITakeOrderView {
     var mPresenter: TakeOrderPresenterImpl? = TakeOrderPresenterImpl()
@@ -38,7 +38,7 @@ class TakeOrderActivity : BaseActivity(), ITakeOrderView {
 
     override fun initViews() {
         // 设置标题名字
-        title_name.text = "领取任务"
+        title_name.text = "待领取任务"
         title_left.setOnClickListener {
             finish()
         }

@@ -40,12 +40,6 @@ class TakeOderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val backBtn by lazy {
         itemView.findViewById<TextView>(R.id.take_btn2)
     }
-    val infoBtn by lazy {
-        itemView.findViewById<TextView>(R.id.take_btn3)
-    }
-    val emptyView by lazy {
-        itemView.findViewById<View>(R.id.take_empty_1)
-    }
 
     /**
      * 设置点击事件
@@ -70,14 +64,10 @@ class TakeOderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             GET_TASK_OK -> {
                 takeBtn.text = "已领取"
                 takeBtn.isEnabled = false
-                emptyView.visibility = View.GONE
-                backBtn.visibility = View.GONE
             }
             GET_TASK_HAVE_NOT -> {
                 takeBtn.text = "领取"
                 takeBtn.isEnabled = true
-                emptyView.visibility = View.VISIBLE
-                backBtn.visibility = View.VISIBLE
             }
         }
         takeBtn.setOnClickListener {
@@ -86,7 +76,7 @@ class TakeOderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         backBtn.setOnClickListener {
             mHolderItemClickListener?.onBackClick()
         }
-        infoBtn.setOnClickListener {
+        itemView.setOnClickListener {
             mHolderItemClickListener?.onInfoClick(takeState)
         }
     }

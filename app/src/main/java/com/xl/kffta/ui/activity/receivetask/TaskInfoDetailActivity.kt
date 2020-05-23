@@ -223,8 +223,6 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
             TYPE_RECEIVE_TASK -> {
                 mDatas.add(TaskItemInfo("企业名称", taskInfoBean.data?.business?.businessName
                         ?: "", isTitle = false, isCheckList = false))
-                mDatas.add(TaskItemInfo("统一代码", taskInfoBean.data?.business?.businessLicenseRegistrationNumber
-                        ?: "", isTitle = false, isCheckList = false))
                 mDatas.add(TaskItemInfo("经营场所", taskInfoBean.data?.business?.dom
                         ?: "", isTitle = false, isCheckList = false))
                 mDatas.add(TaskItemInfo("抽取方案", taskInfoBean.data?.govermentEnforcementScheme?.name

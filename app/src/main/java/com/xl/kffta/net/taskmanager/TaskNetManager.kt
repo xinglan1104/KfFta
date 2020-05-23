@@ -16,7 +16,7 @@ import com.xl.kffta.util.ApplicationParams
 /**
  * @author created by zhanghaochen
  * @date 2020-05-20 10:33
- * 描述：
+ * 描述：普通执法任务的管理类
  */
 object TaskNetManager {
     const val TAG = "TaskNetManager"
