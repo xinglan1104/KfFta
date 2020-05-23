@@ -120,7 +120,7 @@ object TaskNetManager {
     /**
      * 查询执行任务的列表
      */
-    fun queryExecuteTaskList(pageCode: Int, pageSize: Int, searchStr: String, callback: ResponseObjectCallback) {
+    fun queryExecuteTaskList(pageCode: Int, pageSize: Int, searchStr: String, claimed: String = "true", excutionStatus: String = "0", callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()
@@ -130,8 +130,8 @@ object TaskNetManager {
         paramsMap["Skip"] = "0"
         paramsMap["Take"] = pageSize.toString()
         paramsMap["CommonSearchKey"] = searchStr
-        // 查询执行任务，应是已领取的
-        paramsMap["SearchParam"] = "Claimed=true"
+        // 默认查询已领取未执行的任务
+        paramsMap["SearchParam"] = "Claimed=${claimed}&ExcutionStatus=${excutionStatus}"
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {

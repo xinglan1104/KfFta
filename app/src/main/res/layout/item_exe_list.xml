@@ -19,7 +19,7 @@
             android:layout_width="@dimen/label_width"
             android:layout_height="48dp"
             android:gravity="center_vertical"
-            android:text="抽取方案"
+            android:text="企业"
             android:textColor="@color/text_label"
             android:textSize="16sp" />
 
@@ -101,7 +101,8 @@
             android:gravity="center_vertical"
             android:text="执法状态"
             android:textColor="@color/text_label"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="gone" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/exe_4_value"
@@ -114,6 +115,7 @@
             android:maxLines="1"
             android:textColor="@color/text_value"
             android:textSize="16sp"
+            android:visibility="gone"
             app:autoSizeMaxTextSize="16sp"
             app:autoSizeMinTextSize="10sp"
             app:autoSizeStepGranularity="1sp"

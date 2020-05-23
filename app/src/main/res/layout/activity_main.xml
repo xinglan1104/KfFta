@@ -70,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="执行执法任务"
+                    android:text="待执行执法任务"
                     android:textColor="@color/text_label"
                     android:textSize="16sp" />
 

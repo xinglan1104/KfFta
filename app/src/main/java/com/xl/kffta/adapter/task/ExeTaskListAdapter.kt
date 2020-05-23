@@ -34,7 +34,7 @@ class ExeTaskListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerVi
         if (position < mDatas.size) {
             val dataBean = mDatas[position]
             val exeHolder = holder as ExeTaskItemHolder
-            exeHolder.caseType.text = dataBean.govermentEnforcementScheme?.name ?: ""
+            exeHolder.caseType.text = dataBean.business?.businessName ?: ""
             exeHolder.startTime.text = SysUtils.getDateTimestamp(dataBean.startDate)
             exeHolder.endTime.text = SysUtils.getDateTimestamp(dataBean.endDate)
             if (dataBean.excutionStatus == TaskNetManager.TASK_EXCUTIONSTATUS_PENDING) {

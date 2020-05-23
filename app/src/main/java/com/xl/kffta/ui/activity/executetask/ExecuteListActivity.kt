@@ -21,12 +21,26 @@ import kotlinx.android.synthetic.main.layout_title_bar.*
 /**
  * @author created by zhanghaochen
  * @date 2020-05-20 15:04
- * 描述：执行任务列表页
+ * 描述：执行任务列表页,待执行和已执行的
  */
 class ExecuteListActivity : BaseActivity() {
 
     private val HANDLER_REFRESH_ALL = 0x301
     private val HANDLER_SEND_ET = 0x302
+
+    companion object {
+        const val EXE_TASK_TYPE = "extTaskType"
+        /**
+         * 待执行
+         */
+        const val EXE_TASK_PENDING = 20
+        /**
+         * 已经执行完成
+         */
+        const val EXE_TASK_OVER = 21
+    }
+
+    private var mExeTaskType = EXE_TASK_PENDING
 
     private val mAdapter by lazy {
         ExeTaskListAdapter(this)
@@ -54,11 +68,24 @@ class ExecuteListActivity : BaseActivity() {
         }
     }
 
+    override fun initParams() {
+        // 默认是待执行状态
+        mExeTaskType = intent.getIntExtra(EXE_TASK_TYPE, EXE_TASK_PENDING)
+    }
+
     override fun initViews() {
         title_left.setOnClickListener {
             finish()
         }
-        title_name.text = "执行任务"
+        when (mExeTaskType) {
+            EXE_TASK_PENDING -> {
+                title_name.text = "待执行任务"
+            }
+            EXE_TASK_OVER -> {
+                title_name.text = "已执行任务"
+            }
+        }
+
 
         exe_list_recycler.layoutManager = object : LinearLayoutManager(this) {
             override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
@@ -89,8 +116,12 @@ class ExecuteListActivity : BaseActivity() {
      * 发送请求
      */
     private fun sendRequest() {
-        TaskNetManager.queryExecuteTaskList(0, 50, exe_list_search?.text.toString()
-                ?: "", object : ResponseObjectCallback {
+        TaskNetManager.queryExecuteTaskList(pageCode = 0, pageSize = 50, searchStr = exe_list_search?.text.toString()
+                ?: "", excutionStatus = if (mExeTaskType == EXE_TASK_PENDING) {
+            "0"
+        } else {
+            "1"
+        }, callback = object : ResponseObjectCallback {
             override fun onError(msg: String) {
                 myToast(msg)
             }

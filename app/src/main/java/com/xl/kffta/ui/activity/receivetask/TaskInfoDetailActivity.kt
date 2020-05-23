@@ -123,7 +123,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                 }
             }
             TYPE_EXECUTE_TASK -> {
-                title_name.text = "执法信息"
+                title_name.text = "执法任务信息"
                 task_info_get.text = "确认"
                 task_info_back.text = "其他执法"
             }
