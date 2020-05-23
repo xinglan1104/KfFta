@@ -2,7 +2,6 @@ package com.xl.kffta.adapter.task
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,14 +34,40 @@ class ExeTaskListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerVi
             val dataBean = mDatas[position]
             val exeHolder = holder as ExeTaskItemHolder
             exeHolder.caseType.text = dataBean.business?.businessName ?: ""
-            exeHolder.startTime.text = SysUtils.getDateTimestamp(dataBean.startDate)
-            exeHolder.endTime.text = SysUtils.getDateTimestamp(dataBean.endDate)
-            if (dataBean.excutionStatus == TaskNetManager.TASK_EXCUTIONSTATUS_PENDING) {
+
+            // 获取状态，记录是否执行完成
+            val excutionStatus = dataBean.excutionStatus
+            if (excutionStatus == TaskNetManager.TASK_EXCUTIONSTATUS_PENDING) {
+                // 待执行任务
                 exeHolder.exeState.text = "等待"
                 exeHolder.exeGo.visibility = View.VISIBLE
+                // 执法开始时间，执法结束时间
+                exeHolder.startTimeLabel.text = "执法开始时间"
+                exeHolder.startTime.text = SysUtils.getDateTimestamp(dataBean.startDate)
+                exeHolder.endTime.text = SysUtils.getDateTimestamp(dataBean.endDate)
+                exeHolder.endTime.visibility = View.VISIBLE
+                exeHolder.endTimeLabel.visibility = View.VISIBLE
+                exeHolder.itemView.setOnClickListener(null)
             } else {
+                // 已执行任务
                 exeHolder.exeState.text = "完成"
                 exeHolder.exeGo.visibility = View.GONE
+                // 执法时间，另一个时间不展示
+                exeHolder.startTimeLabel.text = "执法时间"
+                exeHolder.startTime.text = SysUtils.getDateTimestamp(dataBean.excuteTime)
+                exeHolder.endTime.visibility = View.GONE
+                exeHolder.endTimeLabel.visibility = View.GONE
+                exeHolder.itemView.setOnClickListener { _ ->
+                    val intent = Intent()
+                    val activity = SysUtils.getActivity(context)
+                    activity?.let { parentActivity ->
+                        intent.setClass(parentActivity, TaskInfoDetailActivity::class.java)
+                        intent.putExtra(TaskInfoDetailActivity.TASK_ID, dataBean.id)
+                        intent.putExtra(TaskInfoDetailActivity.INFO_TYPE, TaskInfoDetailActivity.TYPE_EXECUTE_TASK)
+                        intent.putExtra(TaskInfoDetailActivity.TASK_EXE_STATE, TaskInfoDetailActivity.TASK_EXE_STATE_OVER)
+                        parentActivity.startActivity(intent)
+                    }
+                }
             }
 
             exeHolder.exeGo.setOnClickListener {
@@ -52,13 +77,9 @@ class ExeTaskListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerVi
                     intent.setClass(parentActivity, TaskInfoDetailActivity::class.java)
                     intent.putExtra(TaskInfoDetailActivity.TASK_ID, dataBean.id)
                     intent.putExtra(TaskInfoDetailActivity.INFO_TYPE, TaskInfoDetailActivity.TYPE_EXECUTE_TASK)
-//                    intent.putExtra(TaskInfoDetailActivity.TASK_GET_STATE, getState)
+                    intent.putExtra(TaskInfoDetailActivity.TASK_EXE_STATE, TaskInfoDetailActivity.TASK_EXE_STATE_PENDING)
                     parentActivity.startActivity(intent)
                 }
-            }
-
-            holder.itemView.setOnClickListener {
-                Log.d("zhc", "justclick")
             }
         }
     }
@@ -78,7 +99,9 @@ class ExeTaskListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerVi
     class ExeTaskItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val caseType = itemView.find<TextView>(R.id.exe_1_value)
         val startTime = itemView.find<TextView>(R.id.exe_2_value)
+        val startTimeLabel = itemView.find<TextView>(R.id.exe_2_label)
         val endTime = itemView.find<TextView>(R.id.exe_3_value)
+        val endTimeLabel = itemView.find<TextView>(R.id.exe_3_label)
         val exeState = itemView.find<TextView>(R.id.exe_4_value)
         val exeGo = itemView.find<TextView>(R.id.exe_item_go)
     }

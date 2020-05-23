@@ -35,6 +35,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.main_layout_2).setOnClickListener(this);
         findViewById(R.id.main_layout_3).setOnClickListener(this);
         findViewById(R.id.main_layout_4).setOnClickListener(this);
+        findViewById(R.id.main_layout_5).setOnClickListener(this);
     }
 
     @Override
@@ -56,14 +57,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int id = v.getId();
+        Intent intent = new Intent();
         if (id == R.id.main_layout_1) {
             startActivity(new Intent(MainActivity.this, TakeOrderActivity.class));
         } else if (id == R.id.main_layout_2) {
-            startActivity(new Intent(MainActivity.this, ExecuteListActivity.class));
+            // 待执行的
+            intent.setClass(MainActivity.this, ExecuteListActivity.class);
+            intent.putExtra(ExecuteListActivity.EXE_TASK_TYPE, ExecuteListActivity.EXE_TASK_PENDING);
+            startActivity(intent);
         } else if (id == R.id.main_layout_3) {
             startActivity(new Intent(MainActivity.this, JointTaskListActivity.class));
         } else if (id == R.id.main_layout_4) {
             startActivity(new Intent(MainActivity.this, ExecuteJointTaskListActivity.class));
+        } else if (id == R.id.main_layout_5) {
+            intent.setClass(MainActivity.this, ExecuteListActivity.class);
+            intent.putExtra(ExecuteListActivity.EXE_TASK_TYPE, ExecuteListActivity.EXE_TASK_OVER);
+            startActivity(intent);
         }
     }
 

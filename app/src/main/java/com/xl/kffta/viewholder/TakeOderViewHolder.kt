@@ -5,6 +5,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.model.TakeOrderBean
+import com.xl.kffta.ui.activity.receivetask.TaskInfoDetailActivity.Companion.GET_TASK_HAVE_NOT
+import com.xl.kffta.ui.activity.receivetask.TaskInfoDetailActivity.Companion.GET_TASK_OK
 import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.util.SysUtils
 
@@ -14,8 +16,6 @@ import com.xl.kffta.util.SysUtils
  * 描述：领取任务viewholder
  */
 class TakeOderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val GET_TASK_OK = 1
-    private val GET_TASK_HAVE_NOT = 2
 
     interface HolderItemClickListener {
         fun onTakeClick()

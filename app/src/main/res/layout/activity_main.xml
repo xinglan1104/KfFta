@@ -99,6 +99,45 @@
                 android:background="@color/divider_color" />
 
             <RelativeLayout
+                android:id="@+id/main_layout_5"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="已执行执法任务"
+                    android:textColor="@color/text_label"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_right" />
+
+                <TextView
+                    android:id="@+id/main_count_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="40dp"
+                    android:textColor="@color/btn_common_color"
+                    android:textSize="16sp"
+                    tools:text="20" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider_color" />
+
+            <RelativeLayout
                 android:id="@+id/main_layout_3"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -173,24 +212,4 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/main_take_order"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:text="领取任务" />
-
-    <Button
-        android:id="@+id/main_execute_order"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:text="执行任务" />
-
-    <Button
-        android:id="@+id/btn3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="领取项目检查任务" />
 </LinearLayout>

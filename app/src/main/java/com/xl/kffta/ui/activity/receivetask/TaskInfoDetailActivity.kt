@@ -40,18 +40,25 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
 
         //判断是否已经领取
         const val TASK_GET_STATE = "taskGetState"
+        const val GET_TASK_OK = 1
+        const val GET_TASK_HAVE_NOT = 2
+
+
         const val HANDLER_REFRESH = 0x101
+
+        // 判断是否执行
+        const val TASK_EXE_STATE = "taskExeState"
+        const val TASK_EXE_STATE_PENDING = 5
+        const val TASK_EXE_STATE_OVER = 6
 
         const val HANDLER_GET_SUCCESS = 0x102
         const val HANDLER_CANCEL_SUCCESS = 0x103
         const val HANDLER_START_SUCCESS = 0x104
     }
 
-    private val GET_TASK_OK = 1
-    private val GET_TASK_HAVE_NOT = 2
-
     private var taskId: Long = 0
     private var taskGetState = 0
+    private var mTaskExeState = 0
 
     // 区分显示的内容
     private var mInfoType = 10
@@ -94,6 +101,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
     override fun initParams() {
         taskId = intent.getLongExtra(TASK_ID, 0)
         taskGetState = intent.getIntExtra(TASK_GET_STATE, 0)
+        mTaskExeState = intent.getIntExtra(TASK_EXE_STATE, 0)
         mInfoType = intent.getIntExtra(INFO_TYPE, 0)
     }
 
@@ -126,6 +134,19 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                 title_name.text = "执法任务信息"
                 task_info_get.text = "确认"
                 task_info_back.text = "其他执法"
+                // 根据是否执行了，搞下面的按钮
+                if (mTaskExeState == TASK_EXE_STATE_OVER) {
+                    // 已领取
+                    task_info_get.isEnabled = false
+                    task_info_get.text = "已执行"
+                    task_bottom_empty.visibility = View.GONE
+                    task_info_back.visibility = View.GONE
+                } else {
+                    task_info_get.isEnabled = true
+                    task_info_get.text = "确认"
+                    task_bottom_empty.visibility = View.VISIBLE
+                    task_info_back.visibility = View.VISIBLE
+                }
             }
         }
 
