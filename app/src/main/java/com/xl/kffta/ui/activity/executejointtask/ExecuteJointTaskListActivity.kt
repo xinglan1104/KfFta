@@ -21,15 +21,26 @@ import kotlinx.android.synthetic.main.layout_title_bar.*
 /**
  * @author created by zhanghaochen
  * @date 2020-05-21 17:31
- * 描述：执行项目检查任务的列表
+ * 描述：执行项目检查任务的列表（待执行和已执行）
  */
 class ExecuteJointTaskListActivity : BaseActivity() {
+    companion object {
+        private val HANDLER_REFRESH = 0x601
+        private val HANDLER_SEND_ET = 0x603
 
-    private val HANDLER_REFRESH = 0x601
-    private val HANDLER_SEND_ET = 0x603
+        /**
+         * 项目检查任务的状态，待执行或者已执行
+         */
+        const val JOINT_EXE_TASK_STATE = "jointExeTaskType"
+        const val JOINT_EXE_TASK_PENDING = 30
+        const val JOINT_EXE_TASK_OVER = 32
+    }
+
 
     private var mPageIndex = 0
     private var mPageSize = 50
+
+    private var mJointExeState = JOINT_EXE_TASK_PENDING
 
     private val mAdapter by lazy {
         ExeJointTaskListAdapter(this)
@@ -56,11 +67,23 @@ class ExecuteJointTaskListActivity : BaseActivity() {
         }
     }
 
+    override fun initParams() {
+        mJointExeState = intent.getIntExtra(JOINT_EXE_TASK_STATE, JOINT_EXE_TASK_PENDING)
+    }
+
     override fun initViews() {
         title_left.setOnClickListener {
             finish()
         }
-        title_name.text = "执行项目检查任务"
+        when (mJointExeState) {
+            JOINT_EXE_TASK_PENDING -> {
+                title_name.text = "待执行项目检查任务"
+            }
+            JOINT_EXE_TASK_OVER -> {
+                title_name.text = "已执行项目检查任务"
+            }
+        }
+
 
         exe_list_recycler.layoutManager = object : LinearLayoutManager(this) {
             override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
@@ -92,7 +115,11 @@ class ExecuteJointTaskListActivity : BaseActivity() {
      */
     private fun sendRequest() {
         JointTaskManager.queryExecuteJointTaskList(mPageIndex, mPageSize, exe_list_search?.text.toString()
-            ?: "", object : ResponseObjectCallback {
+                ?: "", if (mJointExeState == JOINT_EXE_TASK_PENDING) {
+            JointTaskManager.ExcutionStatus_Pending.toString()
+        } else {
+            JointTaskManager.ExcutionStatus_Complete.toString()
+        }, object : ResponseObjectCallback {
             override fun onError(msg: String) {
                 myToast(msg)
             }
@@ -128,7 +155,7 @@ class ExecuteJointTaskListActivity : BaseActivity() {
             val bottom = top + v.height
             val right = left + v.width
             return if (event.x > left && event.x < right
-                && event.y > top && event.y < bottom) {
+                    && event.y > top && event.y < bottom) {
                 // 点击的是输入框区域，保留点击EditText的事件
                 false
             } else {

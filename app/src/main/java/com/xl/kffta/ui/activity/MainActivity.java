@@ -36,6 +36,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.main_layout_3).setOnClickListener(this);
         findViewById(R.id.main_layout_4).setOnClickListener(this);
         findViewById(R.id.main_layout_5).setOnClickListener(this);
+        findViewById(R.id.main_layout_6).setOnClickListener(this);
     }
 
     @Override
@@ -68,11 +69,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         } else if (id == R.id.main_layout_3) {
             startActivity(new Intent(MainActivity.this, JointTaskListActivity.class));
         } else if (id == R.id.main_layout_4) {
-            startActivity(new Intent(MainActivity.this, ExecuteJointTaskListActivity.class));
+            intent.setClass(MainActivity.this, ExecuteJointTaskListActivity.class);
+            intent.putExtra(ExecuteJointTaskListActivity.JOINT_EXE_TASK_STATE, ExecuteJointTaskListActivity.JOINT_EXE_TASK_PENDING);
+            startActivity(new Intent(intent));
         } else if (id == R.id.main_layout_5) {
             intent.setClass(MainActivity.this, ExecuteListActivity.class);
             intent.putExtra(ExecuteListActivity.EXE_TASK_TYPE, ExecuteListActivity.EXE_TASK_OVER);
             startActivity(intent);
+        } else if (id == R.id.main_layout_6) {
+            intent.setClass(MainActivity.this, ExecuteJointTaskListActivity.class);
+            intent.putExtra(ExecuteJointTaskListActivity.JOINT_EXE_TASK_STATE, ExecuteJointTaskListActivity.JOINT_EXE_TASK_OVER);
+            startActivity(new Intent(intent));
         }
     }
 

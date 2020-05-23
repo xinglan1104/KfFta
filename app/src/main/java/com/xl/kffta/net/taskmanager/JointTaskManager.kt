@@ -19,12 +19,15 @@ import com.xl.kffta.util.ApplicationParams
  */
 object JointTaskManager {
     const val TAG = "TaskNetManager"
+
     // 接受状态
     const val AcceptStatusApproved = 3
     const val AcceptStatusPending = 1
+
     // 执行状态，已完成和等待
     const val ExcutionStatus_Complete = 1
     const val ExcutionStatus_Pending = 0
+
     /**
      * 查询待领取的项目检查任务
      */
@@ -171,7 +174,7 @@ object JointTaskManager {
     /**
      * 查询执行项目检查任务的列表
      */
-    fun queryExecuteJointTaskList(pageCode: Int, pageSize: Int, searchStr: String, callback: ResponseObjectCallback) {
+    fun queryExecuteJointTaskList(pageCode: Int, pageSize: Int, searchStr: String, excutionStatus: String, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()
@@ -181,8 +184,8 @@ object JointTaskManager {
         paramsMap["Skip"] = "0"
         paramsMap["Take"] = pageSize.toString()
         paramsMap["CommonSearchKey"] = searchStr
-        // 查询执行项目检查任务，应是已领取的，未执行的
-        paramsMap["SearchParam"] = "Claimed=true&ExcutionStatus=${ExcutionStatus_Pending}"
+        // 查询执行项目检查任务，应是已领取的
+        paramsMap["SearchParam"] = "Claimed=true&ExcutionStatus=${excutionStatus}"
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {
