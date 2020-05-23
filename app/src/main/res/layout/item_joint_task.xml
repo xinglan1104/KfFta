@@ -47,7 +47,7 @@
             android:layout_height="48dp"
             android:layout_below="@id/take_1_label"
             android:gravity="center_vertical"
-            android:text="执法创建时间"
+            android:text="检查时间"
             android:textColor="@color/text_label"
             android:textSize="16sp" />
 
@@ -74,6 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <TextView
@@ -128,7 +129,7 @@
             android:id="@+id/take_empty_1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.2" />
+            android:layout_weight="0.3" />
 
         <TextView
             android:id="@+id/take_btn2"
@@ -142,14 +143,10 @@
             android:textSize="16sp"
             android:textStyle="normal" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2" />
-
         <TextView
             android:id="@+id/take_btn3"
             android:layout_width="0dp"
+            android:visibility="gone"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/shape_info_btn"

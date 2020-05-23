@@ -26,9 +26,9 @@ object JointTaskManager {
     const val ExcutionStatus_Complete = 1
     const val ExcutionStatus_Pending = 0
     /**
-     * 查询所有的项目检查任务
+     * 查询待领取的项目检查任务
      */
-    fun queryAllJointTask(pageCode: Int, pageSize: Int, callback: ResponseObjectCallback) {
+    fun queryJointTask(pageCode: Int, pageSize: Int, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()
@@ -37,6 +37,8 @@ object JointTaskManager {
         paramsMap["PageCode"] = pageCode.toString()
         paramsMap["Skip"] = "0"
         paramsMap["Take"] = pageSize.toString()
+        // 仅查询没有领取的
+        paramsMap["SearchParam"] = "Claimed=false"
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {

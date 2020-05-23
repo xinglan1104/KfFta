@@ -46,10 +46,9 @@ class JointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recycler
             val jointHolder = holder as JointTaskItemHolder
 
             jointHolder.value1.text = jointBean.govermentJointSupervisionScheme?.name ?: ""
-            jointHolder.value2.text = SysUtils.getDateTimestamp(jointBean.createTime)
-            jointHolder.value3.text = SysUtils.getDateTimestamp(jointBean.checkDate)
+            jointHolder.value2.text = SysUtils.getDateTimestamp(jointBean.checkDate)
+//            jointHolder.value3.text = SysUtils.getDateTimestamp(jointBean.checkDate)
 
-            // todo AcceptStatus判断是否领取，Approved = 3，pending = 1
             val takeState = if (jointBean.acceptStatus == JointTaskManager.AcceptStatusApproved) {
                 TASK_HAS_TAKE
             } else {
@@ -114,7 +113,7 @@ class JointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
                 })
             }
-            jointHolder.btn3.setOnClickListener {
+            jointHolder.itemView.setOnClickListener {
                 // 跳转到详情
                 val intent = Intent()
                 val activity = SysUtils.getActivity(context)

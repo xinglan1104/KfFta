@@ -15,18 +15,18 @@ import kotlinx.android.synthetic.main.layout_title_bar.*
 /**
  * @author created by zhanghaochen
  * @date 2020-05-21 10:32
- * 描述：领取项目检查任务
+ * 描述：领取项目检查任务（待领取的）
  */
 class JointTaskListActivity : BaseActivity() {
-
+    companion object {
+        private const val HANDLER_REFRESH = 0x401
+    }
     private val mAdapter by lazy {
         JointTaskListAdapter(this)
     }
 
     private var mPageIndex = 0
     private var mPageSize = 50
-
-    private val HANDLER_REFRESH = 0x401
 
     override fun getLayoutId(): Int {
         // 直接套用领取任务的布局
@@ -48,7 +48,7 @@ class JointTaskListActivity : BaseActivity() {
         title_left.setOnClickListener {
             finish()
         }
-        title_name.text = "领取项目检查任务"
+        title_name.text = "待领取项目检查任务"
     }
 
     override fun initListener() {
@@ -74,7 +74,7 @@ class JointTaskListActivity : BaseActivity() {
     }
 
     private fun sendRequest() {
-        JointTaskManager.queryAllJointTask(mPageIndex, mPageSize, object : ResponseObjectCallback {
+        JointTaskManager.queryJointTask(mPageIndex, mPageSize, object : ResponseObjectCallback {
             override fun onError(msg: String) {
                 myToast(msg)
             }

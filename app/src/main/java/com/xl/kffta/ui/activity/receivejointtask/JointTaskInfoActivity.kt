@@ -82,7 +82,7 @@ class JointTaskInfoActivity : BaseActivity() {
 
         when (mInfoType) {
             JOINT_TASK_TYPE_RECEIVE -> {
-                title_name.text = "领取项目检查任务详情"
+                title_name.text = "待领取项目检查任务详情"
 
                 // 根据领取状态显示底部按钮
                 if (mTaskState == JointTaskListAdapter.TASK_HAS_TAKE) {
