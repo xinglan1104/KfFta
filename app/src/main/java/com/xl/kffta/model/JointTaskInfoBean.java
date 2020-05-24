@@ -9,21 +9,21 @@ import java.util.List;
  * 描述：具体id的检查任务的请求实例类
  */
 public class JointTaskInfoBean implements Serializable {
-
-    /**
-     * Blocks : null
-     * Data : {"__type":"CloudEasy.ERP.BL.Model.Government.GovermentJointSupervisionTask, CloudEasy.ERP.BL.Model","ID":26,"Reference":[],"CompanyID":4578,"Note":null,"LastModifyByID":10423,"Timestamp":"/Date(1589777210904)/","AdditionInfo":null,"Files":null,"DF1":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null,"CreateTime":"/Date(1589777210904)/","CreatorID":10423,"PageCode":0,"GovermentJointSupervisionSchemeID":5,"GovermentJointSupervisionScheme":{"ID":5,"Code":"0007","Reference":[],"CompanyID":4578,"Note":null,"LastModifyByID":10423,"Timestamp":"/Date(1589770863709)/","AdditionInfo":null,"Files":null,"DF1":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null,"CreateTime":"/Date(1589770727565)/","CreatorID":10423,"PageCode":0,"VirtualFieldsCache":null,"Name":"检查方案A","GovermentProjectID":9,"GovermentProjectRiskIDs":[4],"Status":1,"CheckDate":"/Date(1589904000000)/","DepartmentIDs":[912],"Responsible":"蒲卉子","Contact":"彭雅琪"},"DeparmentID":912,"Deparment":{"ID":912,"CompanyID":4578,"Name":"办公室","DepartmentCode":"000000007","ParentID":0,"Parent":null,"ParentPath":[0,912],"Status":1,"OrganizationType":0,"LastModifyByID":10423,"Timestamp":"/Date(1588926629613)/","Labels":[],"DepartmentManagerIDs":[],"DepartmentManager":[],"ColorCode":null,"PageCode":0,"BusinessAreaIDs":[1431],"BusinessArea":[],"CreatorID":10423,"CreateTime":"/Date(1587433071679)/","AdditionInfo":null,"DF1":"乐菱","DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null},"OwnerID":10460,"Owner":{"Desc":null,"RealName":null,"AccountCode":null,"Password":"96e79218965eb72c92a549dd5a330112","Email":null,"MobilePhone":null,"Status":0,"UserType":0,"Level":null,"Files":null,"R1":null,"R2":null,"DF1":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null,"AdditionInfo":null,"UpperAccountID":0,"UpperAccount":null,"ResetPassOnNextLogin":false,"ParentPath":[0,10460],"RoleIDs":[982],"Role":[],"Operation":null,"ModuleIDs":null,"DepartmentIDs":[912],"Department":[],"GroupIDs":[],"Group":[],"LabelIDs":[],"SessionInfo":[],"LastActivityTime":"/Date(1589959561683)/","Delegator":null,"ChannelAdmin":null,"UploadFileFolder":null,"TempUploadFileFolder":null,"WorkflowPrivilegeMode":false,"ThemeID":0,"InitPassword":null,"IgnoreLangTranslation":false,"RoundDecimal":2,"CurrencyRoundDecimal":2,"CurrencySumRoundDecimal":2,"RateRoundDecimal":5,"CurrencyComparisonRoundDecimal":2,"ComparisonRoundDecimal":2,"IsOwner":false,"PageCode":0,"CreatorID":10423,"CreateTime":"/Date(1588918988477)/","LastModifyByID":10423,"Timestamp":"/Date(1589959600232)/","CheckReleaseNoteDate":"/Date(1588089600000)/","IsChannelManager":false,"ID":10460,"UserName":"mm","DisplayName":"mm","CompanyID":4578,"Representative":null,"Lang":"zh-CN","TimezoneStr":null,"Timezone":null,"InvisibleMode":false,"CurrentProductTemplateInfo":null},"GovermentProjectRiskIDs":[4],"GovermentProjectRisk":[{"ID":4,"Reference":[],"CompanyID":4578,"Note":"","LastModifyByID":10423,"Timestamp":"/Date(1587627866716)/","AdditionInfo":"","Files":"","DF1":"","DF2":"","DF3":"","DF4":"","DF5":"","DF6":"","DF7":"","DF8":"","DF9":"","DF10":"","CreateTime":"/Date(1587627473245)/","CreatorID":10423,"PageCode":0,"Name":"图纸会审","Risk":"设计阶段以及图纸会审时应注意的问题 设计图纸质量的好与差,直接关系到工程进度的快慢和工程造价的高低,一方面要通过推行限额设计来降低造价","DepartmentIDs":[912],"Department":[]}],"AcceptStatus":3,"CheckDate":"/Date(-62135596800000)/","Result":null,"ExcutionStatus":0}
-     * Error : null
-     * ErrorCode : 0
-     * ResponseStatus : null
-     * EncryptionData : null
-     * AESEncryptionKey : null
-     */
-
+    private Object Blocks;
     private DataBean Data;
     private String Error;
     private int ErrorCode;
     private Object ResponseStatus;
+    private String EncryptionData;
+    private String AESEncryptionKey;
+
+    public Object getBlocks() {
+        return Blocks;
+    }
+
+    public void setBlocks(Object Blocks) {
+        this.Blocks = Blocks;
+    }
 
     public DataBean getData() {
         return Data;
@@ -57,77 +57,56 @@ public class JointTaskInfoBean implements Serializable {
         this.ResponseStatus = ResponseStatus;
     }
 
-    public static class DataBean {
-        /**
-         * __type : CloudEasy.ERP.BL.Model.Government.GovermentJointSupervisionTask, CloudEasy.ERP.BL.Model
-         * ID : 26
-         * Reference : []
-         * CompanyID : 4578
-         * Note : null
-         * LastModifyByID : 10423
-         * Timestamp : /Date(1589777210904)/
-         * AdditionInfo : null
-         * Files : null
-         * DF1 : null
-         * DF2 : null
-         * DF3 : null
-         * DF4 : null
-         * DF5 : null
-         * DF6 : null
-         * DF7 : null
-         * DF8 : null
-         * DF9 : null
-         * DF10 : null
-         * CreateTime : /Date(1589777210904)/
-         * CreatorID : 10423
-         * PageCode : 0
-         * GovermentJointSupervisionSchemeID : 5
-         * GovermentJointSupervisionScheme : {"ID":5,"Code":"0007","Reference":[],"CompanyID":4578,"Note":null,"LastModifyByID":10423,"Timestamp":"/Date(1589770863709)/","AdditionInfo":null,"Files":null,"DF1":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null,"CreateTime":"/Date(1589770727565)/","CreatorID":10423,"PageCode":0,"VirtualFieldsCache":null,"Name":"检查方案A","GovermentProjectID":9,"GovermentProjectRiskIDs":[4],"Status":1,"CheckDate":"/Date(1589904000000)/","DepartmentIDs":[912],"Responsible":"蒲卉子","Contact":"彭雅琪"}
-         * DeparmentID : 912
-         * Deparment : {"ID":912,"CompanyID":4578,"Name":"办公室","DepartmentCode":"000000007","ParentID":0,"Parent":null,"ParentPath":[0,912],"Status":1,"OrganizationType":0,"LastModifyByID":10423,"Timestamp":"/Date(1588926629613)/","Labels":[],"DepartmentManagerIDs":[],"DepartmentManager":[],"ColorCode":null,"PageCode":0,"BusinessAreaIDs":[1431],"BusinessArea":[],"CreatorID":10423,"CreateTime":"/Date(1587433071679)/","AdditionInfo":null,"DF1":"乐菱","DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null}
-         * OwnerID : 10460
-         * Owner : {"Desc":null,"RealName":null,"AccountCode":null,"Password":"96e79218965eb72c92a549dd5a330112","Email":null,"MobilePhone":null,"Status":0,"UserType":0,"Level":null,"Files":null,"R1":null,"R2":null,"DF1":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null,"AdditionInfo":null,"UpperAccountID":0,"UpperAccount":null,"ResetPassOnNextLogin":false,"ParentPath":[0,10460],"RoleIDs":[982],"Role":[],"Operation":null,"ModuleIDs":null,"DepartmentIDs":[912],"Department":[],"GroupIDs":[],"Group":[],"LabelIDs":[],"SessionInfo":[],"LastActivityTime":"/Date(1589959561683)/","Delegator":null,"ChannelAdmin":null,"UploadFileFolder":null,"TempUploadFileFolder":null,"WorkflowPrivilegeMode":false,"ThemeID":0,"InitPassword":null,"IgnoreLangTranslation":false,"RoundDecimal":2,"CurrencyRoundDecimal":2,"CurrencySumRoundDecimal":2,"RateRoundDecimal":5,"CurrencyComparisonRoundDecimal":2,"ComparisonRoundDecimal":2,"IsOwner":false,"PageCode":0,"CreatorID":10423,"CreateTime":"/Date(1588918988477)/","LastModifyByID":10423,"Timestamp":"/Date(1589959600232)/","CheckReleaseNoteDate":"/Date(1588089600000)/","IsChannelManager":false,"ID":10460,"UserName":"mm","DisplayName":"mm","CompanyID":4578,"Representative":null,"Lang":"zh-CN","TimezoneStr":null,"Timezone":null,"InvisibleMode":false,"CurrentProductTemplateInfo":null}
-         * GovermentProjectRiskIDs : [4]
-         * GovermentProjectRisk : [{"ID":4,"Reference":[],"CompanyID":4578,"Note":"","LastModifyByID":10423,"Timestamp":"/Date(1587627866716)/","AdditionInfo":"","Files":"","DF1":"","DF2":"","DF3":"","DF4":"","DF5":"","DF6":"","DF7":"","DF8":"","DF9":"","DF10":"","CreateTime":"/Date(1587627473245)/","CreatorID":10423,"PageCode":0,"Name":"图纸会审","Risk":"设计阶段以及图纸会审时应注意的问题 设计图纸质量的好与差,直接关系到工程进度的快慢和工程造价的高低,一方面要通过推行限额设计来降低造价","DepartmentIDs":[912],"Department":[]}]
-         * AcceptStatus : 3
-         * CheckDate : /Date(-62135596800000)/
-         * Result : null
-         * ExcutionStatus : 0
-         */
+    public String getEncryptionData() {
+        return EncryptionData;
+    }
 
+    public void setEncryptionData(String EncryptionData) {
+        this.EncryptionData = EncryptionData;
+    }
+
+    public String getAESEncryptionKey() {
+        return AESEncryptionKey;
+    }
+
+    public void setAESEncryptionKey(String AESEncryptionKey) {
+        this.AESEncryptionKey = AESEncryptionKey;
+    }
+
+    public static class DataBean {
         private String __type;
-        private int ID;
-        private int CompanyID;
+        private long ID;
+        private long CompanyID;
         private String Note;
         private int LastModifyByID;
         private String Timestamp;
-        private Object AdditionInfo;
-        private Object Files;
-        private Object DF1;
-        private Object DF2;
-        private Object DF3;
-        private Object DF4;
-        private Object DF5;
-        private Object DF6;
-        private Object DF7;
-        private Object DF8;
-        private Object DF9;
-        private Object DF10;
+        private String AdditionInfo;
+        private String Files;
+        private String DF1;
+        private String DF2;
+        private String DF3;
+        private String DF4;
+        private String DF5;
+        private String DF6;
+        private String DF7;
+        private String DF8;
+        private String DF9;
+        private String DF10;
         private String CreateTime;
-        private int CreatorID;
-        private int PageCode;
-        private int GovermentJointSupervisionSchemeID;
+        private long CreatorID;
+        private long PageCode;
+        private long GovermentJointSupervisionSchemeID;
         private GovermentJointSupervisionSchemeBean GovermentJointSupervisionScheme;
-        private int DeparmentID;
+        private long DeparmentID;
         private DeparmentBean Deparment;
-        private int OwnerID;
+        private long OwnerID;
         private OwnerBean Owner;
         private int AcceptStatus;
         private String CheckDate;
         private String Result;
         private int ExcutionStatus;
         private List<?> Reference;
-        private List<Integer> GovermentProjectRiskIDs;
+        private List<Long> GovermentProjectRiskIDs;
         private List<GovermentProjectRiskBean> GovermentProjectRisk;
 
         public String get__type() {
@@ -138,19 +117,19 @@ public class JointTaskInfoBean implements Serializable {
             this.__type = __type;
         }
 
-        public int getID() {
+        public long getID() {
             return ID;
         }
 
-        public void setID(int ID) {
+        public void setID(long ID) {
             this.ID = ID;
         }
 
-        public int getCompanyID() {
+        public long getCompanyID() {
             return CompanyID;
         }
 
-        public void setCompanyID(int CompanyID) {
+        public void setCompanyID(long CompanyID) {
             this.CompanyID = CompanyID;
         }
 
@@ -178,99 +157,99 @@ public class JointTaskInfoBean implements Serializable {
             this.Timestamp = Timestamp;
         }
 
-        public Object getAdditionInfo() {
+        public String getAdditionInfo() {
             return AdditionInfo;
         }
 
-        public void setAdditionInfo(Object AdditionInfo) {
+        public void setAdditionInfo(String AdditionInfo) {
             this.AdditionInfo = AdditionInfo;
         }
 
-        public Object getFiles() {
+        public String getFiles() {
             return Files;
         }
 
-        public void setFiles(Object Files) {
+        public void setFiles(String Files) {
             this.Files = Files;
         }
 
-        public Object getDF1() {
+        public String getDF1() {
             return DF1;
         }
 
-        public void setDF1(Object DF1) {
+        public void setDF1(String DF1) {
             this.DF1 = DF1;
         }
 
-        public Object getDF2() {
+        public String getDF2() {
             return DF2;
         }
 
-        public void setDF2(Object DF2) {
+        public void setDF2(String DF2) {
             this.DF2 = DF2;
         }
 
-        public Object getDF3() {
+        public String getDF3() {
             return DF3;
         }
 
-        public void setDF3(Object DF3) {
+        public void setDF3(String DF3) {
             this.DF3 = DF3;
         }
 
-        public Object getDF4() {
+        public String getDF4() {
             return DF4;
         }
 
-        public void setDF4(Object DF4) {
+        public void setDF4(String DF4) {
             this.DF4 = DF4;
         }
 
-        public Object getDF5() {
+        public String getDF5() {
             return DF5;
         }
 
-        public void setDF5(Object DF5) {
+        public void setDF5(String DF5) {
             this.DF5 = DF5;
         }
 
-        public Object getDF6() {
+        public String getDF6() {
             return DF6;
         }
 
-        public void setDF6(Object DF6) {
+        public void setDF6(String DF6) {
             this.DF6 = DF6;
         }
 
-        public Object getDF7() {
+        public String getDF7() {
             return DF7;
         }
 
-        public void setDF7(Object DF7) {
+        public void setDF7(String DF7) {
             this.DF7 = DF7;
         }
 
-        public Object getDF8() {
+        public String getDF8() {
             return DF8;
         }
 
-        public void setDF8(Object DF8) {
+        public void setDF8(String DF8) {
             this.DF8 = DF8;
         }
 
-        public Object getDF9() {
+        public String getDF9() {
             return DF9;
         }
 
-        public void setDF9(Object DF9) {
+        public void setDF9(String DF9) {
             this.DF9 = DF9;
         }
 
-        public Object getDF10() {
+        public String getDF10() {
             return DF10;
         }
 
-        public void setDF10(Object DF10) {
+        public void setDF10(String DF10) {
             this.DF10 = DF10;
         }
 
@@ -282,27 +261,27 @@ public class JointTaskInfoBean implements Serializable {
             this.CreateTime = CreateTime;
         }
 
-        public int getCreatorID() {
+        public long getCreatorID() {
             return CreatorID;
         }
 
-        public void setCreatorID(int CreatorID) {
+        public void setCreatorID(long CreatorID) {
             this.CreatorID = CreatorID;
         }
 
-        public int getPageCode() {
+        public long getPageCode() {
             return PageCode;
         }
 
-        public void setPageCode(int PageCode) {
+        public void setPageCode(long PageCode) {
             this.PageCode = PageCode;
         }
 
-        public int getGovermentJointSupervisionSchemeID() {
+        public long getGovermentJointSupervisionSchemeID() {
             return GovermentJointSupervisionSchemeID;
         }
 
-        public void setGovermentJointSupervisionSchemeID(int GovermentJointSupervisionSchemeID) {
+        public void setGovermentJointSupervisionSchemeID(long GovermentJointSupervisionSchemeID) {
             this.GovermentJointSupervisionSchemeID = GovermentJointSupervisionSchemeID;
         }
 
@@ -314,11 +293,11 @@ public class JointTaskInfoBean implements Serializable {
             this.GovermentJointSupervisionScheme = GovermentJointSupervisionScheme;
         }
 
-        public int getDeparmentID() {
+        public long getDeparmentID() {
             return DeparmentID;
         }
 
-        public void setDeparmentID(int DeparmentID) {
+        public void setDeparmentID(long DeparmentID) {
             this.DeparmentID = DeparmentID;
         }
 
@@ -330,11 +309,11 @@ public class JointTaskInfoBean implements Serializable {
             this.Deparment = Deparment;
         }
 
-        public int getOwnerID() {
+        public long getOwnerID() {
             return OwnerID;
         }
 
-        public void setOwnerID(int OwnerID) {
+        public void setOwnerID(long OwnerID) {
             this.OwnerID = OwnerID;
         }
 
@@ -386,11 +365,11 @@ public class JointTaskInfoBean implements Serializable {
             this.Reference = Reference;
         }
 
-        public List<Integer> getGovermentProjectRiskIDs() {
+        public List<Long> getGovermentProjectRiskIDs() {
             return GovermentProjectRiskIDs;
         }
 
-        public void setGovermentProjectRiskIDs(List<Integer> GovermentProjectRiskIDs) {
+        public void setGovermentProjectRiskIDs(List<Long> GovermentProjectRiskIDs) {
             this.GovermentProjectRiskIDs = GovermentProjectRiskIDs;
         }
 
@@ -403,77 +382,43 @@ public class JointTaskInfoBean implements Serializable {
         }
 
         public static class GovermentJointSupervisionSchemeBean {
-            /**
-             * ID : 5
-             * Code : 0007
-             * Reference : []
-             * CompanyID : 4578
-             * Note : null
-             * LastModifyByID : 10423
-             * Timestamp : /Date(1589770863709)/
-             * AdditionInfo : null
-             * Files : null
-             * DF1 : null
-             * DF2 : null
-             * DF3 : null
-             * DF4 : null
-             * DF5 : null
-             * DF6 : null
-             * DF7 : null
-             * DF8 : null
-             * DF9 : null
-             * DF10 : null
-             * CreateTime : /Date(1589770727565)/
-             * CreatorID : 10423
-             * PageCode : 0
-             * VirtualFieldsCache : null
-             * Name : 检查方案A
-             * GovermentProjectID : 9
-             * GovermentProjectRiskIDs : [4]
-             * Status : 1
-             * CheckDate : /Date(1589904000000)/
-             * DepartmentIDs : [912]
-             * Responsible : 蒲卉子
-             * Contact : 彭雅琪
-             */
-
-            private int ID;
+            private long ID;
             private String Code;
-            private int CompanyID;
-            private Object Note;
+            private long CompanyID;
+            private String Note;
             private int LastModifyByID;
             private String Timestamp;
-            private Object AdditionInfo;
-            private Object Files;
-            private Object DF1;
-            private Object DF2;
-            private Object DF3;
-            private Object DF4;
-            private Object DF5;
-            private Object DF6;
-            private Object DF7;
-            private Object DF8;
-            private Object DF9;
-            private Object DF10;
+            private String AdditionInfo;
+            private String Files;
+            private String DF1;
+            private String DF2;
+            private String DF3;
+            private String DF4;
+            private String DF5;
+            private String DF6;
+            private String DF7;
+            private String DF8;
+            private String DF9;
+            private String DF10;
             private String CreateTime;
-            private int CreatorID;
-            private int PageCode;
+            private long CreatorID;
+            private long PageCode;
             private Object VirtualFieldsCache;
             private String Name;
-            private int GovermentProjectID;
+            private long GovermentProjectID;
             private int Status;
             private String CheckDate;
             private String Responsible;
             private String Contact;
             private List<?> Reference;
-            private List<Integer> GovermentProjectRiskIDs;
-            private List<Integer> DepartmentIDs;
+            private List<Long> GovermentProjectRiskIDs;
+            private List<Long> DepartmentIDs;
 
-            public int getID() {
+            public long getID() {
                 return ID;
             }
 
-            public void setID(int ID) {
+            public void setID(long ID) {
                 this.ID = ID;
             }
 
@@ -485,19 +430,19 @@ public class JointTaskInfoBean implements Serializable {
                 this.Code = Code;
             }
 
-            public int getCompanyID() {
+            public long getCompanyID() {
                 return CompanyID;
             }
 
-            public void setCompanyID(int CompanyID) {
+            public void setCompanyID(long CompanyID) {
                 this.CompanyID = CompanyID;
             }
 
-            public Object getNote() {
+            public String getNote() {
                 return Note;
             }
 
-            public void setNote(Object Note) {
+            public void setNote(String Note) {
                 this.Note = Note;
             }
 
@@ -517,99 +462,99 @@ public class JointTaskInfoBean implements Serializable {
                 this.Timestamp = Timestamp;
             }
 
-            public Object getAdditionInfo() {
+            public String getAdditionInfo() {
                 return AdditionInfo;
             }
 
-            public void setAdditionInfo(Object AdditionInfo) {
+            public void setAdditionInfo(String AdditionInfo) {
                 this.AdditionInfo = AdditionInfo;
             }
 
-            public Object getFiles() {
+            public String getFiles() {
                 return Files;
             }
 
-            public void setFiles(Object Files) {
+            public void setFiles(String Files) {
                 this.Files = Files;
             }
 
-            public Object getDF1() {
+            public String getDF1() {
                 return DF1;
             }
 
-            public void setDF1(Object DF1) {
+            public void setDF1(String DF1) {
                 this.DF1 = DF1;
             }
 
-            public Object getDF2() {
+            public String getDF2() {
                 return DF2;
             }
 
-            public void setDF2(Object DF2) {
+            public void setDF2(String DF2) {
                 this.DF2 = DF2;
             }
 
-            public Object getDF3() {
+            public String getDF3() {
                 return DF3;
             }
 
-            public void setDF3(Object DF3) {
+            public void setDF3(String DF3) {
                 this.DF3 = DF3;
             }
 
-            public Object getDF4() {
+            public String getDF4() {
                 return DF4;
             }
 
-            public void setDF4(Object DF4) {
+            public void setDF4(String DF4) {
                 this.DF4 = DF4;
             }
 
-            public Object getDF5() {
+            public String getDF5() {
                 return DF5;
             }
 
-            public void setDF5(Object DF5) {
+            public void setDF5(String DF5) {
                 this.DF5 = DF5;
             }
 
-            public Object getDF6() {
+            public String getDF6() {
                 return DF6;
             }
 
-            public void setDF6(Object DF6) {
+            public void setDF6(String DF6) {
                 this.DF6 = DF6;
             }
 
-            public Object getDF7() {
+            public String getDF7() {
                 return DF7;
             }
 
-            public void setDF7(Object DF7) {
+            public void setDF7(String DF7) {
                 this.DF7 = DF7;
             }
 
-            public Object getDF8() {
+            public String getDF8() {
                 return DF8;
             }
 
-            public void setDF8(Object DF8) {
+            public void setDF8(String DF8) {
                 this.DF8 = DF8;
             }
 
-            public Object getDF9() {
+            public String getDF9() {
                 return DF9;
             }
 
-            public void setDF9(Object DF9) {
+            public void setDF9(String DF9) {
                 this.DF9 = DF9;
             }
 
-            public Object getDF10() {
+            public String getDF10() {
                 return DF10;
             }
 
-            public void setDF10(Object DF10) {
+            public void setDF10(String DF10) {
                 this.DF10 = DF10;
             }
 
@@ -621,19 +566,19 @@ public class JointTaskInfoBean implements Serializable {
                 this.CreateTime = CreateTime;
             }
 
-            public int getCreatorID() {
+            public long getCreatorID() {
                 return CreatorID;
             }
 
-            public void setCreatorID(int CreatorID) {
+            public void setCreatorID(long CreatorID) {
                 this.CreatorID = CreatorID;
             }
 
-            public int getPageCode() {
+            public long getPageCode() {
                 return PageCode;
             }
 
-            public void setPageCode(int PageCode) {
+            public void setPageCode(long PageCode) {
                 this.PageCode = PageCode;
             }
 
@@ -653,11 +598,11 @@ public class JointTaskInfoBean implements Serializable {
                 this.Name = Name;
             }
 
-            public int getGovermentProjectID() {
+            public long getGovermentProjectID() {
                 return GovermentProjectID;
             }
 
-            public void setGovermentProjectID(int GovermentProjectID) {
+            public void setGovermentProjectID(long GovermentProjectID) {
                 this.GovermentProjectID = GovermentProjectID;
             }
 
@@ -701,103 +646,69 @@ public class JointTaskInfoBean implements Serializable {
                 this.Reference = Reference;
             }
 
-            public List<Integer> getGovermentProjectRiskIDs() {
+            public List<Long> getGovermentProjectRiskIDs() {
                 return GovermentProjectRiskIDs;
             }
 
-            public void setGovermentProjectRiskIDs(List<Integer> GovermentProjectRiskIDs) {
+            public void setGovermentProjectRiskIDs(List<Long> GovermentProjectRiskIDs) {
                 this.GovermentProjectRiskIDs = GovermentProjectRiskIDs;
             }
 
-            public List<Integer> getDepartmentIDs() {
+            public List<Long> getDepartmentIDs() {
                 return DepartmentIDs;
             }
 
-            public void setDepartmentIDs(List<Integer> DepartmentIDs) {
+            public void setDepartmentIDs(List<Long> DepartmentIDs) {
                 this.DepartmentIDs = DepartmentIDs;
             }
         }
 
         public static class DeparmentBean {
-            /**
-             * ID : 912
-             * CompanyID : 4578
-             * Name : 办公室
-             * DepartmentCode : 000000007
-             * ParentID : 0
-             * Parent : null
-             * ParentPath : [0,912]
-             * Status : 1
-             * OrganizationType : 0
-             * LastModifyByID : 10423
-             * Timestamp : /Date(1588926629613)/
-             * Labels : []
-             * DepartmentManagerIDs : []
-             * DepartmentManager : []
-             * ColorCode : null
-             * PageCode : 0
-             * BusinessAreaIDs : [1431]
-             * BusinessArea : []
-             * CreatorID : 10423
-             * CreateTime : /Date(1587433071679)/
-             * AdditionInfo : null
-             * DF1 : 乐菱
-             * DF2 : null
-             * DF3 : null
-             * DF4 : null
-             * DF5 : null
-             * DF6 : null
-             * DF7 : null
-             * DF8 : null
-             * DF9 : null
-             * DF10 : null
-             */
-
-            private int ID;
-            private int CompanyID;
+            private long ID;
+            private long CompanyID;
             private String Name;
             private String DepartmentCode;
-            private int ParentID;
+            private long ParentID;
             private Object Parent;
             private int Status;
             private int OrganizationType;
             private int LastModifyByID;
             private String Timestamp;
-            private Object ColorCode;
-            private int PageCode;
-            private int CreatorID;
+            private String ColorCode;
+            private long PageCode;
+            private long CreatorID;
             private String CreateTime;
-            private Object AdditionInfo;
+            private String AdditionInfo;
             private String DF1;
-            private Object DF2;
-            private Object DF3;
-            private Object DF4;
-            private Object DF5;
-            private Object DF6;
-            private Object DF7;
-            private Object DF8;
-            private Object DF9;
-            private Object DF10;
+            private String DF2;
+            private String DF3;
+            private String DF4;
+            private String DF5;
+            private String DF6;
+            private String DF7;
+            private String DF8;
+            private String DF9;
+            private String DF10;
             private List<Integer> ParentPath;
             private List<?> Labels;
-            private List<?> DepartmentManagerIDs;
+            private List<Long> DepartmentManagerIDs;
             private List<?> DepartmentManager;
-            private List<Integer> BusinessAreaIDs;
+            private List<Long> BusinessAreaIDs;
             private List<?> BusinessArea;
 
-            public int getID() {
+            public long getID() {
                 return ID;
             }
 
-            public void setID(int ID) {
+            public void setID(long ID) {
                 this.ID = ID;
             }
 
-            public int getCompanyID() {
+            public long getCompanyID() {
                 return CompanyID;
             }
 
-            public void setCompanyID(int CompanyID) {
+            public void setCompanyID(long CompanyID) {
                 this.CompanyID = CompanyID;
             }
 
@@ -817,11 +728,11 @@ public class JointTaskInfoBean implements Serializable {
                 this.DepartmentCode = DepartmentCode;
             }
 
-            public int getParentID() {
+            public long getParentID() {
                 return ParentID;
             }
 
-            public void setParentID(int ParentID) {
+            public void setParentID(long ParentID) {
                 this.ParentID = ParentID;
             }
 
@@ -865,27 +776,27 @@ public class JointTaskInfoBean implements Serializable {
                 this.Timestamp = Timestamp;
             }
 
-            public Object getColorCode() {
+            public String getColorCode() {
                 return ColorCode;
             }
 
-            public void setColorCode(Object ColorCode) {
+            public void setColorCode(String ColorCode) {
                 this.ColorCode = ColorCode;
             }
 
-            public int getPageCode() {
+            public long getPageCode() {
                 return PageCode;
             }
 
-            public void setPageCode(int PageCode) {
+            public void setPageCode(long PageCode) {
                 this.PageCode = PageCode;
             }
 
-            public int getCreatorID() {
+            public long getCreatorID() {
                 return CreatorID;
             }
 
-            public void setCreatorID(int CreatorID) {
+            public void setCreatorID(long CreatorID) {
                 this.CreatorID = CreatorID;
             }
 
@@ -897,11 +808,11 @@ public class JointTaskInfoBean implements Serializable {
                 this.CreateTime = CreateTime;
             }
 
-            public Object getAdditionInfo() {
+            public String getAdditionInfo() {
                 return AdditionInfo;
             }
 
-            public void setAdditionInfo(Object AdditionInfo) {
+            public void setAdditionInfo(String AdditionInfo) {
                 this.AdditionInfo = AdditionInfo;
             }
 
@@ -913,75 +824,75 @@ public class JointTaskInfoBean implements Serializable {
                 this.DF1 = DF1;
             }
 
-            public Object getDF2() {
+            public String getDF2() {
                 return DF2;
             }
 
-            public void setDF2(Object DF2) {
+            public void setDF2(String DF2) {
                 this.DF2 = DF2;
             }
 
-            public Object getDF3() {
+            public String getDF3() {
                 return DF3;
             }
 
-            public void setDF3(Object DF3) {
+            public void setDF3(String DF3) {
                 this.DF3 = DF3;
             }
 
-            public Object getDF4() {
+            public String getDF4() {
                 return DF4;
             }
 
-            public void setDF4(Object DF4) {
+            public void setDF4(String DF4) {
                 this.DF4 = DF4;
             }
 
-            public Object getDF5() {
+            public String getDF5() {
                 return DF5;
             }
 
-            public void setDF5(Object DF5) {
+            public void setDF5(String DF5) {
                 this.DF5 = DF5;
             }
 
-            public Object getDF6() {
+            public String getDF6() {
                 return DF6;
             }
 
-            public void setDF6(Object DF6) {
+            public void setDF6(String DF6) {
                 this.DF6 = DF6;
             }
 
-            public Object getDF7() {
+            public String getDF7() {
                 return DF7;
             }
 
-            public void setDF7(Object DF7) {
+            public void setDF7(String DF7) {
                 this.DF7 = DF7;
             }
 
-            public Object getDF8() {
+            public String getDF8() {
                 return DF8;
             }
 
-            public void setDF8(Object DF8) {
+            public void setDF8(String DF8) {
                 this.DF8 = DF8;
             }
 
-            public Object getDF9() {
+            public String getDF9() {
                 return DF9;
             }
 
-            public void setDF9(Object DF9) {
+            public void setDF9(String DF9) {
                 this.DF9 = DF9;
             }
 
-            public Object getDF10() {
+            public String getDF10() {
                 return DF10;
             }
 
-            public void setDF10(Object DF10) {
+            public void setDF10(String DF10) {
                 this.DF10 = DF10;
             }
 
@@ -1001,11 +912,11 @@ public class JointTaskInfoBean implements Serializable {
                 this.Labels = Labels;
             }
 
-            public List<?> getDepartmentManagerIDs() {
+            public List<Long> getDepartmentManagerIDs() {
                 return DepartmentManagerIDs;
             }
 
-            public void setDepartmentManagerIDs(List<?> DepartmentManagerIDs) {
+            public void setDepartmentManagerIDs(List<Long> DepartmentManagerIDs) {
                 this.DepartmentManagerIDs = DepartmentManagerIDs;
             }
 
@@ -1017,11 +928,11 @@ public class JointTaskInfoBean implements Serializable {
                 this.DepartmentManager = DepartmentManager;
             }
 
-            public List<Integer> getBusinessAreaIDs() {
+            public List<Long> getBusinessAreaIDs() {
                 return BusinessAreaIDs;
             }
 
-            public void setBusinessAreaIDs(List<Integer> BusinessAreaIDs) {
+            public void setBusinessAreaIDs(List<Long> BusinessAreaIDs) {
                 this.BusinessAreaIDs = BusinessAreaIDs;
             }
 
@@ -1073,7 +984,7 @@ public class JointTaskInfoBean implements Serializable {
              * Group : []
              * LabelIDs : []
              * SessionInfo : []
-             * LastActivityTime : /Date(1589959561683)/
+             * LastActivityTime : /Date(1590121270653)/
              * Delegator : null
              * ChannelAdmin : null
              * UploadFileFolder : null
@@ -1093,7 +1004,7 @@ public class JointTaskInfoBean implements Serializable {
              * CreatorID : 10423
              * CreateTime : /Date(1588918988477)/
              * LastModifyByID : 10423
-             * Timestamp : /Date(1589959600232)/
+             * Timestamp : /Date(1590121311018)/
              * CheckReleaseNoteDate : /Date(1588089600000)/
              * IsChannelManager : false
              * ID : 10460
