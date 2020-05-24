@@ -45,21 +45,38 @@ class ExeJointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recyc
             } else {
                 "等待"
             }
-            holder.value5.text = if (data.excutionStatus == JointTaskManager.ExcutionStatus_Complete) {
-                "完成"
-            } else {
-                "等待"
-            }
 
-            holder.btn1.setOnClickListener {
-                // 跳转到执行项目检查任务的详情页
-                val intent = Intent()
-                val activity = SysUtils.getActivity(context)
-                activity?.let { parentActivity ->
-                    intent.setClass(parentActivity, JointTaskInfoActivity::class.java)
-                    intent.putExtra(JointTaskInfoActivity.JOINT_TASK_ID, data.id)
-                    intent.putExtra(JointTaskInfoActivity.JOINT_TASK_TYPE, JointTaskInfoActivity.JOINT_TASK_TYPE_EXECUTE)
-                    parentActivity.startActivity(intent)
+            // 看看是否已完成
+            val executeState = data.excutionStatus
+            if (executeState == JointTaskManager.ExcutionStatus_Complete) {
+                holder.value5.text = "完成"
+                holder.btn1.visibility = View.GONE
+                holder.itemView.setOnClickListener {
+                    // 跳转到执行项目检查任务的详情页
+                    val intent = Intent()
+                    val activity = SysUtils.getActivity(context)
+                    activity?.let { parentActivity ->
+                        intent.setClass(parentActivity, JointTaskInfoActivity::class.java)
+                        intent.putExtra(JointTaskInfoActivity.JOINT_TASK_ID, data.id)
+                        intent.putExtra(JointTaskInfoActivity.JOINT_TASK_TYPE, JointTaskInfoActivity.JOINT_TASK_TYPE_EXECUTE)
+                        parentActivity.startActivity(intent)
+                    }
+                }
+                holder.btn1.setOnClickListener(null)
+            } else {
+                holder.value5.text = "等待"
+                holder.btn1.visibility = View.VISIBLE
+                holder.itemView.setOnClickListener(null)
+                holder.btn1.setOnClickListener {
+                    // 跳转到执行项目检查任务的详情页
+                    val intent = Intent()
+                    val activity = SysUtils.getActivity(context)
+                    activity?.let { parentActivity ->
+                        intent.setClass(parentActivity, JointTaskInfoActivity::class.java)
+                        intent.putExtra(JointTaskInfoActivity.JOINT_TASK_ID, data.id)
+                        intent.putExtra(JointTaskInfoActivity.JOINT_TASK_TYPE, JointTaskInfoActivity.JOINT_TASK_TYPE_EXECUTE)
+                        parentActivity.startActivity(intent)
+                    }
                 }
             }
         }
