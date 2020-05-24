@@ -26,12 +26,19 @@ class JointTaskInfoActivity : BaseActivity() {
 
     companion object {
         const val JOINT_TASK_ID = "jointTaskId"
+
         // 判断是否已经领取
         const val JOINT_TASK_STATE = "jointTaskState"
+
         // 区分是领取的详情还是执行时的详情
         const val JOINT_TASK_TYPE = "jointTaskType"
         const val JOINT_TASK_TYPE_RECEIVE = 10
         const val JOINT_TASK_TYPE_EXECUTE = 11
+
+        // 判断领取的任务中，是待执行还是已执行的
+        const val JOINT_TASK_EXE_STATE = "jointTaskExeState"
+        const val JOINT_TASK_EXE_STATE_PENDING = 14
+        const val JOINT_TASK_EXE_STATE_COMPLETE = 15
     }
 
     private val HANDLER_REFRESH = 0x501
@@ -40,6 +47,7 @@ class JointTaskInfoActivity : BaseActivity() {
     private var mId = 0
     private var mInfoType = JOINT_TASK_TYPE_RECEIVE
     private var mTaskState = JointTaskListAdapter.TASK_HAS_NOT_TAKE
+    private var mExeTaskState = JOINT_TASK_EXE_STATE_PENDING
 
     private var mJointTaskBean: JointTaskInfoBean? = null
 
@@ -60,7 +68,9 @@ class JointTaskInfoActivity : BaseActivity() {
                     initDataItems(data)
                     mJointTaskBean = data
                     mAdapter?.notifyDataChange(mDatas)
-                    joint_info_bottom_layout.visibility = View.VISIBLE
+                    if (mExeTaskState != JOINT_TASK_EXE_STATE_COMPLETE) {
+                        joint_info_bottom_layout.visibility = View.VISIBLE
+                    }
                 }
             }
             HANDLER_START_JOINT_TASK_SUCCESS -> {
@@ -73,6 +83,7 @@ class JointTaskInfoActivity : BaseActivity() {
         mId = intent.getIntExtra(JOINT_TASK_ID, 0)
         mTaskState = intent.getIntExtra(JOINT_TASK_STATE, JointTaskListAdapter.TASK_HAS_NOT_TAKE)
         mInfoType = intent.getIntExtra(JOINT_TASK_TYPE, JOINT_TASK_TYPE_RECEIVE)
+        mExeTaskState = intent.getIntExtra(JOINT_TASK_EXE_STATE, JOINT_TASK_EXE_STATE_PENDING)
     }
 
     override fun initViews() {
@@ -99,9 +110,15 @@ class JointTaskInfoActivity : BaseActivity() {
                 joint_info_back.text = "退回"
             }
             JOINT_TASK_TYPE_EXECUTE -> {
+                // 执行的任务里，也分未执行和已经执行的了
                 title_name.text = "执行项目检查任务详情"
-                joint_info_back.text = "其他执法"
-                joint_info_get.text = "确认"
+                if (mExeTaskState == JOINT_TASK_EXE_STATE_COMPLETE) {
+                    joint_info_bottom_layout.visibility = View.GONE
+                } else {
+                    joint_info_bottom_layout.visibility = View.VISIBLE
+                    joint_info_back.text = "其他执法"
+                    joint_info_get.text = "确认"
+                }
             }
         }
 
@@ -205,9 +222,9 @@ class JointTaskInfoActivity : BaseActivity() {
         when (mInfoType) {
             JOINT_TASK_TYPE_RECEIVE -> {
                 mDatas.add(JointTaskInfoItem(label = "联合监管检查方案", value = infoBean.data?.govermentJointSupervisionScheme?.name
-                    ?: ""))
+                        ?: ""))
                 mDatas.add(JointTaskInfoItem(label = "部门", value = infoBean.data?.deparment?.name
-                    ?: ""))
+                        ?: ""))
 
                 // 检查阶段是个数组
                 val states = infoBean.data?.govermentProjectRisk
@@ -234,9 +251,9 @@ class JointTaskInfoActivity : BaseActivity() {
             }
             JOINT_TASK_TYPE_EXECUTE -> {
                 mDatas.add(JointTaskInfoItem(label = "联合监管检查方案", value = infoBean.data?.govermentJointSupervisionScheme?.name
-                    ?: ""))
+                        ?: ""))
                 mDatas.add(JointTaskInfoItem(label = "部门", value = infoBean.data?.deparment?.name
-                    ?: ""))
+                        ?: ""))
 
                 // 检查阶段是个数组
                 val states = infoBean.data?.govermentProjectRisk
@@ -262,7 +279,7 @@ class JointTaskInfoActivity : BaseActivity() {
                 }
                 // 执法人
                 mDatas.add(JointTaskInfoItem(label = "执法人", value = infoBean.data?.owner?.userName
-                    ?: ""))
+                        ?: ""))
                 mDatas.add(JointTaskInfoItem(label = "执法时间", value = SysUtils.getDateTimestamp(infoBean.data?.checkDate)))
                 mDatas.add(JointTaskInfoItem(label = "检查结果", value = infoBean.data?.result ?: ""))
                 mDatas.add(JointTaskInfoItem(label = "备注", value = infoBean.data?.note ?: ""))

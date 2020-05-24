@@ -38,7 +38,6 @@ class ExeJointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recyc
             holder as ExeJointTaskItemHolder
 
             holder.value1.text = data.govermentJointSupervisionScheme?.name ?: ""
-            holder.value2.text = SysUtils.getDateTimestamp(data.checkDate)
             holder.value3.text = data.result ?: ""
             holder.value4.text = if (data.acceptStatus == JointTaskManager.AcceptStatusApproved) {
                 "通过"
@@ -50,7 +49,12 @@ class ExeJointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recyc
             val executeState = data.excutionStatus
             if (executeState == JointTaskManager.ExcutionStatus_Complete) {
                 holder.value5.text = "完成"
+                holder.value2.text = "执行时间"
+                holder.value2.text = SysUtils.getDateTimestamp(data.checkDate)
                 holder.btn1.visibility = View.GONE
+                holder.layout3.visibility = View.GONE
+                holder.layout4.visibility = View.GONE
+                holder.layout5.visibility = View.GONE
                 holder.itemView.setOnClickListener {
                     // 跳转到执行项目检查任务的详情页
                     val intent = Intent()
@@ -59,13 +63,19 @@ class ExeJointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recyc
                         intent.setClass(parentActivity, JointTaskInfoActivity::class.java)
                         intent.putExtra(JointTaskInfoActivity.JOINT_TASK_ID, data.id)
                         intent.putExtra(JointTaskInfoActivity.JOINT_TASK_TYPE, JointTaskInfoActivity.JOINT_TASK_TYPE_EXECUTE)
+                        intent.putExtra(JointTaskInfoActivity.JOINT_TASK_EXE_STATE, JointTaskInfoActivity.JOINT_TASK_EXE_STATE_COMPLETE)
                         parentActivity.startActivity(intent)
                     }
                 }
                 holder.btn1.setOnClickListener(null)
             } else {
                 holder.value5.text = "等待"
+                holder.value2.text = "检查时间"
+                holder.value2.text = SysUtils.getDateTimestamp(data.checkDate)
                 holder.btn1.visibility = View.VISIBLE
+                holder.layout3.visibility = View.VISIBLE
+                holder.layout4.visibility = View.VISIBLE
+                holder.layout5.visibility = View.VISIBLE
                 holder.itemView.setOnClickListener(null)
                 holder.btn1.setOnClickListener {
                     // 跳转到执行项目检查任务的详情页
@@ -75,6 +85,7 @@ class ExeJointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recyc
                         intent.setClass(parentActivity, JointTaskInfoActivity::class.java)
                         intent.putExtra(JointTaskInfoActivity.JOINT_TASK_ID, data.id)
                         intent.putExtra(JointTaskInfoActivity.JOINT_TASK_TYPE, JointTaskInfoActivity.JOINT_TASK_TYPE_EXECUTE)
+                        intent.putExtra(JointTaskInfoActivity.JOINT_TASK_EXE_STATE, JointTaskInfoActivity.JOINT_TASK_EXE_STATE_PENDING)
                         parentActivity.startActivity(intent)
                     }
                 }
@@ -111,6 +122,10 @@ class ExeJointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recyc
         val value3 = itemView.find<TextView>(R.id.exe_joint_3_value)
         val value4 = itemView.find<TextView>(R.id.exe_joint_4_value)
         val value5 = itemView.find<TextView>(R.id.exe_joint_5_value)
+
+        val layout3 = itemView.find<ViewGroup>(R.id.exe_joint_layout_3)
+        val layout4 = itemView.find<ViewGroup>(R.id.exe_joint_layout_4)
+        val layout5 = itemView.find<ViewGroup>(R.id.exe_joint_layout_5)
         val btn1 = itemView.find<TextView>(R.id.exe_joint_btn1)
     }
 }
