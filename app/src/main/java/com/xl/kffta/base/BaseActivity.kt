@@ -6,8 +6,14 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.xl.kffta.R
+import com.xl.kffta.widget.LoadingView
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 import java.lang.ref.WeakReference
 
@@ -18,6 +24,9 @@ import java.lang.ref.WeakReference
  */
 abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
     protected val mHandler: MyHandler = MyHandler(this)
+    protected val mLoadingView by lazy {
+        find<LoadingView>(R.id.main_loading)
+    }
 
     companion object {
         /**
@@ -42,7 +51,11 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initStateBar()
-        setContentView(getLayoutId())
+        setContentView(R.layout.activity_main_root)
+        val mainView = find<FrameLayout>(R.id.main_view)
+        val contentView = LayoutInflater.from(this).inflate(getLayoutId(), null)
+        contentView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        mainView.addView(contentView)
         initParams()
         initViews()
         initListener()
@@ -101,5 +114,28 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
+    fun showProgress() {
+        runOnUiThread {
+            try {
+                mLoadingView?.let {
+                    mLoadingView.showLoading()
+                    // 为了防止出现这个loading界面，无法操作别的部分，6s后自动小时
+                    mHandler.postDelayed({
+                        hideProgress()
+                    }, 6000)
+                }
+            } catch (e: Exception) {
+            }
+        }
+    }
+
+    fun hideProgress() {
+        runOnUiThread {
+            try {
+                mLoadingView?.hide()
+            } catch (e: Exception) {
+            }
+        }
+    }
 
 }

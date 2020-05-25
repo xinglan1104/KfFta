@@ -210,4 +210,11 @@ object TaskNetManager {
         }
         NetManager.manager.sendRequest(requestBuilder)
     }
+
+    /**
+     * 发送首页的数量的请求
+     */
+    fun getMainCount() {
+
+    }
 }
