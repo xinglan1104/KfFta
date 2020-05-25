@@ -12,6 +12,7 @@ import com.xl.kffta.model.TakeOrderBean
 import com.xl.kffta.net.taskmanager.TaskNetManager
 import com.xl.kffta.ui.activity.receivetask.TaskInfoDetailActivity
 import com.xl.kffta.util.SysUtils
+import com.xl.kffta.viewholder.NoDataViewHolder
 import org.jetbrains.anko.find
 
 /**
@@ -21,16 +22,39 @@ import org.jetbrains.anko.find
  */
 class ExeTaskListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mDatas = ArrayList<TakeOrderBean.DataBean>()
+    private var mHasNotified = false
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ExeTaskItemHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_exe_list, parent, false))
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_exe_list, parent, false)
+        val noDataView = LayoutInflater.from(parent.context).inflate(R.layout.item_no_data, parent, false)
+        return if (viewType == 0) {
+            NoDataViewHolder(noDataView)
+        } else {
+            ExeTaskItemHolder(view)
+        }
     }
 
     override fun getItemCount(): Int {
-        return mDatas.size
+        return if (mDatas.size <= 0) {
+            1
+        } else {
+            mDatas.size
+        }
+    }
+
+    /**
+     * 没有数据返回0，有数据返回1
+     */
+    override fun getItemViewType(position: Int): Int {
+        return if (mDatas.size <= 0) {
+            0
+        } else {
+            1
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (position < mDatas.size) {
+        if (position < mDatas.size && getItemViewType(position) == 1) {
             val dataBean = mDatas[position]
             val exeHolder = holder as ExeTaskItemHolder
             exeHolder.caseType.text = dataBean.business?.businessName ?: ""
@@ -81,6 +105,12 @@ class ExeTaskListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerVi
                     parentActivity.startActivity(intent)
                 }
             }
+        } else if (getItemViewType(position) == 0) {
+            holder.itemView.visibility = if (mHasNotified) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         }
     }
 
@@ -93,6 +123,7 @@ class ExeTaskListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerVi
             mDatas.clear()
             notifyDataSetChanged()
         }
+        mHasNotified = true
     }
 
 

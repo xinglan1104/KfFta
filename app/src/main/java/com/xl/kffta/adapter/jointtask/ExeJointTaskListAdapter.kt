@@ -12,28 +12,48 @@ import com.xl.kffta.model.JointTaskBean
 import com.xl.kffta.net.taskmanager.JointTaskManager
 import com.xl.kffta.ui.activity.receivejointtask.JointTaskInfoActivity
 import com.xl.kffta.util.SysUtils
+import com.xl.kffta.viewholder.NoDataViewHolder
 import org.jetbrains.anko.find
 
 /**
  * @author created by zhanghaochen
  * @date 2020-05-22 13:55
- * 描述：可执行项目检查任务的列表
+ * 描述：可执行或已执行项目检查任务的列表
  */
 class ExeJointTaskListAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
+    var mHasNotified = false
     val mDatas = ArrayList<JointTaskBean.DataBean>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_exe_joint_holder, parent, false)
-
-        return ExeJointTaskItemHolder(view)
+        val noDataView = LayoutInflater.from(parent.context).inflate(R.layout.item_no_data, parent, false)
+        return if (viewType == 0) {
+            NoDataViewHolder(noDataView)
+        } else {
+            ExeJointTaskItemHolder(view)
+        }
     }
 
     override fun getItemCount(): Int {
-        return mDatas.size
+        return if (mDatas.size <= 0) {
+            1
+        } else {
+            mDatas.size
+        }
+    }
+
+    /**
+     * 没有数据返回0，有数据返回1
+     */
+    override fun getItemViewType(position: Int): Int {
+        return if (mDatas.size <= 0) {
+            0
+        } else {
+            1
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (position < mDatas.size) {
+        if (position < mDatas.size && getItemViewType(position) == 1) {
             val data = mDatas[position]
             holder as ExeJointTaskItemHolder
 
@@ -90,6 +110,12 @@ class ExeJointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recyc
                     }
                 }
             }
+        } else if (getItemViewType(position) == 0) {
+            holder.itemView.visibility = if (mHasNotified) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         }
     }
 
@@ -106,6 +132,7 @@ class ExeJointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recyc
             mDatas.clear()
             notifyDataSetChanged()
         }
+        mHasNotified = true
     }
 
     fun notifyDataChangeLoadingMore(datas: ArrayList<JointTaskBean.DataBean>) {
