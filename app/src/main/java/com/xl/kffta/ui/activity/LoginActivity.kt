@@ -44,6 +44,7 @@ class LoginActivity : BaseActivity(), ILoginView {
                     myToast("请输入密码")
                 }
                 else -> {
+                    showProgress(showText = false, colorRes = R.color.login_bg_enable)
                     mPresenter?.loginRequest(user_name_et.text.toString().trim(), user_pwd_et.text.toString().trim(), "kaifeng")
                 }
             }
@@ -105,6 +106,7 @@ class LoginActivity : BaseActivity(), ILoginView {
 
     override fun loginSuccess() {
         runOnUiThread {
+            hideProgress()
             // 登录成功
             startActivity<MainActivity>()
             finish()
@@ -112,6 +114,7 @@ class LoginActivity : BaseActivity(), ILoginView {
     }
 
     override fun loginFail(errMsg: String) {
+        hideProgress()
         myToast(errMsg)
     }
 

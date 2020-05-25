@@ -3,10 +3,7 @@ package com.xl.kffta.net.taskmanager
 import android.text.TextUtils
 import android.util.Log
 import com.google.gson.Gson
-import com.xl.kffta.model.CheckListBean
-import com.xl.kffta.model.SimpleResponseBean
-import com.xl.kffta.model.TakeOrderBean
-import com.xl.kffta.model.TaskInfoBean
+import com.xl.kffta.model.*
 import com.xl.kffta.net.NetManager
 import com.xl.kffta.net.RequestBuilder
 import com.xl.kffta.net.ResponseCallback
@@ -214,7 +211,41 @@ object TaskNetManager {
     /**
      * 发送首页的数量的请求
      */
-    fun getMainCount() {
+    fun getMainCount(callback: ResponseObjectCallback) {
+        val requestBuilder = RequestBuilder()
+        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryTaskCount?format=json"
+        val paramsMap = hashMapOf<String, String>()
+        paramsMap["Token"] = ApplicationParams.TOKEN
+        requestBuilder.addParams(paramsMap)
+        requestBuilder.callback = object : ResponseCallback {
+            override fun onError(msg: String?) {
+                callback.onError(msg ?: "执行出错")
+            }
 
+            override fun onSuccess(jsonString: String) {
+                if (!TextUtils.isEmpty(jsonString)) {
+                    // 直接把Json转换成javaBean
+                    try {
+                        val countBean: QueryTaskCountBean? = Gson().fromJson(jsonString, QueryTaskCountBean::class.java)
+                        if (countBean == null) {
+                            callback.onError("解析错误")
+                        } else {
+                            // 获取ErrorCode,<0时错误
+                            if (countBean.errorCode < 0) {
+                                callback.onError(countBean.error ?: "解析错误")
+                            } else {
+                                // success
+                                callback.onSuccess(countBean)
+                            }
+                        }
+                    } catch (e: Exception) {
+                        callback.onError(e.message ?: "解析错误")
+                    }
+                } else {
+                    callback.onError("请求返回为空")
+                }
+            }
+        }
+        NetManager.manager.sendRequest(requestBuilder)
     }
 }

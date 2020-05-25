@@ -2,11 +2,15 @@ package com.xl.kffta.ui.activity;
 
 import android.content.Intent;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.xl.kffta.R;
 import com.xl.kffta.base.BaseActivity;
+import com.xl.kffta.model.QueryTaskCountBean;
+import com.xl.kffta.net.ResponseObjectCallback;
+import com.xl.kffta.net.taskmanager.TaskNetManager;
 import com.xl.kffta.ui.activity.executejointtask.ExecuteJointTaskListActivity;
 import com.xl.kffta.ui.activity.executetask.ExecuteListActivity;
 import com.xl.kffta.ui.activity.receivejointtask.JointTaskListActivity;
@@ -22,6 +26,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private boolean mForceQuit = false;
+
+    private static final int HANDLER_REFRESH_COUNT = 0x801;
 
     @Override
     protected void initViews() {
@@ -46,7 +52,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void handleMessage(@NotNull Message message) {
+        switch (message.what) {
+            case HANDLER_REFRESH_COUNT:
+                if (message.obj instanceof QueryTaskCountBean) {
+                    QueryTaskCountBean bean = (QueryTaskCountBean) message.obj;
 
+                    ((TextView) findViewById(R.id.main_count_1)).setText(String.valueOf(bean.getPendingClaimedEnforcementTaskCount()));
+                    ((TextView) findViewById(R.id.main_count_2)).setText(String.valueOf(bean.getPendingExcutedEnforcementTaskCount()));
+                    ((TextView) findViewById(R.id.main_count_3)).setText(String.valueOf(bean.getPendingClaimedProjectTaskCount()));
+                    ((TextView) findViewById(R.id.main_count_4)).setText(String.valueOf(bean.getPendingExcutedProjectTaskCount()));
+                    ((TextView) findViewById(R.id.main_count_5)).setText(String.valueOf(bean.getExcutedEnforcementTaskCount()));
+                    ((TextView) findViewById(R.id.main_count_6)).setText(String.valueOf(bean.getExcutedProjectTaskCount()));
+                }
+
+                mHandler.removeMessages(HANDLER_REFRESH_COUNT);
+                break;
+            default:
+                break;
+        }
     }
 
     @NotNull
@@ -81,6 +104,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             intent.putExtra(ExecuteJointTaskListActivity.JOINT_EXE_TASK_STATE, ExecuteJointTaskListActivity.JOINT_EXE_TASK_OVER);
             startActivity(new Intent(intent));
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sendRequest();
+    }
+
+    /**
+     * 请求主页几个列表的数量
+     */
+    private void sendRequest() {
+        TaskNetManager.INSTANCE.getMainCount(new ResponseObjectCallback() {
+            @Override
+            public void onError(@NotNull String msg) {
+                Log.e("zhc", "请求数量失败：" + msg);
+            }
+
+            @Override
+            public void onSuccess(@NotNull Object obj) {
+                mHandler.obtainMessage(HANDLER_REFRESH_COUNT, obj).sendToTarget();
+            }
+        });
     }
 
     @Override

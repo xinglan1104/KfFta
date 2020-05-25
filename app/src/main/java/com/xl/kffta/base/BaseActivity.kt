@@ -9,6 +9,7 @@ import android.os.Message
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import com.xl.kffta.R
 import com.xl.kffta.widget.LoadingView
@@ -23,6 +24,7 @@ import java.lang.ref.WeakReference
  * 描述：所有activity的基类
  */
 abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
+    @JvmField
     protected val mHandler: MyHandler = MyHandler(this)
     protected val mLoadingView by lazy {
         find<LoadingView>(R.id.main_loading)
@@ -114,15 +116,15 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
-    fun showProgress() {
+    fun showProgress(showText: Boolean = true, @ColorRes colorRes: Int = R.color.btn_common_color) {
         runOnUiThread {
             try {
                 mLoadingView?.let {
-                    mLoadingView.showLoading()
-                    // 为了防止出现这个loading界面，无法操作别的部分，6s后自动小时
+                    mLoadingView.showLoading(showText, colorRes)
+                    // 为了防止出现这个loading界面，无法操作别的部分，16s后自动小时
                     mHandler.postDelayed({
                         hideProgress()
-                    }, 6000)
+                    }, 16000)
                 }
             } catch (e: Exception) {
             }
