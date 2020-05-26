@@ -231,7 +231,7 @@ object JointTaskManager {
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentJointSupervisionTask"
         paramsMap["PageCode"] = "0"
         paramsMap["IsUpdateReference"] = "false"
-        paramsMap["Data"] = Gson().toJson(jointTaskBean)
+        paramsMap["Data"] = Gson().toJson(jointTaskBean.data)
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {

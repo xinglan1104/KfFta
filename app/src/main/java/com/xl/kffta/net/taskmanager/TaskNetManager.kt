@@ -174,7 +174,7 @@ object TaskNetManager {
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask"
         paramsMap["PageCode"] = "0"
         paramsMap["IsUpdateReference"] = "false"
-        paramsMap["Data"] = Gson().toJson(taskInfoBean)
+        paramsMap["Data"] = Gson().toJson(taskInfoBean.data)
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {

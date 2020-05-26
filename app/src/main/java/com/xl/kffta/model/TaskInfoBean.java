@@ -65,7 +65,7 @@ public class TaskInfoBean implements Serializable {
         this.AESEncryptionKey = AESEncryptionKey;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         private String __type;
         private long ID;
         private long CompanyID;
