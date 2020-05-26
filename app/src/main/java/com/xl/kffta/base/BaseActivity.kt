@@ -116,7 +116,7 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
-    fun showProgress(showText: Boolean = true, @ColorRes colorRes: Int = R.color.btn_common_color) {
+    fun showProgress(showText: Boolean = false, @ColorRes colorRes: Int = R.color.btn_common_color) {
         runOnUiThread {
             try {
                 mLoadingView?.let {

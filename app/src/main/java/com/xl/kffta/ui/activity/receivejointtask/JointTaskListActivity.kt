@@ -74,13 +74,16 @@ class JointTaskListActivity : BaseActivity() {
     }
 
     private fun sendRequest() {
+        showProgress()
         JointTaskManager.queryJointTask(mPageIndex, mPageSize, object : ResponseObjectCallback {
             override fun onError(msg: String) {
                 myToast(msg)
+                hideProgress()
             }
 
             override fun onSuccess(obj: Any) {
                 mHandler.obtainMessage(HANDLER_REFRESH, obj).sendToTarget()
+                hideProgress()
             }
 
         })

@@ -115,15 +115,12 @@ class ExeTaskListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerVi
     }
 
     fun notifyDataChange(datas: ArrayList<TakeOrderBean.DataBean>) {
+        mDatas.clear()
         if (!datas.isNullOrEmpty()) {
-            mDatas.clear()
             mDatas.addAll(datas)
-            notifyDataSetChanged()
-        } else {
-            mDatas.clear()
-            notifyDataSetChanged()
         }
         mHasNotified = true
+        notifyDataSetChanged()
     }
 
 

@@ -116,6 +116,7 @@ class ExecuteListActivity : BaseActivity() {
      * 发送请求
      */
     private fun sendRequest() {
+        showProgress()
         TaskNetManager.queryExecuteTaskList(pageCode = 0, pageSize = 50, searchStr = exe_list_search?.text.toString()
                 ?: "", excutionStatus = if (mExeTaskType == EXE_TASK_PENDING) {
             "0"
@@ -124,10 +125,12 @@ class ExecuteListActivity : BaseActivity() {
         }, callback = object : ResponseObjectCallback {
             override fun onError(msg: String) {
                 myToast(msg)
+                hideProgress()
             }
 
             override fun onSuccess(obj: Any) {
                 mHandler.obtainMessage(HANDLER_REFRESH_ALL, obj).sendToTarget()
+                hideProgress()
             }
 
         })

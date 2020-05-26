@@ -28,6 +28,16 @@ class TakeOrderAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView
     private val mDatas = ArrayList<TakeOrderBean.DataBean>()
     private var mHasNotified = false
 
+    public interface TakeOrRefuseSuccessListener {
+        fun onTakeOrRefuseSuccess()
+    }
+
+    private var takeOrRefuseSuccessListener: TakeOrRefuseSuccessListener? = null
+
+    public fun setTakeOrRefuseSuccessListener(listener: TakeOrRefuseSuccessListener) {
+        this.takeOrRefuseSuccessListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_takeorder, parent, false)
         val noDataView = LayoutInflater.from(parent.context).inflate(R.layout.item_no_data, parent, false)
@@ -82,6 +92,9 @@ class TakeOrderAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView
                                             Toast.makeText(context, "领取成功", Toast.LENGTH_SHORT).show()
                                             it.ownerIDs.add(ApplicationParams.USER_ID)
                                             notifyItemChanged(position)
+
+                                            // 成功了，需要通知主界面刷新
+                                            takeOrRefuseSuccessListener?.onTakeOrRefuseSuccess()
                                         }
                                     }
 
@@ -104,6 +117,8 @@ class TakeOrderAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView
                                     override fun onSuccess(obj: Any) {
                                         context.runOnUiThread {
                                             Toast.makeText(context, "退回成功", Toast.LENGTH_SHORT).show()
+                                            // 成功了，需要通知主界面刷新
+                                            takeOrRefuseSuccessListener?.onTakeOrRefuseSuccess()
                                         }
                                     }
 
@@ -136,11 +151,11 @@ class TakeOrderAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView
     }
 
     fun notifyDataChange(takeOrderBean: TakeOrderBean) {
+        mDatas.clear()
         if (!takeOrderBean.data.isNullOrEmpty()) {
-            mDatas.clear()
             mDatas.addAll(takeOrderBean.data)
-            notifyDataSetChanged()
         }
         mHasNotified = true
+        notifyDataSetChanged()
     }
 }

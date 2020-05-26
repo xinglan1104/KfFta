@@ -53,6 +53,12 @@ class TakeOrderActivity : BaseActivity(), ITakeOrderView {
         }
         mRecycler.layoutManager = layoutManager
         mRecycler.adapter = mAdapter
+        mAdapter.setTakeOrRefuseSuccessListener(object : TakeOrderAdapter.TakeOrRefuseSuccessListener {
+            override fun onTakeOrRefuseSuccess() {
+                sendRequest()
+            }
+
+        })
 
         // todo 先禁用刷新功能
         take_refresh_layout.setEnableRefresh(false)
@@ -66,7 +72,12 @@ class TakeOrderActivity : BaseActivity(), ITakeOrderView {
     override fun onResume() {
         super.onResume()
         mPresenter?.bindView(this)
+        sendRequest()
+    }
+
+    private fun sendRequest() {
         mPresenter?.queryTask("0", "0", "50")
+        showProgress()
     }
 
     override fun onDestroy() {
@@ -75,21 +86,24 @@ class TakeOrderActivity : BaseActivity(), ITakeOrderView {
     }
 
     override fun refreshAllSuccess(takeOrderBean: TakeOrderBean) {
+        hideProgress()
         runOnUiThread {
             mAdapter.notifyDataChange(takeOrderBean)
         }
     }
 
     override fun refreshAllFail(msg: String) {
-
+        hideProgress()
+        myToast(msg)
     }
 
     override fun loadMoreSuccess(takeOrderBean: TakeOrderBean) {
-
+        hideProgress()
     }
 
     override fun loadMoreFail(msg: String) {
-
+        hideProgress()
+        myToast(msg)
     }
 
 }

@@ -161,12 +161,12 @@ class JointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recycler
      * 刷新全部数据
      */
     fun notifyDataChange(datas: ArrayList<JointTaskBean.DataBean>) {
+        mDatas.clear()
         if (!datas.isNullOrEmpty()) {
-            mDatas.clear()
             mDatas.addAll(datas)
-            notifyDataSetChanged()
         }
         mHasNotified = true
+        notifyDataSetChanged()
     }
 
     fun notifyDataChangeLoadingMore(datas: ArrayList<JointTaskBean.DataBean>) {

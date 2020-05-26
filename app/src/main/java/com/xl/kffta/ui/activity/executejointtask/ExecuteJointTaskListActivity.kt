@@ -114,6 +114,7 @@ class ExecuteJointTaskListActivity : BaseActivity() {
      * 发送请求，内容为输入框里的东西
      */
     private fun sendRequest() {
+        showProgress()
         JointTaskManager.queryExecuteJointTaskList(mPageIndex, mPageSize, exe_list_search?.text.toString()
                 ?: "", if (mJointExeState == JOINT_EXE_TASK_PENDING) {
             JointTaskManager.ExcutionStatus_Pending.toString()
@@ -122,10 +123,12 @@ class ExecuteJointTaskListActivity : BaseActivity() {
         }, object : ResponseObjectCallback {
             override fun onError(msg: String) {
                 myToast(msg)
+                hideProgress()
             }
 
             override fun onSuccess(obj: Any) {
                 mHandler.obtainMessage(HANDLER_REFRESH, obj).sendToTarget()
+                hideProgress()
             }
 
         })

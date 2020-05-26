@@ -123,16 +123,12 @@ class ExeJointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recyc
      * 刷新全部数据
      */
     fun notifyDataChange(datas: ArrayList<JointTaskBean.DataBean>) {
+        mDatas.clear()
         if (!datas.isNullOrEmpty()) {
-            mDatas.clear()
             mDatas.addAll(datas)
-            notifyDataSetChanged()
-        } else {
-            // 带搜索的，搜出来没有就是没有
-            mDatas.clear()
-            notifyDataSetChanged()
         }
         mHasNotified = true
+        notifyDataSetChanged()
     }
 
     fun notifyDataChangeLoadingMore(datas: ArrayList<JointTaskBean.DataBean>) {
