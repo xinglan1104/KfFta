@@ -243,7 +243,14 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
         when (mInfoType) {
             TYPE_RECEIVE_TASK -> {
                 mDatas.add(TaskItemInfo("企业名称", taskInfoBean.data?.business?.businessName
-                        ?: "", isTitle = false, isCheckList = false))
+                        ?: "", isTitle = false, isCheckList = false,
+                        isBusinessTv = true,
+                        businessCode = taskInfoBean.data?.business?.businessLicenseRegistrationNumber
+                                ?: "",
+                        businessPeople = taskInfoBean.data?.business?.representative
+                                ?: "",
+                        businessCreateTime = taskInfoBean.data?.business?.businessRegistrationTime
+                                ?: ""))
                 mDatas.add(TaskItemInfo("经营场所", taskInfoBean.data?.business?.dom
                         ?: "", isTitle = false, isCheckList = false))
                 mDatas.add(TaskItemInfo("抽取方案", taskInfoBean.data?.govermentEnforcementScheme?.name
@@ -276,7 +283,14 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
             }
             TYPE_EXECUTE_TASK -> {
                 mDatas.add(TaskItemInfo(label = "企业名称", value = taskInfoBean.data?.business?.businessName
-                        ?: ""))
+                        ?: "",
+                        isBusinessTv = true,
+                        businessCode = taskInfoBean.data?.business?.businessLicenseRegistrationNumber
+                                ?: "",
+                        businessPeople = taskInfoBean.data?.business?.representative
+                                ?: "",
+                        businessCreateTime = taskInfoBean.data?.business?.businessRegistrationTime
+                                ?: ""))
                 mDatas.add(TaskItemInfo(label = "经营场所", value = taskInfoBean.data?.business?.dom
                         ?: ""))
                 // 执法人可能有多个

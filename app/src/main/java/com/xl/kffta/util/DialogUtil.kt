@@ -79,4 +79,24 @@ object DialogUtil {
             }
         }
     }
+
+    /**
+     * 企业信息的弹窗
+     */
+    fun showBusinessInfoDialog(context: Context, code: String, name: String, time: String) {
+        val dialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_bussns_info, null)
+        MaterialDialog(context).show {
+            customView(view = dialogView, noVerticalPadding = true)
+            this.cornerRadius(10f)
+            cancelOnTouchOutside(false)
+
+            val customView = getCustomView()
+            customView.find<TextView>(R.id.dialog_buss_code).text = code
+            customView.find<TextView>(R.id.dialog_buss_people).text = name
+            customView.find<TextView>(R.id.dialog_buss_time).text = time
+            customView.find<TextView>(R.id.dialog_buss_close).setOnClickListener {
+                this.dismiss()
+            }
+        }
+    }
 }

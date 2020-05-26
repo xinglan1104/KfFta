@@ -10,5 +10,9 @@ data class TaskItemInfo(
         var value: String = "",
         var isTitle: Boolean = false,
         var isCheckList: Boolean = false,
-        var checkListId: Int = 0
+        var checkListId: Int = 0,
+        var isBusinessTv: Boolean = false,
+        var businessCode: String = "",
+        var businessPeople: String = "",
+        var businessCreateTime: String = ""
 )

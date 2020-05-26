@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.model.TaskItemInfo
 import com.xl.kffta.ui.activity.receivetask.CheckListActivity
+import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.util.SysUtils
 
 /**
@@ -40,7 +41,7 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val taskItemInfo = mDatas[position]
-        taskItemInfo?.let {
+        taskItemInfo?.let { it ->
             when (holder) {
                 is TaskInfoDetailTitleHolder -> {
 
@@ -51,7 +52,7 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
                     // 如果是事件清单，还是需要特殊处理
                     if (it.isCheckList) {
                         holder.value.setTextColor(context.resources.getColorStateList(R.color.btn_common_color))
-                        holder.value.setOnClickListener {
+                        holder.value.setOnClickListener { view ->
                             // 点击了事件清单，跳转至事件清单
                             val activity = SysUtils.getActivity(context)
                             activity?.apply {
@@ -59,6 +60,12 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
                                 intent.putExtra(CheckListActivity.CHECKLIST_ID, taskItemInfo.checkListId)
                                 startActivity(intent)
                             }
+                        }
+                    } else if (it.isBusinessTv) {
+                        // 如果是企业的，点击弹窗
+                        holder.value.setTextColor(context.resources.getColorStateList(R.color.btn_common_color))
+                        holder.value.setOnClickListener { view ->
+                            DialogUtil.showBusinessInfoDialog(context, it.businessCode, it.businessPeople, SysUtils.getDateTimestamp(it.businessCreateTime))
                         }
                     } else {
                         holder.value.setTextColor(context.resources.getColorStateList(R.color.text_value))
