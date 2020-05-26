@@ -28,13 +28,13 @@ class TakeOrderAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView
     private val mDatas = ArrayList<TakeOrderBean.DataBean>()
     private var mHasNotified = false
 
-    public interface TakeOrRefuseSuccessListener {
+    interface TakeOrRefuseSuccessListener {
         fun onTakeOrRefuseSuccess()
     }
 
     private var takeOrRefuseSuccessListener: TakeOrRefuseSuccessListener? = null
 
-    public fun setTakeOrRefuseSuccessListener(listener: TakeOrRefuseSuccessListener) {
+    fun setTakeOrRefuseSuccessListener(listener: TakeOrRefuseSuccessListener) {
         this.takeOrRefuseSuccessListener = listener
     }
 

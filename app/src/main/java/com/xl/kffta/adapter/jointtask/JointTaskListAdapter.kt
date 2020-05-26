@@ -32,6 +32,15 @@ class JointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
     val mDatas = ArrayList<JointTaskBean.DataBean>()
     var mHasNotified = false
+    var mJointTaskAcceptOrRefuseSuccessListener: OnJointTaskAcceptOrRefuseSuccessListener? = null
+
+    interface OnJointTaskAcceptOrRefuseSuccessListener {
+        fun onJointTaskAcceptOrRefuseSuccess()
+    }
+
+    fun setOnJointTaskAcceptOrRefuseSuccessListener(listener: OnJointTaskAcceptOrRefuseSuccessListener) {
+        this.mJointTaskAcceptOrRefuseSuccessListener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_joint_task, parent, false)
@@ -108,6 +117,9 @@ class JointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recycler
                                     Toast.makeText(context, "领取成功", Toast.LENGTH_SHORT).show()
                                     jointBean.acceptStatus = JointTaskManager.AcceptStatusApproved
                                     notifyItemChanged(position)
+
+                                    // 成功了，需要通知主界面刷新
+                                    mJointTaskAcceptOrRefuseSuccessListener?.onJointTaskAcceptOrRefuseSuccess()
                                 }
                             }
 
@@ -128,6 +140,8 @@ class JointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recycler
                             override fun onSuccess(obj: Any) {
                                 context.runOnUiThread {
                                     Toast.makeText(context, "退回成功", Toast.LENGTH_SHORT).show()
+                                    // 成功了，需要通知主界面刷新
+                                    mJointTaskAcceptOrRefuseSuccessListener?.onJointTaskAcceptOrRefuseSuccess()
                                 }
                             }
 

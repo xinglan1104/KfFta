@@ -21,6 +21,7 @@ class JointTaskListActivity : BaseActivity() {
     companion object {
         private const val HANDLER_REFRESH = 0x401
     }
+
     private val mAdapter by lazy {
         JointTaskListAdapter(this)
     }
@@ -62,6 +63,13 @@ class JointTaskListActivity : BaseActivity() {
         }
 
         take_recycler.adapter = mAdapter
+        mAdapter.setOnJointTaskAcceptOrRefuseSuccessListener(object : JointTaskListAdapter.OnJointTaskAcceptOrRefuseSuccessListener {
+            override fun onJointTaskAcceptOrRefuseSuccess() {
+                // 领取或退回成功，再次刷新界面
+                sendRequest()
+            }
+
+        })
 
         // todo 先禁用刷新功能
         take_refresh_layout.setEnableRefresh(false)
