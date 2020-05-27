@@ -231,12 +231,11 @@ class JointTaskInfoActivity : BaseActivity() {
                 if (!states.isNullOrEmpty()) {
                     states.forEach {
                         // 可能有多个部门
-                        // todo 这个地方貌似没字段，先用id代替
-                        val departments = it.departmentIDs
+                        val departments = it.department
                         val departmentsStr = StringBuilder("")
                         if (!departments.isNullOrEmpty()) {
-                            departments.forEach { departmentId ->
-                                departmentsStr.append(departmentId.toString())
+                            departments.forEach { department ->
+                                departmentsStr.append(department.name.toString())
                                 departmentsStr.append(",")
                             }
                         }
@@ -260,12 +259,11 @@ class JointTaskInfoActivity : BaseActivity() {
                 if (!states.isNullOrEmpty()) {
                     states.forEach {
                         // 可能有多个部门
-                        // todo 这个地方貌似没字段，先用id代替
-                        val departments = it.departmentIDs
+                        val departments = it.department
                         val departmentsStr = StringBuilder("")
                         if (!departments.isNullOrEmpty()) {
-                            departments.forEach { departmentId ->
-                                departmentsStr.append(departmentId.toString())
+                            departments.forEach { department ->
+                                departmentsStr.append(department.name.toString())
                                 departmentsStr.append(",")
                             }
                         }

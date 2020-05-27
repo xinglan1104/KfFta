@@ -1704,7 +1704,7 @@ public class JointTaskInfoBean implements Serializable {
             private String Risk;
             private List<?> Reference;
             private List<Integer> DepartmentIDs;
-            private List<?> Department;
+            private List<CheckListBean.DataBean.DepartmentBean> Department;
 
             public int getID() {
                 return ID;
@@ -1898,13 +1898,14 @@ public class JointTaskInfoBean implements Serializable {
                 this.DepartmentIDs = DepartmentIDs;
             }
 
-            public List<?> getDepartment() {
+            public List<CheckListBean.DataBean.DepartmentBean> getDepartment() {
                 return Department;
             }
 
-            public void setDepartment(List<?> Department) {
+            public void setDepartment(List<CheckListBean.DataBean.DepartmentBean> Department) {
                 this.Department = Department;
             }
         }
+
     }
 }

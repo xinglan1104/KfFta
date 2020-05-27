@@ -136,7 +136,7 @@ object JointTaskManager {
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentJointSupervisionTask"
         paramsMap["ID"] = id
         paramsMap["IsIncludeBlockDefintion"] = "false"
-        paramsMap["ReferenceLevel"] = "1"
+        paramsMap["ReferenceLevel"] = "2"
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {
