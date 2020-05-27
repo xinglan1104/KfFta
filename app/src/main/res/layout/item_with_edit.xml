@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/info_detail_et_label"
+        android:layout_width="@dimen/label_width"
+        android:layout_height="@dimen/line_height"
+        android:ellipsize="end"
+        android:gravity="start"
+        android:maxLines="1"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:textColor="@color/text_label"
+        android:textSize="14sp"
+        tools:text="企业名称" />
+
+    <EditText
+        android:id="@+id/info_detail_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/info_detail_et_label"
+        android:lineSpacingMultiplier="1.2"
+        android:paddingTop="10dp"
+        android:paddingRight="15dp"
+        android:imeOptions="actionDone"
+        android:paddingBottom="10dp"
+        android:textSize="14sp"
+        android:background="@color/white"
+        tools:text="阿打的分手的分手手的是的分手的" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/info_detail_et"
+        android:background="#2f959595" />
+</RelativeLayout>

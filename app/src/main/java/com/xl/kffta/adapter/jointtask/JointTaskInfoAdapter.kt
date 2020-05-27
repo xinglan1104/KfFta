@@ -4,11 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.model.JointTaskInfoItem
 import com.xl.kffta.util.DialogUtil
+import org.jetbrains.anko.find
 
 /**
  * @author created by zhanghaochen
@@ -16,13 +19,22 @@ import com.xl.kffta.util.DialogUtil
  * 描述：项目检查任务详情的适配器
  */
 class JointTaskInfoAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val ITEM_EDITABLE = 6
+    private val ITEM_NORMAL = 7
 
     private val mDatas = ArrayList<JointTaskInfoItem>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_jointtast_info, parent, false)
+    var mCheckResult: String = ""
+    var mNote: String = ""
 
-        return JointTaskInfoNormalHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        if (viewType == ITEM_EDITABLE) {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_with_edit, parent, false)
+            return JointTaskInfoDetailEditHolder(view)
+        } else {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_jointtast_info, parent, false)
+            return JointTaskInfoNormalHolder(view)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -32,23 +44,48 @@ class JointTaskInfoAdapter(val context: Context) : RecyclerView.Adapter<Recycler
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position < mDatas.size) {
             val jointTaskInfoItem = mDatas[position]
-            val jointNormalHolder = holder as JointTaskInfoNormalHolder
 
-            jointNormalHolder.label.text = jointTaskInfoItem.label
-            jointNormalHolder.value.text = jointTaskInfoItem.value
+            when (holder) {
+                is JointTaskInfoNormalHolder -> {
+                    holder.label.text = jointTaskInfoItem.label
+                    holder.value.text = jointTaskInfoItem.value
 
-            // 根据是否可点击给予不同颜色
-            // 如果是事件清单，还是需要特殊处理
-            if (jointTaskInfoItem.isClickable) {
-                jointNormalHolder.value.setTextColor(context.resources.getColorStateList(R.color.btn_common_color))
-                jointNormalHolder.value.setOnClickListener {
-                    // 点击了,搞个弹窗
-                    DialogUtil.showJointRiskDialog(context, jointTaskInfoItem.checkStateName, jointTaskInfoItem.deparmentName, jointTaskInfoItem.riskInfo)
+                    // 根据是否可点击给予不同颜色
+                    // 如果是事件清单，还是需要特殊处理
+                    if (jointTaskInfoItem.isClickable) {
+                        holder.value.setTextColor(context.resources.getColorStateList(R.color.btn_common_color))
+                        holder.value.setOnClickListener {
+                            // 点击了,搞个弹窗
+                            DialogUtil.showJointRiskDialog(context, jointTaskInfoItem.checkStateName, jointTaskInfoItem.deparmentName, jointTaskInfoItem.riskInfo)
+                        }
+                    } else {
+                        holder.value.setTextColor(context.resources.getColorStateList(R.color.text_value))
+                        holder.value.setOnClickListener(null)
+                    }
                 }
-            } else {
-                jointNormalHolder.value.setTextColor(context.resources.getColorStateList(R.color.text_value))
-                jointNormalHolder.value.setOnClickListener(null)
+                is JointTaskInfoDetailEditHolder -> {
+                    // 编辑框的holder
+                    holder.label.text = jointTaskInfoItem.label
+                    holder.edit.hint = "添加${jointTaskInfoItem.label}"
+
+                    holder.edit.doOnTextChanged { text, start, before, count ->
+                        if (jointTaskInfoItem.label == "检查结果") {
+                            mCheckResult = text.toString().trim()
+                        } else if (jointTaskInfoItem.label == "备注") {
+                            mNote = text.toString().trim()
+                        }
+                    }
+                }
             }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        val jointTaskItem = mDatas[position]
+        return if (jointTaskItem.isEditable) {
+            ITEM_EDITABLE
+        } else {
+            ITEM_NORMAL
         }
     }
 
@@ -69,4 +106,12 @@ class JointTaskInfoAdapter(val context: Context) : RecyclerView.Adapter<Recycler
     }
 
     class JointTaskInfoTitleHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    /**
+     * 编辑框的holder
+     */
+    class JointTaskInfoDetailEditHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val label = itemView.find<TextView>(R.id.info_detail_et_label)
+        val edit = itemView.find<EditText>(R.id.info_detail_et)
+    }
 }

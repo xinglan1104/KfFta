@@ -47,7 +47,7 @@ class JointTaskInfoActivity : BaseActivity() {
     private var mId = 0
     private var mInfoType = JOINT_TASK_TYPE_RECEIVE
     private var mTaskState = JointTaskListAdapter.TASK_HAS_NOT_TAKE
-    private var mExeTaskState = JOINT_TASK_EXE_STATE_PENDING
+    private var mExeTaskState = JOINT_TASK_EXE_STATE_COMPLETE
 
     private var mJointTaskBean: JointTaskInfoBean? = null
 
@@ -83,7 +83,7 @@ class JointTaskInfoActivity : BaseActivity() {
         mId = intent.getIntExtra(JOINT_TASK_ID, 0)
         mTaskState = intent.getIntExtra(JOINT_TASK_STATE, JointTaskListAdapter.TASK_HAS_NOT_TAKE)
         mInfoType = intent.getIntExtra(JOINT_TASK_TYPE, JOINT_TASK_TYPE_RECEIVE)
-        mExeTaskState = intent.getIntExtra(JOINT_TASK_EXE_STATE, JOINT_TASK_EXE_STATE_PENDING)
+        mExeTaskState = intent.getIntExtra(JOINT_TASK_EXE_STATE, JOINT_TASK_EXE_STATE_COMPLETE)
     }
 
     override fun initViews() {
@@ -187,6 +187,8 @@ class JointTaskInfoActivity : BaseActivity() {
                         override fun onDialogOkClick() {
                             mJointTaskBean?.let { jointTaskInfoBean ->
                                 jointTaskInfoBean.data.acceptStatus = JointTaskManager.AcceptStatusApproved
+                                jointTaskInfoBean.data.result = mAdapter.mCheckResult
+                                jointTaskInfoBean.data.note = mAdapter.mNote
                                 JointTaskManager.updateJointTaskState(jointTaskInfoBean, object : ResponseObjectCallback {
                                     override fun onError(msg: String) {
                                         myToast(msg)
@@ -278,9 +280,18 @@ class JointTaskInfoActivity : BaseActivity() {
                 // 执法人
                 mDatas.add(JointTaskInfoItem(label = "执法人", value = infoBean.data?.owner?.userName
                         ?: ""))
-                mDatas.add(JointTaskInfoItem(label = "执法时间", value = SysUtils.getDateTimestamp(infoBean.data?.checkDate)))
-                mDatas.add(JointTaskInfoItem(label = "检查结果", value = infoBean.data?.result ?: ""))
-                mDatas.add(JointTaskInfoItem(label = "备注", value = infoBean.data?.note ?: ""))
+
+                // 下面三个在未执行的时候，是可以编辑的
+                if (mExeTaskState == JOINT_TASK_EXE_STATE_COMPLETE) {
+                    mDatas.add(JointTaskInfoItem(label = "执法时间", value = SysUtils.getDateTimestamp(infoBean.data?.checkDate)))
+                    mDatas.add(JointTaskInfoItem(label = "检查结果", value = infoBean.data?.result
+                            ?: ""))
+                    mDatas.add(JointTaskInfoItem(label = "备注", value = infoBean.data?.note ?: ""))
+                } else {
+                    mDatas.add(JointTaskInfoItem(label = "执法时间", isEditable = true))
+                    mDatas.add(JointTaskInfoItem(label = "检查结果", isEditable = true))
+                    mDatas.add(JointTaskInfoItem(label = "备注", isEditable = true))
+                }
             }
         }
 

@@ -122,9 +122,9 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
                 mLoadingView?.let {
                     mLoadingView.showLoading(showText, colorRes)
                     // 为了防止出现这个loading界面，无法操作别的部分，16s后自动小时
-                    mHandler.postDelayed({
-                        hideProgress()
-                    }, 16000)
+//                    mHandler.postDelayed({
+//                        hideProgress()
+//                    }, 16000)
                 }
             } catch (e: Exception) {
             }

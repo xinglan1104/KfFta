@@ -5,13 +5,16 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.model.TaskItemInfo
 import com.xl.kffta.ui.activity.receivetask.CheckListActivity
 import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.util.SysUtils
+import org.jetbrains.anko.find
 
 /**
  * @author zhanghaochen
@@ -21,14 +24,22 @@ import com.xl.kffta.util.SysUtils
 class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         private val ITEM_NORMAL = 1
+        private val ITEM_EDITTEXT = 3
         private val ITEM_TITLE = 2
     }
 
     val mDatas = ArrayList<TaskItemInfo>()
+
+    var mCheckResult: String = ""
+    var mNote: String = ""
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == ITEM_NORMAL) {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_taskinfo_detail, parent, false)
             TaskInfoDetailNormalHolder(view)
+        } else if (viewType == ITEM_EDITTEXT) {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_with_edit, parent, false)
+            TaskInfoDetailEditHolder(view)
         } else {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_only_title, parent, false)
             TaskInfoDetailTitleHolder(view)
@@ -72,6 +83,22 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
                         holder.value.setOnClickListener(null)
                     }
                 }
+                is TaskInfoDetailEditHolder -> {
+                    // 编辑框的holder
+                    holder.label.text = it.label
+                    holder.edit.hint = "添加${it.label}"
+
+                    holder.edit.doOnTextChanged { text, start, before, count ->
+                        if (it.label == "检查结果") {
+                            mCheckResult = text.toString().trim()
+                        } else if (it.label == "备注") {
+                            mNote = text.toString().trim()
+                        }
+                    }
+                }
+                else -> {
+
+                }
             }
         }
     }
@@ -80,6 +107,8 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
         val taskItemInfo = mDatas[position]
         return if (taskItemInfo.isTitle) {
             ITEM_TITLE
+        } else if (taskItemInfo.isEditable) {
+            ITEM_EDITTEXT
         } else {
             ITEM_NORMAL
         }
@@ -102,4 +131,12 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
     }
 
     class TaskInfoDetailTitleHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {}
+
+    /**
+     * 编辑框的holder
+     */
+    class TaskInfoDetailEditHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val label = itemView.find<TextView>(R.id.info_detail_et_label)
+        val edit = itemView.find<EditText>(R.id.info_detail_et)
+    }
 }

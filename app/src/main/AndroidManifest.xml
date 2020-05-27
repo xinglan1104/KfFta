@@ -3,9 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.xl.kffta">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!--    <uses-permission android:name="android.permission.CAMERA" />-->
-
     <application
         android:name=".base.App"
         android:allowBackup="true"
@@ -59,7 +56,8 @@
             android:name=".ui.activity.receivetask.TaskInfoDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <activity
             android:name=".ui.activity.receivetask.CheckListActivity"
@@ -93,5 +91,8 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />
     </application>
+    <!--    <uses-permission android:name="android.permission.CAMERA" />-->
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

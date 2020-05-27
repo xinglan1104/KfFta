@@ -207,8 +207,11 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                     DialogUtil.showCommonDialog(this, "确认开始执法吗", object : DialogUtil.OnDialogOkClick {
                         override fun onDialogOkClick() {
                             mTaskInfoBean?.let { taskInfoBean ->
-                                //
+                                // 执行时，这些东西需要变化
                                 taskInfoBean.data.excutionStatus = TaskNetManager.TASK_EXCUTIONSTATUS_APPROVED
+                                taskInfoBean.data.result = mAdapter.mCheckResult
+                                taskInfoBean.data.note = mAdapter.mNote
+
                                 TaskNetManager.updateTaskState(taskInfoBean, object : ResponseObjectCallback {
                                     override fun onError(msg: String) {
                                         myToast(msg)
@@ -301,9 +304,18 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                     ownerStr.append("  ")
                 }
                 mDatas.add(TaskItemInfo(label = "执法人", value = ownerStr.toString()))
-                mDatas.add(TaskItemInfo(label = "执法时间", value = SysUtils.getDateTimestamp(taskInfoBean.data?.excuteTime)))
-                mDatas.add(TaskItemInfo(label = "检查结果", value = taskInfoBean.data?.result ?: ""))
-                mDatas.add(TaskItemInfo(label = "备注", value = taskInfoBean.data?.note ?: ""))
+
+                // 下面三个选项，待执行是可以编辑的
+                if (mTaskExeState == TASK_EXE_STATE_OVER) {
+                    mDatas.add(TaskItemInfo(label = "执法时间", value = SysUtils.getDateTimestamp(taskInfoBean.data?.excuteTime)))
+                    mDatas.add(TaskItemInfo(label = "检查结果", value = taskInfoBean.data?.result
+                            ?: ""))
+                    mDatas.add(TaskItemInfo(label = "备注", value = taskInfoBean.data?.note ?: ""))
+                } else {
+                    mDatas.add(TaskItemInfo(label = "执法时间", isEditable = true))
+                    mDatas.add(TaskItemInfo(label = "检查结果", isEditable = true))
+                    mDatas.add(TaskItemInfo(label = "备注", isEditable = true))
+                }
 
                 val checkList = taskInfoBean.data?.checkList
                 if (!checkList.isNullOrEmpty()) {
