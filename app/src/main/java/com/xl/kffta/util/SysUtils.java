@@ -1,21 +1,25 @@
 package com.xl.kffta.util;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.widget.DatePicker;
+import android.widget.TextView;
+
+import androidx.annotation.ColorRes;
+import androidx.core.content.ContextCompat;
 
 import com.xl.kffta.base.App;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import androidx.annotation.ColorRes;
-import androidx.core.content.ContextCompat;
 
 public class SysUtils {
 
@@ -341,6 +345,19 @@ public class SysUtils {
         Date sdDate = new Date(timestamp);
         return simpleDateFormat.format(sdDate);
     }
+
+    public static void showDatePickerDialog(Context activity, int themeResId, final TextView tv, Calendar calendar) {
+        // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
+        new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                // 此处得到选择的时间，可以进行你想要的操作
+                tv.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+            }
+
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
 
     public static Activity getActivity(Context context) {
         while (context instanceof ContextWrapper) {

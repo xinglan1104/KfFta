@@ -15,6 +15,8 @@ import com.xl.kffta.ui.activity.receivetask.CheckListActivity
 import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.util.SysUtils
 import org.jetbrains.anko.find
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author zhanghaochen
@@ -77,6 +79,13 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
                         holder.value.setTextColor(context.resources.getColorStateList(R.color.btn_common_color))
                         holder.value.setOnClickListener { view ->
                             DialogUtil.showBusinessInfoDialog(context, it.businessCode, it.businessPeople, SysUtils.getDateTimestamp(it.businessCreateTime))
+                        }
+                    } else if (it.isDatePicker) {
+                        // 如果是时间选择器
+                        holder.value.text = "请选择日期"
+                        holder.value.setTextColor(context.resources.getColorStateList(R.color.text_value))
+                        holder.value.setOnClickListener {
+                            SysUtils.showDatePickerDialog(context, 8, holder.value, Calendar.getInstance(Locale.CHINA))
                         }
                     } else {
                         holder.value.setTextColor(context.resources.getColorStateList(R.color.text_value))

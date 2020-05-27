@@ -312,7 +312,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                             ?: ""))
                     mDatas.add(TaskItemInfo(label = "备注", value = taskInfoBean.data?.note ?: ""))
                 } else {
-                    mDatas.add(TaskItemInfo(label = "执法时间", isEditable = true))
+                    mDatas.add(TaskItemInfo(label = "执法时间", isDatePicker = true))
                     mDatas.add(TaskItemInfo(label = "检查结果", isEditable = true))
                     mDatas.add(TaskItemInfo(label = "备注", isEditable = true))
                 }
