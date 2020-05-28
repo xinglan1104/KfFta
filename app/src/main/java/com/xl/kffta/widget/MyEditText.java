@@ -2,6 +2,8 @@ package com.xl.kffta.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 
 import androidx.appcompat.widget.AppCompatEditText;
 
@@ -23,5 +25,12 @@ public class MyEditText extends AppCompatEditText {
         super(context, attrs, defStyleAttr);
     }
 
-
+    @Override
+    public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
+        InputConnection inputConnection = super.onCreateInputConnection(outAttrs);
+        if (inputConnection != null) {
+            outAttrs.imeOptions &= ~EditorInfo.IME_FLAG_NO_ENTER_ACTION;
+        }
+        return inputConnection;
+    }
 }

@@ -34,6 +34,7 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
 
     var mCheckResult: String = ""
     var mNote: String = ""
+    var mDateSelected: String = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == ITEM_NORMAL) {
@@ -84,8 +85,11 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
                         // 如果是时间选择器
                         holder.value.text = "请选择日期"
                         holder.value.setTextColor(context.resources.getColorStateList(R.color.text_value))
+                        holder.value.doOnTextChanged { text, start, before, count ->
+                            mDateSelected = text.toString().trim()
+                        }
                         holder.value.setOnClickListener {
-                            SysUtils.showDatePickerDialog(context, 8, holder.value, Calendar.getInstance(Locale.CHINA))
+                            SysUtils.showDatePickerDialog(context, holder.value, Calendar.getInstance(Locale.CHINA))
                         }
                     } else {
                         holder.value.setTextColor(context.resources.getColorStateList(R.color.text_value))

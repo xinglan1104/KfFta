@@ -189,6 +189,9 @@ class JointTaskInfoActivity : BaseActivity() {
                                 jointTaskInfoBean.data.acceptStatus = JointTaskManager.AcceptStatusApproved
                                 jointTaskInfoBean.data.result = mAdapter.mCheckResult
                                 jointTaskInfoBean.data.note = mAdapter.mNote
+                                // 时间需要进行特殊处理
+                                jointTaskInfoBean.data.checkDate = "/Date(${SysUtils.dateToStamp(mAdapter.mDateSelected)})/"
+
                                 JointTaskManager.updateJointTaskState(jointTaskInfoBean, object : ResponseObjectCallback {
                                     override fun onError(msg: String) {
                                         myToast(msg)
@@ -288,7 +291,7 @@ class JointTaskInfoActivity : BaseActivity() {
                             ?: ""))
                     mDatas.add(JointTaskInfoItem(label = "备注", value = infoBean.data?.note ?: ""))
                 } else {
-                    mDatas.add(JointTaskInfoItem(label = "执法时间", isEditable = true))
+                    mDatas.add(JointTaskInfoItem(label = "执法时间", isDatePicker = true))
                     mDatas.add(JointTaskInfoItem(label = "检查结果", isEditable = true))
                     mDatas.add(JointTaskInfoItem(label = "备注", isEditable = true))
                 }

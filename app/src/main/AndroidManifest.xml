@@ -57,7 +57,7 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
 
         <activity
             android:name=".ui.activity.receivetask.CheckListActivity"
@@ -82,7 +82,8 @@
             android:name=".ui.activity.receivejointtask.JointTaskInfoActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
 
         <activity
             android:name=".ui.activity.executejointtask.ExecuteJointTaskListActivity"

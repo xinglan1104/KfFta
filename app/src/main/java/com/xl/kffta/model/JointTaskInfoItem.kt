@@ -12,5 +12,6 @@ class JointTaskInfoItem(
         var checkStateName: String = "",
         var deparmentName: String = "",
         var riskInfo: String = "",
-        var isEditable: Boolean = false
+        var isEditable: Boolean = false,
+        var isDatePicker: Boolean = false
 )

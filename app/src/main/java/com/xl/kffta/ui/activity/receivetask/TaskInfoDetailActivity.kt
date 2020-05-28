@@ -211,6 +211,8 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                                 taskInfoBean.data.excutionStatus = TaskNetManager.TASK_EXCUTIONSTATUS_APPROVED
                                 taskInfoBean.data.result = mAdapter.mCheckResult
                                 taskInfoBean.data.note = mAdapter.mNote
+                                // 时间需要进行转换
+                                taskInfoBean.data.excuteTime = "/Date(${SysUtils.dateToStamp(mAdapter.mDateSelected)})/"
 
                                 TaskNetManager.updateTaskState(taskInfoBean, object : ResponseObjectCallback {
                                     override fun onError(msg: String) {

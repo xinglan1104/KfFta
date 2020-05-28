@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.model.JointTaskInfoItem
 import com.xl.kffta.util.DialogUtil
+import com.xl.kffta.util.SysUtils
 import org.jetbrains.anko.find
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author created by zhanghaochen
@@ -26,10 +29,11 @@ class JointTaskInfoAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
     var mCheckResult: String = ""
     var mNote: String = ""
+    var mDateSelected: String = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == ITEM_EDITABLE) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_with_edit, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_jointtast_et, parent, false)
             return JointTaskInfoDetailEditHolder(view)
         } else {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_jointtast_info, parent, false)
@@ -57,6 +61,17 @@ class JointTaskInfoAdapter(val context: Context) : RecyclerView.Adapter<Recycler
                         holder.value.setOnClickListener {
                             // 点击了,搞个弹窗
                             DialogUtil.showJointRiskDialog(context, jointTaskInfoItem.checkStateName, jointTaskInfoItem.deparmentName, jointTaskInfoItem.riskInfo)
+                        }
+                    } else if (jointTaskInfoItem.isDatePicker) {
+                        // 时间选择器
+                        // 如果是时间选择器
+                        holder.value.text = "请选择日期"
+                        holder.value.setTextColor(context.resources.getColorStateList(R.color.text_value))
+                        holder.value.doOnTextChanged { text, start, before, count ->
+                            mDateSelected = text.toString().trim()
+                        }
+                        holder.value.setOnClickListener {
+                            SysUtils.showDatePickerDialog(context, holder.value, Calendar.getInstance(Locale.CHINA))
                         }
                     } else {
                         holder.value.setTextColor(context.resources.getColorStateList(R.color.text_value))
@@ -111,7 +126,7 @@ class JointTaskInfoAdapter(val context: Context) : RecyclerView.Adapter<Recycler
      * 编辑框的holder
      */
     class JointTaskInfoDetailEditHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val label = itemView.find<TextView>(R.id.info_detail_et_label)
-        val edit = itemView.find<EditText>(R.id.info_detail_et)
+        val label = itemView.find<TextView>(R.id.joint_info_label_et)
+        val edit = itemView.find<EditText>(R.id.joint_info_value_et)
     }
 }

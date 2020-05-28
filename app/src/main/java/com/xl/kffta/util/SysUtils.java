@@ -11,15 +11,16 @@ import android.util.TypedValue;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-import androidx.annotation.ColorRes;
-import androidx.core.content.ContextCompat;
-
 import com.xl.kffta.base.App;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import androidx.annotation.ColorRes;
+import androidx.core.content.ContextCompat;
 
 public class SysUtils {
 
@@ -346,7 +347,19 @@ public class SysUtils {
         return simpleDateFormat.format(sdDate);
     }
 
-    public static void showDatePickerDialog(Context activity, int themeResId, final TextView tv, Calendar calendar) {
+    /*
+     * 将时间转换为时间戳
+     */
+    public static String dateToStamp(String s) throws ParseException {
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = simpleDateFormat.parse(s);
+        long ts = date.getTime();
+        res = String.valueOf(ts);
+        return res;
+    }
+
+    public static void showDatePickerDialog(Context activity, final TextView tv, Calendar calendar) {
         // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
         new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
             @Override
