@@ -100,6 +100,7 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
                     // 编辑框的holder
                     holder.label.text = it.label
                     holder.edit.hint = "添加${it.label}"
+                    holder.edit.setTextColor(context.resources.getColorStateList(R.color.text_value))
 
                     holder.edit.doOnTextChanged { text, start, before, count ->
                         if (it.label == "检查结果") {
