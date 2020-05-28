@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.xl.kffta">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".base.App"
         android:allowBackup="true"
@@ -91,9 +95,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".ui.activity.CameraActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
-    <!--    <uses-permission android:name="android.permission.CAMERA" />-->
-
-    <uses-permission android:name="android.permission.INTERNET" />
-
 </manifest>
