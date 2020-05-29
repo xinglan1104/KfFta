@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/detail_label"
+        android:layout_width="@dimen/label_width"
+        android:layout_height="@dimen/line_height"
+        android:ellipsize="end"
+        android:gravity="start"
+        android:maxLines="1"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:text="附件"
+        android:textColor="@color/text_label"
+        android:textSize="14sp"
+        tools:text="企业名称" />
+
+
+    <LinearLayout
+        android:id="@+id/detail_pic_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/detail_label"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/detail_pic_area_1"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="8dp">
+
+            <ImageView
+                android:id="@+id/add_screenshot_image_1"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="center"
+                android:src="@drawable/feedback_ft_add_img" />
+
+            <ImageView
+                android:id="@+id/delete_screenshot_image_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:src="@drawable/feedback_ft_delete_img"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/detail_pic_area_2"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/add_screenshot_image_2"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="center"
+                android:src="@drawable/feedback_ft_add_img" />
+
+            <ImageView
+                android:id="@+id/delete_screenshot_image_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:src="@drawable/feedback_ft_delete_img"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/detail_pic_area_3"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="8dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/add_screenshot_image_3"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="center"
+                android:src="@drawable/feedback_ft_add_img" />
+
+            <ImageView
+                android:id="@+id/delete_screenshot_image_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:src="@drawable/feedback_ft_delete_img"
+                android:visibility="gone" />
+        </FrameLayout>
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/detail_pic_layout"
+        android:background="#2f959595" />
+</RelativeLayout>

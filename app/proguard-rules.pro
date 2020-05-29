@@ -19,3 +19,16 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+#PictureSelector 2.0
+-keep class com.luck.picture.lib.** { *; }
+
+#Ucrop
+-dontwarn com.yalantis.ucrop**
+-keep class com.yalantis.ucrop** { *; }
+-keep interface com.yalantis.ucrop** { *; }
+
+#Okio
+-dontwarn org.codehaus.mojo.animal_sniffer.*
+
+# 不混淆某个包所有的类
+-keep class com.xl.kffta.model.** { *; }
