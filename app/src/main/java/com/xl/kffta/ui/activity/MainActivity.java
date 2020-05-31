@@ -13,6 +13,7 @@ import com.xl.kffta.net.ResponseObjectCallback;
 import com.xl.kffta.net.taskmanager.TaskNetManager;
 import com.xl.kffta.ui.activity.executejointtask.ExecuteJointTaskListActivity;
 import com.xl.kffta.ui.activity.executetask.ExecuteListActivity;
+import com.xl.kffta.ui.activity.lawcase.LawcaseListActivity;
 import com.xl.kffta.ui.activity.receivejointtask.JointTaskListActivity;
 import com.xl.kffta.util.DialogUtil;
 
@@ -42,6 +43,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.main_layout_4).setOnClickListener(this);
         findViewById(R.id.main_layout_5).setOnClickListener(this);
         findViewById(R.id.main_layout_6).setOnClickListener(this);
+        findViewById(R.id.main_layout_7).setOnClickListener(this);
     }
 
     @Override
@@ -102,6 +104,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             intent.setClass(MainActivity.this, ExecuteJointTaskListActivity.class);
             intent.putExtra(ExecuteJointTaskListActivity.JOINT_EXE_TASK_STATE, ExecuteJointTaskListActivity.JOINT_EXE_TASK_OVER);
             startActivity(new Intent(intent));
+        } else if (id == R.id.main_layout_7) {
+            startActivity(new Intent(MainActivity.this, LawcaseListActivity.class));
         }
     }
 

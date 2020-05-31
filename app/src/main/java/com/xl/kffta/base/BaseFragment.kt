@@ -54,7 +54,7 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    abstract fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
+    abstract fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
 
     protected abstract fun handleMessage(message: Message)
 
@@ -62,7 +62,7 @@ abstract class BaseFragment : Fragment() {
 
     }
 
-    protected open fun initListener(mainView: View?) {
+    protected open fun initListener(mainView: View) {
 
     }
 
