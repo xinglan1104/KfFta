@@ -44,7 +44,7 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
      * Creates the underlying database table.
      */
     public static void createTable(Database db, boolean ifNotExists) {
-        String constraint = ifNotExists ? "IF NOT EXISTS " : "";
+        String constraint = ifNotExists ? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"TASK_INFO\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY NOT NULL ," + // 0: id
                 "\"EXECUTE_TIME\" TEXT NOT NULL ," + // 1: executeTime
@@ -52,9 +52,7 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
                 "\"EXCUTION_STATUS\" INTEGER NOT NULL );"); // 3: excutionStatus
     }
 
-    /**
-     * Drops the underlying database table.
-     */
+    /** Drops the underlying database table. */
     public static void dropTable(Database db, boolean ifExists) {
         String sql = "DROP TABLE " + (ifExists ? "IF EXISTS " : "") + "\"TASK_INFO\"";
         db.execSQL(sql);
@@ -81,7 +79,7 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
     @Override
     public Long readKey(Cursor cursor, int offset) {
         return cursor.getLong(offset + 0);
-    }
+    }    
 
     @Override
     public TaskInfo readEntity(Cursor cursor, int offset) {
@@ -93,21 +91,21 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
         );
         return entity;
     }
-
+     
     @Override
     public void readEntity(Cursor cursor, TaskInfo entity, int offset) {
         entity.setId(cursor.getLong(offset + 0));
         entity.setExecuteTime(cursor.getString(offset + 1));
         entity.setCodeName(cursor.getString(offset + 2));
         entity.setExcutionStatus(cursor.getInt(offset + 3));
-    }
-
+     }
+    
     @Override
     protected final Long updateKeyAfterInsert(TaskInfo entity, long rowId) {
         entity.setId(rowId);
         return rowId;
     }
-
+    
     @Override
     public Long getKey(TaskInfo entity) {
         if (entity != null) {
@@ -126,5 +124,5 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
     protected final boolean isEntityUpdateable() {
         return true;
     }
-
+    
 }
