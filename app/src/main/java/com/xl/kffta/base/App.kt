@@ -1,6 +1,7 @@
 package com.xl.kffta.base
 
 import android.app.Application
+import androidx.multidex.MultiDex
 
 /**
  * @author created by zhanghaochen
@@ -19,5 +20,6 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        MultiDex.install(this)
     }
 }
