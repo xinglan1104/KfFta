@@ -20,11 +20,20 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
 
     public static final String TABLENAME = "TASK_INFO";
 
+    public TaskInfoDao(DaoConfig config) {
+        super(config);
+    }
+
+
+    public TaskInfoDao(DaoConfig config, DaoSession daoSession) {
+        super(config, daoSession);
+    }
+
     /**
      * Creates the underlying database table.
      */
     public static void createTable(Database db, boolean ifNotExists) {
-        String constraint = ifNotExists ? "IF NOT EXISTS ": "";
+        String constraint = ifNotExists ? "IF NOT EXISTS " : "";
         db.execSQL("CREATE TABLE " + constraint + "\"TASK_INFO\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY NOT NULL ," + // 0: id
                 "\"EXECUTE_TIME\" TEXT NOT NULL ," + // 1: executeTime
@@ -34,13 +43,17 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
                 "\"PAGE_CODE\" INTEGER NOT NULL );"); // 5: pageCode
     }
 
-
-    public TaskInfoDao(DaoConfig config) {
-        super(config);
+    /**
+     * Drops the underlying database table.
+     */
+    public static void dropTable(Database db, boolean ifExists) {
+        String sql = "DROP TABLE " + (ifExists ? "IF EXISTS " : "") + "\"TASK_INFO\"";
+        db.execSQL(sql);
     }
 
-    public TaskInfoDao(DaoConfig config, DaoSession daoSession) {
-        super(config, daoSession);
+    @Override
+    public Long readKey(Cursor cursor, int offset) {
+        return cursor.getLong(offset + 0);
     }
 
     @Override
@@ -54,14 +67,6 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
         stmt.bindLong(6, entity.getPageCode());
     }
 
-    /**
-     * Drops the underlying database table.
-     */
-    public static void dropTable(Database db, boolean ifExists) {
-        String sql = "DROP TABLE " + (ifExists ? "IF EXISTS " : "") + "\"TASK_INFO\"";
-        db.execSQL(sql);
-    }
-
     @Override
     protected final void bindValues(SQLiteStatement stmt, TaskInfo entity) {
         stmt.clearBindings();
@@ -71,6 +76,16 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
         stmt.bindLong(4, entity.getExcutionStatus());
         stmt.bindLong(5, entity.getCompanyId());
         stmt.bindLong(6, entity.getPageCode());
+    }
+
+    @Override
+    public void readEntity(Cursor cursor, TaskInfo entity, int offset) {
+        entity.setId(cursor.getLong(offset + 0));
+        entity.setExecuteTime(cursor.getString(offset + 1));
+        entity.setCodeName(cursor.getString(offset + 2));
+        entity.setExcutionStatus(cursor.getInt(offset + 3));
+        entity.setCompanyId(cursor.getInt(offset + 4));
+        entity.setPageCode(cursor.getInt(offset + 5));
     }
 
     @Override
@@ -87,33 +102,18 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
     }
 
     @Override
-    public Long readKey(Cursor cursor, int offset) {
-        return cursor.getLong(offset + 0);
-    }    
+    protected final Long updateKeyAfterInsert(TaskInfo entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
+    }
 
     @Override
-    public void readEntity(Cursor cursor, TaskInfo entity, int offset) {
-        entity.setId(cursor.getLong(offset + 0));
-        entity.setExecuteTime(cursor.getString(offset + 1));
-        entity.setCodeName(cursor.getString(offset + 2));
-        entity.setExcutionStatus(cursor.getInt(offset + 3));
-        entity.setCompanyId(cursor.getInt(offset + 4));
-        entity.setPageCode(cursor.getInt(offset + 5));
-     }
-     
-    @Override
     public Long getKey(TaskInfo entity) {
-        if(entity != null) {
+        if (entity != null) {
             return entity.getId();
         } else {
             return null;
         }
-    }
-
-    @Override
-    protected final Long updateKeyAfterInsert(TaskInfo entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
     }
 
     /**
@@ -138,5 +138,5 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
     protected final boolean isEntityUpdateable() {
         return true;
     }
-    
+
 }

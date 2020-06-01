@@ -14,6 +14,7 @@ import com.xl.kffta.net.taskmanager.TaskNetManager;
 import com.xl.kffta.ui.activity.executejointtask.ExecuteJointTaskListActivity;
 import com.xl.kffta.ui.activity.executetask.ExecuteListActivity;
 import com.xl.kffta.ui.activity.lawcase.LawcaseListActivity;
+import com.xl.kffta.ui.activity.legalprocision.LegalProvisonActivity;
 import com.xl.kffta.ui.activity.receivejointtask.JointTaskListActivity;
 import com.xl.kffta.ui.activity.receivetask.TakeOrderActivity;
 import com.xl.kffta.util.DialogUtil;
@@ -112,7 +113,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         } else if (id == R.id.main_layout_9) {
 
         } else if (id == R.id.main_layout_8) {
-
+            startActivity(new Intent(MainActivity.this, LegalProvisonActivity.class));
         }
     }
 
