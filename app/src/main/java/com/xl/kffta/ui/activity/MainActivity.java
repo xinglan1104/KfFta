@@ -45,6 +45,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.main_layout_5).setOnClickListener(this);
         findViewById(R.id.main_layout_6).setOnClickListener(this);
         findViewById(R.id.main_layout_7).setOnClickListener(this);
+        findViewById(R.id.main_layout_8).setOnClickListener(this);
+        findViewById(R.id.main_layout_9).setOnClickListener(this);
     }
 
     @Override
@@ -107,6 +109,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             startActivity(new Intent(intent));
         } else if (id == R.id.main_layout_7) {
             startActivity(new Intent(MainActivity.this, LawcaseListActivity.class));
+        } else if (id == R.id.main_layout_9) {
+
+        } else if (id == R.id.main_layout_8) {
+
         }
     }
 

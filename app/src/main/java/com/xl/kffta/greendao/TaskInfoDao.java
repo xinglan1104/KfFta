@@ -21,14 +21,17 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
     public static final String TABLENAME = "TASK_INFO";
 
     /**
-     * Properties of entity TaskInfo.<br/>
-     * Can be used for QueryBuilder and for referencing column names.
+     * Creates the underlying database table.
      */
-    public static class Properties {
-        public final static Property Id = new Property(0, long.class, "id", true, "_id");
-        public final static Property ExecuteTime = new Property(1, String.class, "executeTime", false, "EXECUTE_TIME");
-        public final static Property CodeName = new Property(2, String.class, "codeName", false, "CODE_NAME");
-        public final static Property ExcutionStatus = new Property(3, int.class, "excutionStatus", false, "EXCUTION_STATUS");
+    public static void createTable(Database db, boolean ifNotExists) {
+        String constraint = ifNotExists ? "IF NOT EXISTS ": "";
+        db.execSQL("CREATE TABLE " + constraint + "\"TASK_INFO\" (" + //
+                "\"_id\" INTEGER PRIMARY KEY NOT NULL ," + // 0: id
+                "\"EXECUTE_TIME\" TEXT NOT NULL ," + // 1: executeTime
+                "\"CODE_NAME\" TEXT NOT NULL ," + // 2: codeName
+                "\"EXCUTION_STATUS\" INTEGER NOT NULL ," + // 3: excutionStatus
+                "\"COMPANY_ID\" INTEGER NOT NULL ," + // 4: companyId
+                "\"PAGE_CODE\" INTEGER NOT NULL );"); // 5: pageCode
     }
 
 
@@ -40,24 +43,6 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
         super(config, daoSession);
     }
 
-    /**
-     * Creates the underlying database table.
-     */
-    public static void createTable(Database db, boolean ifNotExists) {
-        String constraint = ifNotExists ? "IF NOT EXISTS ": "";
-        db.execSQL("CREATE TABLE " + constraint + "\"TASK_INFO\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY NOT NULL ," + // 0: id
-                "\"EXECUTE_TIME\" TEXT NOT NULL ," + // 1: executeTime
-                "\"CODE_NAME\" TEXT NOT NULL ," + // 2: codeName
-                "\"EXCUTION_STATUS\" INTEGER NOT NULL );"); // 3: excutionStatus
-    }
-
-    /** Drops the underlying database table. */
-    public static void dropTable(Database db, boolean ifExists) {
-        String sql = "DROP TABLE " + (ifExists ? "IF EXISTS " : "") + "\"TASK_INFO\"";
-        db.execSQL(sql);
-    }
-
     @Override
     protected final void bindValues(DatabaseStatement stmt, TaskInfo entity) {
         stmt.clearBindings();
@@ -65,6 +50,16 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
         stmt.bindString(2, entity.getExecuteTime());
         stmt.bindString(3, entity.getCodeName());
         stmt.bindLong(4, entity.getExcutionStatus());
+        stmt.bindLong(5, entity.getCompanyId());
+        stmt.bindLong(6, entity.getPageCode());
+    }
+
+    /**
+     * Drops the underlying database table.
+     */
+    public static void dropTable(Database db, boolean ifExists) {
+        String sql = "DROP TABLE " + (ifExists ? "IF EXISTS " : "") + "\"TASK_INFO\"";
+        db.execSQL(sql);
     }
 
     @Override
@@ -74,6 +69,21 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
         stmt.bindString(2, entity.getExecuteTime());
         stmt.bindString(3, entity.getCodeName());
         stmt.bindLong(4, entity.getExcutionStatus());
+        stmt.bindLong(5, entity.getCompanyId());
+        stmt.bindLong(6, entity.getPageCode());
+    }
+
+    @Override
+    public TaskInfo readEntity(Cursor cursor, int offset) {
+        TaskInfo entity = new TaskInfo( //
+                cursor.getLong(offset + 0), // id
+                cursor.getString(offset + 1), // executeTime
+                cursor.getString(offset + 2), // codeName
+                cursor.getInt(offset + 3), // excutionStatus
+                cursor.getInt(offset + 4), // companyId
+                cursor.getInt(offset + 5) // pageCode
+        );
+        return entity;
     }
 
     @Override
@@ -82,37 +92,41 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
     }    
 
     @Override
-    public TaskInfo readEntity(Cursor cursor, int offset) {
-        TaskInfo entity = new TaskInfo( //
-                cursor.getLong(offset + 0), // id
-                cursor.getString(offset + 1), // executeTime
-                cursor.getString(offset + 2), // codeName
-                cursor.getInt(offset + 3) // excutionStatus
-        );
-        return entity;
-    }
-     
-    @Override
     public void readEntity(Cursor cursor, TaskInfo entity, int offset) {
         entity.setId(cursor.getLong(offset + 0));
         entity.setExecuteTime(cursor.getString(offset + 1));
         entity.setCodeName(cursor.getString(offset + 2));
         entity.setExcutionStatus(cursor.getInt(offset + 3));
+        entity.setCompanyId(cursor.getInt(offset + 4));
+        entity.setPageCode(cursor.getInt(offset + 5));
      }
-    
+     
+    @Override
+    public Long getKey(TaskInfo entity) {
+        if(entity != null) {
+            return entity.getId();
+        } else {
+            return null;
+        }
+    }
+
     @Override
     protected final Long updateKeyAfterInsert(TaskInfo entity, long rowId) {
         entity.setId(rowId);
         return rowId;
     }
-    
-    @Override
-    public Long getKey(TaskInfo entity) {
-        if (entity != null) {
-            return entity.getId();
-        } else {
-            return null;
-        }
+
+    /**
+     * Properties of entity TaskInfo.<br/>
+     * Can be used for QueryBuilder and for referencing column names.
+     */
+    public static class Properties {
+        public final static Property Id = new Property(0, long.class, "id", true, "_id");
+        public final static Property ExecuteTime = new Property(1, String.class, "executeTime", false, "EXECUTE_TIME");
+        public final static Property CodeName = new Property(2, String.class, "codeName", false, "CODE_NAME");
+        public final static Property ExcutionStatus = new Property(3, int.class, "excutionStatus", false, "EXCUTION_STATUS");
+        public final static Property CompanyId = new Property(4, int.class, "companyId", false, "COMPANY_ID");
+        public final static Property PageCode = new Property(5, int.class, "pageCode", false, "PAGE_CODE");
     }
 
     @Override

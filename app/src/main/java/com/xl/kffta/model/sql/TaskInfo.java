@@ -12,25 +12,51 @@ import org.greenrobot.greendao.annotation.NotNull;
  */
 @Entity
 public class TaskInfo {
+    /**
+     * 任务id
+     */
     @Id(autoincrement = false)
     private long id;
 
+    /**
+     * 任务执行时间
+     */
     @NotNull
     private String executeTime;
 
+    /**
+     * 任务分类，是任务还是执法任务
+     */
     @NotNull
     private String codeName;
 
+    /**
+     * 任务的执行状态
+     */
     @NotNull
     private int excutionStatus;
 
-    @Generated(hash = 1707636330)
+    /**
+     * 公司编号
+     */
+    @NotNull
+    private int companyId;
+
+    /**
+     *
+     */
+    @NotNull
+    private int pageCode;
+
+    @Generated(hash = 1212924761)
     public TaskInfo(long id, @NotNull String executeTime, @NotNull String codeName,
-                    int excutionStatus) {
+                    int excutionStatus, int companyId, int pageCode) {
         this.id = id;
         this.executeTime = executeTime;
         this.codeName = codeName;
         this.excutionStatus = excutionStatus;
+        this.companyId = companyId;
+        this.pageCode = pageCode;
     }
 
     @Generated(hash = 2022720704)
@@ -67,5 +93,21 @@ public class TaskInfo {
 
     public void setExcutionStatus(int excutionStatus) {
         this.excutionStatus = excutionStatus;
+    }
+
+    public int getCompanyId() {
+        return this.companyId;
+    }
+
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
+    }
+
+    public int getPageCode() {
+        return this.pageCode;
+    }
+
+    public void setPageCode(int pageCode) {
+        this.pageCode = pageCode;
     }
 }
