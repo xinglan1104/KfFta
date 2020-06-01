@@ -15,6 +15,7 @@ import com.xl.kffta.ui.activity.executejointtask.ExecuteJointTaskListActivity;
 import com.xl.kffta.ui.activity.executetask.ExecuteListActivity;
 import com.xl.kffta.ui.activity.lawcase.LawcaseListActivity;
 import com.xl.kffta.ui.activity.receivejointtask.JointTaskListActivity;
+import com.xl.kffta.ui.activity.receivetask.TakeOrderActivity;
 import com.xl.kffta.util.DialogUtil;
 
 import org.jetbrains.annotations.NotNull;
@@ -84,7 +85,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         int id = v.getId();
         Intent intent = new Intent();
         if (id == R.id.main_layout_1) {
-            startActivity(new Intent(MainActivity.this, CameraActivity.class));
+            startActivity(new Intent(MainActivity.this, TakeOrderActivity.class));
         } else if (id == R.id.main_layout_2) {
             // 待执行的
             intent.setClass(MainActivity.this, ExecuteListActivity.class);
