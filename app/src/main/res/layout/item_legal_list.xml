@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:id="@+id/legal_1_label"
+            android:layout_width="@dimen/label_width"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:lineSpacingMultiplier="1.2"
+            android:text="法律法规及政策依据"
+            android:textColor="@color/text_label"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/legal_1_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_value"
+            android:textSize="16sp"
+            tools:text="联合监管检查方案联联合监管检查方案联合监管检查方案联合监管检查方案联合监管检查方案" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:id="@+id/legal_2_label"
+            android:layout_width="@dimen/label_width"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:lineSpacingMultiplier="1.2"
+            android:text="惩罚措施"
+            android:textColor="@color/text_label"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/legal_2_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_value"
+            android:textSize="16sp"
+            tools:text="联合监管检查方案联联合监管检查方案联合监管检查方案联合监管检查方案联合监管检查方案" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:id="@+id/legal_3_label"
+            android:layout_width="@dimen/label_width"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:lineSpacingMultiplier="1.2"
+            android:text="联合惩戒部门"
+            android:textColor="@color/text_label"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/legal_3_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_value"
+            android:textSize="16sp"
+            tools:text="联合监管检查方案联联合监管检查方案联合监管检查方案联合监管检查方案联合监管检查方案" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#2f959595" />
+
+</LinearLayout>

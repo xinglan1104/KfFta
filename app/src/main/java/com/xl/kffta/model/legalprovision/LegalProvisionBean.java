@@ -1,6 +1,7 @@
 package com.xl.kffta.model.legalprovision;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public class LegalProvisionBean implements Serializable {
     private String ResponseStatus;
     private String EncryptionData;
     private String AESEncryptionKey;
-    private List<DataBean> Data;
+    private ArrayList<DataBean> Data = new ArrayList<>();
 
     public FieldsBean getFields() {
         return Fields;
@@ -66,11 +67,11 @@ public class LegalProvisionBean implements Serializable {
         this.AESEncryptionKey = AESEncryptionKey;
     }
 
-    public List<DataBean> getData() {
+    public ArrayList<DataBean> getData() {
         return Data;
     }
 
-    public void setData(List<DataBean> Data) {
+    public void setData(ArrayList<DataBean> Data) {
         this.Data = Data;
     }
 

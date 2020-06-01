@@ -4,6 +4,7 @@ import android.text.TextUtils
 import android.util.Log
 import com.google.gson.Gson
 import com.xl.kffta.model.legalprovision.LegalProvisionBean
+import com.xl.kffta.net.NetManager
 import com.xl.kffta.net.RequestBuilder
 import com.xl.kffta.net.ResponseCallback
 import com.xl.kffta.net.ResponseObjectCallback
@@ -20,13 +21,13 @@ object LegalLawManager {
     /**
      * 根据pagecode查询不同类型的法律条文
      */
-    fun queryLegalProvision(pageCode: Int, pageSize: Int, callback: ResponseObjectCallback) {
+    fun queryLegalProvision(pageCode: String, pageSize: Int, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.LegalProvision"
-        paramsMap["PageCode"] = pageCode.toString()
+        paramsMap["PageCode"] = pageCode
         paramsMap["Take"] = pageSize.toString()
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
@@ -60,5 +61,6 @@ object LegalLawManager {
             }
 
         }
+        NetManager.manager.sendRequest(requestBuilder)
     }
 }
