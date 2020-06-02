@@ -21,7 +21,7 @@ object LawCaseManager {
     /**
      * 查询所有的案件们
      */
-    fun queryLawCaseObjects(pageCode: String, pageSize: Int, callback: ResponseObjectCallback) {
+    fun queryLawCaseObjects(pageCode: String, pageSize: Int, searchStr: String, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()
@@ -30,6 +30,7 @@ object LawCaseManager {
         paramsMap["PageCode"] = pageCode
         paramsMap["Skip"] = "0"
         paramsMap["Take"] = pageSize.toString()
+        paramsMap["CommonSearchKey"] = searchStr
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {

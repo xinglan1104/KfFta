@@ -3,7 +3,7 @@ package com.xl.kffta.model.lawcase;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author created by zhanghaochen
@@ -18,7 +18,7 @@ public class LawCaseObjectsBean implements Serializable {
     private String ResponseStatus;
     private String EncryptionData;
     private String AESEncryptionKey;
-    private List<DataBean> Data;
+    private ArrayList<DataBean> Data = new ArrayList<>();
 
     public FieldsBean getFields() {
         return Fields;
@@ -68,11 +68,11 @@ public class LawCaseObjectsBean implements Serializable {
         this.AESEncryptionKey = AESEncryptionKey;
     }
 
-    public List<DataBean> getData() {
+    public ArrayList<DataBean> getData() {
         return Data;
     }
 
-    public void setData(List<DataBean> Data) {
+    public void setData(ArrayList<DataBean> Data) {
         this.Data = Data;
     }
 

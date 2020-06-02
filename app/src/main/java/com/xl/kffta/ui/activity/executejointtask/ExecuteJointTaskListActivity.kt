@@ -115,7 +115,7 @@ class ExecuteJointTaskListActivity : BaseActivity() {
      */
     private fun sendRequest() {
         showProgress()
-        JointTaskManager.queryExecuteJointTaskList(mPageIndex, mPageSize, exe_list_search?.text.toString()
+        JointTaskManager.queryExecuteJointTaskList(mPageIndex, mPageSize, exe_list_search?.text?.toString()
                 ?: "", if (mJointExeState == JOINT_EXE_TASK_PENDING) {
             JointTaskManager.ExcutionStatus_Pending.toString()
         } else {
