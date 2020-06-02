@@ -131,7 +131,7 @@ public class LegalProvisionBean implements Serializable {
         }
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         private int CompanyID;
         private String CreateTime;
         private CreatorBean Creator;
@@ -223,7 +223,7 @@ public class LegalProvisionBean implements Serializable {
             this.DepartmentIDs = DepartmentIDs;
         }
 
-        public static class CreatorBean {
+        public static class CreatorBean implements Serializable {
             /**
              * DisplayName : admin
              * ID : 10423
@@ -249,7 +249,7 @@ public class LegalProvisionBean implements Serializable {
             }
         }
 
-        public static class DepartmentBean {
+        public static class DepartmentBean implements Serializable {
             /**
              * ID : 908
              * Name : 市场合同规范管理科

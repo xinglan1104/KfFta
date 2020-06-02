@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/common_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/detail_label"
+                    android:layout_width="@dimen/label_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:lineSpacingMultiplier="1.2"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="10dp"
+                    android:text="联合惩戒部门"
+                    android:textColor="@color/text_label"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/detail_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/detail_label"
+                    android:lineSpacingMultiplier="1.2"
+                    android:paddingTop="10dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="14sp"
+                    tools:text="阿打的分手的分手手的是的分手的" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/detail_value"
+                    android:background="#2f959595" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/detail_label2"
+                    android:layout_width="@dimen/label_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:lineSpacingMultiplier="1.2"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="10dp"
+                    android:text="创建人"
+                    android:textColor="@color/text_label"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/detail_value2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/detail_label2"
+                    android:lineSpacingMultiplier="1.2"
+                    android:paddingTop="10dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="14sp"
+                    tools:text="阿打的分手的分手手的是的分手的" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/detail_value2"
+                    android:background="#2f959595" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/detail_label3"
+                    android:layout_width="@dimen/label_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:lineSpacingMultiplier="1.2"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="10dp"
+                    android:text="创建时间"
+                    android:textColor="@color/text_label"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/detail_value3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/detail_label3"
+                    android:lineSpacingMultiplier="1.2"
+                    android:paddingTop="10dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="14sp"
+                    tools:text="阿打的分手的分手手的是的分手的" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/detail_value3"
+                    android:background="#2f959595" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/detail_label4"
+                    android:layout_width="@dimen/label_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:lineSpacingMultiplier="1.2"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="10dp"
+                    android:text="法律法规及政策依据"
+                    android:textColor="@color/text_label"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/detail_value4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/detail_label4"
+                    android:lineSpacingMultiplier="1.2"
+                    android:paddingTop="10dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="14sp"
+                    tools:text="阿打的分手的分手手的是的分手的" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingTop="10dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#2f959595" />
+
+                <TextView
+                    android:id="@+id/detail_label5"
+                    android:layout_width="@dimen/label_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:lineSpacingMultiplier="1.2"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="10dp"
+                    android:text="惩罚措施"
+                    android:textColor="@color/text_label"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/detail_value5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/detail_label5"
+                    android:lineSpacingMultiplier="1.2"
+                    android:paddingTop="10dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="14sp"
+                    tools:text="阿打的分手的分手手的是的分手的" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

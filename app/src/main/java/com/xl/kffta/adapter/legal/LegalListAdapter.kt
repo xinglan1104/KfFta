@@ -17,9 +17,15 @@ import org.jetbrains.anko.find
  * 描述：法律条文列表页的适配器
  */
 class LegalListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    interface OnLegalItemClick {
+        fun onItemClick(legalBean: LegalProvisionBean.DataBean)
+    }
+
     val mDatas = ArrayList<LegalProvisionBean.DataBean>()
 
     var mHasNotified = false
+
+    var mOnItemClickListener: OnLegalItemClick? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_legal_list, parent, false)
@@ -74,6 +80,7 @@ class LegalListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView
                 }
                 holder.itemView.setOnClickListener {
                     // 跳转至详情页
+                    mOnItemClickListener?.onItemClick(data)
                 }
             }
             is NoDataViewHolder -> {

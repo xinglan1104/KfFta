@@ -12,6 +12,7 @@ import com.xl.kffta.R
 import com.xl.kffta.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_takeorder.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
+import org.jetbrains.anko.startActivity
 
 /**
  * @author created by zhanghaochen
@@ -55,13 +56,13 @@ class LegalProvisonActivity : BaseActivity() {
 
     override fun initData() {
         val legals = ArrayList<LegalSimpleBean>()
-        legals.add(LegalSimpleBean("协同监管措施", 130))
-        legals.add(LegalSimpleBean("许可处罚信息", 129))
-        legals.add(LegalSimpleBean("联合惩戒措施", 128))
-        legals.add(LegalSimpleBean("省级下放权限清单", 127))
-        legals.add(LegalSimpleBean("企业登记", 133))
-        legals.add(LegalSimpleBean("市场准入和任职", 134))
-        legals.add(LegalSimpleBean("自贸区权限清单", 126))
+        legals.add(LegalSimpleBean("协同监管措施", "130"))
+        legals.add(LegalSimpleBean("许可处罚信息", "129"))
+        legals.add(LegalSimpleBean("联合惩戒措施", "128"))
+        legals.add(LegalSimpleBean("省级下放权限清单", "127"))
+        legals.add(LegalSimpleBean("企业登记", "133"))
+        legals.add(LegalSimpleBean("市场准入和任职", "134"))
+        legals.add(LegalSimpleBean("自贸区权限清单", "126"))
         mAdapter?.notifyData(legals)
     }
 
@@ -85,6 +86,8 @@ class LegalProvisonActivity : BaseActivity() {
             holder.textView.text = legalBean.name
             holder.itemView.setOnClickListener {
                 // 跳转到法律详情
+                context.startActivity<LegalProvisionListActivity>(LegalProvisionListActivity.TITLE_STRING to legalBean.name,
+                        LegalProvisionListActivity.PAGE_CODE to legalBean.pageCode)
             }
         }
 
@@ -100,5 +103,5 @@ class LegalProvisonActivity : BaseActivity() {
         val textView = itemView.findViewById<TextView>(R.id.lp_name)
     }
 
-    private data class LegalSimpleBean(var name: String, var pageCode: Int)
+    private data class LegalSimpleBean(var name: String, var pageCode: String)
 }

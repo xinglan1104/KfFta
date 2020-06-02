@@ -89,8 +89,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="8dp"
         android:layout_marginTop="8dp"
-        android:background="#2f959595" />
+        android:background="@color/common_bg" />
 
 </LinearLayout>

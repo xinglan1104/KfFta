@@ -11,6 +11,8 @@ import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.net.taskmanager.LegalLawManager
 import kotlinx.android.synthetic.main.activity_normal_recycler.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
+import org.jetbrains.anko.startActivity
+import java.io.Serializable
 
 /**
  * @author zhanghaochen
@@ -22,7 +24,7 @@ class LegalProvisionListActivity : BaseActivity() {
         const val TITLE_STRING = "titleString"
         const val PAGE_CODE = "PageCode"
 
-        const val PAGE_SIZE = 50
+        private const val PAGE_SIZE = 50
 
         private const val HANDLER_REFRESHALL_SUCCESS = 0x430
     }
@@ -75,6 +77,15 @@ class LegalProvisionListActivity : BaseActivity() {
             }
         }
         common_recycler.adapter = mAdapter
+
+        // 设置点击事件
+        mAdapter.mOnItemClickListener = object : LegalListAdapter.OnLegalItemClick {
+            override fun onItemClick(legalBean: LegalProvisionBean.DataBean) {
+                startActivity<LegalProvisionDetailActivity>(LegalProvisionDetailActivity.LEGAL_TITLE to mTitleStr,
+                        LegalProvisionDetailActivity.LEGAL_BEAN to legalBean as Serializable)
+            }
+
+        }
 
         // todo 先禁用刷新功能
         refresh_layout.setEnableRefresh(false)
