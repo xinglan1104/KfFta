@@ -5,6 +5,8 @@ import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.xl.kffta.model.lawcase.LawCaseByIdBean
+import com.xl.kffta.model.lawcase.LawCaseItemBean
 import kotlinx.android.synthetic.main.layout_title_bar.*
 
 /**
@@ -27,7 +29,21 @@ class LawCaseDetailFragment : LawCaseBaseFragment() {
     }
 
     override fun initListener(mainView: View) {
+        super.initListener(mainView)
+
         title_name.text = "案件详情"
 
+    }
+
+    override fun initDataItems(lawIdBean: LawCaseByIdBean) {
+        mDatas.clear()
+        mDatas.add(LawCaseItemBean(label = "案件名称", value = lawIdBean.data?.name ?: ""))
+        mDatas.add(LawCaseItemBean(label = "案件来源", value = lawIdBean.data?.source ?: ""))
+        mDatas.add(LawCaseItemBean(label = "当事企业", value = "好像还没字段"))
+        mDatas.add(LawCaseItemBean(label = "统一社会信用代码", value = "好像还没字段"))
+    }
+
+    override fun sendRequest() {
+        TODO("Not yet implemented")
     }
 }
