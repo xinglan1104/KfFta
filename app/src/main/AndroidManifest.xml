@@ -135,6 +135,7 @@
             android:name=".ui.activity.legalprocision.LegalProvisionDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
     </application>
 </manifest>

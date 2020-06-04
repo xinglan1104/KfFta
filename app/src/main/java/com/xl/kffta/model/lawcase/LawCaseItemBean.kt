@@ -9,6 +9,10 @@ data class LawCaseItemBean(
         var label: String = "",
         var value: String = "",
         var isEditable: Boolean = false,
+        var isEditAutoComplete: Boolean = false,
+        var editHintStr: String = "",
+        var editContent: String = "",
+        var isShowSelector: Boolean = false,
         var isTitle: Boolean = false,
         var titleName: String = ""
 )

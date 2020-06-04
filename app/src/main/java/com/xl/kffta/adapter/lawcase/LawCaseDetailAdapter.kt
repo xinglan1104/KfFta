@@ -26,18 +26,18 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
     val mDatas = ArrayList<LawCaseItemBean>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when (viewType) {
+        return when (viewType) {
             ITEM_TITLE -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_only_title, parent, false)
-                return CaseDetailTitleHolder(view)
+                CaseDetailTitleHolder(view)
             }
             ITEM_EDITABLE -> {
                 val editViewHolder = LayoutInflater.from(parent.context).inflate(R.layout.item_with_edit, parent, false)
-                return CaseDetailEditHolder(editViewHolder)
+                CaseDetailEditHolder(editViewHolder)
             }
             else -> {
-                val normalView = LayoutInflater.from(parent.context).inflate(R.layout.item_jointtast_info, parent, false)
-                return CaseDetailNormalHolder(normalView)
+                val normalView = LayoutInflater.from(parent.context).inflate(R.layout.item_taskinfo_detail, parent, false)
+                CaseDetailNormalHolder(normalView)
             }
         }
     }
@@ -58,6 +58,11 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
                 val data = mDatas[position]
                 holder.label.text = data.label
                 holder.value.text = data.value
+            }
+            is CaseDetailEditHolder -> {
+                val data = mDatas[position]
+                holder.label.text = data.label
+                holder.edit.hint = data.editHintStr
             }
         }
     }
@@ -84,8 +89,8 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
      * 普通的条目holder
      */
     class CaseDetailNormalHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val label = itemView.findViewById<TextView>(R.id.joint_info_label)
-        val value = itemView.findViewById<TextView>(R.id.joint_info_value)
+        val label = itemView.find<TextView>(R.id.info_detail_label)
+        val value = itemView.find<TextView>(R.id.info_detail_value)
     }
 
     class CaseDetailTitleHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
