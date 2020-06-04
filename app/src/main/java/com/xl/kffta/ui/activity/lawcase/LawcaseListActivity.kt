@@ -167,6 +167,12 @@ class LawcaseListActivity : BaseActivity() {
                 is MyViewHolder -> {
                     val data = mDatas[position]
                     holder.name.text = data.name ?: ""
+                    // 跳转案件详情
+                    holder.itemView.setOnClickListener {
+                        context.startActivity<LawCaseInfoDetailActivity>(
+                                LawCaseInfoDetailActivity.LAW_CASE_SOURCE to LawCaseInfoDetailActivity.LAW_CASE_FROM_CASE_INFO,
+                                LawCaseInfoDetailActivity.LAW_CASE_ID to data.id)
+                    }
                 }
                 is NoDataViewHolder -> {
                     holder.itemView.visibility = if (mHasNotified) {
