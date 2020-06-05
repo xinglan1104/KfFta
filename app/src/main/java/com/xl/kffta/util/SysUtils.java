@@ -11,16 +11,18 @@ import android.util.TypedValue;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import androidx.annotation.ColorRes;
+import androidx.core.content.ContextCompat;
+
 import com.xl.kffta.base.App;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import androidx.annotation.ColorRes;
-import androidx.core.content.ContextCompat;
 
 public class SysUtils {
 
@@ -384,4 +386,32 @@ public class SysUtils {
         return null;
     }
 
+    public static byte[] readStream(String imagepath) throws Exception {
+        FileInputStream fs = new FileInputStream(imagepath);
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len = 0;
+        while (-1 != (len = fs.read(buffer))) {
+            outStream.write(buffer, 0, len);
+        }
+        outStream.close();
+        fs.close();
+        return outStream.toByteArray();
+    }
+
+    // 二进制转字符串
+    public static String byte2hex(byte[] b) {
+        StringBuffer sb = new StringBuffer();
+        String tmp = "";
+        for (int i = 0; i < b.length; i++) {
+            tmp = Integer.toHexString(b[i] & 0XFF);
+            if (tmp.length() == 1) {
+                sb.append("0" + tmp);
+            } else {
+                sb.append(tmp);
+            }
+
+        }
+        return sb.toString();
+    }
 }

@@ -8,6 +8,7 @@ import com.xl.kffta.net.NetManager
 import com.xl.kffta.net.RequestBuilder
 import com.xl.kffta.net.ResponseCallback
 import com.xl.kffta.util.ApplicationParams
+import com.xl.kffta.viewholder.AddPictureFileViewHolder
 
 /**
  * @author created by zhanghaochen
@@ -19,7 +20,7 @@ object FilesNetManager {
     /**
      * 上传单个文件，
      */
-    fun uploadSingleFile(filePath: String, file: String) {
+    fun uploadSingleFile(filePath: String, file: String, callback: AddPictureFileViewHolder.UploadFileCallback) {
         val requestBuilder = RequestBuilder()
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/AddFile?format=json"
         val paramsMap = hashMapOf<String, String>()
@@ -41,20 +42,25 @@ object FilesNetManager {
                         val simpleResponse: SimpleResponseBean? = Gson().fromJson(jsonString, SimpleResponseBean::class.java)
                         if (simpleResponse == null) {
                             Log.e(LocationManager.TAG, "解析错误")
+                            callback.uploadSuccss(false)
                         } else {
                             // 获取ErrorCode,<0时错误
                             if (simpleResponse.errorCode < 0) {
                                 Log.e(LocationManager.TAG, "解析错误")
+                                callback.uploadSuccss(false)
                             } else {
                                 // success
                                 Log.e(LocationManager.TAG, "Success")
+                                callback.uploadSuccss(true)
                             }
                         }
                     } catch (e: Exception) {
                         Log.e(LocationManager.TAG, "解析错误")
+                        callback.uploadSuccss(false)
                     }
                 } else {
                     Log.e(LocationManager.TAG, "解析错误")
+                    callback.uploadSuccss(false)
                 }
             }
         }

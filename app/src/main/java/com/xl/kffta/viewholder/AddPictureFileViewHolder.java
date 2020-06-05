@@ -3,9 +3,11 @@ package com.xl.kffta.viewholder;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -19,8 +21,11 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnResultCallbackListener;
 import com.xl.kffta.R;
 import com.xl.kffta.adapter.GridImageAdapter;
+import com.xl.kffta.base.App;
 import com.xl.kffta.base.LifeCycleManager;
+import com.xl.kffta.net.taskmanager.FilesNetManager;
 import com.xl.kffta.util.GlideEngine;
+import com.xl.kffta.util.SysUtils;
 import com.xl.kffta.widget.FullyGridLayoutManager;
 import com.yalantis.ucrop.util.ScreenUtils;
 
@@ -45,10 +50,10 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         mContext = itemView.getContext();
         mRecyclerView = itemView.findViewById(R.id.add_file_recycler);
-        FullyGridLayoutManager manager = new FullyGridLayoutManager(mContext, 4, GridLayoutManager.VERTICAL, false);
+        FullyGridLayoutManager manager = new FullyGridLayoutManager(mContext, 3, GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(manager);
 
-        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(4, ScreenUtils.dip2px(mContext, 8), false));
+        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(3, ScreenUtils.dip2px(mContext, 16), false));
         mAdapter = new GridImageAdapter(mContext, onAddPicClickListener);
         mAdapter.setSelectMax(9);
         myResultCallback = new MyResultCallback(mAdapter);
@@ -196,7 +201,26 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
                 Log.i(TAG, "宽高: " + media.getWidth() + "x" + media.getHeight());
                 Log.i(TAG, "Size: " + media.getSize());
                 // TODO 可以通过PictureSelectorExternalUtils.getExifInterface();方法获取一些额外的资源信息，如旋转角度、经纬度等信息
-                list.add(media);
+                String fileString = "";
+                try {
+                    fileString = SysUtils.byte2hex(SysUtils.readStream(media.getPath()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (!TextUtils.isEmpty(fileString)) {
+                    FilesNetManager.INSTANCE.uploadSingleFile("", fileString, new UploadFileCallback() {
+                        @Override
+                        public void uploadSuccss(boolean success) {
+                            if (success) {
+                                list.add(media);
+                            } else {
+                                Looper.prepare();
+                                Toast.makeText(App.getContext(), "上传文件失败，不添加到展示", Toast.LENGTH_SHORT).show();
+                                Looper.loop();
+                            }
+                        }
+                    });
+                }
             }
             if (mAdapterWeakReference.get() != null) {
                 mAdapterWeakReference.get().setList(list);
@@ -208,6 +232,10 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
         public void onCancel() {
             Log.i(TAG, "PictureSelector Cancel");
         }
+    }
+
+    public interface UploadFileCallback {
+        void uploadSuccss(boolean success);
     }
 
 
