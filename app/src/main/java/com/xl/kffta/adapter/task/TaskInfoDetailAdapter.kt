@@ -12,6 +12,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.model.TaskItemInfo
+import com.xl.kffta.ui.activity.map.MapViewActivity
 import com.xl.kffta.ui.activity.receivetask.CheckListActivity
 import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.util.SysUtils
@@ -99,6 +100,12 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
                         holder.locationImg.visibility = View.VISIBLE
                         holder.locationImg.setOnClickListener {
                             // 跳转地址对应的地图显示
+                            val activity = SysUtils.getActivity(context)
+                            activity?.apply {
+                                var mapIntent = Intent(context, MapViewActivity::class.java)
+                                mapIntent.putExtra("ADDRESS", taskItemInfo.value)
+                                startActivity(mapIntent)
+                            }
                         }
                     } else {
                         holder.value.setTextColor(context.resources.getColorStateList(R.color.text_value))

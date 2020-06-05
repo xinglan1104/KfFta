@@ -56,5 +56,4 @@ public static java.lang.String TABLENAME;
 
 # 2D地图
 -keep class com.amap.api.maps2d.**{*;}
-
 -keep class com.amap.api.mapcore2d.**{*;}
