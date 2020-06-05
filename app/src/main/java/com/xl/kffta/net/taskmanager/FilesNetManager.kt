@@ -26,8 +26,8 @@ object FilesNetManager {
         paramsMap["Token"] = ApplicationParams.TOKEN
         val testPath = "4578|CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask|CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask_20200601_0a17e88ab5214e51b4e607cfebb090ec"
         // todo 测试上传功能
-        paramsMap["FilePath"] = filePath
-        paramsMap["file"] = testPath
+        paramsMap["FilePath"] = testPath
+        paramsMap["file"] = file
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {
