@@ -106,7 +106,7 @@ class JointTaskInfoAdapter(val context: Context) : RecyclerView.Adapter<Recycler
         return if (jointTaskItem.isEditable) {
             ITEM_EDITABLE
         } else {
-            if (jointTaskItem.label.equals("附件")) {
+            if (jointTaskItem.needUpLoad) {
                 ITEM_ADD_FILE
             } else {
                 ITEM_NORMAL

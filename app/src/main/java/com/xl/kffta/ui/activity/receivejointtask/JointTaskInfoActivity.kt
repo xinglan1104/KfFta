@@ -295,7 +295,7 @@ class JointTaskInfoActivity : BaseActivity() {
                     mDatas.add(JointTaskInfoItem(label = "检查结果", isEditable = true))
                     mDatas.add(JointTaskInfoItem(label = "备注", isEditable = true))
                 }
-                mDatas.add(JointTaskInfoItem(label = "附件"))
+                mDatas.add(JointTaskInfoItem(label = "附件", needUpLoad = true))
 
             }
         }
