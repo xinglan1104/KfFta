@@ -9,9 +9,14 @@ import android.widget.TextView
 import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.xl.kffta.R
+import com.xl.kffta.base.App
 import com.xl.kffta.base.BaseActivity
+import com.xl.kffta.greendao.TaskInfoDao
+import com.xl.kffta.model.LocationUploadBean
 import com.xl.kffta.model.QueryTaskCountBean
+import com.xl.kffta.model.sql.TaskInfo
 import com.xl.kffta.net.ResponseObjectCallback
+import com.xl.kffta.net.taskmanager.LocationManager
 import com.xl.kffta.net.taskmanager.TaskNetManager
 import com.xl.kffta.ui.activity.executejointtask.ExecuteJointTaskListActivity
 import com.xl.kffta.ui.activity.executetask.ExecuteListActivity
@@ -110,6 +115,38 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.main_layout_7 -> startActivity(Intent(this@MainActivity, LawcaseListActivity::class.java))
             R.id.main_layout_9 -> {
+                // todo 地址上传的测试
+                val uploadBean = LocationUploadBean()
+                // 先插入一条数据
+                try {
+                    val taskInfo = TaskInfo()
+                    taskInfo.companyId = 10
+                    taskInfo.codeName = "CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask"
+                    taskInfo.executeTime = System.currentTimeMillis().toString()
+                    taskInfo.excutionStatus = 0
+                    taskInfo.pageCode = 0
+                    taskInfo.id = 2
+                    App.daoSession?.taskInfoDao?.insert(taskInfo)
+                } catch (ignored: Exception) {
+                }
+
+                // 查询数据库
+                val tasks = App.daoSession?.taskInfoDao?.queryBuilder()?.where(TaskInfoDao.Properties.Id.eq(2))?.build()?.list()
+                if (!tasks.isNullOrEmpty()) {
+                    val task1 = tasks[0]
+
+                    uploadBean.alt = 0.0
+//                    uploadBean.companyID =task1.companyId
+//                    uploadBean.createTime = task1.executeTime
+                    uploadBean.objectCodename = task1.codeName
+                    uploadBean.objectID = task1.id.toInt()
+                    uploadBean.objectPagecode = 0
+                    uploadBean.positionDateTime = System.currentTimeMillis().toString()
+                    uploadBean.lat = 0.0
+                    uploadBean.lng = 0.0
+
+                    LocationManager.uploadLocationInfo(uploadBean)
+                }
 
             }
             R.id.main_layout_8 -> startActivity(Intent(this@MainActivity, LegalProvisonActivity::class.java))
