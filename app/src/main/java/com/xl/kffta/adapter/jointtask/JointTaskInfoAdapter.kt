@@ -12,6 +12,7 @@ import com.xl.kffta.R
 import com.xl.kffta.model.JointTaskInfoItem
 import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.util.SysUtils
+import com.xl.kffta.viewholder.AddPictureFileViewHolder
 import org.jetbrains.anko.find
 import java.util.*
 import kotlin.collections.ArrayList
@@ -24,6 +25,7 @@ import kotlin.collections.ArrayList
 class JointTaskInfoAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val ITEM_EDITABLE = 6
     private val ITEM_NORMAL = 7
+    private val ITEM_ADD_FILE = 8
 
     private val mDatas = ArrayList<JointTaskInfoItem>()
 
@@ -35,6 +37,9 @@ class JointTaskInfoAdapter(val context: Context) : RecyclerView.Adapter<Recycler
         if (viewType == ITEM_EDITABLE) {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_jointtast_et, parent, false)
             return JointTaskInfoDetailEditHolder(view)
+        } else if (viewType == ITEM_ADD_FILE) {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_add_file, parent, false)
+            return AddPictureFileViewHolder(view);
         } else {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_jointtast_info, parent, false)
             return JointTaskInfoNormalHolder(view)
@@ -101,7 +106,11 @@ class JointTaskInfoAdapter(val context: Context) : RecyclerView.Adapter<Recycler
         return if (jointTaskItem.isEditable) {
             ITEM_EDITABLE
         } else {
-            ITEM_NORMAL
+            if (jointTaskItem.label.equals("附件")) {
+                ITEM_ADD_FILE
+            } else {
+                ITEM_NORMAL
+            }
         }
     }
 

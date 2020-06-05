@@ -1,9 +1,11 @@
 package com.xl.kffta.base
 
+import android.app.Activity
 import android.app.Application
 import androidx.multidex.MultiDex
 import com.xl.kffta.greendao.DaoMaster
 import com.xl.kffta.greendao.DaoSession
+
 
 /**
  * @author created by zhanghaochen
@@ -11,6 +13,8 @@ import com.xl.kffta.greendao.DaoSession
  * 描述：自定义applcation
  */
 class App : Application() {
+    @Volatile
+    var mCurrentActivity: Activity? = null
     companion object {
         @JvmField
         var instance: App? = null
@@ -21,11 +25,25 @@ class App : Application() {
         fun getContext() = instance!!
     }
 
+    @Synchronized
+    fun getCurrentActivity(): Activity? {
+        return mCurrentActivity
+    }
+
+    @Synchronized
+    fun setCurrentActivity(activity: Activity) {
+        mCurrentActivity = activity
+    }
+
     override fun onCreate() {
         super.onCreate()
         instance = this
         MultiDex.install(this)
         initGreenDao()
+
+        // INIT LifeCycle
+        val lifeCycleManager: LifeCycleManager = LifeCycleManager.getInstance()
+        lifeCycleManager.init(this)
     }
 
     private fun initGreenDao() {
