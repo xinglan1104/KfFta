@@ -257,7 +257,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                         businessCreateTime = taskInfoBean.data?.business?.businessRegistrationTime
                                 ?: ""))
                 mDatas.add(TaskItemInfo("经营场所", taskInfoBean.data?.business?.dom
-                        ?: "", isTitle = false, isCheckList = false))
+                        ?: "", isTitle = false, isCheckList = false, isLocationAble = true))
                 mDatas.add(TaskItemInfo("抽取方案", taskInfoBean.data?.govermentEnforcementScheme?.name
                         ?: "", isTitle = false, isCheckList = false))
                 // 执法人可能有多个
@@ -297,7 +297,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                         businessCreateTime = taskInfoBean.data?.business?.businessRegistrationTime
                                 ?: ""))
                 mDatas.add(TaskItemInfo(label = "经营场所", value = taskInfoBean.data?.business?.dom
-                        ?: ""))
+                        ?: "", isLocationAble = true))
                 // 执法人可能有多个
                 val owners = taskInfoBean.data?.owner
                 val ownerStr = StringBuilder("")

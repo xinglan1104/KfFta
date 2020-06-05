@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
@@ -63,6 +64,7 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
                 is TaskInfoDetailNormalHolder -> {
                     holder.label.text = it.label
                     holder.value.text = it.value
+                    holder.locationImg.visibility = View.GONE
                     // 如果是事件清单，还是需要特殊处理
                     if (it.isCheckList) {
                         holder.value.setTextColor(context.resources.getColorStateList(R.color.btn_common_color))
@@ -90,6 +92,13 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
                         }
                         holder.value.setOnClickListener {
                             SysUtils.showDatePickerDialog(context, holder.value, Calendar.getInstance(Locale.CHINA))
+                        }
+                    } else if (it.isLocationAble) {
+                        // 可以选择地址
+                        holder.value.setTextColor(context.resources.getColorStateList(R.color.text_value))
+                        holder.locationImg.visibility = View.VISIBLE
+                        holder.locationImg.setOnClickListener {
+                            // 跳转地址对应的地图显示
                         }
                     } else {
                         holder.value.setTextColor(context.resources.getColorStateList(R.color.text_value))
@@ -119,12 +128,10 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
 
     override fun getItemViewType(position: Int): Int {
         val taskItemInfo = mDatas[position]
-        return if (taskItemInfo.isTitle) {
-            ITEM_TITLE
-        } else if (taskItemInfo.isEditable) {
-            ITEM_EDITTEXT
-        } else {
-            ITEM_NORMAL
+        return when {
+            taskItemInfo.isTitle -> ITEM_TITLE
+            taskItemInfo.isEditable -> ITEM_EDITTEXT
+            else -> ITEM_NORMAL
         }
     }
 
@@ -142,6 +149,7 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
     class TaskInfoDetailNormalHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val label = itemView.findViewById<TextView>(R.id.info_detail_label)
         val value = itemView.findViewById<TextView>(R.id.info_detail_value)
+        val locationImg = itemView.find<ImageView>(R.id.info_detail_location)
     }
 
     class TaskInfoDetailTitleHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {}

@@ -16,5 +16,6 @@ data class TaskItemInfo(
         var businessPeople: String = "",
         var businessCreateTime: String = "",
         var isEditable: Boolean = false,
-        var isDatePicker: Boolean = false
+        var isDatePicker: Boolean = false,
+        var isLocationAble: Boolean = false
 )
