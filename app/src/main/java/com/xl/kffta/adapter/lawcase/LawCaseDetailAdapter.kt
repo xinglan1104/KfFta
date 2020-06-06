@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.model.lawcase.LawCaseItemBean
 import com.xl.kffta.viewholder.AddPictureFileViewHolder
+import com.xl.kffta.viewholder.SelectBusniessViewHolder
+import com.xl.kffta.widget.SelectBusinessLayout
 import org.jetbrains.anko.find
 
 /**
@@ -23,6 +25,7 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
         private const val ITEM_TITLE = 11
         private const val ITEM_EDITABLE = 12
         private const val ITEM_UPLOAD_FILE = 13
+        private const val ITEM_BUSINESS = 14
     }
 
     val mDatas = ArrayList<LawCaseItemBean>()
@@ -40,6 +43,10 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
             ITEM_UPLOAD_FILE -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_add_file, parent, false)
                 AddPictureFileViewHolder(view)
+            }
+            ITEM_BUSINESS ->{
+                val view = SelectBusinessLayout(parent.context)
+                SelectBusniessViewHolder(view)
             }
             else -> {
                 val normalView = LayoutInflater.from(parent.context).inflate(R.layout.item_taskinfo_detail, parent, false)
@@ -79,6 +86,7 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
             caseItem.isTitle -> ITEM_TITLE
             caseItem.isEditable -> ITEM_EDITABLE
             caseItem.needUpload -> ITEM_UPLOAD_FILE
+            caseItem.isEditAutoComplete -> ITEM_BUSINESS
             else -> ITEM_NORMAL
         }
     }

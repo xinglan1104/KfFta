@@ -72,7 +72,7 @@ class LawCaseDetailFragment : LawCaseBaseFragment() {
     }
 
     override fun sendRequest() {
-        LawCaseManager.queryJointTaskById(mId, object : ResponseObjectCallback {
+        LawCaseManager.queryLawCaseById(mId, object : ResponseObjectCallback {
             override fun onError(msg: String) {
                 myToast(msg)
             }
