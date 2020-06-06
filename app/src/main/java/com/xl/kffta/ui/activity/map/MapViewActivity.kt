@@ -56,34 +56,34 @@ class MapViewActivity : BaseActivity() {
         title_left.setOnClickListener { finish() }
         aMap = map_view?.map
         //设置显示定位按钮 并且可以点击
-        val settings: UiSettings = aMap!!.getUiSettings()
+        val settings: UiSettings? = aMap?.uiSettings
         // 是否显示定位按钮
-        settings.isMyLocationButtonEnabled = true
+        settings?.isMyLocationButtonEnabled = true
     }
 
     fun startLocation() {
         // 是否可触发定位并显示定位层
-        aMap!!.setMyLocationEnabled(true)
+        aMap?.setMyLocationEnabled(true)
         myLocationStyle = MyLocationStyle() //初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
 
-        myLocationStyle!!.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.navi_map_gps_locked)) // 设置小蓝点的图标
-        myLocationStyle!!.strokeColor(Color.argb(0, 0, 0, 0));// 设置圆形的边框颜色
-        myLocationStyle!!.radiusFillColor(Color.argb(0, 0, 0, 0));// 设置圆形的填充颜色
+        myLocationStyle?.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.navi_map_gps_locked)) // 设置小蓝点的图标
+        myLocationStyle?.strokeColor(Color.argb(0, 0, 0, 0));// 设置圆形的边框颜色
+        myLocationStyle?.radiusFillColor(Color.argb(0, 0, 0, 0));// 设置圆形的填充颜色
 
-        aMap!!.setMyLocationStyle(myLocationStyle) //设置定位蓝点的Style
-        aMap!!.moveCamera(CameraUpdateFactory.zoomTo(18f))
+        aMap?.setMyLocationStyle(myLocationStyle) //设置定位蓝点的Style
+        aMap?.moveCamera(CameraUpdateFactory.zoomTo(18f))
         //初始化定位
         mLocationClient = AMapLocationClient(applicationContext)
         //设置定位回调监听
-        mLocationClient!!.setLocationListener(mLocationListener)
+        mLocationClient?.setLocationListener(mLocationListener)
         //初始化AMapLocationClientOption对象
         mLocationOption = AMapLocationClientOption()
         // 设置定位一次
-        mLocationOption!!.setOnceLocation(true)
+        mLocationOption?.setOnceLocation(true)
         //设置是否允许模拟位置,默认为false，不允许模拟位置
-        mLocationOption!!.setMockEnable(false)
-        mLocationClient!!.setLocationOption(mLocationOption)
-        mLocationClient!!.startLocation()
+        mLocationOption?.setMockEnable(false)
+        mLocationClient?.setLocationOption(mLocationOption)
+        mLocationClient?.startLocation()
     }
 
     var mLocationListener = AMapLocationListener { amapLocation ->
@@ -111,7 +111,7 @@ class MapViewActivity : BaseActivity() {
                         val longititude: Double = geocodeAddress.getLatLonPoint().getLongitude() //经度
                         val cameraPosition = CameraPosition(LatLng(latitude, longititude), 18f, 0f, 0f)
                         val cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition)
-                        aMap!!.moveCamera(cameraUpdate)
+                        aMap?.moveCamera(cameraUpdate)
                         drawMarkers(latitude, longititude)
                     }
                 }
@@ -128,8 +128,8 @@ class MapViewActivity : BaseActivity() {
                 .position(LatLng(latitude, longitude))
                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.address_poi))
                 .draggable(true)
-        val marker: Marker = aMap!!.addMarker(markerOptions)
-        marker.showInfoWindow()
+        val marker: Marker? = aMap?.addMarker(markerOptions)
+        marker?.showInfoWindow()
     }
 
     override fun handleMessage(message: Message) {
@@ -140,7 +140,7 @@ class MapViewActivity : BaseActivity() {
         super.onDestroy()
         //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
         map_view.onDestroy()
-        mLocationClient!!.onDestroy()
+        mLocationClient?.onDestroy()
     }
 
     override fun onResume() {
