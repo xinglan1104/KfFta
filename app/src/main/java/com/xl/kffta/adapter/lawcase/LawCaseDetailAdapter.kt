@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.list.ItemListener
 import com.xl.kffta.R
 import com.xl.kffta.model.lawcase.LawCaseItemBean
+import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.viewholder.AddPictureFileViewHolder
 import com.xl.kffta.viewholder.SelectBusniessViewHolder
 import com.xl.kffta.widget.SelectBusinessLayout
@@ -44,7 +47,7 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_add_file, parent, false)
                 AddPictureFileViewHolder(view)
             }
-            ITEM_BUSINESS ->{
+            ITEM_BUSINESS -> {
                 val view = SelectBusinessLayout(parent.context)
                 SelectBusniessViewHolder(view)
             }
@@ -71,6 +74,20 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
                 val data = mDatas[position]
                 holder.label.text = data.label
                 holder.value.text = data.value
+                if (data.isShowSelector) {
+                    holder.value.setOnClickListener {
+                        // 搞个选择弹窗
+                        context?.let {
+                            DialogUtil.showSelectedDialog(context, object : ItemListener {
+                                override fun invoke(dialog: MaterialDialog, index: Int, text: CharSequence) {
+                                    holder.value.text = text.toString()
+                                }
+                            })
+                        }
+                    }
+                } else {
+                    holder.value.setOnClickListener(null)
+                }
             }
             is CaseDetailEditHolder -> {
                 val data = mDatas[position]
