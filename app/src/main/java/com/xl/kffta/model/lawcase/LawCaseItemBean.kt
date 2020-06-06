@@ -14,5 +14,7 @@ data class LawCaseItemBean(
         var editContent: String = "",
         var isShowSelector: Boolean = false,
         var isTitle: Boolean = false,
-        var titleName: String = ""
+        var titleName: String = "",
+        var needUpload: Boolean = false,
+        var uploadPath: String = ""
 )

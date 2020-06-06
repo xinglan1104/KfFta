@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:paddingBottom="10dp">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/info_detail_et_label"
@@ -22,6 +21,5 @@
         android:id="@+id/add_file_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp" />
+        android:paddingRight="10dp" />
 </LinearLayout>
