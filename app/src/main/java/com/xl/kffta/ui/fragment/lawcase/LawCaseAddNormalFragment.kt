@@ -32,6 +32,27 @@ class LawCaseAddNormalFragment : LawCaseBaseFragment() {
         common_right_btn.setOnClickListener {
             activity?.finish()
         }
+        common_left_btn.setOnClickListener {
+            // 提交案件
+            if (!mAdapter.mResultMap.isNullOrEmpty()) {
+                for ((key, value) in mAdapter.mResultMap) {
+                    if (TextUtils.isEmpty(value)) {
+                        when (key) {
+                            "当事企业" -> {
+                                myToast("请正确输入$key")
+                            }
+                            "部门" -> {
+                                myToast("请选择部门")
+                            }
+                            else -> {
+                                myToast("请输入$key")
+                            }
+                        }
+                        return@setOnClickListener
+                    }
+                }
+            }
+        }
     }
 
     override fun initData() {
@@ -55,6 +76,17 @@ class LawCaseAddNormalFragment : LawCaseBaseFragment() {
         mDatas.add(LawCaseItemBean(label = "提供者姓名", isEditable = true, editHintStr = "请输入提供者姓名"))
         mDatas.add(LawCaseItemBean(label = "提供者联系方式", isEditable = true, editHintStr = "请输入提供者联系方式"))
         mDatas.add(LawCaseItemBean(label = "提供者地址", isEditable = true, editHintStr = "请输入提供者地址"))
+
+        mAdapter.mResultMap["案件名称"] = ""
+        mAdapter.mResultMap["案件来源"] = ""
+        mAdapter.mResultMap["当事企业"] = ""
+        mAdapter.mResultMap["统一社会信用代码"] = ""
+        mAdapter.mResultMap["部门"] = ""
+        mAdapter.mResultMap["线索(举报)内容"] = ""
+        mAdapter.mResultMap["备注"] = ""
+        mAdapter.mResultMap["提供者姓名"] = ""
+        mAdapter.mResultMap["提供者联系方式"] = ""
+        mAdapter.mResultMap["提供者地址"] = ""
     }
 
     override fun sendRequest() {

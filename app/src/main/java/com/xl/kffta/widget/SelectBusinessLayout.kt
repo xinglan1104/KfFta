@@ -27,6 +27,12 @@ class SelectBusinessLayout : LinearLayout {
     private var mAdapter: ArrayAdapter<String>? = null
     private val mNames = mutableListOf<String>()
 
+    interface OnBusinessChangeListener {
+        fun onBusinessChangeListener(businessName: String, businessCode: String)
+    }
+
+    var mOnBusinessChangeListener: OnBusinessChangeListener? = null
+
     init {
         View.inflate(context, R.layout.layout_select_business, this)
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -38,7 +44,9 @@ class SelectBusinessLayout : LinearLayout {
         bus_value.setOnItemClickListener { parent, view, position, id ->
             mBusinessInfoBean?.data?.values?.let {
                 if (position < it.size) {
+                    // 选择完了，直接给社会代码赋值
                     bus2_value.text = it[position].businessLicenseRegistrationNumber
+                    mOnBusinessChangeListener?.onBusinessChangeListener(bus_value.text.toString(), bus2_value.text.toString())
                 }
             }
         }

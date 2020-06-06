@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.ItemListener
@@ -32,6 +33,8 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
     }
 
     val mDatas = ArrayList<LawCaseItemBean>()
+
+    val mResultMap = LinkedHashMap<String, String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -81,6 +84,7 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
                             DialogUtil.showSelectedDialog(context, object : ItemListener {
                                 override fun invoke(dialog: MaterialDialog, index: Int, text: CharSequence) {
                                     holder.value.text = text.toString()
+                                    mResultMap[data.label] = text.toString()
                                 }
                             })
                         }
@@ -93,6 +97,23 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
                 val data = mDatas[position]
                 holder.label.text = data.label
                 holder.edit.hint = data.editHintStr
+                // 保存输入的内容
+                holder.edit.doOnTextChanged { text, start, before, count ->
+                    mResultMap[data.label] = text.toString().trim()
+                }
+
+            }
+            is SelectBusniessViewHolder -> {
+                val businessView = holder.itemView
+                if (businessView is SelectBusinessLayout) {
+                    businessView.mOnBusinessChangeListener = object : SelectBusinessLayout.OnBusinessChangeListener {
+                        override fun onBusinessChangeListener(businessName: String, businessCode: String) {
+                            mResultMap["当事企业"] = businessName
+                            mResultMap["统一社会信用代码"] = businessCode
+                        }
+
+                    }
+                }
             }
         }
     }
@@ -115,7 +136,6 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
             notifyDataSetChanged()
         }
     }
-
 
     /**
      * 普通的条目holder
