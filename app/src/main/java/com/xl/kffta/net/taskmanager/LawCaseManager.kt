@@ -4,6 +4,7 @@ import android.text.TextUtils
 import android.util.Log
 import com.google.gson.Gson
 import com.xl.kffta.model.BusinessInfoBean
+import com.xl.kffta.model.SimpleResponseBean
 import com.xl.kffta.model.lawcase.LawCaseByIdBean
 import com.xl.kffta.model.lawcase.LawCaseObjectsBean
 import com.xl.kffta.net.NetManager
@@ -100,6 +101,51 @@ object LawCaseManager {
                             } else {
                                 // success
                                 callback.onSuccess(lawcaseIdBean)
+                            }
+                        }
+                    } catch (e: Exception) {
+                        callback.onError(e.message ?: "解析错误")
+                    }
+                } else {
+                    callback.onError("请求返回为空")
+                }
+            }
+        }
+        NetManager.manager.sendRequest(requestBuilder)
+    }
+
+    /**
+     * 新增普通的案件
+     */
+    fun addNewCommonCase(lawcaseIdBean: LawCaseByIdBean, callback: ResponseObjectCallback) {
+        val requestBuilder = RequestBuilder()
+        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/AddOrUpdateObject?format=json"
+        val paramsMap = hashMapOf<String, String>()
+        paramsMap["Token"] = ApplicationParams.TOKEN
+        paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentLegalCase"
+        paramsMap["PageCode"] = "0"
+        paramsMap["IsUpdateReference"] = "false"
+        paramsMap["Data"] = Gson().toJson(lawcaseIdBean.data)
+        requestBuilder.addParams(paramsMap)
+        requestBuilder.callback = object : ResponseCallback {
+            override fun onError(msg: String?) {
+                callback.onError(msg ?: "执行出错")
+            }
+
+            override fun onSuccess(jsonString: String) {
+                if (!TextUtils.isEmpty(jsonString)) {
+                    // 直接把Json转换成javaBean
+                    try {
+                        val simpleResponse: SimpleResponseBean? = Gson().fromJson(jsonString, SimpleResponseBean::class.java)
+                        if (simpleResponse == null) {
+                            callback.onError("解析错误")
+                        } else {
+                            // 获取ErrorCode,<0时错误
+                            if (simpleResponse.errorCode < 0) {
+                                callback.onError(simpleResponse.error ?: "解析错误")
+                            } else {
+                                // success
+                                callback.onSuccess("success")
                             }
                         }
                     } catch (e: Exception) {

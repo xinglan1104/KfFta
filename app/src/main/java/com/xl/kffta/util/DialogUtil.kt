@@ -115,4 +115,14 @@ object DialogUtil {
             }
         }
     }
+
+    fun showSingleCommonDialog(context: Context?, title: String = "系统提示", msg: String) {
+        context?.let {
+            MaterialDialog(context).show {
+                title(text = title)
+                message(text = msg)
+                positiveButton(text = "确定")
+            }
+        }
+    }
 }

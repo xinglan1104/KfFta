@@ -45,6 +45,11 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
     private Context mContext;
     private MyResultCallback myResultCallback;
 
+    private UploadFileCallback mUpStateCallback;
+
+    public void setUploadFileCallback(UploadFileCallback callback) {
+        this.mUpStateCallback = callback;
+    }
 
     public AddPictureFileViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -56,7 +61,7 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
         mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(3, ScreenUtils.dip2px(mContext, 16), false));
         mAdapter = new GridImageAdapter(mContext, onAddPicClickListener);
         mAdapter.setSelectMax(9);
-        myResultCallback = new MyResultCallback(mAdapter);
+        myResultCallback = new MyResultCallback(mAdapter, mUpStateCallback);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener((v, position) -> {
             List<LocalMedia> selectList = mAdapter.getData();
@@ -95,6 +100,7 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
         });
 
     }
+
 
     public void setActivity(Activity activity) {
 
@@ -181,10 +187,12 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
     private static class MyResultCallback implements OnResultCallbackListener<LocalMedia> {
         private WeakReference<GridImageAdapter> mAdapterWeakReference;
         private List<LocalMedia> list = new ArrayList<>();
+        private UploadFileCallback mUpFileCallback;
 
-        public MyResultCallback(GridImageAdapter adapter) {
+        public MyResultCallback(GridImageAdapter adapter, UploadFileCallback callback) {
             super();
             this.mAdapterWeakReference = new WeakReference<>(adapter);
+            this.mUpFileCallback = callback;
         }
 
         @Override
@@ -217,6 +225,9 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
                                 Looper.prepare();
                                 Toast.makeText(App.getContext(), "上传文件失败，不添加到展示", Toast.LENGTH_SHORT).show();
                                 Looper.loop();
+                            }
+                            if (mUpFileCallback != null) {
+                                mUpFileCallback.uploadSuccss(success);
                             }
                         }
                     });

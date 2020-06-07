@@ -8,6 +8,8 @@ import com.xl.kffta.model.lawcase.LawCaseByIdBean
 import com.xl.kffta.model.lawcase.LawCaseItemBean
 import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.net.taskmanager.FilesNetManager
+import com.xl.kffta.net.taskmanager.LawCaseManager
+import com.xl.kffta.util.DialogUtil
 import kotlinx.android.synthetic.main.fragment_case_common.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 
@@ -32,25 +34,30 @@ class LawCaseAddNormalFragment : LawCaseBaseFragment() {
         common_right_btn.setOnClickListener {
             activity?.finish()
         }
+
+        // 提交按钮的点击逻辑
         common_left_btn.setOnClickListener {
-            // 提交案件
-            if (!mAdapter.mResultMap.isNullOrEmpty()) {
-                for ((key, value) in mAdapter.mResultMap) {
-                    if (TextUtils.isEmpty(value)) {
-                        when (key) {
-                            "当事企业" -> {
-                                myToast("请正确输入$key")
-                            }
-                            "部门" -> {
-                                myToast("请选择部门")
-                            }
-                            else -> {
-                                myToast("请输入$key")
-                            }
+            // 判断是否全部输入了
+            val noEnterTip = mAdapter.getNoEnterString()
+            if (!TextUtils.isEmpty(noEnterTip)) {
+                myToast(noEnterTip)
+            } else {
+                // 提交案件
+                LawCaseManager.addNewCommonCase(getNewCaseBean(mAdapter.mResultMap), object : ResponseObjectCallback {
+                    override fun onError(msg: String) {
+                        runOnUiThread {
+                            DialogUtil.showSingleCommonDialog(context = context, msg = msg)
                         }
-                        return@setOnClickListener
                     }
-                }
+
+                    override fun onSuccess(obj: Any) {
+                        myToast("新增案件成功")
+                        runOnUiThread {
+                            activity?.finish()
+                        }
+                    }
+
+                })
             }
         }
     }
@@ -114,5 +121,37 @@ class LawCaseAddNormalFragment : LawCaseBaseFragment() {
             }
 
         })
+    }
+
+    /**
+     * 把输入内容包装成案件data
+     */
+    private fun getNewCaseBean(hashMap: LinkedHashMap<String, String>): LawCaseByIdBean {
+        val lawCaseByIdBean = LawCaseByIdBean()
+        lawCaseByIdBean.data = LawCaseByIdBean.DataBean()
+        lawCaseByIdBean.data.business = LawCaseByIdBean.DataBean.BusinessBean()
+        lawCaseByIdBean.data.department = LawCaseByIdBean.DataBean.DepartmentBeanX()
+        lawCaseByIdBean.data.name = hashMap["案件名称"]
+        lawCaseByIdBean.data.source = hashMap["案件来源"]
+        lawCaseByIdBean.data.business.businessName = hashMap["当事企业"]
+        lawCaseByIdBean.data.business.businessLicenseRegistrationNumber = hashMap["统一社会信用代码"]
+        lawCaseByIdBean.data.department.name = hashMap["部门"]
+        lawCaseByIdBean.data.content = hashMap["线索(举报)内容"]
+        lawCaseByIdBean.data.note = hashMap["备注"]
+        lawCaseByIdBean.data.contactName = hashMap["提供者姓名"]
+        lawCaseByIdBean.data.contactPhone = hashMap["提供者联系方式"]
+        lawCaseByIdBean.data.contactAddress = hashMap["提供者地址"]
+
+        // 附件部分，先看看有没有上传
+        if (mAdapter?.mIsUploaded) {
+            // 上传了就加个|0
+            if (!TextUtils.isEmpty(mFilePath)) {
+                mFilePath = "$mFilePath|0"
+            }
+        }
+        if (!mFilePath.isNullOrEmpty()) {
+            lawCaseByIdBean.data.files = mFilePath
+        }
+        return lawCaseByIdBean
     }
 }

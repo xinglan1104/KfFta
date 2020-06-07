@@ -1,6 +1,7 @@
 package com.xl.kffta.adapter.lawcase
 
 import android.content.Context
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,8 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
     val mDatas = ArrayList<LawCaseItemBean>()
 
     val mResultMap = LinkedHashMap<String, String>()
+
+    var mIsUploaded = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -115,6 +118,11 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
                     }
                 }
             }
+            is AddPictureFileViewHolder -> {
+                holder.setUploadFileCallback { success ->
+                    this.mIsUploaded = success
+                }
+            }
         }
     }
 
@@ -135,6 +143,28 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
             mDatas.addAll(lawCaseItemBean)
             notifyDataSetChanged()
         }
+    }
+
+    /**
+     * 获取没有输入的部分
+     */
+    fun getNoEnterString(): String {
+        for ((key, value) in mResultMap) {
+            if (TextUtils.isEmpty(value)) {
+                return when (key) {
+                    "当事企业" -> {
+                        "请正确输入$key"
+                    }
+                    "部门" -> {
+                        "请选择部门"
+                    }
+                    else -> {
+                        "请输入$key"
+                    }
+                }
+            }
+        }
+        return ""
     }
 
     /**
