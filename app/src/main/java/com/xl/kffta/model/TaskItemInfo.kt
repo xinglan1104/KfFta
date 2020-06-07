@@ -17,5 +17,7 @@ data class TaskItemInfo(
         var businessCreateTime: String = "",
         var isEditable: Boolean = false,
         var isDatePicker: Boolean = false,
-        var isLocationAble: Boolean = false
+        var isLocationAble: Boolean = false,
+        var needUpLoadFile: Boolean = false,
+        var upLoadFileEnable: Boolean = false
 )

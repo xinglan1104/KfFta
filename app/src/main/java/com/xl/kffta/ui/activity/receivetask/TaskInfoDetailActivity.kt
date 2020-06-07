@@ -12,11 +12,13 @@ import com.xl.kffta.model.TaskItemInfo
 import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.net.taskmanager.TaskNetManager
 import com.xl.kffta.presenter.impl.TaskInfoDetailImpl
+import com.xl.kffta.ui.activity.lawcase.LawCaseInfoDetailActivity
 import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.util.SysUtils
 import com.xl.kffta.view.ITaskInfoDetailView
 import kotlinx.android.synthetic.main.activity_taskinfo_detail.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
+import org.jetbrains.anko.startActivity
 
 /**
  * @author created by zhanghaochen
@@ -214,24 +216,42 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                                 // 时间需要进行转换
                                 taskInfoBean.data.excuteTime = "/Date(${SysUtils.dateToStamp(mAdapter.mDateSelected)})/"
 
-                                TaskNetManager.updateTaskState(taskInfoBean, object : ResponseObjectCallback {
-                                    override fun onError(msg: String) {
-                                        myToast(msg)
-                                    }
+                                // 需要完整输入
+                                val tipStr = if (taskInfoBean.data.result.isNullOrEmpty()) {
+                                    "请输入检查结果"
+                                } else if (taskInfoBean.data.note.isNullOrEmpty()) {
+                                    "请输入备注"
+                                } else if (mAdapter.mDateSelected.isEmpty()) {
+                                    "请选择日期"
+                                } else {
+                                    ""
+                                }
+                                if (tipStr.isNotEmpty()) {
+                                    DialogUtil.showSingleCommonDialog(context = this@TaskInfoDetailActivity, msg = tipStr)
+                                } else {
+                                    // 都输入完了，就执行
+                                    TaskNetManager.updateTaskState(taskInfoBean, object : ResponseObjectCallback {
+                                        override fun onError(msg: String) {
+                                            myToast(msg)
+                                        }
 
-                                    override fun onSuccess(obj: Any) {
-                                        mHandler.obtainMessage(HANDLER_START_SUCCESS).sendToTarget()
-                                        myToast("已开始执行")
-                                    }
+                                        override fun onSuccess(obj: Any) {
+                                            mHandler.obtainMessage(HANDLER_START_SUCCESS).sendToTarget()
+                                            myToast("已开始执行")
+                                        }
 
-                                })
+                                    })
+//                                    // todo 测试，弹出立案和预警选择
+//                                    showLawCaseOrWarnDialog()
+                                }
+
                             }
                         }
-
                     })
                 }
                 task_info_back.setOnClickListener {
                     finish()
+
                 }
             }
         }
@@ -309,14 +329,18 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
 
                 // 下面三个选项，待执行是可以编辑的
                 if (mTaskExeState == TASK_EXE_STATE_OVER) {
+                    // 执行完成
                     mDatas.add(TaskItemInfo(label = "执法时间", value = SysUtils.getDateTimestamp(taskInfoBean.data?.excuteTime)))
                     mDatas.add(TaskItemInfo(label = "检查结果", value = taskInfoBean.data?.result
                             ?: ""))
                     mDatas.add(TaskItemInfo(label = "备注", value = taskInfoBean.data?.note ?: ""))
+                    mDatas.add(TaskItemInfo(label = "附件", needUpLoadFile = true, upLoadFileEnable = false))
                 } else {
+                    // 待执行
                     mDatas.add(TaskItemInfo(label = "执法时间", isDatePicker = true))
                     mDatas.add(TaskItemInfo(label = "检查结果", isEditable = true))
                     mDatas.add(TaskItemInfo(label = "备注", isEditable = true))
+                    mDatas.add(TaskItemInfo(label = "附件", needUpLoadFile = true, upLoadFileEnable = true))
                 }
 
                 val checkList = taskInfoBean.data?.checkList
@@ -330,6 +354,28 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
             }
         }
 
+    }
+
+    /**
+     * 显示立案和预警选择框
+     */
+    fun showLawCaseOrWarnDialog() {
+        DialogUtil.showCaseOrWarnDialog(this, object : DialogUtil.OnLawCaseOrWarnClickListener {
+            override fun onLawCaseClick() {
+                startActivity<LawCaseInfoDetailActivity>(LawCaseInfoDetailActivity.LAW_CASE_SOURCE to LawCaseInfoDetailActivity.LAW_CASE_FROM_ADD_NORMAL_TASK,
+                        LawCaseInfoDetailActivity.ADD_TASK_LAW to mTaskInfoBean)
+                finish()
+            }
+
+            override fun onWarnClick() {
+                finish()
+            }
+
+            override fun onCancelClick() {
+                finish()
+            }
+
+        })
     }
 
     override fun onResume() {

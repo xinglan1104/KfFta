@@ -19,7 +19,6 @@ import org.jetbrains.anko.support.v4.runOnUiThread
  * 描述：普通的新增案件界面
  */
 class LawCaseAddNormalFragment : LawCaseBaseFragment() {
-    var mFilePath: String = ""
 
     override fun handleMessage(message: Message) {
 
@@ -67,23 +66,25 @@ class LawCaseAddNormalFragment : LawCaseBaseFragment() {
 
     }
 
-    override fun initDataItems(lawIdBean: LawCaseByIdBean) {
-        mDatas.clear()
-        mDatas.add(LawCaseItemBean(label = "案件名称", isEditable = true, editHintStr = "请输入案件名称"))
-        mDatas.add(LawCaseItemBean(label = "案件来源", isEditable = true, editHintStr = "请输入案件来源"))
-        mDatas.add(LawCaseItemBean(isEditAutoComplete = true))
-        mDatas.add(LawCaseItemBean(label = "部门", value = "请选择部门", isShowSelector = true))
-        mDatas.add(LawCaseItemBean(label = "线索(举报)内容", isEditable = true, editHintStr = "请输入线索或举报内容"))
-        mDatas.add(LawCaseItemBean(label = "备注", isEditable = true, editHintStr = "请输入备注信息"))
-        if (!TextUtils.isEmpty(mFilePath)) {
-            mDatas.add(LawCaseItemBean(label = "附件", needUpload = true, uploadPath = mFilePath))
+    override fun initDataItems(lawIdBean: Any) {
+        if (lawIdBean is LawCaseByIdBean) {
+            mDatas.clear()
+            mDatas.add(LawCaseItemBean(label = "案件名称", isEditable = true, editHintStr = "请输入案件名称"))
+            mDatas.add(LawCaseItemBean(label = "案件来源", isEditable = true, editHintStr = "请输入案件来源"))
+            mDatas.add(LawCaseItemBean(isEditAutoComplete = true))
+            mDatas.add(LawCaseItemBean(label = "部门", value = "请选择部门", isShowSelector = true))
+            mDatas.add(LawCaseItemBean(label = "线索(举报)内容", isEditable = true, editHintStr = "请输入线索或举报内容"))
+            mDatas.add(LawCaseItemBean(label = "备注", isEditable = true, editHintStr = "请输入备注信息"))
+            if (!TextUtils.isEmpty(mFilePath)) {
+                mDatas.add(LawCaseItemBean(label = "附件", needUpload = true, uploadPath = mFilePath))
+            }
+
+            mDatas.add(LawCaseItemBean(isTitle = true, titleName = "案件提供信息"))
+            mDatas.add(LawCaseItemBean(label = "提供者姓名", isEditable = true, editHintStr = "请输入提供者姓名"))
+            mDatas.add(LawCaseItemBean(label = "提供者联系方式", isEditable = true, editHintStr = "请输入提供者联系方式"))
+            mDatas.add(LawCaseItemBean(label = "提供者地址", isEditable = true, editHintStr = "请输入提供者地址"))
+
         }
-
-        mDatas.add(LawCaseItemBean(isTitle = true, titleName = "案件提供信息"))
-        mDatas.add(LawCaseItemBean(label = "提供者姓名", isEditable = true, editHintStr = "请输入提供者姓名"))
-        mDatas.add(LawCaseItemBean(label = "提供者联系方式", isEditable = true, editHintStr = "请输入提供者联系方式"))
-        mDatas.add(LawCaseItemBean(label = "提供者地址", isEditable = true, editHintStr = "请输入提供者地址"))
-
         mAdapter.mResultMap["案件名称"] = ""
         mAdapter.mResultMap["案件来源"] = ""
         mAdapter.mResultMap["当事企业"] = ""

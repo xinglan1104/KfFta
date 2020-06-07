@@ -54,6 +54,10 @@ class LoginPresenterImpl : ILoginPresenter {
                                 // 请求成功，把token保存下来
                                 ApplicationParams.TOKEN = userInfoBean.token
                                 ApplicationParams.USER_ID = userInfoBean.user?.id ?: 0L
+                                ApplicationParams.USER_NAME = userInfoBean.user?.userName ?: ""
+                                ApplicationParams.USER_PHONE = userInfoBean.user?.mobilePhone ?: ""
+                                ApplicationParams.USER_ADDRESS = userInfoBean.user?.additionInfo
+                                        ?: ""
                                 // 获取用户属于的部门
                                 val departments = userInfoBean.user?.department
                                 if (!departments.isNullOrEmpty()) {

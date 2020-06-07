@@ -436,7 +436,7 @@ public class TaskInfoBean implements Serializable {
             this.CheckList = CheckList;
         }
 
-        public static class GovermentEnforcementSchemeBean {
+        public static class GovermentEnforcementSchemeBean implements Serializable {
             private long ID;
             private String Code;
             private long CompanyID;
@@ -762,7 +762,7 @@ public class TaskInfoBean implements Serializable {
                 this.BusinessIDs = BusinessIDs;
             }
 
-            public static class DeparmentPeopleIncludedBean {
+            public static class DeparmentPeopleIncludedBean implements Serializable {
                 private long DepartmentID;
                 private DepartmentBean Department;
                 private int PeopleQuantity;
@@ -791,7 +791,7 @@ public class TaskInfoBean implements Serializable {
                     this.PeopleQuantity = PeopleQuantity;
                 }
 
-                public static class DepartmentBean {
+                public static class DepartmentBean implements Serializable {
                     private long ID;
                     private long CompanyID;
                     private String Name;
@@ -1075,7 +1075,7 @@ public class TaskInfoBean implements Serializable {
             }
         }
 
-        public static class DepartmentBeanX {
+        public static class DepartmentBeanX implements Serializable {
             private long ID;
             private long CompanyID;
             private String Name;
@@ -1357,7 +1357,7 @@ public class TaskInfoBean implements Serializable {
             }
         }
 
-        public static class BusinessBean {
+        public static class BusinessBean implements Serializable {
             private int ID;
             private int CompanyID;
             private Object BusinessCode;
@@ -2359,7 +2359,7 @@ public class TaskInfoBean implements Serializable {
             }
         }
 
-        public static class PendingOwnerBean {
+        public static class PendingOwnerBean implements Serializable {
 
             private String Desc;
             private Object RealName;
@@ -2993,7 +2993,7 @@ public class TaskInfoBean implements Serializable {
             }
         }
 
-        public static class CheckListBean {
+        public static class CheckListBean implements Serializable {
             /**
              * ID : 4
              * Code : 00004

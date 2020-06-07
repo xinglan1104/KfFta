@@ -19,6 +19,7 @@ import com.xl.kffta.viewholder.AddPictureFileViewHolder
  */
 object FilesNetManager {
     const val LAWCASE_CODENAME = "CloudEasy.ERP.BL.Model.Government.GovermentLegalCase"
+    const val TASK_CODENAME = "CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask"
 
     /**
      * 上传单个文件，

@@ -8,5 +8,8 @@ package com.xl.kffta.util
 object ApplicationParams {
     public var TOKEN: String by SpUtil("TOKEN", "")
     public var USER_ID: Long = 0L
-    var USER_DEPARTMENTS:String by SpUtil(USER_ID.toString(),"")
+    var USER_NAME: String = ""
+    var USER_PHONE: String = ""
+    var USER_ADDRESS: String = ""
+    var USER_DEPARTMENTS: String by SpUtil(USER_ID.toString(), "")
 }

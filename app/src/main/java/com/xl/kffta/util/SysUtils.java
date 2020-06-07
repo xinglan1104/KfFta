@@ -18,7 +18,6 @@ import com.xl.kffta.base.App;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -352,13 +351,20 @@ public class SysUtils {
     /*
      * 将时间转换为时间戳
      */
-    public static String dateToStamp(String s) throws ParseException {
-        String res;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = simpleDateFormat.parse(s);
-        long ts = date.getTime();
-        res = String.valueOf(ts);
-        return res;
+    public static String dateToStamp(String s) {
+        if (TextUtils.isEmpty(s)) {
+            return "";
+        }
+        try {
+            String res;
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = simpleDateFormat.parse(s);
+            long ts = date.getTime();
+            res = String.valueOf(ts);
+            return res;
+        } catch (Exception exception) {
+            return "";
+        }
     }
 
     public static void showDatePickerDialog(Context activity, final TextView tv, Calendar calendar) {

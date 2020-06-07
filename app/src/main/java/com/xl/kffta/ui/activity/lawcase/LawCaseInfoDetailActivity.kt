@@ -9,7 +9,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.xl.kffta.R
 import com.xl.kffta.base.BaseActivity
+import com.xl.kffta.model.TaskInfoBean
 import com.xl.kffta.ui.fragment.lawcase.LawCaseAddNormalFragment
+import com.xl.kffta.ui.fragment.lawcase.LawCaseAddTaskFragment
 import com.xl.kffta.ui.fragment.lawcase.LawCaseDetailFragment
 import kotlinx.android.synthetic.main.layout_title_bar.*
 
@@ -26,6 +28,8 @@ class LawCaseInfoDetailActivity : BaseActivity() {
         const val LAW_CASE_SOURCE = "lawCaseSource"
 
         const val LAW_CASE_ID = "lawCaseId"
+
+        const val ADD_TASK_LAW = "addTaskLaw"
 
         /**
          * 详情界面
@@ -44,6 +48,8 @@ class LawCaseInfoDetailActivity : BaseActivity() {
 
     private var mId = 0
 
+    private var mTaskInfoBean: TaskInfoBean? = null
+
     override fun getLayoutId(): Int {
         return R.layout.activity_lawcase_detail
     }
@@ -51,6 +57,8 @@ class LawCaseInfoDetailActivity : BaseActivity() {
     override fun initParams() {
         mLawCaseSource = intent.getIntExtra(LAW_CASE_SOURCE, 0)
         mId = intent.getIntExtra(LAW_CASE_ID, 0)
+        // 执法的新增案件
+        mTaskInfoBean = intent.getSerializableExtra(ADD_TASK_LAW) as TaskInfoBean?
     }
 
     override fun initViews() {
@@ -69,6 +77,15 @@ class LawCaseInfoDetailActivity : BaseActivity() {
                 // 普通的新增案件
                 title_name.text = "新增案件"
                 fragmentTransition.replace(R.id.common_case_content, LawCaseAddNormalFragment())
+            }
+            LAW_CASE_FROM_ADD_NORMAL_TASK -> {
+                // 执法的新增案件
+                title_name.text = "新增案件"
+                val lawCaseAddTaskFragment = LawCaseAddTaskFragment()
+                val bundle = Bundle()
+                bundle.putSerializable("taskInfo", mTaskInfoBean)
+                lawCaseAddTaskFragment.arguments = bundle
+                fragmentTransition.replace(R.id.common_case_content, lawCaseAddTaskFragment)
             }
             else -> {
                 title_name.text = "新增案件"

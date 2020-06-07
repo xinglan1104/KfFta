@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.adapter.lawcase.LawCaseDetailAdapter
 import com.xl.kffta.base.BaseFragment
-import com.xl.kffta.model.lawcase.LawCaseByIdBean
 import com.xl.kffta.model.lawcase.LawCaseItemBean
 import org.jetbrains.anko.support.v4.find
 
@@ -20,6 +19,8 @@ import org.jetbrains.anko.support.v4.find
  */
 abstract class LawCaseBaseFragment : BaseFragment() {
     protected val mDatas = ArrayList<LawCaseItemBean>()
+
+    var mFilePath: String = ""
 
     val mAdapter by lazy {
         LawCaseDetailAdapter(context)
@@ -48,7 +49,7 @@ abstract class LawCaseBaseFragment : BaseFragment() {
         mRecyclerView.adapter = mAdapter
     }
 
-    abstract fun initDataItems(lawIdBean: LawCaseByIdBean)
+    abstract fun initDataItems(bean: Any)
 
     abstract fun sendRequest()
 }

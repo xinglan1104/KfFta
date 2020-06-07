@@ -18,5 +18,6 @@ data class LawCaseItemBean(
         var needUpload: Boolean = false,
         var uploadPath: String = "",
         var businessName: String = "",
-        var businessCode: String = ""
+        var businessCode: String = "",
+        var isLocationAble: Boolean = false
 )

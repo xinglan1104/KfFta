@@ -53,22 +53,27 @@ class LawCaseDetailFragment : LawCaseBaseFragment() {
     /**
      * 把接口数据转换成简单的展示数据
      */
-    override fun initDataItems(lawIdBean: LawCaseByIdBean) {
-        mDatas.clear()
-        mDatas.add(LawCaseItemBean(label = "案件名称", value = lawIdBean.data?.name ?: ""))
-        mDatas.add(LawCaseItemBean(label = "案件来源", value = lawIdBean.data?.source ?: ""))
-        mDatas.add(LawCaseItemBean(label = "当事企业", value = lawIdBean.data?.business?.businessName
-                ?: ""))
-        mDatas.add(LawCaseItemBean(label = "统一社会信用代码", value = lawIdBean.data?.business?.businessLicenseRegistrationNumber
-                ?: ""))
-        mDatas.add(LawCaseItemBean(label = "部门", value = lawIdBean.data.department?.name ?: ""))
-        mDatas.add(LawCaseItemBean(label = "创建人", value = lawIdBean.data.creator.userName ?: ""))
-        mDatas.add(LawCaseItemBean(label = "创建时间", value = SysUtils.getDateTimestamp(lawIdBean.data?.createTime)))
-        mDatas.add(LawCaseItemBean(label = "线索(举报)内容", value = lawIdBean.data?.content ?: ""))
-        mDatas.add(LawCaseItemBean(isTitle = true, titleName = "案件提供者信息"))
-        mDatas.add(LawCaseItemBean(label = "提供者姓名", value = lawIdBean.data?.contactName ?: ""))
-        mDatas.add(LawCaseItemBean(label = "提供者联系方式", value = lawIdBean.data?.contactPhone ?: ""))
-        mDatas.add(LawCaseItemBean(label = "提供者地址", value = lawIdBean.data?.contactAddress ?: ""))
+    override fun initDataItems(bean: Any) {
+        if (bean is LawCaseByIdBean) {
+            mDatas.clear()
+            mDatas.add(LawCaseItemBean(label = "案件名称", value = bean.data?.name ?: ""))
+            mDatas.add(LawCaseItemBean(label = "案件来源", value = bean.data?.source ?: ""))
+            mDatas.add(LawCaseItemBean(label = "当事企业", value = bean.data?.business?.businessName
+                    ?: ""))
+            mDatas.add(LawCaseItemBean(label = "统一社会信用代码", value = bean.data?.business?.businessLicenseRegistrationNumber
+                    ?: ""))
+            mDatas.add(LawCaseItemBean(label = "部门", value = bean.data.department?.name ?: ""))
+            mDatas.add(LawCaseItemBean(label = "创建人", value = bean.data.creator.userName
+                    ?: ""))
+            mDatas.add(LawCaseItemBean(label = "创建时间", value = SysUtils.getDateTimestamp(bean.data?.createTime)))
+            mDatas.add(LawCaseItemBean(label = "线索(举报)内容", value = bean.data?.content ?: ""))
+            mDatas.add(LawCaseItemBean(isTitle = true, titleName = "案件提供者信息"))
+            mDatas.add(LawCaseItemBean(label = "提供者姓名", value = bean.data?.contactName ?: ""))
+            mDatas.add(LawCaseItemBean(label = "提供者联系方式", value = bean.data?.contactPhone
+                    ?: ""))
+            mDatas.add(LawCaseItemBean(label = "提供者地址", value = bean.data?.contactAddress
+                    ?: ""))
+        }
     }
 
     override fun sendRequest() {
