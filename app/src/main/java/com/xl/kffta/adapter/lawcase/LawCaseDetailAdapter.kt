@@ -35,7 +35,7 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
 
     val mDatas = ArrayList<LawCaseItemBean>()
 
-    val mResultMap = LinkedHashMap<String, String>()
+    val mCommonCaseResultMap = LinkedHashMap<String, String>()
 
     var mIsUploaded = false
 
@@ -87,7 +87,7 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
                             DialogUtil.showSelectedDialog(context, object : ItemListener {
                                 override fun invoke(dialog: MaterialDialog, index: Int, text: CharSequence) {
                                     holder.value.text = text.toString()
-                                    mResultMap[data.label] = text.toString()
+                                    mCommonCaseResultMap[data.label] = text.toString()
                                 }
                             })
                         }
@@ -102,7 +102,7 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
                 holder.edit.hint = data.editHintStr
                 // 保存输入的内容
                 holder.edit.doOnTextChanged { text, start, before, count ->
-                    mResultMap[data.label] = text.toString().trim()
+                    mCommonCaseResultMap[data.label] = text.toString().trim()
                 }
 
             }
@@ -111,8 +111,8 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
                 if (businessView is SelectBusinessLayout) {
                     businessView.mOnBusinessChangeListener = object : SelectBusinessLayout.OnBusinessChangeListener {
                         override fun onBusinessChangeListener(businessName: String, businessCode: String) {
-                            mResultMap["当事企业"] = businessName
-                            mResultMap["统一社会信用代码"] = businessCode
+                            mCommonCaseResultMap["当事企业"] = businessName
+                            mCommonCaseResultMap["统一社会信用代码"] = businessCode
                         }
 
                     }
@@ -148,8 +148,8 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
     /**
      * 获取没有输入的部分
      */
-    fun getNoEnterString(): String {
-        for ((key, value) in mResultMap) {
+    fun getCommonNoEnterString(): String {
+        for ((key, value) in mCommonCaseResultMap) {
             if (TextUtils.isEmpty(value)) {
                 return when (key) {
                     "当事企业" -> {

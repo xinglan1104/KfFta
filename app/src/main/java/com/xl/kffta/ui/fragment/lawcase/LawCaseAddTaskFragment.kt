@@ -11,7 +11,9 @@ import com.xl.kffta.model.lawcase.LawCaseByIdBean
 import com.xl.kffta.model.lawcase.LawCaseItemBean
 import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.net.taskmanager.FilesNetManager
+import com.xl.kffta.net.taskmanager.LawCaseManager
 import com.xl.kffta.util.ApplicationParams
+import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.util.SysUtils
 import kotlinx.android.synthetic.main.fragment_case_common.*
 import org.jetbrains.anko.support.v4.runOnUiThread
@@ -39,6 +41,43 @@ class LawCaseAddTaskFragment : LawCaseBaseFragment() {
         common_right_btn.text = "返回"
         common_right_btn.setOnClickListener {
             activity?.finish()
+        }
+
+        // 提交按钮的点击逻辑
+        common_left_btn.setOnClickListener {
+            // 判断是否全部输入了
+//            val noEnterTip = mAdapter.getCommonNoEnterString()
+//            if (!TextUtils.isEmpty(noEnterTip)) {
+//                myToast(noEnterTip)
+//            } else {
+            // 提交案件
+            mTaskInfoBean?.let { taskInfoBean ->
+                context?.let { context ->
+                    DialogUtil.showCommonDialog(context, "确定要立案吗", object : DialogUtil.OnDialogOkClick {
+                        override fun onDialogOkClick() {
+                            // 这里需要注意的是，因为是新增，所以id需要重制
+                            taskInfoBean.data?.id = 0
+                            LawCaseManager.addNewTaskCase(taskInfoBean, object : ResponseObjectCallback {
+                                override fun onError(msg: String) {
+                                    runOnUiThread {
+                                        DialogUtil.showSingleCommonDialog(context = context, msg = msg)
+                                    }
+                                }
+
+                                override fun onSuccess(obj: Any) {
+                                    myToast("新增案件成功")
+                                    runOnUiThread {
+                                        activity?.finish()
+                                    }
+                                }
+
+                            })
+                        }
+
+                    })
+                }
+            }
+//            }
         }
     }
 

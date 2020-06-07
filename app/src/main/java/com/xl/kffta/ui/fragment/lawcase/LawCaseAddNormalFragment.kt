@@ -37,26 +37,34 @@ class LawCaseAddNormalFragment : LawCaseBaseFragment() {
         // 提交按钮的点击逻辑
         common_left_btn.setOnClickListener {
             // 判断是否全部输入了
-            val noEnterTip = mAdapter.getNoEnterString()
+            val noEnterTip = mAdapter.getCommonNoEnterString()
             if (!TextUtils.isEmpty(noEnterTip)) {
                 myToast(noEnterTip)
             } else {
                 // 提交案件
-                LawCaseManager.addNewCommonCase(getNewCaseBean(mAdapter.mResultMap), object : ResponseObjectCallback {
-                    override fun onError(msg: String) {
-                        runOnUiThread {
-                            DialogUtil.showSingleCommonDialog(context = context, msg = msg)
-                        }
-                    }
+                context?.let { context ->
+                    DialogUtil.showCommonDialog(context, "确定要新增立案吗", object : DialogUtil.OnDialogOkClick {
+                        override fun onDialogOkClick() {
+                            LawCaseManager.addNewCommonCase(getNewCaseBean(mAdapter.mCommonCaseResultMap), object : ResponseObjectCallback {
+                                override fun onError(msg: String) {
+                                    runOnUiThread {
+                                        DialogUtil.showSingleCommonDialog(context = context, msg = msg)
+                                    }
+                                }
 
-                    override fun onSuccess(obj: Any) {
-                        myToast("新增案件成功")
-                        runOnUiThread {
-                            activity?.finish()
-                        }
-                    }
+                                override fun onSuccess(obj: Any) {
+                                    myToast("新增案件成功")
+                                    runOnUiThread {
+                                        activity?.finish()
+                                    }
+                                }
 
-                })
+                            })
+                        }
+
+                    })
+                }
+
             }
         }
     }
@@ -85,16 +93,16 @@ class LawCaseAddNormalFragment : LawCaseBaseFragment() {
             mDatas.add(LawCaseItemBean(label = "提供者地址", isEditable = true, editHintStr = "请输入提供者地址"))
 
         }
-        mAdapter.mResultMap["案件名称"] = ""
-        mAdapter.mResultMap["案件来源"] = ""
-        mAdapter.mResultMap["当事企业"] = ""
-        mAdapter.mResultMap["统一社会信用代码"] = ""
-        mAdapter.mResultMap["部门"] = ""
-        mAdapter.mResultMap["线索(举报)内容"] = ""
-        mAdapter.mResultMap["备注"] = ""
-        mAdapter.mResultMap["提供者姓名"] = ""
-        mAdapter.mResultMap["提供者联系方式"] = ""
-        mAdapter.mResultMap["提供者地址"] = ""
+        mAdapter.mCommonCaseResultMap["案件名称"] = ""
+        mAdapter.mCommonCaseResultMap["案件来源"] = ""
+        mAdapter.mCommonCaseResultMap["当事企业"] = ""
+        mAdapter.mCommonCaseResultMap["统一社会信用代码"] = ""
+        mAdapter.mCommonCaseResultMap["部门"] = ""
+        mAdapter.mCommonCaseResultMap["线索(举报)内容"] = ""
+        mAdapter.mCommonCaseResultMap["备注"] = ""
+        mAdapter.mCommonCaseResultMap["提供者姓名"] = ""
+        mAdapter.mCommonCaseResultMap["提供者联系方式"] = ""
+        mAdapter.mCommonCaseResultMap["提供者地址"] = ""
     }
 
     override fun sendRequest() {
