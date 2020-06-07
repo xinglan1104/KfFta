@@ -13,6 +13,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Dialog_Trans_Background" parent="AppTheme.NoActionBar">
+        <item name="md_background_color">@color/transparent</item>
+        <item name="colorBackgroundFloating">@color/transparent</item>
+    </style>
+
     <style name="NoTitle" parent="AppTheme.NoActionBar">
         <item name="android:windowFullscreen">true</item>
     </style>

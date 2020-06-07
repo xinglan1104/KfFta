@@ -23,6 +23,12 @@ object DialogUtil {
         fun onDialogOkClick()
     }
 
+    interface OnLawCaseOrWarnClickListener {
+        fun onLawCaseClick()
+        fun onWarnClick()
+        fun onCancelClick()
+    }
+
     fun showCommonDialog(context: Context, message: String, dialogOkClick: OnDialogOkClick) {
         val view: View = LayoutInflater.from(context).inflate(R.layout.dialog_common, null)
         MaterialDialog(context).show {
@@ -37,8 +43,8 @@ object DialogUtil {
             }
             // 确认的时候，需要发送个请求
             customView.find<TextView>(R.id.common_dialog_ok).setOnClickListener {
-                dialogOkClick.onDialogOkClick()
                 this.dismiss()
+                dialogOkClick.onDialogOkClick()
             }
         }
     }
@@ -98,6 +104,32 @@ object DialogUtil {
             customView.find<TextView>(R.id.dialog_buss_time).text = time
             customView.find<TextView>(R.id.dialog_buss_close).setOnClickListener {
                 this.dismiss()
+            }
+        }
+    }
+
+    /**
+     * 选择立案还是预警
+     */
+    fun showCaseOrWarnDialog(context: Context, callback: OnLawCaseOrWarnClickListener) {
+        context.setTheme(R.style.Dialog_Trans_Background)
+        val dialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_select_case_or_warn, null)
+        MaterialDialog(context).show {
+            customView(view = dialogView, noVerticalPadding = true)
+            cornerRadius(0f)
+
+            val customView = getCustomView()
+            customView.find<TextView>(R.id.dialog_lian).setOnClickListener {
+                this.dismiss()
+                callback.onLawCaseClick()
+            }
+            customView.find<TextView>(R.id.dialog_warn).setOnClickListener {
+                this.dismiss()
+                callback.onWarnClick()
+            }
+            customView.find<TextView>(R.id.dialog_cancel).setOnClickListener {
+                this.dismiss()
+                callback.onCancelClick()
             }
         }
     }
