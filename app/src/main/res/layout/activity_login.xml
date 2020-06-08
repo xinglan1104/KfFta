@@ -96,7 +96,7 @@
             android:layout_marginLeft="@dimen/login_left_right_margin"
             android:layout_marginTop="30dp"
             android:layout_marginRight="@dimen/login_left_right_margin"
-            android:background="@color/btn_common_color"
+            android:background="@drawable/selector_common_btn"
             android:gravity="center"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
