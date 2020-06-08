@@ -1,10 +1,14 @@
 package com.xl.kffta.ui.activity.map
 
+import android.Manifest
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Message
 import android.text.TextUtils
 import android.util.Log
+import com.afollestad.materialdialogs.DialogCallback
+import com.afollestad.materialdialogs.MaterialDialog
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.location.AMapLocationListener
@@ -17,8 +21,10 @@ import com.xl.kffta.R
 import com.xl.kffta.base.BaseActivity
 import kotlinx.android.synthetic.main.layout_title_bar.*
 import kotlinx.android.synthetic.main.mapview_layout.*
+import org.jetbrains.anko.debug
+import permissions.dispatcher.*
 
-
+@RuntimePermissions
 class MapViewActivity : BaseActivity() {
 
     private var aMap: AMap? = null
@@ -43,11 +49,7 @@ class MapViewActivity : BaseActivity() {
     override fun initData() {
         super.initData()
         address = intent.getStringExtra("ADDRESS")
-        if (!TextUtils.isEmpty(address)) {
-            getLocation(address)
-        } else {
-            startLocation()
-        }
+        onlyCheckLocationPermissionWithPermissionCheck()
     }
 
     override fun initViews() {
@@ -59,6 +61,67 @@ class MapViewActivity : BaseActivity() {
         val settings: UiSettings? = aMap?.uiSettings
         // 是否显示定位按钮
         settings?.isMyLocationButtonEnabled = true
+        //禁止缩放
+        settings?.setZoomGesturesEnabled(false)
+        //禁止滑动手势
+        settings?.setScrollGesturesEnabled(false)
+    }
+
+    @NeedsPermission(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+    fun onlyCheckLocationPermission() {
+        debug("获取定位权限")
+        if (!TextUtils.isEmpty(address)) {
+            getLocation(address)
+        } else {
+            startLocation()
+        }
+    }
+
+    /**
+     * 拒绝一次权限后，再次调用需要权限方法时的后续操作
+     */
+    @OnShowRationale(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+    fun showWhyForLocation() {
+        MaterialDialog(this).show {
+            title(text = "系统提示")
+            message(text = "获取当前位置需要定位权限")
+            positiveButton(text = "确定", click = object : DialogCallback {
+                override fun invoke(p1: MaterialDialog) {
+                    // 该方法也是自动生成的，用于再次申请权限
+                    proceedOnlyCheckLocationPermissionPermissionRequest()
+                }
+
+            })
+            negativeButton(text = "取消")
+        }
+    }
+
+    /**
+     * 拒绝后立即调用
+     */
+    @OnPermissionDenied(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+    fun showLocationDenied() {
+        MaterialDialog(this).show {
+            title(text = "系统提示")
+            message(text = "您已拒绝定位授权，将无定位功能")
+            positiveButton(text = "确定")
+        }
+    }
+
+    /**
+     * 点击了始终禁止权限后，调用权限相关方法时的后续提示
+     */
+    @OnNeverAskAgain(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+    fun showNeverAskAgain() {
+        MaterialDialog(this).show {
+            title(text = "权限设置提示")
+            message(text = "应用权限被拒绝,为了不影响您的正常使用，请在 权限 中开启对应权限")
+            positiveButton(text = "确定")
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        onRequestPermissionsResult(requestCode, grantResults)
     }
 
     fun startLocation() {

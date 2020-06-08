@@ -39,6 +39,8 @@ import kotlin.system.exitProcess
 class MainActivity : BaseActivity(), View.OnClickListener {
     private var mForceQuit = false
 
+    private var locationService :Intent ?= null
+
     override val loggerTag: String
         get() = "MainActivity"
 
@@ -186,6 +188,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onDestroy() {
         super.onDestroy()
+        locationService?.let { stopService(it) }
         if (mForceQuit) {
             exitProcess(0)
         }
@@ -194,7 +197,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     @NeedsPermission(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
     fun onlyCheckLocationPermission() {
         debug("获取定位权限")
-        startService(Intent(this@MainActivity, LocationService::class.java))
+        locationService = Intent(this@MainActivity, LocationService::class.java)
+        startService(locationService)
     }
 
     /**
