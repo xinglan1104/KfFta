@@ -22,6 +22,7 @@ import com.xl.kffta.ui.activity.executejointtask.ExecuteJointTaskListActivity
 import com.xl.kffta.ui.activity.executetask.ExecuteListActivity
 import com.xl.kffta.ui.activity.lawcase.LawcaseListActivity
 import com.xl.kffta.ui.activity.legalprocision.LegalProvisonActivity
+import com.xl.kffta.ui.activity.map.LocationService
 import com.xl.kffta.ui.activity.receivejointtask.JointTaskListActivity
 import com.xl.kffta.ui.activity.receivetask.TakeOrderActivity
 import com.xl.kffta.util.DialogUtil
@@ -120,12 +121,12 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 // 先插入一条数据
                 try {
                     val taskInfo = TaskInfo()
-                    taskInfo.companyId = 10
-                    taskInfo.codeName = "CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask"
+                    taskInfo.companyId = 11
+                    taskInfo.codeName = "CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask2"
                     taskInfo.executeTime = System.currentTimeMillis().toString()
                     taskInfo.excutionStatus = 0
                     taskInfo.pageCode = 0
-                    taskInfo.id = 2
+                    taskInfo.id = 3
                     App.daoSession?.taskInfoDao?.insert(taskInfo)
                 } catch (ignored: Exception) {
                 }
@@ -193,6 +194,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     @NeedsPermission(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
     fun onlyCheckLocationPermission() {
         debug("获取定位权限")
+        startService(Intent(this@MainActivity, LocationService::class.java))
     }
 
     /**
