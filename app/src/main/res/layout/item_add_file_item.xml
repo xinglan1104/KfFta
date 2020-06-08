@@ -14,7 +14,7 @@
     <TextView
         android:id="@+id/tv_duration"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@id/fiv"
         android:layout_alignRight="@id/fiv"
         android:layout_alignBottom="@id/fiv"
@@ -23,7 +23,6 @@
         android:drawablePadding="5dp"
         android:gravity="center_vertical"
         android:paddingLeft="5dp"
-        android:paddingTop="8dp"
         android:text="00:00"
         android:textColor="#FFFFFF"
         android:textSize="11sp"

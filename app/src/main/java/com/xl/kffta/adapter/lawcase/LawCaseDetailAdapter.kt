@@ -51,7 +51,7 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
             }
             ITEM_UPLOAD_FILE -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_add_file, parent, false)
-                AddPictureFileViewHolder(view)
+                AddPictureFileViewHolder(view, AddPictureFileViewHolder.TYPE_SELECT)
             }
             ITEM_BUSINESS -> {
                 val view = SelectBusinessLayout(parent.context)

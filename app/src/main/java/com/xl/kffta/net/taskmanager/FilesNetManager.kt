@@ -18,6 +18,8 @@ import com.xl.kffta.viewholder.AddPictureFileViewHolder
  * 描述：附件相关的请求管理类
  */
 object FilesNetManager {
+    const val TAG = "FilesNetManager"
+
     const val LAWCASE_CODENAME = "CloudEasy.ERP.BL.Model.Government.GovermentLegalCase"
     const val TASK_CODENAME = "CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask"
 
@@ -45,25 +47,25 @@ object FilesNetManager {
                     try {
                         val simpleResponse: SimpleResponseBean? = Gson().fromJson(jsonString, SimpleResponseBean::class.java)
                         if (simpleResponse == null) {
-                            Log.e(LocationManager.TAG, "解析错误")
+                            Log.e(TAG, "解析错误 simpleResponse == null")
                             callback.uploadSuccss(false)
                         } else {
                             // 获取ErrorCode,<0时错误
                             if (simpleResponse.errorCode < 0) {
-                                Log.e(LocationManager.TAG, "解析错误")
+                                Log.e(LocationManager.TAG, "解析错误 获取ErrorCode<0")
                                 callback.uploadSuccss(false)
                             } else {
                                 // success
-                                Log.e(LocationManager.TAG, "Success")
+                                Log.e(TAG, "Success")
                                 callback.uploadSuccss(true)
                             }
                         }
                     } catch (e: Exception) {
-                        Log.e(LocationManager.TAG, "解析错误")
+                        Log.e(TAG, "Gson解析错误")
                         callback.uploadSuccss(false)
                     }
                 } else {
-                    Log.e(LocationManager.TAG, "解析错误")
+                    Log.e(TAG, "解析错误 返回string isEmpty")
                     callback.uploadSuccss(false)
                 }
             }
@@ -92,21 +94,21 @@ object FilesNetManager {
                     try {
                         val simpleResponse: SimpleResponseBean? = Gson().fromJson(jsonString, SimpleResponseBean::class.java)
                         if (simpleResponse == null) {
-                            Log.e(LocationManager.TAG, "解析错误")
+                            Log.e(TAG, "解析错误")
                         } else {
                             // 获取ErrorCode,<0时错误
                             if (simpleResponse.errorCode < 0) {
-                                Log.e(LocationManager.TAG, "解析错误")
+                                Log.e(TAG, "解析错误")
                             } else {
                                 // success
-                                Log.e(LocationManager.TAG, "Success")
+                                Log.e(TAG, "Success")
                             }
                         }
                     } catch (e: Exception) {
-                        Log.e(LocationManager.TAG, "解析错误")
+                        Log.e(TAG, "解析错误")
                     }
                 } else {
-                    Log.e(LocationManager.TAG, "解析错误")
+                    Log.e(TAG, "解析错误")
                 }
             }
         }

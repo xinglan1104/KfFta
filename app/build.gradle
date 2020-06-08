@@ -39,6 +39,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.guava:guava:26.0-jre'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
@@ -91,4 +92,8 @@ greendao {
 }
 repositories {
     mavenCentral()
+}
+configurations {
+//这里要排除掉这个包，这个包会与 com.google.guava 冲突，导致编译不过
+    all*.exclude group: 'com.google.guava', module: 'listenablefuture'
 }

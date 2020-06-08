@@ -1,6 +1,5 @@
 package com.xl.kffta.viewholder;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Looper;
@@ -10,9 +9,14 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.camera.core.impl.utils.futures.FutureCallback;
+import androidx.camera.core.impl.utils.futures.Futures;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.ListeningExecutorService;
+import com.google.common.util.concurrent.MoreExecutors;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -32,6 +36,8 @@ import com.yalantis.ucrop.util.ScreenUtils;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
 
 import static android.content.ContentValues.TAG;
 
@@ -40,26 +46,28 @@ import static android.content.ContentValues.TAG;
  */
 
 public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
+    public static int TYPE_SHOW = 0;
+    public static int TYPE_SELECT = 1;
+    private Context mContext;
     private RecyclerView mRecyclerView;
     private GridImageAdapter mAdapter;
-    private Context mContext;
-    private MyResultCallback myResultCallback;
 
+    private MyResultCallback myResultCallback;
     private UploadFileCallback mUpStateCallback;
+
 
     public void setUploadFileCallback(UploadFileCallback callback) {
         this.mUpStateCallback = callback;
     }
 
-    public AddPictureFileViewHolder(@NonNull View itemView) {
+    public AddPictureFileViewHolder(@NonNull View itemView, int type) {
         super(itemView);
         mContext = itemView.getContext();
         mRecyclerView = itemView.findViewById(R.id.add_file_recycler);
-        FullyGridLayoutManager manager = new FullyGridLayoutManager(mContext, 3, GridLayoutManager.VERTICAL, false);
+        FullyGridLayoutManager manager = new FullyGridLayoutManager(mContext, 4, GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(manager);
-
-        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(3, ScreenUtils.dip2px(mContext, 16), false));
-        mAdapter = new GridImageAdapter(mContext, onAddPicClickListener);
+        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(4, ScreenUtils.dip2px(mContext, 8), false));
+        mAdapter = new GridImageAdapter(mContext, onAddPicClickListener, type);
         mAdapter.setSelectMax(9);
         myResultCallback = new MyResultCallback(mAdapter, mUpStateCallback);
         mRecyclerView.setAdapter(mAdapter);
@@ -101,8 +109,11 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-
-    public void setActivity(Activity activity) {
+    public void setList(List<LocalMedia> list) {
+        if (list != null && list.size() > 0) {
+            mAdapter.setList(list);
+            mAdapter.notifyDataSetChanged();
+        }
 
     }
 
@@ -184,9 +195,10 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
     /**
      * 返回结果回调
      */
-    private static class MyResultCallback implements OnResultCallbackListener<LocalMedia> {
+    public static class MyResultCallback implements OnResultCallbackListener<LocalMedia> {
+        public static final ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newCachedThreadPool());
         private WeakReference<GridImageAdapter> mAdapterWeakReference;
-        private List<LocalMedia> list = new ArrayList<>();
+        public List<LocalMedia> list = new ArrayList<>();
         private UploadFileCallback mUpFileCallback;
 
         public MyResultCallback(GridImageAdapter adapter, UploadFileCallback callback) {
@@ -209,34 +221,52 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
                 Log.i(TAG, "宽高: " + media.getWidth() + "x" + media.getHeight());
                 Log.i(TAG, "Size: " + media.getSize());
                 // TODO 可以通过PictureSelectorExternalUtils.getExifInterface();方法获取一些额外的资源信息，如旋转角度、经纬度等信息
-                String fileString = "";
-                try {
-                    fileString = SysUtils.byte2hex(SysUtils.readStream(media.getPath()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                if (!TextUtils.isEmpty(fileString)) {
-                    FilesNetManager.INSTANCE.uploadSingleFile("", fileString, new UploadFileCallback() {
-                        @Override
-                        public void uploadSuccss(boolean success) {
-                            if (success) {
-                                list.add(media);
-                            } else {
-                                Looper.prepare();
-                                Toast.makeText(App.getContext(), "上传文件失败，不添加到展示", Toast.LENGTH_SHORT).show();
-                                Looper.loop();
-                            }
-                            if (mUpFileCallback != null) {
-                                mUpFileCallback.uploadSuccss(success);
-                            }
+
+                ListenableFuture<String> booleanTask = service.submit(new Callable<String>() {
+                    @Override
+                    public String call() throws Exception {
+                        String fileString = "";
+                        try {
+                            fileString = new String(SysUtils.readStream(media.getPath()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    });
-                }
+                        return fileString;
+                    }
+                });
+                Futures.addCallback(booleanTask, new FutureCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        if (!TextUtils.isEmpty(result)) {
+                            FilesNetManager.INSTANCE.uploadSingleFile("", result, new UploadFileCallback() {
+                                @Override
+                                public void uploadSuccss(boolean success) {
+                                    if (success) {
+                                        list.add(media);
+                                    } else {
+                                        Looper.prepare();
+                                        Toast.makeText(App.getContext(), "上传文件失败，不添加到展示", Toast.LENGTH_SHORT).show();
+                                        Looper.loop();
+                                    }
+                                    if (mUpFileCallback != null) {
+                                        mUpFileCallback.uploadSuccss(success);
+                                    }
+                                    if (mAdapterWeakReference.get() != null) {
+                                        mAdapterWeakReference.get().setList(list);
+                                        mAdapterWeakReference.get().notifyDataSetChanged();
+                                    }
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Throwable throwable) {
+                        Log.i(TAG, "file readStream failed");
+                    }
+                }, service);
             }
-            if (mAdapterWeakReference.get() != null) {
-                mAdapterWeakReference.get().setList(list);
-                mAdapterWeakReference.get().notifyDataSetChanged();
-            }
+
         }
 
         @Override

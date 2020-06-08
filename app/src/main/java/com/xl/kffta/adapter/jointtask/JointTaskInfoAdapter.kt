@@ -39,7 +39,7 @@ class JointTaskInfoAdapter(val context: Context) : RecyclerView.Adapter<Recycler
             return JointTaskInfoDetailEditHolder(view)
         } else if (viewType == ITEM_ADD_FILE) {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_add_file, parent, false)
-            return AddPictureFileViewHolder(view);
+            return AddPictureFileViewHolder(view, AddPictureFileViewHolder.TYPE_SELECT);
         } else {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_jointtast_info, parent, false)
             return JointTaskInfoNormalHolder(view)

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:paddingBottom="8dp">
 
     <TextView
         android:id="@+id/info_detail_et_label"
@@ -10,12 +11,13 @@
         android:layout_height="match_parent"
         android:ellipsize="end"
         android:gravity="start"
+        android:lineSpacingMultiplier="1.2"
         android:maxLines="1"
         android:paddingLeft="15dp"
         android:paddingTop="10dp"
         android:text="附件"
         android:textColor="@color/text_label"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/add_file_recycler"

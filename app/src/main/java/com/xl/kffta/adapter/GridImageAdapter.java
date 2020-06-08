@@ -19,6 +19,7 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnItemClickListener;
 import com.luck.picture.lib.tools.DateUtils;
 import com.xl.kffta.R;
+import com.xl.kffta.viewholder.AddPictureFileViewHolder;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,6 +39,8 @@ public class GridImageAdapter extends
     private LayoutInflater mInflater;
     private List<LocalMedia> list = new ArrayList<>();
     private int selectMax = 9;
+    private int showType;
+
     /**
      * 点击添加图片跳转
      */
@@ -63,9 +66,10 @@ public class GridImageAdapter extends
         }
     }
 
-    public GridImageAdapter(Context context, onAddPicClickListener mOnAddPicClickListener) {
+    public GridImageAdapter(Context context, onAddPicClickListener mOnAddPicClickListener, int type) {
         this.mInflater = LayoutInflater.from(context);
         this.mOnAddPicClickListener = mOnAddPicClickListener;
+        this.showType = type;
     }
 
     public void setSelectMax(int selectMax) {
@@ -100,7 +104,7 @@ public class GridImageAdapter extends
 
     @Override
     public int getItemCount() {
-        if (list.size() < selectMax) {
+        if (list.size() < selectMax && showType == AddPictureFileViewHolder.TYPE_SELECT) {
             return list.size() + 1;
         } else {
             return list.size();
@@ -138,7 +142,7 @@ public class GridImageAdapter extends
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         //少于8张，显示继续添加的图标
-        if (getItemViewType(position) == TYPE_CAMERA) {
+        if (getItemViewType(position) == TYPE_CAMERA && showType == AddPictureFileViewHolder.TYPE_SELECT) {
             viewHolder.mImg.setImageResource(R.drawable.feedback_ft_add_img);
             viewHolder.mImg.setOnClickListener(v -> mOnAddPicClickListener.onAddPicClick());
         } else {
