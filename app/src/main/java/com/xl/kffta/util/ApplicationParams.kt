@@ -14,7 +14,7 @@ object ApplicationParams {
     var USER_DEPARTMENTS: String by SpUtil(USER_ID.toString(), "")
 
     /**
-     * 方便起见，文件的路径直接保存全局变量
+     * 方便起见，文件的路径直接保存全局变量，未经处理的完整路径
      */
     var TEMP_FILE_PATH: String = ""
 }

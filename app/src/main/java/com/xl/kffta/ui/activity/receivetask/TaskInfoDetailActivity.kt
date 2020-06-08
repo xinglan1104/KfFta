@@ -7,12 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.adapter.task.TaskInfoDetailAdapter
 import com.xl.kffta.base.BaseActivity
+import com.xl.kffta.model.GetFilepathBean
 import com.xl.kffta.model.TaskInfoBean
 import com.xl.kffta.model.TaskItemInfo
 import com.xl.kffta.net.ResponseObjectCallback
+import com.xl.kffta.net.taskmanager.FilesNetManager
 import com.xl.kffta.net.taskmanager.TaskNetManager
 import com.xl.kffta.presenter.impl.TaskInfoDetailImpl
 import com.xl.kffta.ui.activity.lawcase.LawCaseInfoDetailActivity
+import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.util.SysUtils
 import com.xl.kffta.view.ITaskInfoDetailView
@@ -81,11 +84,22 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
     override fun handleMessage(message: Message) {
         when (message.what) {
             HANDLER_REFRESH -> {
-                val data = message.obj as TaskInfoBean
-                initItemData(data)
-                mAdapter?.notifyDataChange(mDatas)
-                mTaskInfoBean = data
-                task_info_bottom_layout?.visibility = View.VISIBLE
+                val data = message.obj
+                if (data is TaskInfoBean && data.data != null) {
+                    // 看看有没有files文件上传路径字段
+                    if (data.data.files.isNullOrEmpty()) {
+                        // 如果没有文件上传路径，需要发送请求，请求文件上传的路径是啥
+                        requestFilePath(data)
+                    } else {
+                        // 已经有文件上传路径，赋值全局的
+                        ApplicationParams.TEMP_FILE_PATH = data.data.files
+
+                        initItemData(data)
+                        mAdapter?.notifyDataChange(mDatas)
+                        mTaskInfoBean = data
+                        task_info_bottom_layout?.visibility = View.VISIBLE
+                    }
+                }
             }
             HANDLER_GET_SUCCESS -> {
                 // 领取成功后，更新按钮样式
@@ -105,6 +119,9 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
         taskGetState = intent.getIntExtra(TASK_GET_STATE, 0)
         mTaskExeState = intent.getIntExtra(TASK_EXE_STATE, 0)
         mInfoType = intent.getIntExtra(INFO_TYPE, 0)
+
+        // 在请求之前，先把全局的filepath重置
+        ApplicationParams.TEMP_FILE_PATH = ""
     }
 
     override fun initViews() {
@@ -339,6 +356,8 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                     mDatas.add(TaskItemInfo(label = "检查结果", isEditable = true))
                     mDatas.add(TaskItemInfo(label = "备注", isEditable = true))
                     mDatas.add(TaskItemInfo(label = "附件", needUpLoadFile = true, upLoadFileEnable = true))
+
+                    // 等待执行
                 }
 
                 val checkList = taskInfoBean.data?.checkList
@@ -352,6 +371,38 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
             }
         }
 
+    }
+
+    /**
+     * 通过请求获取文件的上传path
+     */
+    private fun requestFilePath(taskInfoBean: TaskInfoBean) {
+        FilesNetManager.getUploadFilePath(FilesNetManager.TASK_CODENAME, object : ResponseObjectCallback {
+            override fun onError(msg: String) {
+                myToast("无法获取附件上传路径")
+                runOnUiThread {
+                    initItemData(taskInfoBean)
+                    mAdapter?.notifyDataChange(mDatas)
+                    mTaskInfoBean = taskInfoBean
+                    task_info_bottom_layout?.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onSuccess(obj: Any) {
+                runOnUiThread {
+                    if (obj is GetFilepathBean) {
+                        // 赋值这个文件路径
+                        ApplicationParams.TEMP_FILE_PATH = obj.data ?: ""
+
+                        initItemData(taskInfoBean)
+                        mAdapter?.notifyDataChange(mDatas)
+                        mTaskInfoBean = taskInfoBean
+                        task_info_bottom_layout?.visibility = View.VISIBLE
+                    }
+                }
+            }
+
+        })
     }
 
     /**

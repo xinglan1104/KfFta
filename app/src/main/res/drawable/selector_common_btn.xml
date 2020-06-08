@@ -2,4 +2,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/shape_common_btn" android:state_enabled="true" />
     <item android:drawable="@drawable/shape_grey_btn" android:state_enabled="false" />
+    <item android:drawable="@drawable/shape_common_btn" android:state_pressed="false" />
+    <item android:drawable="@drawable/shape_grey_btn" android:state_pressed="true" />
 </selector>

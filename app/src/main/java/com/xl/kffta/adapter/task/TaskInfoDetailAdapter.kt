@@ -16,6 +16,7 @@ import com.xl.kffta.ui.activity.map.MapViewActivity
 import com.xl.kffta.ui.activity.receivetask.CheckListActivity
 import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.util.SysUtils
+import com.xl.kffta.viewholder.AddPictureFileViewHolder
 import org.jetbrains.anko.find
 import java.util.*
 import kotlin.collections.ArrayList
@@ -27,9 +28,10 @@ import kotlin.collections.ArrayList
  */
 class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
-        private val ITEM_NORMAL = 1
-        private val ITEM_EDITTEXT = 3
-        private val ITEM_TITLE = 2
+        private const val ITEM_NORMAL = 1
+        private const val ITEM_EDITTEXT = 3
+        private const val ITEM_TITLE = 2
+        private const val ITEM_ADD_FILE = 4
     }
 
     val mDatas = ArrayList<TaskItemInfo>()
@@ -39,15 +41,23 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
     var mDateSelected: String = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == ITEM_NORMAL) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_taskinfo_detail, parent, false)
-            TaskInfoDetailNormalHolder(view)
-        } else if (viewType == ITEM_EDITTEXT) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_with_edit, parent, false)
-            TaskInfoDetailEditHolder(view)
-        } else {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_only_title, parent, false)
-            TaskInfoDetailTitleHolder(view)
+        return when (viewType) {
+            ITEM_NORMAL -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_taskinfo_detail, parent, false)
+                TaskInfoDetailNormalHolder(view)
+            }
+            ITEM_EDITTEXT -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_with_edit, parent, false)
+                TaskInfoDetailEditHolder(view)
+            }
+            ITEM_ADD_FILE -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_add_file, parent, false)
+                AddPictureFileViewHolder(view)
+            }
+            else -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_only_title, parent, false)
+                TaskInfoDetailTitleHolder(view)
+            }
         }
     }
 
@@ -138,6 +148,7 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
         return when {
             taskItemInfo.isTitle -> ITEM_TITLE
             taskItemInfo.isEditable -> ITEM_EDITTEXT
+            taskItemInfo.needUpLoadFile -> ITEM_ADD_FILE
             else -> ITEM_NORMAL
         }
     }
