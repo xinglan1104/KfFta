@@ -241,8 +241,6 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                                         }
 
                                     })
-//                                    // todo 测试，弹出立案和预警选择
-//                                    showLawCaseOrWarnDialog()
                                 }
 
                             }
@@ -250,8 +248,8 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                     })
                 }
                 task_info_back.setOnClickListener {
-                    finish()
-
+                    // 选择其他执法方式
+                    showLawCaseOrWarnDialog()
                 }
             }
         }
@@ -359,20 +357,19 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
     /**
      * 显示立案和预警选择框
      */
-    fun showLawCaseOrWarnDialog() {
+    private fun showLawCaseOrWarnDialog() {
         DialogUtil.showCaseOrWarnDialog(this, object : DialogUtil.OnLawCaseOrWarnClickListener {
             override fun onLawCaseClick() {
                 startActivity<LawCaseInfoDetailActivity>(LawCaseInfoDetailActivity.LAW_CASE_SOURCE to LawCaseInfoDetailActivity.LAW_CASE_FROM_ADD_NORMAL_TASK,
                         LawCaseInfoDetailActivity.ADD_TASK_LAW to mTaskInfoBean)
-                finish()
             }
 
             override fun onWarnClick() {
-                finish()
+
             }
 
             override fun onCancelClick() {
-                finish()
+
             }
 
         })

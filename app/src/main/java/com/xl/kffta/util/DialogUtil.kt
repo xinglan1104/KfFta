@@ -30,6 +30,7 @@ object DialogUtil {
     }
 
     fun showCommonDialog(context: Context, message: String, dialogOkClick: OnDialogOkClick) {
+        context.setTheme(R.style.AppTheme_NoActionBar)
         val view: View = LayoutInflater.from(context).inflate(R.layout.dialog_common, null)
         MaterialDialog(context).show {
             customView(view = view, noVerticalPadding = true, dialogWrapContent = true)
@@ -53,6 +54,7 @@ object DialogUtil {
      * 事件清单详情的dialog
      */
     fun showCheckListDialog(context: Context, title: String, provide: String, detail: String) {
+        context.setTheme(R.style.AppTheme_NoActionBar)
         val dialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_checklist, null)
         MaterialDialog(context).show {
             customView(view = dialogView, noVerticalPadding = true)
@@ -72,6 +74,7 @@ object DialogUtil {
      * 检查阶段的详情弹窗
      */
     fun showJointRiskDialog(context: Context, stage: String, department: String, riskInfo: String) {
+        context.setTheme(R.style.AppTheme_NoActionBar)
         val dialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_joint_riskinfo, null)
         MaterialDialog(context).show {
             customView(view = dialogView, noVerticalPadding = true)
@@ -92,6 +95,7 @@ object DialogUtil {
      * 企业信息的弹窗
      */
     fun showBusinessInfoDialog(context: Context, code: String, name: String, time: String) {
+        context.setTheme(R.style.AppTheme_NoActionBar)
         val dialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_bussns_info, null)
         MaterialDialog(context).show {
             customView(view = dialogView, noVerticalPadding = true)
@@ -135,6 +139,7 @@ object DialogUtil {
     }
 
     fun showSelectedDialog(context: Context, callback: ItemListener) {
+        context.setTheme(R.style.AppTheme_NoActionBar)
         // 处理字符串
         val listStr = ApplicationParams.USER_DEPARTMENTS
         if (!listStr.isNullOrEmpty()) {
@@ -149,6 +154,7 @@ object DialogUtil {
     }
 
     fun showSingleCommonDialog(context: Context?, title: String = "系统提示", msg: String) {
+        context?.setTheme(R.style.AppTheme_NoActionBar)
         context?.let {
             MaterialDialog(context).show {
                 title(text = title)

@@ -80,7 +80,10 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
                 val data = mDatas[position]
                 holder.label.text = data.label
                 holder.value.text = data.value
+                mCommonCaseResultMap[data.label] = data.value
                 if (data.isShowSelector) {
+                    // 如果是选择部门，之前的value无法作为最终输出
+                    mCommonCaseResultMap[data.label] = ""
                     holder.value.setOnClickListener {
                         // 搞个选择弹窗
                         context?.let {
@@ -100,6 +103,8 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
                 val data = mDatas[position]
                 holder.label.text = data.label
                 holder.edit.hint = data.editHintStr
+                holder.edit.setText(data.value)
+                mCommonCaseResultMap[data.label] = data.value
                 // 保存输入的内容
                 holder.edit.doOnTextChanged { text, start, before, count ->
                     mCommonCaseResultMap[data.label] = text.toString().trim()
@@ -149,14 +154,20 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
      * 获取没有输入的部分
      */
     fun getCommonNoEnterString(): String {
-        for ((key, value) in mCommonCaseResultMap) {
+        loop@ for ((key, value) in mCommonCaseResultMap) {
             if (TextUtils.isEmpty(value)) {
                 return when (key) {
                     "当事企业" -> {
                         "请正确输入$key"
                     }
+                    "统一社会信用代码" -> {
+                        continue@loop
+                    }
                     "部门" -> {
                         "请选择部门"
+                    }
+                    "提供者地址" -> {
+                        continue@loop
                     }
                     else -> {
                         "请输入$key"
