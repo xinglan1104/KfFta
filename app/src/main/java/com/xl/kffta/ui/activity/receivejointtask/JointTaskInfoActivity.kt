@@ -12,10 +12,12 @@ import com.xl.kffta.model.JointTaskInfoBean
 import com.xl.kffta.model.JointTaskInfoItem
 import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.net.taskmanager.JointTaskManager
+import com.xl.kffta.ui.activity.lawcase.LawCaseInfoDetailActivity
 import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.util.SysUtils
 import kotlinx.android.synthetic.main.activity_jointinfo.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
+import org.jetbrains.anko.startActivity
 
 /**
  * @author created by zhanghaochen
@@ -178,7 +180,8 @@ class JointTaskInfoActivity : BaseActivity() {
             }
             JOINT_TASK_TYPE_EXECUTE -> {
                 joint_info_back.setOnClickListener {
-                    finish()
+                    // 选择立案或者预警
+                    showLawCaseOrWarnDialog()
                 }
 
                 joint_info_get.setOnClickListener {
@@ -313,6 +316,26 @@ class JointTaskInfoActivity : BaseActivity() {
 
             override fun onSuccess(obj: Any) {
                 mHandler.obtainMessage(HANDLER_REFRESH, obj).sendToTarget()
+            }
+
+        })
+    }
+
+    /**
+     * 显示立案和预警选择框
+     */
+    private fun showLawCaseOrWarnDialog() {
+        DialogUtil.showCaseOrWarnDialog(this, object : DialogUtil.OnLawCaseOrWarnClickListener {
+            override fun onLawCaseClick() {
+                startActivity<LawCaseInfoDetailActivity>(LawCaseInfoDetailActivity.LAW_CASE_SOURCE to LawCaseInfoDetailActivity.LAW_CASE_FROM_ADD_JOINT_TASK)
+            }
+
+            override fun onWarnClick() {
+
+            }
+
+            override fun onCancelClick() {
+
             }
 
         })

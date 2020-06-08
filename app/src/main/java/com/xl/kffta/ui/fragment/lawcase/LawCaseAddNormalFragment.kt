@@ -1,14 +1,18 @@
 package com.xl.kffta.ui.fragment.lawcase
 
+import android.os.Bundle
 import android.os.Message
 import android.text.TextUtils
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.xl.kffta.model.GetFilepathBean
 import com.xl.kffta.model.lawcase.LawCaseByIdBean
 import com.xl.kffta.model.lawcase.LawCaseItemBean
 import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.net.taskmanager.FilesNetManager
 import com.xl.kffta.net.taskmanager.LawCaseManager
+import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.util.DialogUtil
 import kotlinx.android.synthetic.main.fragment_case_common.*
 import org.jetbrains.anko.support.v4.runOnUiThread
@@ -19,9 +23,16 @@ import org.jetbrains.anko.support.v4.runOnUiThread
  * 描述：普通的新增案件界面
  */
 class LawCaseAddNormalFragment : LawCaseBaseFragment() {
+    private var mNeedFitUserInfo: Boolean = false
 
     override fun handleMessage(message: Message) {
 
+    }
+
+    override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        mNeedFitUserInfo = arguments?.getBoolean("showUserInfo", false) ?: false
+
+        return super.initView(inflater, container, savedInstanceState)
     }
 
     override fun initListener(mainView: View) {
@@ -88,9 +99,15 @@ class LawCaseAddNormalFragment : LawCaseBaseFragment() {
             }
 
             mDatas.add(LawCaseItemBean(isTitle = true, titleName = "案件提供信息"))
-            mDatas.add(LawCaseItemBean(label = "提供者姓名", isEditable = true, editHintStr = "请输入提供者姓名"))
-            mDatas.add(LawCaseItemBean(label = "提供者联系方式", isEditable = true, editHintStr = "请输入提供者联系方式"))
-            mDatas.add(LawCaseItemBean(label = "提供者地址", isEditable = true, editHintStr = "请输入提供者地址"))
+            if (mNeedFitUserInfo) {
+                mDatas.add(LawCaseItemBean(label = "提供者姓名", isEditable = true, editHintStr = "请输入提供者姓名", value = ApplicationParams.USER_NAME))
+                mDatas.add(LawCaseItemBean(label = "提供者联系方式", isEditable = true, editHintStr = "请输入提供者联系方式", value = ApplicationParams.USER_PHONE))
+                mDatas.add(LawCaseItemBean(label = "提供者地址", isEditable = true, editHintStr = "请输入提供者地址", value = ApplicationParams.USER_ADDRESS))
+            } else {
+                mDatas.add(LawCaseItemBean(label = "提供者姓名", isEditable = true, editHintStr = "请输入提供者姓名"))
+                mDatas.add(LawCaseItemBean(label = "提供者联系方式", isEditable = true, editHintStr = "请输入提供者联系方式"))
+                mDatas.add(LawCaseItemBean(label = "提供者地址", isEditable = true, editHintStr = "请输入提供者地址"))
+            }
 
         }
         mAdapter.mCommonCaseResultMap["案件名称"] = ""

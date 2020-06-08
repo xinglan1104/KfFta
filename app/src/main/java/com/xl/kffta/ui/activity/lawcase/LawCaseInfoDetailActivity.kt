@@ -87,6 +87,15 @@ class LawCaseInfoDetailActivity : BaseActivity() {
                 lawCaseAddTaskFragment.arguments = bundle
                 fragmentTransition.replace(R.id.common_case_content, lawCaseAddTaskFragment)
             }
+            LAW_CASE_FROM_ADD_JOINT_TASK -> {
+                // 普通的新增案件
+                title_name.text = "新增案件"
+                val lawCaseAddNormalFragment = LawCaseAddNormalFragment()
+                val bundle = Bundle()
+                bundle.putBoolean("showUserInfo", true)
+                lawCaseAddNormalFragment.arguments = bundle
+                fragmentTransition.replace(R.id.common_case_content, lawCaseAddNormalFragment)
+            }
             else -> {
                 title_name.text = "新增案件"
             }
