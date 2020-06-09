@@ -19,5 +19,6 @@ data class TaskItemInfo(
         var isDatePicker: Boolean = false,
         var isLocationAble: Boolean = false,
         var needUpLoadFile: Boolean = false,
-        var upLoadFileEnable: Boolean = false
+        var upLoadFileEnable: Boolean = false,
+        var commonFileBean: CommonFileBean? = null
 )

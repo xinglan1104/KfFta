@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.adapter.task.TaskInfoDetailAdapter
 import com.xl.kffta.base.BaseActivity
+import com.xl.kffta.model.CommonFileBean
 import com.xl.kffta.model.GetFilepathBean
 import com.xl.kffta.model.TaskInfoBean
 import com.xl.kffta.model.TaskItemInfo
@@ -89,13 +90,13 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
             HANDLER_REFRESH -> {
                 val data = message.obj
                 if (data is TaskInfoBean && data.data != null) {
-                    // 看看有没有files文件上传路径字段
-                    if (data.data.files.isNullOrEmpty()) {
+                    // 看看有没有files文件上传路径字段，如果是已执行的，可以不用再请求这个字段
+                    if (data.data.files.isNullOrEmpty() && mTaskExeState == TASK_EXE_STATE_PENDING) {
                         // 如果没有文件上传路径，需要发送请求，请求文件上传的路径是啥
                         requestFilePath(data)
                     } else {
                         // 已经有文件上传路径，赋值全局的
-                        ApplicationParams.TEMP_FILE_PATH = data.data.files
+                        ApplicationParams.TEMP_FILE_PATH = data.data.files ?: ""
 
                         initItemData(data)
                         mAdapter?.notifyDataChange(mDatas)
@@ -356,6 +357,12 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                             ?: ""))
                     mDatas.add(TaskItemInfo(label = "备注", value = taskInfoBean.data?.note ?: ""))
                     mDatas.add(TaskItemInfo(label = "附件", needUpLoadFile = true, upLoadFileEnable = false))
+
+                    // 已执行的，如果有filepath的id，就请求
+                    val ids = SysUtils.getFileIds(taskInfoBean.data?.files)
+                    if (!ids.isNullOrEmpty()) {
+                        requestFiles(ids)
+                    }
                 } else {
                     // 待执行
                     mDatas.add(TaskItemInfo(label = "执法时间", isDatePicker = true))
@@ -363,7 +370,8 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                     mDatas.add(TaskItemInfo(label = "备注", isEditable = true))
                     mDatas.add(TaskItemInfo(label = "附件", needUpLoadFile = true, upLoadFileEnable = true))
 
-                    // 等待执行
+                    // 等待执行的，不管如何，先清除对应的附件缓存
+                    FilesNetManager.emptyTempFolder(ApplicationParams.TEMP_FILE_PATH)
                 }
 
                 val checkList = taskInfoBean.data?.checkList
@@ -404,6 +412,38 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                         mAdapter?.notifyDataChange(mDatas)
                         mTaskInfoBean = taskInfoBean
                         task_info_bottom_layout?.visibility = View.VISIBLE
+                    }
+                }
+            }
+
+        })
+    }
+
+    /**
+     * 请求id对应的文件
+     */
+    private fun requestFiles(ids: ArrayList<Long>) {
+        FilesNetManager.getFiles(ids, object : ResponseObjectCallback {
+            override fun onError(msg: String) {
+
+            }
+
+            override fun onSuccess(obj: Any) {
+                if (obj is CommonFileBean) {
+                    runOnUiThread {
+                        var position = 0
+                        mDatas?.let {
+                            it.forEachIndexed { index, taskItemInfo ->
+                                if (taskItemInfo.label == "附件") {
+                                    taskItemInfo.commonFileBean = obj
+                                    position = index
+                                    return@forEachIndexed
+                                }
+                            }
+                        }
+                        if (position > 0) {
+                            mAdapter.notifyItemChanged(position)
+                        }
                     }
                 }
             }

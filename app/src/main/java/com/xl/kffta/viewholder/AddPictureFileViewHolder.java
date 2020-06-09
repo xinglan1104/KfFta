@@ -8,12 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.camera.core.impl.utils.futures.FutureCallback;
-import androidx.camera.core.impl.utils.futures.Futures;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
@@ -27,6 +21,7 @@ import com.xl.kffta.R;
 import com.xl.kffta.adapter.GridImageAdapter;
 import com.xl.kffta.base.App;
 import com.xl.kffta.base.LifeCycleManager;
+import com.xl.kffta.model.CommonFileBean;
 import com.xl.kffta.net.taskmanager.FilesNetManager;
 import com.xl.kffta.util.GlideEngine;
 import com.xl.kffta.util.SysUtils;
@@ -38,6 +33,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
+
+import androidx.annotation.NonNull;
+import androidx.camera.core.impl.utils.futures.FutureCallback;
+import androidx.camera.core.impl.utils.futures.Futures;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import static android.content.ContentValues.TAG;
 
@@ -116,6 +117,10 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
                 mAdapter.notifyDataSetChanged();
             }
         }
+
+    }
+
+    public void setCommonFiles(CommonFileBean fileBean) {
 
     }
 
