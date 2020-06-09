@@ -111,8 +111,10 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
 
     public void setList(List<LocalMedia> list) {
         if (list != null && list.size() > 0) {
-            mAdapter.setList(list);
-            mAdapter.notifyDataSetChanged();
+            if (mAdapter != null) {
+                mAdapter.setList(list);
+                mAdapter.notifyDataSetChanged();
+            }
         }
 
     }
