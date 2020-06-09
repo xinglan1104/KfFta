@@ -26,7 +26,7 @@ import kotlin.collections.ArrayList
  * Date: 2020/5/19
  * 描述：任务详情页的适配器
  */
-class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TaskInfoDetailAdapter(var context: Context, var fileOnlyShow: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         private const val ITEM_NORMAL = 1
         private const val ITEM_EDITTEXT = 3
@@ -39,6 +39,7 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
     var mCheckResult: String = ""
     var mNote: String = ""
     var mDateSelected: String = ""
+    var mHasUpLoadFile = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -52,7 +53,11 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
             }
             ITEM_ADD_FILE -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_add_file, parent, false)
-                AddPictureFileViewHolder(view)
+                AddPictureFileViewHolder(view, if (fileOnlyShow) {
+                    AddPictureFileViewHolder.TYPE_SHOW
+                } else {
+                    AddPictureFileViewHolder.TYPE_SELECT
+                })
             }
             else -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_only_title, parent, false)
@@ -134,6 +139,11 @@ class TaskInfoDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
                         } else if (it.label == "备注") {
                             mNote = text.toString().trim()
                         }
+                    }
+                }
+                is AddPictureFileViewHolder -> {
+                    holder.setUploadFileCallback { success ->
+                        mHasUpLoadFile = success
                     }
                 }
                 else -> {

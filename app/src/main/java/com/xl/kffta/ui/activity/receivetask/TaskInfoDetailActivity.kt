@@ -42,6 +42,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
 
         const val INFO_TYPE = "infoType"
         const val TASK_ID = "taskId"
+        const val FILE_ONLY_SHOW = "fileOnlyShow"
 
         //判断是否已经领取
         const val TASK_GET_STATE = "taskGetState"
@@ -68,10 +69,12 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
     // 区分显示的内容
     private var mInfoType = 10
 
+    private var mIsFileOnlyShow: Boolean = true
+
     private var mDatas = ArrayList<TaskItemInfo>()
 
     private val mAdapter by lazy {
-        TaskInfoDetailAdapter(this)
+        TaskInfoDetailAdapter(this, mIsFileOnlyShow)
     }
 
     private var mTaskInfoBean: TaskInfoBean? = null
@@ -119,6 +122,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
         taskGetState = intent.getIntExtra(TASK_GET_STATE, 0)
         mTaskExeState = intent.getIntExtra(TASK_EXE_STATE, 0)
         mInfoType = intent.getIntExtra(INFO_TYPE, 0)
+        mIsFileOnlyShow = intent.getBooleanExtra(FILE_ONLY_SHOW, true)
 
         // 在请求之前，先把全局的filepath重置
         ApplicationParams.TEMP_FILE_PATH = ""
@@ -434,6 +438,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
     override fun onDestroy() {
         super.onDestroy()
         mPresenter?.unBindView()
+        ApplicationParams.TEMP_FILE_PATH = ""
     }
 
     override fun loadViewSuccess(taskInfoBean: TaskInfoBean) {

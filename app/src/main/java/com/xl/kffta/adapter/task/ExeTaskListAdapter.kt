@@ -72,6 +72,19 @@ class ExeTaskListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerVi
                 exeHolder.endTime.visibility = View.VISIBLE
                 exeHolder.endTimeLabel.visibility = View.VISIBLE
                 exeHolder.itemView.setOnClickListener(null)
+
+                exeHolder.exeGo.setOnClickListener {
+                    val intent = Intent()
+                    val activity = SysUtils.getActivity(context)
+                    activity?.let { parentActivity ->
+                        intent.setClass(parentActivity, TaskInfoDetailActivity::class.java)
+                        intent.putExtra(TaskInfoDetailActivity.TASK_ID, dataBean.id)
+                        intent.putExtra(TaskInfoDetailActivity.INFO_TYPE, TaskInfoDetailActivity.TYPE_EXECUTE_TASK)
+                        intent.putExtra(TaskInfoDetailActivity.TASK_EXE_STATE, TaskInfoDetailActivity.TASK_EXE_STATE_PENDING)
+                        intent.putExtra(TaskInfoDetailActivity.FILE_ONLY_SHOW, false)
+                        parentActivity.startActivity(intent)
+                    }
+                }
             } else {
                 // 已执行任务
                 exeHolder.exeState.text = "完成"
@@ -81,7 +94,7 @@ class ExeTaskListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerVi
                 exeHolder.startTime.text = SysUtils.getDateTimestamp(dataBean.excuteTime)
                 exeHolder.endTime.visibility = View.GONE
                 exeHolder.endTimeLabel.visibility = View.GONE
-                exeHolder.itemView.setOnClickListener { _ ->
+                exeHolder.itemView.setOnClickListener {
                     val intent = Intent()
                     val activity = SysUtils.getActivity(context)
                     activity?.let { parentActivity ->
@@ -89,20 +102,9 @@ class ExeTaskListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerVi
                         intent.putExtra(TaskInfoDetailActivity.TASK_ID, dataBean.id)
                         intent.putExtra(TaskInfoDetailActivity.INFO_TYPE, TaskInfoDetailActivity.TYPE_EXECUTE_TASK)
                         intent.putExtra(TaskInfoDetailActivity.TASK_EXE_STATE, TaskInfoDetailActivity.TASK_EXE_STATE_OVER)
+                        intent.putExtra(TaskInfoDetailActivity.FILE_ONLY_SHOW, true)
                         parentActivity.startActivity(intent)
                     }
-                }
-            }
-
-            exeHolder.exeGo.setOnClickListener {
-                val intent = Intent()
-                val activity = SysUtils.getActivity(context)
-                activity?.let { parentActivity ->
-                    intent.setClass(parentActivity, TaskInfoDetailActivity::class.java)
-                    intent.putExtra(TaskInfoDetailActivity.TASK_ID, dataBean.id)
-                    intent.putExtra(TaskInfoDetailActivity.INFO_TYPE, TaskInfoDetailActivity.TYPE_EXECUTE_TASK)
-                    intent.putExtra(TaskInfoDetailActivity.TASK_EXE_STATE, TaskInfoDetailActivity.TASK_EXE_STATE_PENDING)
-                    parentActivity.startActivity(intent)
                 }
             }
         } else if (getItemViewType(position) == 0) {

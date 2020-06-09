@@ -11,17 +11,20 @@ import android.util.TypedValue;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-import androidx.annotation.ColorRes;
-import androidx.core.content.ContextCompat;
-
 import com.xl.kffta.base.App;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import androidx.annotation.ColorRes;
+import androidx.core.content.ContextCompat;
 
 public class SysUtils {
 
@@ -419,5 +422,80 @@ public class SysUtils {
 
         }
         return sb.toString();
+    }
+
+    /**
+     * 通过服务器返回的files字段，抽取出文件的真正提交路径
+     *
+     * @param filePath 原始文件字段
+     */
+    public static String getTrueFilePath(String filePath) {
+        if (TextUtils.isEmpty(filePath)) {
+            return "";
+        }
+        String[] fileInfos = filePath.split("\\|");
+        if (fileInfos.length < 3) {
+            return "";
+        }
+        try {
+            String[] trueStrings = new String[3];
+            System.arraycopy(fileInfos, 0, trueStrings, 0, 3);
+            return StringUtils.join(trueStrings, "|");
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    /**
+     * 如果有附件添加，弄个0的标志位在前面
+     */
+    public static String getAppendAddFilePath(String filePath) {
+        if (TextUtils.isEmpty(filePath)) {
+            return "";
+        }
+        String[] fileInfos = filePath.split("\\|");
+        if (fileInfos.length < 3) {
+            return "";
+        }
+        try {
+            if (fileInfos.length == 3) {
+                // 如果没有多余部分，直接加个0就行了
+                return filePath + "|0";
+            } else {
+                if (!TextUtils.isEmpty(fileInfos[3])) {
+                    // 本身里面就有内容的，要在最后一个前面加0
+                    String end = "0&" + fileInfos[3];
+                    String[] headStrings = new String[4];
+                    // 把前三个抠出来
+                    System.arraycopy(fileInfos, 0, headStrings, 0, 3);
+                    headStrings[3] = end;
+                    return StringUtils.join(headStrings, "|");
+                }
+                return filePath + "|0";
+            }
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    /**
+     * 通过filepath获取对应的id
+     */
+    public static ArrayList<Long> getFileIds(String filePath) {
+        ArrayList<Long> ids = new ArrayList<>();
+        if (!TextUtils.isEmpty(filePath)) {
+            String[] fileInfos = filePath.split("\\|");
+            if (fileInfos.length >= 4 && !TextUtils.isEmpty(fileInfos[3])) {
+                String[] idStrs = fileInfos[3].split("&");
+                if (idStrs != null && idStrs.length > 0) {
+                    for (String str : idStrs) {
+                        ids.add(SysUtils.parseLong(str));
+                    }
+                    return ids;
+                }
+            }
+        }
+
+        return ids;
     }
 }
