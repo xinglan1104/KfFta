@@ -9,6 +9,7 @@ import android.view.WindowManager
 import com.xl.kffta.R
 import com.xl.kffta.base.BaseActivity
 import com.xl.kffta.presenter.impl.LoginPresenterImpl
+import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.view.ILoginView
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
@@ -32,6 +33,21 @@ class LoginActivity : BaseActivity(), ILoginView {
 
     override fun initViews() {
         super.initViews()
+
+        // 如果有token，就直接进入主界面
+        login_main.visibility = if (ApplicationParams.TOKEN.isNullOrEmpty()) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+
+        if (!login_main.isShown) {
+            mHandler.postDelayed({
+                // 直接登陆
+                startActivity<MainActivity>()
+                finish()
+            }, 1000)
+        }
     }
 
     override fun initListener() {

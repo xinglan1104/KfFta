@@ -10,25 +10,26 @@
         android:scaleType="centerCrop"
         android:src="@drawable/login_bg" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="78dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_logo" />
+
     <LinearLayout
         android:id="@+id/login_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="78dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/icon_logo" />
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="@dimen/login_left_right_margin"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="220dp"
             android:layout_marginRight="@dimen/login_left_right_margin"
             android:background="@color/white"
             android:orientation="horizontal">
