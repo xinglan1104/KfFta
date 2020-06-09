@@ -22,7 +22,7 @@ import kotlin.collections.ArrayList
  * @date 2020-05-21 15:39
  * 描述：项目检查任务详情的适配器
  */
-class JointTaskInfoAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class JointTaskInfoAdapter(val context: Context, private val fileOnlyShow: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val ITEM_EDITABLE = 6
     private val ITEM_NORMAL = 7
     private val ITEM_ADD_FILE = 8
@@ -33,13 +33,18 @@ class JointTaskInfoAdapter(val context: Context) : RecyclerView.Adapter<Recycler
     var mNote: String = ""
     var mDateSelected: String = ""
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == ITEM_EDITABLE) {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_jointtast_et, parent, false)
             return JointTaskInfoDetailEditHolder(view)
         } else if (viewType == ITEM_ADD_FILE) {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_add_file, parent, false)
-            return AddPictureFileViewHolder(view, AddPictureFileViewHolder.TYPE_SELECT);
+            return AddPictureFileViewHolder(view, if (fileOnlyShow) {
+                AddPictureFileViewHolder.TYPE_SHOW
+            } else {
+                AddPictureFileViewHolder.TYPE_SELECT
+            })
         } else {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_jointtast_info, parent, false)
             return JointTaskInfoNormalHolder(view)

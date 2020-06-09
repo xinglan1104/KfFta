@@ -24,7 +24,7 @@ import org.jetbrains.anko.find
  * Date: 2020/5/31
  * 描述：案件二级页面的adapter
  */
-class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class LawCaseDetailAdapter(val context: Context?, private val fileOnlyShow: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         private const val ITEM_NORMAL = 10
         private const val ITEM_TITLE = 11
@@ -51,7 +51,11 @@ class LawCaseDetailAdapter(val context: Context?) : RecyclerView.Adapter<Recycle
             }
             ITEM_UPLOAD_FILE -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_add_file, parent, false)
-                AddPictureFileViewHolder(view, AddPictureFileViewHolder.TYPE_SELECT)
+                AddPictureFileViewHolder(view, if (fileOnlyShow) {
+                    AddPictureFileViewHolder.TYPE_SHOW
+                } else {
+                    AddPictureFileViewHolder.TYPE_SELECT
+                })
             }
             ITEM_BUSINESS -> {
                 val view = SelectBusinessLayout(parent.context)

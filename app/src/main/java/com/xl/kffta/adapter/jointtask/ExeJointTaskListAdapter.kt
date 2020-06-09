@@ -84,6 +84,7 @@ class ExeJointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recyc
                         intent.putExtra(JointTaskInfoActivity.JOINT_TASK_ID, data.id)
                         intent.putExtra(JointTaskInfoActivity.JOINT_TASK_TYPE, JointTaskInfoActivity.JOINT_TASK_TYPE_EXECUTE)
                         intent.putExtra(JointTaskInfoActivity.JOINT_TASK_EXE_STATE, JointTaskInfoActivity.JOINT_TASK_EXE_STATE_COMPLETE)
+                        intent.putExtra(JointTaskInfoActivity.FILE_ONLY_SHOW, true)
                         parentActivity.startActivity(intent)
                     }
                 }
@@ -106,6 +107,7 @@ class ExeJointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recyc
                         intent.putExtra(JointTaskInfoActivity.JOINT_TASK_ID, data.id)
                         intent.putExtra(JointTaskInfoActivity.JOINT_TASK_TYPE, JointTaskInfoActivity.JOINT_TASK_TYPE_EXECUTE)
                         intent.putExtra(JointTaskInfoActivity.JOINT_TASK_EXE_STATE, JointTaskInfoActivity.JOINT_TASK_EXE_STATE_PENDING)
+                        intent.putExtra(JointTaskInfoActivity.FILE_ONLY_SHOW, false)
                         parentActivity.startActivity(intent)
                     }
                 }

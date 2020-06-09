@@ -166,7 +166,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                     task_info_back.visibility = View.GONE
                 } else {
                     task_info_get.isEnabled = true
-                    task_info_get.text = "确认"
+                    task_info_get.text = "执法完成"
                     task_bottom_empty.visibility = View.VISIBLE
                     task_info_back.visibility = View.VISIBLE
                 }
@@ -227,7 +227,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
             TYPE_EXECUTE_TASK -> {
                 task_info_get.setOnClickListener { _ ->
                     // 确认执行任务
-                    DialogUtil.showCommonDialog(this, "确认开始执法吗", object : DialogUtil.OnDialogOkClick {
+                    DialogUtil.showCommonDialog(this, "确认完成执法了吗", object : DialogUtil.OnDialogOkClick {
                         override fun onDialogOkClick() {
                             mTaskInfoBean?.let { taskInfoBean ->
                                 // 执行时，这些东西需要变化
@@ -236,17 +236,19 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                                 taskInfoBean.data.note = mAdapter.mNote
                                 // 时间需要进行转换
                                 taskInfoBean.data.excuteTime = "/Date(${SysUtils.dateToStamp(mAdapter.mDateSelected)})/"
+                                // 如果有附件提交，需要在file加0
+                                if (ApplicationParams.TEMP_FILE_PATH.isNotEmpty() && mAdapter.mHasUpLoadFile) {
+                                    taskInfoBean.data.files = SysUtils.getAppendAddFilePath(ApplicationParams.TEMP_FILE_PATH)
+                                }
 
                                 // 需要完整输入
-                                val tipStr = if (taskInfoBean.data.result.isNullOrEmpty()) {
-                                    "请输入检查结果"
-                                } else if (taskInfoBean.data.note.isNullOrEmpty()) {
-                                    "请输入备注"
-                                } else if (mAdapter.mDateSelected.isEmpty()) {
-                                    "请选择日期"
-                                } else {
-                                    ""
+                                val tipStr = when {
+                                    taskInfoBean.data.result.isNullOrEmpty() -> "请输入检查结果"
+                                    taskInfoBean.data.note.isNullOrEmpty() -> "请输入备注"
+                                    mAdapter.mDateSelected.isEmpty() -> "请选择日期"
+                                    else -> ""
                                 }
+
                                 if (tipStr.isNotEmpty()) {
                                     DialogUtil.showSingleCommonDialog(context = this@TaskInfoDetailActivity, msg = tipStr)
                                 } else {

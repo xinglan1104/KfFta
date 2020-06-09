@@ -70,13 +70,18 @@ class LawCaseInfoDetailActivity : BaseActivity() {
                 val lawCaseDetailFragment = LawCaseDetailFragment()
                 val bundle = Bundle()
                 bundle.putInt("id", mId)
+                bundle.putBoolean("fileOnlyShow", true)
                 lawCaseDetailFragment.arguments = bundle
                 fragmentTransition.replace(R.id.common_case_content, lawCaseDetailFragment)
             }
             LAW_CASE_FROM_ADD_CASE -> {
                 // 普通的新增案件
                 title_name.text = "新增案件"
-                fragmentTransition.replace(R.id.common_case_content, LawCaseAddNormalFragment())
+                val lawCaseAddNormalFragment = LawCaseAddNormalFragment()
+                val bundle = Bundle()
+                bundle.putBoolean("fileOnlyShow", false)
+                lawCaseAddNormalFragment.arguments = bundle
+                fragmentTransition.replace(R.id.common_case_content, lawCaseAddNormalFragment)
             }
             LAW_CASE_FROM_ADD_NORMAL_TASK -> {
                 // 执法的新增案件
@@ -84,6 +89,7 @@ class LawCaseInfoDetailActivity : BaseActivity() {
                 val lawCaseAddTaskFragment = LawCaseAddTaskFragment()
                 val bundle = Bundle()
                 bundle.putSerializable("taskInfo", mTaskInfoBean)
+                bundle.putBoolean("fileOnlyShow", false)
                 lawCaseAddTaskFragment.arguments = bundle
                 fragmentTransition.replace(R.id.common_case_content, lawCaseAddTaskFragment)
             }
@@ -93,6 +99,7 @@ class LawCaseInfoDetailActivity : BaseActivity() {
                 val lawCaseAddNormalFragment = LawCaseAddNormalFragment()
                 val bundle = Bundle()
                 bundle.putBoolean("showUserInfo", true)
+                bundle.putBoolean("fileOnlyShow", false)
                 lawCaseAddNormalFragment.arguments = bundle
                 fragmentTransition.replace(R.id.common_case_content, lawCaseAddNormalFragment)
             }

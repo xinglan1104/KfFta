@@ -37,6 +37,7 @@ class LawCaseDetailFragment : LawCaseBaseFragment() {
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         mId = arguments?.getInt("id", 0) ?: 0
+        mIsFileOnlyShow = arguments?.getBoolean("fileOnlyShow", true) ?: true
 
         return super.initView(inflater, container, savedInstanceState)
     }
@@ -67,6 +68,8 @@ class LawCaseDetailFragment : LawCaseBaseFragment() {
                     ?: ""))
             mDatas.add(LawCaseItemBean(label = "创建时间", value = SysUtils.getDateTimestamp(bean.data?.createTime)))
             mDatas.add(LawCaseItemBean(label = "线索(举报)内容", value = bean.data?.content ?: ""))
+            mDatas.add(LawCaseItemBean(label = "附件", needUpload = true))
+
             mDatas.add(LawCaseItemBean(isTitle = true, titleName = "案件提供者信息"))
             mDatas.add(LawCaseItemBean(label = "提供者姓名", value = bean.data?.contactName ?: ""))
             mDatas.add(LawCaseItemBean(label = "提供者联系方式", value = bean.data?.contactPhone

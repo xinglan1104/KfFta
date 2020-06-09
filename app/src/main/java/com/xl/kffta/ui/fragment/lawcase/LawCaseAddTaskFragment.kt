@@ -29,6 +29,7 @@ class LawCaseAddTaskFragment : LawCaseBaseFragment() {
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         mTaskInfoBean = arguments?.getSerializable("taskInfo") as TaskInfoBean?
+        mIsFileOnlyShow = arguments?.getBoolean("fileOnlyShow", true) ?: true
 
         return super.initView(inflater, container, savedInstanceState)
     }

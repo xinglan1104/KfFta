@@ -31,6 +31,7 @@ class LawCaseAddNormalFragment : LawCaseBaseFragment() {
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         mNeedFitUserInfo = arguments?.getBoolean("showUserInfo", false) ?: false
+        mIsFileOnlyShow = arguments?.getBoolean("fileOnlyShow", true) ?: true
 
         return super.initView(inflater, container, savedInstanceState)
     }

@@ -460,6 +460,9 @@ public class SysUtils {
         try {
             if (fileInfos.length == 3) {
                 // 如果没有多余部分，直接加个0就行了
+                if (filePath.endsWith("|")) {
+                    return filePath + "0";
+                }
                 return filePath + "|0";
             } else {
                 if (!TextUtils.isEmpty(fileInfos[3])) {
@@ -470,6 +473,9 @@ public class SysUtils {
                     System.arraycopy(fileInfos, 0, headStrings, 0, 3);
                     headStrings[3] = end;
                     return StringUtils.join(headStrings, "|");
+                }
+                if (filePath.endsWith("|")) {
+                    return filePath + "0";
                 }
                 return filePath + "|0";
             }

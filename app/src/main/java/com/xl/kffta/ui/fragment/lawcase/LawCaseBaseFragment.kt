@@ -22,8 +22,10 @@ abstract class LawCaseBaseFragment : BaseFragment() {
 
     var mFilePath: String = ""
 
+    protected var mIsFileOnlyShow: Boolean = true
+
     val mAdapter by lazy {
-        LawCaseDetailAdapter(context)
+        LawCaseDetailAdapter(context, mIsFileOnlyShow)
     }
 
     val mRecyclerView by lazy {

@@ -41,6 +41,8 @@ class JointTaskInfoActivity : BaseActivity() {
         const val JOINT_TASK_EXE_STATE = "jointTaskExeState"
         const val JOINT_TASK_EXE_STATE_PENDING = 14
         const val JOINT_TASK_EXE_STATE_COMPLETE = 15
+
+        const val FILE_ONLY_SHOW = "fileOnlyShow"
     }
 
     private val HANDLER_REFRESH = 0x501
@@ -53,9 +55,11 @@ class JointTaskInfoActivity : BaseActivity() {
 
     private var mJointTaskBean: JointTaskInfoBean? = null
 
+    private var mIsFileOnlyShow: Boolean = true
+
     private val mDatas = ArrayList<JointTaskInfoItem>()
     private val mAdapter by lazy {
-        JointTaskInfoAdapter(this)
+        JointTaskInfoAdapter(this, mIsFileOnlyShow)
     }
 
     override fun getLayoutId(): Int {
@@ -86,6 +90,7 @@ class JointTaskInfoActivity : BaseActivity() {
         mTaskState = intent.getIntExtra(JOINT_TASK_STATE, JointTaskListAdapter.TASK_HAS_NOT_TAKE)
         mInfoType = intent.getIntExtra(JOINT_TASK_TYPE, JOINT_TASK_TYPE_RECEIVE)
         mExeTaskState = intent.getIntExtra(JOINT_TASK_EXE_STATE, JOINT_TASK_EXE_STATE_COMPLETE)
+        mIsFileOnlyShow = intent.getBooleanExtra(FILE_ONLY_SHOW, true)
     }
 
     override fun initViews() {
@@ -119,7 +124,7 @@ class JointTaskInfoActivity : BaseActivity() {
                 } else {
                     joint_info_bottom_layout.visibility = View.VISIBLE
                     joint_info_back.text = "其他执法"
-                    joint_info_get.text = "确认"
+                    joint_info_get.text = "执法完成"
                 }
             }
         }
