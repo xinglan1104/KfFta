@@ -41,7 +41,7 @@ class LoginActivity : BaseActivity(), ILoginView {
             View.GONE
         }
 
-        if (!login_main.isShown) {
+        if (!ApplicationParams.TOKEN.isNullOrEmpty()) {
             mHandler.postDelayed({
                 // 直接登陆
                 startActivity<MainActivity>()

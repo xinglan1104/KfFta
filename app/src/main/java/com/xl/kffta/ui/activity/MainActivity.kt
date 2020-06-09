@@ -25,8 +25,11 @@ import com.xl.kffta.ui.activity.legalprocision.LegalProvisonActivity
 import com.xl.kffta.ui.activity.map.LocationService
 import com.xl.kffta.ui.activity.receivejointtask.JointTaskListActivity
 import com.xl.kffta.ui.activity.receivetask.TakeOrderActivity
+import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.util.DialogUtil
 import org.jetbrains.anko.debug
+import org.jetbrains.anko.find
+import org.jetbrains.anko.startActivity
 import permissions.dispatcher.*
 import kotlin.system.exitProcess
 
@@ -39,7 +42,7 @@ import kotlin.system.exitProcess
 class MainActivity : BaseActivity(), View.OnClickListener {
     private var mForceQuit = false
 
-    private var locationService :Intent ?= null
+    private var locationService: Intent? = null
 
     override val loggerTag: String
         get() = "MainActivity"
@@ -59,6 +62,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         findViewById<View>(R.id.main_layout_7).setOnClickListener(this)
         findViewById<View>(R.id.main_layout_8).setOnClickListener(this)
         findViewById<View>(R.id.main_layout_9).setOnClickListener(this)
+
+        find<TextView>(R.id.login_out).setOnClickListener(this)
 
         // 获取权限
         onlyCheckLocationPermissionWithPermissionCheck()
@@ -153,6 +158,17 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
             }
             R.id.main_layout_8 -> startActivity(Intent(this@MainActivity, LegalProvisonActivity::class.java))
+            R.id.login_out -> {
+                // 登出
+                DialogUtil.showCommonDialog(this, "确定注销改账户吗", object : DialogUtil.OnDialogOkClick {
+                    override fun onDialogOkClick() {
+                        ApplicationParams.TOKEN = ""
+                        startActivity<LoginActivity>()
+                        finish()
+                    }
+
+                })
+            }
         }
     }
 
