@@ -5,11 +5,14 @@ import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.xl.kffta.model.CommonFileBean
 import com.xl.kffta.model.lawcase.LawCaseByIdBean
 import com.xl.kffta.model.lawcase.LawCaseItemBean
 import com.xl.kffta.net.ResponseObjectCallback
+import com.xl.kffta.net.taskmanager.FilesNetManager
 import com.xl.kffta.net.taskmanager.LawCaseManager
 import com.xl.kffta.util.SysUtils
+import org.jetbrains.anko.support.v4.runOnUiThread
 
 /**
  * @author created by zhanghaochen
@@ -68,6 +71,11 @@ class LawCaseDetailFragment : LawCaseBaseFragment() {
                     ?: ""))
             mDatas.add(LawCaseItemBean(label = "创建时间", value = SysUtils.getDateTimestamp(bean.data?.createTime)))
             mDatas.add(LawCaseItemBean(label = "线索(举报)内容", value = bean.data?.content ?: ""))
+            // 由于是详情界面，files没返回，没东西，就不需要处理
+            val ids = SysUtils.getFileIds(bean.data?.files)
+            if (!ids.isNullOrEmpty()) {
+                requestFiles(ids)
+            }
             mDatas.add(LawCaseItemBean(label = "附件", needUpload = true))
 
             mDatas.add(LawCaseItemBean(isTitle = true, titleName = "案件提供者信息"))
@@ -91,4 +99,37 @@ class LawCaseDetailFragment : LawCaseBaseFragment() {
 
         })
     }
+
+    /**
+     * 请求id对应的文件
+     */
+    private fun requestFiles(ids: ArrayList<Long>) {
+        FilesNetManager.getFiles(ids, object : ResponseObjectCallback {
+            override fun onError(msg: String) {
+
+            }
+
+            override fun onSuccess(obj: Any) {
+                if (obj is CommonFileBean) {
+                    runOnUiThread {
+                        var position = 0
+                        mDatas?.let {
+                            it.forEachIndexed { index, taskItemInfo ->
+                                if (taskItemInfo.label == "附件") {
+                                    taskItemInfo.commonFileBean = obj
+                                    position = index
+                                    return@forEachIndexed
+                                }
+                            }
+                        }
+                        if (position > 0) {
+                            mAdapter.notifyItemChanged(position)
+                        }
+                    }
+                }
+            }
+
+        })
+    }
+
 }

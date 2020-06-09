@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.xl.kffta.util.ApplicationParams
 import org.jetbrains.anko.runOnUiThread
 import org.jetbrains.anko.toast
 import java.lang.ref.WeakReference
@@ -22,7 +23,8 @@ abstract class BaseFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        // 在请求之前，先把全局的filepath重置
+        ApplicationParams.TEMP_FILE_PATH = ""
         init()
     }
 
@@ -68,6 +70,11 @@ abstract class BaseFragment : Fragment() {
 
     protected open fun init() {
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ApplicationParams.TEMP_FILE_PATH = ""
     }
 
     open protected fun myToast(msg: CharSequence) {

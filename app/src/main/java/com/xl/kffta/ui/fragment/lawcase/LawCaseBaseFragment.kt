@@ -20,8 +20,6 @@ import org.jetbrains.anko.support.v4.find
 abstract class LawCaseBaseFragment : BaseFragment() {
     protected val mDatas = ArrayList<LawCaseItemBean>()
 
-    var mFilePath: String = ""
-
     protected var mIsFileOnlyShow: Boolean = true
 
     val mAdapter by lazy {

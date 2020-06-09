@@ -15,6 +15,7 @@ import com.xl.kffta.net.taskmanager.FilesNetManager
 import com.xl.kffta.net.taskmanager.LawCaseManager
 import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.util.DialogUtil
+import com.xl.kffta.util.SysUtils
 import kotlinx.android.synthetic.main.fragment_case_common.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 
@@ -89,6 +90,9 @@ class LawCaseAddTaskFragment : LawCaseBaseFragment() {
                 myToast("无法获取附件上传路径")
                 runOnUiThread {
                     // 新建案件，不需要请求，直接弄
+                    // 赋值这个文件路径
+                    ApplicationParams.TEMP_FILE_PATH = ""
+
                     initDataItems(LawCaseByIdBean())
                     mAdapter.notifyDataChange(mDatas)
                 }
@@ -97,7 +101,7 @@ class LawCaseAddTaskFragment : LawCaseBaseFragment() {
             override fun onSuccess(obj: Any) {
                 runOnUiThread {
                     if (obj is GetFilepathBean) {
-                        mFilePath = obj.data ?: ""
+                        ApplicationParams.TEMP_FILE_PATH = obj.data ?: ""
 
                         // 新建案件，不需要请求，直接弄
                         mTaskInfoBean?.let { initDataItems(it) }
@@ -127,8 +131,8 @@ class LawCaseAddTaskFragment : LawCaseBaseFragment() {
             mDatas.add(LawCaseItemBean(label = "部门", value = "请选择部门", isShowSelector = true))
             mDatas.add(LawCaseItemBean(label = "线索(举报)内容", isEditable = true, editHintStr = "请输入线索或举报内容"))
             mDatas.add(LawCaseItemBean(label = "备注", isEditable = true, editHintStr = "请输入备注信息"))
-            if (!TextUtils.isEmpty(mFilePath)) {
-                mDatas.add(LawCaseItemBean(label = "附件", needUpload = true, uploadPath = mFilePath))
+            if (!TextUtils.isEmpty(ApplicationParams.TEMP_FILE_PATH)) {
+                mDatas.add(LawCaseItemBean(label = "附件", needUpload = true))
             }
 
             mDatas.add(LawCaseItemBean(isTitle = true, titleName = "案件提供信息"))
@@ -169,15 +173,13 @@ class LawCaseAddTaskFragment : LawCaseBaseFragment() {
         lawCaseByIdBean.data.contactAddress = hashMap["提供者地址"]
 
         // 附件部分，先看看有没有上传
-        if (mAdapter?.mIsUploaded) {
-            // 上传了就加个|0
-            if (!TextUtils.isEmpty(mFilePath)) {
-                mFilePath = "$mFilePath|0"
-            }
+        val filePath = if (mAdapter?.mIsUploaded) {
+            SysUtils.getAppendAddFilePath(ApplicationParams.TEMP_FILE_PATH)
+        } else {
+            ApplicationParams.TEMP_FILE_PATH
         }
-        if (!mFilePath.isNullOrEmpty()) {
-            lawCaseByIdBean.data.files = mFilePath
-        }
+
+        lawCaseByIdBean.data.files = filePath
         return lawCaseByIdBean
     }
 }

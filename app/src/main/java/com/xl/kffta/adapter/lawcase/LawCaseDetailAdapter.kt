@@ -131,6 +131,7 @@ class LawCaseDetailAdapter(val context: Context?, private val fileOnlyShow: Bool
                 holder.setUploadFileCallback { success ->
                     this.mIsUploaded = success
                 }
+                holder.setCommonFiles(mDatas[position].commonFileBean)
             }
         }
     }

@@ -1,5 +1,7 @@
 package com.xl.kffta.model.lawcase
 
+import com.xl.kffta.model.CommonFileBean
+
 /**
  * @author zhanghaochen
  * Date: 2020/5/31
@@ -19,5 +21,6 @@ data class LawCaseItemBean(
         var uploadPath: String = "",
         var businessName: String = "",
         var businessCode: String = "",
-        var isLocationAble: Boolean = false
+        var isLocationAble: Boolean = false,
+        var commonFileBean: CommonFileBean? = null
 )
