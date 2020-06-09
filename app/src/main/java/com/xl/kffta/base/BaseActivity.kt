@@ -12,6 +12,7 @@ import android.widget.FrameLayout
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import com.xl.kffta.R
+import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.widget.LoadingView
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.find
@@ -58,6 +59,10 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
         val contentView = LayoutInflater.from(this).inflate(getLayoutId(), null)
         contentView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         mainView.addView(contentView)
+
+        // 在请求之前，先把全局的filepath重置
+        ApplicationParams.TEMP_FILE_PATH = ""
+
         initParams()
         initViews()
         initListener()
@@ -140,4 +145,8 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        ApplicationParams.TEMP_FILE_PATH = ""
+    }
 }

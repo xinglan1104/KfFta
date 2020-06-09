@@ -32,6 +32,7 @@ class JointTaskInfoAdapter(val context: Context, private val fileOnlyShow: Boole
     var mCheckResult: String = ""
     var mNote: String = ""
     var mDateSelected: String = ""
+    var mHasAddFile = false
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -101,6 +102,12 @@ class JointTaskInfoAdapter(val context: Context, private val fileOnlyShow: Boole
                             mNote = text.toString().trim()
                         }
                     }
+                }
+                is AddPictureFileViewHolder -> {
+                    holder.setUploadFileCallback { success ->
+                        mHasAddFile = success
+                    }
+                    holder.setCommonFiles(jointTaskInfoItem.commonFileBean)
                 }
             }
         }

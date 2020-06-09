@@ -125,8 +125,6 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
         mInfoType = intent.getIntExtra(INFO_TYPE, 0)
         mIsFileOnlyShow = intent.getBooleanExtra(FILE_ONLY_SHOW, true)
 
-        // 在请求之前，先把全局的filepath重置
-        ApplicationParams.TEMP_FILE_PATH = ""
     }
 
     override fun initViews() {
@@ -228,11 +226,10 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
             TYPE_EXECUTE_TASK -> {
                 task_info_get.setOnClickListener { _ ->
                     // 确认执行任务
-                    DialogUtil.showCommonDialog(this, "确认完成执法了吗", object : DialogUtil.OnDialogOkClick {
+                    DialogUtil.showCommonDialog(this, "确认完成执法吗", object : DialogUtil.OnDialogOkClick {
                         override fun onDialogOkClick() {
                             mTaskInfoBean?.let { taskInfoBean ->
                                 // 执行时，这些东西需要变化
-                                taskInfoBean.data.excutionStatus = TaskNetManager.TASK_EXCUTIONSTATUS_APPROVED
                                 taskInfoBean.data.result = mAdapter.mCheckResult
                                 taskInfoBean.data.note = mAdapter.mNote
                                 // 时间需要进行转换
@@ -254,6 +251,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                                     DialogUtil.showSingleCommonDialog(context = this@TaskInfoDetailActivity, msg = tipStr)
                                 } else {
                                     // 都输入完了，就执行
+                                    taskInfoBean.data.excutionStatus = TaskNetManager.TASK_EXCUTIONSTATUS_APPROVED
                                     TaskNetManager.updateTaskState(taskInfoBean, object : ResponseObjectCallback {
                                         override fun onError(msg: String) {
                                             myToast(msg)
@@ -261,7 +259,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
 
                                         override fun onSuccess(obj: Any) {
                                             mHandler.obtainMessage(HANDLER_START_SUCCESS).sendToTarget()
-                                            myToast("已开始执行")
+                                            myToast("已完成执法")
                                         }
 
                                     })
@@ -480,7 +478,6 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
     override fun onDestroy() {
         super.onDestroy()
         mPresenter?.unBindView()
-        ApplicationParams.TEMP_FILE_PATH = ""
     }
 
     override fun loadViewSuccess(taskInfoBean: TaskInfoBean) {
