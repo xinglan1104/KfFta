@@ -12,6 +12,7 @@ import com.xl.kffta.net.ResponseCallback
 import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.viewholder.AddPictureFileViewHolder
+import okhttp3.RequestBody
 
 /**
  * @author created by zhanghaochen
@@ -28,15 +29,17 @@ object FilesNetManager {
     /**
      * 上传单个文件，
      */
-    fun uploadSingleFile(filePath: String, file: String, callback: AddPictureFileViewHolder.UploadFileCallback) {
+    fun uploadSingleFile(filePath: String, file: RequestBody, callback: AddPictureFileViewHolder.UploadFileCallback) {
         val requestBuilder = RequestBuilder()
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/AddFile?format=json"
+        requestBuilder.headerName = "Accept"
+        requestBuilder.header = "application/json,text/plain,*/*"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         val testPath = "4578|CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask|CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask_20200601_0a17e88ab5214e51b4e607cfebb090ec"
         // todo 测试上传功能
         paramsMap["FilePath"] = testPath
-        paramsMap["file"] = file
+        paramsMap["file"] = file.toString()
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {
@@ -72,7 +75,7 @@ object FilesNetManager {
                 }
             }
         }
-        NetManager.manager.sendRequest(requestBuilder)
+        NetManager.manager.sendRequestWithHeader(requestBuilder)
     }
 
     /**

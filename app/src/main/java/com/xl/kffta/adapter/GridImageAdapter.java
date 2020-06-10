@@ -152,48 +152,51 @@ public class GridImageAdapter extends
                 return;
             }
             int chooseModel = media.getChooseModel();
-            String path;
-            if (media.isCut() && !media.isCompressed()) {
-                // 裁剪过
-                path = media.getCutPath();
-            } else if (media.isCompressed() || (media.isCut() && media.isCompressed())) {
-                // 压缩过,或者裁剪同时压缩过,以最终压缩过图片为准
-                path = media.getCompressPath();
-            } else {
-                // 原图
-                path = media.getPath();
+            String path = "";
+            if (showType == AddPictureFileViewHolder.TYPE_SELECT) {
+                if (media.isCut() && !media.isCompressed()) {
+                    // 裁剪过
+                    path = media.getCutPath();
+                } else if (media.isCompressed() || (media.isCut() && media.isCompressed())) {
+                    // 压缩过,或者裁剪同时压缩过,以最终压缩过图片为准
+                    path = media.getCompressPath();
+                } else {
+                    // 原图
+                    path = media.getPath();
+                }
+
+                Log.i(TAG, "原图地址::" + media.getPath());
+
+                if (media.isCut()) {
+                    Log.i(TAG, "裁剪地址::" + media.getCutPath());
+                }
+                if (media.isCompressed()) {
+                    Log.i(TAG, "压缩地址::" + media.getCompressPath());
+                    Log.i(TAG, "压缩后文件大小::" + new File(media.getCompressPath()).length() / 1024 + "k");
+                }
+                if (!TextUtils.isEmpty(media.getAndroidQToPath())) {
+                    Log.i(TAG, "Android Q特有地址::" + media.getAndroidQToPath());
+                }
+                if (media.isOriginal()) {
+                    Log.i(TAG, "是否开启原图功能::" + true);
+                    Log.i(TAG, "开启原图功能后地址::" + media.getOriginalPath());
+                }
+
+                long duration = media.getDuration();
+                viewHolder.tvDuration.setVisibility(PictureMimeType.isHasVideo(media.getMimeType())
+                        ? View.VISIBLE : View.GONE);
+                if (chooseModel == PictureMimeType.ofAudio()) {
+                    viewHolder.tvDuration.setVisibility(View.VISIBLE);
+                    viewHolder.tvDuration.setCompoundDrawablesRelativeWithIntrinsicBounds
+                            (R.drawable.picture_icon_audio, 0, 0, 0);
+
+                } else {
+                    viewHolder.tvDuration.setCompoundDrawablesRelativeWithIntrinsicBounds
+                            (R.drawable.picture_icon_video, 0, 0, 0);
+                }
+                viewHolder.tvDuration.setText(DateUtils.formatDurationTime(duration));
             }
 
-            Log.i(TAG, "原图地址::" + media.getPath());
-
-            if (media.isCut()) {
-                Log.i(TAG, "裁剪地址::" + media.getCutPath());
-            }
-            if (media.isCompressed()) {
-                Log.i(TAG, "压缩地址::" + media.getCompressPath());
-                Log.i(TAG, "压缩后文件大小::" + new File(media.getCompressPath()).length() / 1024 + "k");
-            }
-            if (!TextUtils.isEmpty(media.getAndroidQToPath())) {
-                Log.i(TAG, "Android Q特有地址::" + media.getAndroidQToPath());
-            }
-            if (media.isOriginal()) {
-                Log.i(TAG, "是否开启原图功能::" + true);
-                Log.i(TAG, "开启原图功能后地址::" + media.getOriginalPath());
-            }
-
-            long duration = media.getDuration();
-            viewHolder.tvDuration.setVisibility(PictureMimeType.isHasVideo(media.getMimeType())
-                    ? View.VISIBLE : View.GONE);
-            if (chooseModel == PictureMimeType.ofAudio()) {
-                viewHolder.tvDuration.setVisibility(View.VISIBLE);
-                viewHolder.tvDuration.setCompoundDrawablesRelativeWithIntrinsicBounds
-                        (R.drawable.picture_icon_audio, 0, 0, 0);
-
-            } else {
-                viewHolder.tvDuration.setCompoundDrawablesRelativeWithIntrinsicBounds
-                        (R.drawable.picture_icon_video, 0, 0, 0);
-            }
-            viewHolder.tvDuration.setText(DateUtils.formatDurationTime(duration));
             if (chooseModel == PictureMimeType.ofAudio()) {
                 viewHolder.mImg.setImageResource(R.drawable.picture_audio_placeholder);
             } else {

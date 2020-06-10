@@ -54,4 +54,41 @@ class NetManager private constructor() {
             }
         })
     }
+
+
+    fun sendRequestWithHeader(req: RequestBuilder) {
+        if (req.params == null) {
+            req.callback?.onError("没有入参")
+            return
+        }
+        val builder = FormBody.Builder()
+        // 追加表单信息
+        for ((key, value) in req.params) {
+            builder.add(key, value)
+        }
+        val formBody = builder.build()
+        val request = Request.Builder()
+                .url(req.url)
+                .post(formBody)
+                .addHeader(req.headerName, req.header)
+                .build()
+
+        Log.d("NetManager", request.toString())
+        Log.d("NetManager", formBody.toString())
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                req.callback?.onError(e.message)
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val result = response.body?.string()
+                Log.e("NetManager", "{$result}")
+                if (result == null) {
+                    req.callback?.onError("返回内容为空")
+                } else {
+                    req.callback?.onSuccess(result)
+                }
+            }
+        })
+    }
 }

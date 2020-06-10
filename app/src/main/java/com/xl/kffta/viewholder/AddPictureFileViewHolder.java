@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.common.util.concurrent.ListenableFuture;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.luck.picture.lib.PictureSelector;
@@ -28,17 +31,15 @@ import com.xl.kffta.util.SysUtils;
 import com.xl.kffta.widget.FullyGridLayoutManager;
 import com.yalantis.ucrop.util.ScreenUtils;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 
-import androidx.annotation.NonNull;
-import androidx.camera.core.impl.utils.futures.FutureCallback;
-import androidx.camera.core.impl.utils.futures.Futures;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 import static android.content.ContentValues.TAG;
 
@@ -121,7 +122,26 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setCommonFiles(CommonFileBean fileBean) {
-
+        if (fileBean == null) {
+            return;
+        }
+        List<CommonFileBean.FilesBean> list = fileBean.getFiles();
+        List<LocalMedia> showList = new ArrayList<>();
+        if (list == null || list.size() == 0) {
+            return;
+        }
+        for (int i = 0; i < list.size(); i++) {
+            LocalMedia media = new LocalMedia();
+            CommonFileBean.FilesBean file = list.get(i);
+            String type = file.getType();
+            if (TextUtils.isEmpty(type)) {
+                return;
+            } else if (type.startsWith("video") || type.startsWith("image")) {
+                media.setPath(file.getStorePath());
+                showList.add(media);
+            }
+        }
+        setList(showList);
     }
 
     private GridImageAdapter.onAddPicClickListener onAddPicClickListener = new GridImageAdapter.onAddPicClickListener() {
@@ -228,52 +248,34 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
                 Log.i(TAG, "宽高: " + media.getWidth() + "x" + media.getHeight());
                 Log.i(TAG, "Size: " + media.getSize());
                 // TODO 可以通过PictureSelectorExternalUtils.getExifInterface();方法获取一些额外的资源信息，如旋转角度、经纬度等信息
+                RequestBody requestBody = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("file", media.getFileName(),
+                                RequestBody.create(MediaType.parse("multipart/form-data"), new File(media.getPath())))
+                        .build();
 
-                ListenableFuture<String> booleanTask = service.submit(new Callable<String>() {
-                    @Override
-                    public String call() throws Exception {
-                        String fileString = "";
-                        try {
-                            fileString = new String(SysUtils.readStream(media.getPath()));
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        return fileString;
-                    }
-                });
-                Futures.addCallback(booleanTask, new FutureCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        if (!TextUtils.isEmpty(result)) {
-                            FilesNetManager.INSTANCE.uploadSingleFile("", result, new UploadFileCallback() {
-                                @Override
-                                public void uploadSuccss(boolean success) {
-                                    if (success) {
-                                        list.add(media);
-                                    } else {
-                                        Looper.prepare();
-                                        Toast.makeText(App.getContext(), "上传文件失败，不添加到展示", Toast.LENGTH_SHORT).show();
-                                        Looper.loop();
-                                    }
-                                    if (mUpFileCallback != null) {
-                                        mUpFileCallback.uploadSuccss(success);
-                                    }
-                                    if (mAdapterWeakReference.get() != null) {
-                                        mAdapterWeakReference.get().setList(list);
-                                        mAdapterWeakReference.get().notifyDataSetChanged();
-                                    }
-                                }
-                            });
-                        }
-                    }
 
-                    @Override
-                    public void onFailure(Throwable throwable) {
-                        Log.i(TAG, "file readStream failed");
-                    }
-                }, service);
+                    FilesNetManager.INSTANCE.uploadSingleFile("", requestBody, new UploadFileCallback() {
+                        @Override
+                        public void uploadSuccss(boolean success) {
+                            if (success) {
+                                list.add(media);
+                            } else {
+                                Looper.prepare();
+                                Toast.makeText(App.getContext(), "上传文件失败，不添加到展示", Toast.LENGTH_SHORT).show();
+                                Looper.loop();
+                            }
+                            if (mUpFileCallback != null) {
+                                mUpFileCallback.uploadSuccss(success);
+                            }
+                        }
+                    });
             }
+            if (mAdapterWeakReference.get() != null) {
+                mAdapterWeakReference.get().setList(list);
+                mAdapterWeakReference.get().notifyDataSetChanged();
 
+            }
         }
 
         @Override

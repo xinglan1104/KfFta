@@ -31,6 +31,9 @@ public class RequestBuilder {
      */
     private boolean mIsBg = true;
     private String url = "";
+    private String header = "";
+    private String headerName = "";
+
     /**
      * 超时时间
      */
@@ -55,6 +58,21 @@ public class RequestBuilder {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getHeaderName() {
+        return headerName;
+    }
+
+    public void setHeaderName(String headerName) {
+        this.headerName = headerName;
+    }
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
     }
 
     /**
