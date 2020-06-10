@@ -20,35 +20,58 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
 
     public static final String TABLENAME = "TASK_INFO";
 
-    public TaskInfoDao(DaoConfig config) {
-        super(config);
-    }
-
-
-    public TaskInfoDao(DaoConfig config, DaoSession daoSession) {
-        super(config, daoSession);
-    }
-
     /**
      * Creates the underlying database table.
      */
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists ? "IF NOT EXISTS " : "";
         db.execSQL("CREATE TABLE " + constraint + "\"TASK_INFO\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY NOT NULL ," + // 0: id
-                "\"EXECUTE_TIME\" TEXT NOT NULL ," + // 1: executeTime
-                "\"CODE_NAME\" TEXT NOT NULL ," + // 2: codeName
-                "\"EXCUTION_STATUS\" INTEGER NOT NULL ," + // 3: excutionStatus
-                "\"COMPANY_ID\" INTEGER NOT NULL ," + // 4: companyId
-                "\"PAGE_CODE\" INTEGER NOT NULL );"); // 5: pageCode
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ," + // 0: id
+                "\"OBJECT_ID\" INTEGER NOT NULL ," + // 1: objectId
+                "\"EXECUTE_TIME\" INTEGER NOT NULL ," + // 2: executeTime
+                "\"CODE_NAME\" TEXT NOT NULL ," + // 3: codeName
+                "\"EXCUTION_STATUS\" INTEGER NOT NULL ," + // 4: excutionStatus
+                "\"COMPANY_ID\" INTEGER NOT NULL ," + // 5: companyId
+                "\"PAGE_CODE\" INTEGER NOT NULL );"); // 6: pageCode
     }
 
-    /**
-     * Drops the underlying database table.
-     */
+
+    public TaskInfoDao(DaoConfig config) {
+        super(config);
+    }
+    
+    public TaskInfoDao(DaoConfig config, DaoSession daoSession) {
+        super(config, daoSession);
+    }
+
+    /** Drops the underlying database table. */
     public static void dropTable(Database db, boolean ifExists) {
         String sql = "DROP TABLE " + (ifExists ? "IF EXISTS " : "") + "\"TASK_INFO\"";
         db.execSQL(sql);
+    }
+
+    @Override
+    protected final void bindValues(DatabaseStatement stmt, TaskInfo entity) {
+        stmt.clearBindings();
+        stmt.bindLong(1, entity.getId());
+        stmt.bindLong(2, entity.getObjectId());
+        stmt.bindLong(3, entity.getExecuteTime());
+        stmt.bindString(4, entity.getCodeName());
+        stmt.bindLong(5, entity.getExcutionStatus());
+        stmt.bindLong(6, entity.getCompanyId());
+        stmt.bindLong(7, entity.getPageCode());
+    }
+
+    @Override
+    protected final void bindValues(SQLiteStatement stmt, TaskInfo entity) {
+        stmt.clearBindings();
+        stmt.bindLong(1, entity.getId());
+        stmt.bindLong(2, entity.getObjectId());
+        stmt.bindLong(3, entity.getExecuteTime());
+        stmt.bindString(4, entity.getCodeName());
+        stmt.bindLong(5, entity.getExcutionStatus());
+        stmt.bindLong(6, entity.getCompanyId());
+        stmt.bindLong(7, entity.getPageCode());
     }
 
     @Override
@@ -57,56 +80,30 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
     }
 
     @Override
-    protected final void bindValues(DatabaseStatement stmt, TaskInfo entity) {
-        stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
-        stmt.bindString(2, entity.getExecuteTime());
-        stmt.bindString(3, entity.getCodeName());
-        stmt.bindLong(4, entity.getExcutionStatus());
-        stmt.bindLong(5, entity.getCompanyId());
-        stmt.bindLong(6, entity.getPageCode());
-    }
-
-    @Override
-    protected final void bindValues(SQLiteStatement stmt, TaskInfo entity) {
-        stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
-        stmt.bindString(2, entity.getExecuteTime());
-        stmt.bindString(3, entity.getCodeName());
-        stmt.bindLong(4, entity.getExcutionStatus());
-        stmt.bindLong(5, entity.getCompanyId());
-        stmt.bindLong(6, entity.getPageCode());
-    }
-
-    @Override
-    public void readEntity(Cursor cursor, TaskInfo entity, int offset) {
-        entity.setId(cursor.getLong(offset + 0));
-        entity.setExecuteTime(cursor.getString(offset + 1));
-        entity.setCodeName(cursor.getString(offset + 2));
-        entity.setExcutionStatus(cursor.getInt(offset + 3));
-        entity.setCompanyId(cursor.getInt(offset + 4));
-        entity.setPageCode(cursor.getInt(offset + 5));
-    }
-
-    @Override
     public TaskInfo readEntity(Cursor cursor, int offset) {
         TaskInfo entity = new TaskInfo( //
                 cursor.getLong(offset + 0), // id
-                cursor.getString(offset + 1), // executeTime
-                cursor.getString(offset + 2), // codeName
-                cursor.getInt(offset + 3), // excutionStatus
-                cursor.getInt(offset + 4), // companyId
-                cursor.getInt(offset + 5) // pageCode
+                cursor.getLong(offset + 1), // objectId
+                cursor.getLong(offset + 2), // executeTime
+                cursor.getString(offset + 3), // codeName
+                cursor.getInt(offset + 4), // excutionStatus
+                cursor.getInt(offset + 5), // companyId
+                cursor.getInt(offset + 6) // pageCode
         );
         return entity;
     }
 
     @Override
-    protected final Long updateKeyAfterInsert(TaskInfo entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
-    }
-
+    public void readEntity(Cursor cursor, TaskInfo entity, int offset) {
+        entity.setId(cursor.getLong(offset + 0));
+        entity.setObjectId(cursor.getLong(offset + 1));
+        entity.setExecuteTime(cursor.getLong(offset + 2));
+        entity.setCodeName(cursor.getString(offset + 3));
+        entity.setExcutionStatus(cursor.getInt(offset + 4));
+        entity.setCompanyId(cursor.getInt(offset + 5));
+        entity.setPageCode(cursor.getInt(offset + 6));
+     }
+     
     @Override
     public Long getKey(TaskInfo entity) {
         if (entity != null) {
@@ -116,17 +113,24 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
         }
     }
 
+    @Override
+    protected final Long updateKeyAfterInsert(TaskInfo entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
+    }
+    
     /**
      * Properties of entity TaskInfo.<br/>
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
         public final static Property Id = new Property(0, long.class, "id", true, "_id");
-        public final static Property ExecuteTime = new Property(1, String.class, "executeTime", false, "EXECUTE_TIME");
-        public final static Property CodeName = new Property(2, String.class, "codeName", false, "CODE_NAME");
-        public final static Property ExcutionStatus = new Property(3, int.class, "excutionStatus", false, "EXCUTION_STATUS");
-        public final static Property CompanyId = new Property(4, int.class, "companyId", false, "COMPANY_ID");
-        public final static Property PageCode = new Property(5, int.class, "pageCode", false, "PAGE_CODE");
+        public final static Property ObjectId = new Property(1, long.class, "objectId", false, "OBJECT_ID");
+        public final static Property ExecuteTime = new Property(2, long.class, "executeTime", false, "EXECUTE_TIME");
+        public final static Property CodeName = new Property(3, String.class, "codeName", false, "CODE_NAME");
+        public final static Property ExcutionStatus = new Property(4, int.class, "excutionStatus", false, "EXCUTION_STATUS");
+        public final static Property CompanyId = new Property(5, int.class, "companyId", false, "COMPANY_ID");
+        public final static Property PageCode = new Property(6, int.class, "pageCode", false, "PAGE_CODE");
     }
 
     @Override
@@ -138,5 +142,5 @@ public class TaskInfoDao extends AbstractDao<TaskInfo, Long> {
     protected final boolean isEntityUpdateable() {
         return true;
     }
-
+    
 }

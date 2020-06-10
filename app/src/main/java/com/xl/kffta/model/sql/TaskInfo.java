@@ -28,7 +28,7 @@ public class TaskInfo {
      * 任务执行时间
      */
     @NotNull
-    private String executeTime;
+    private long executeTime;
 
     /**
      * 任务分类，是任务还是执法任务
@@ -45,17 +45,16 @@ public class TaskInfo {
     /**
      * 公司编号
      */
-    @NotNull
     private int companyId;
 
     /**
-     *
+     * 传0就行
      */
     @NotNull
     private int pageCode;
 
-    @Generated(hash = 165688077)
-    public TaskInfo(long id, long objectId, @NotNull String executeTime,
+    @Generated(hash = 662729545)
+    public TaskInfo(long id, long objectId, long executeTime,
             @NotNull String codeName, int excutionStatus, int companyId,
             int pageCode) {
         this.id = id;
@@ -79,11 +78,19 @@ public class TaskInfo {
         this.id = id;
     }
 
-    public String getExecuteTime() {
+    public long getObjectId() {
+        return this.objectId;
+    }
+
+    public void setObjectId(long objectId) {
+        this.objectId = objectId;
+    }
+
+    public long getExecuteTime() {
         return this.executeTime;
     }
 
-    public void setExecuteTime(String executeTime) {
+    public void setExecuteTime(long executeTime) {
         this.executeTime = executeTime;
     }
 
@@ -119,11 +126,4 @@ public class TaskInfo {
         this.pageCode = pageCode;
     }
 
-    public long getObjectId() {
-        return this.objectId;
-    }
-
-    public void setObjectId(long objectId) {
-        this.objectId = objectId;
-    }
 }

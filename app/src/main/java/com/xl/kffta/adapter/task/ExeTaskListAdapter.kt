@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.model.TakeOrderBean
+import com.xl.kffta.net.taskmanager.FilesNetManager
+import com.xl.kffta.net.taskmanager.LocationManager
 import com.xl.kffta.net.taskmanager.TaskNetManager
 import com.xl.kffta.ui.activity.receivetask.TaskInfoDetailActivity
 import com.xl.kffta.util.SysUtils
@@ -77,6 +79,9 @@ class ExeTaskListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerVi
                     val intent = Intent()
                     val activity = SysUtils.getActivity(context)
                     activity?.let { parentActivity ->
+                        // 点击了开始执法，表示开始执法了，插入一条数据库
+                        LocationManager.executeTaskInSql(dataBean.id, 0, FilesNetManager.TASK_CODENAME, System.currentTimeMillis())
+
                         intent.setClass(parentActivity, TaskInfoDetailActivity::class.java)
                         intent.putExtra(TaskInfoDetailActivity.TASK_ID, dataBean.id)
                         intent.putExtra(TaskInfoDetailActivity.INFO_TYPE, TaskInfoDetailActivity.TYPE_EXECUTE_TASK)

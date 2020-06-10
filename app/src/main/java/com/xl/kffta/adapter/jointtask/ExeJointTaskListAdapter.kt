@@ -9,7 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.model.JointTaskBean
+import com.xl.kffta.net.taskmanager.FilesNetManager
 import com.xl.kffta.net.taskmanager.JointTaskManager
+import com.xl.kffta.net.taskmanager.LocationManager
 import com.xl.kffta.ui.activity.receivejointtask.JointTaskInfoActivity
 import com.xl.kffta.util.SysUtils
 import com.xl.kffta.viewholder.NoDataViewHolder
@@ -103,6 +105,9 @@ class ExeJointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recyc
                     val intent = Intent()
                     val activity = SysUtils.getActivity(context)
                     activity?.let { parentActivity ->
+                        // 点击了开始执法，表示开始执法了，插入一条数据库
+                        LocationManager.executeTaskInSql(data.id.toLong(), 0, FilesNetManager.JOINT_TASK_CODENAME, System.currentTimeMillis())
+
                         intent.setClass(parentActivity, JointTaskInfoActivity::class.java)
                         intent.putExtra(JointTaskInfoActivity.JOINT_TASK_ID, data.id)
                         intent.putExtra(JointTaskInfoActivity.JOINT_TASK_TYPE, JointTaskInfoActivity.JOINT_TASK_TYPE_EXECUTE)

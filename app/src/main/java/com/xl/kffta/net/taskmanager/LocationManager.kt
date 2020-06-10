@@ -3,8 +3,11 @@ package com.xl.kffta.net.taskmanager
 import android.text.TextUtils
 import android.util.Log
 import com.google.gson.Gson
+import com.xl.kffta.base.App
+import com.xl.kffta.greendao.TaskInfoDao
 import com.xl.kffta.model.LocationUploadBean
 import com.xl.kffta.model.SimpleResponseBean
+import com.xl.kffta.model.sql.TaskInfo
 import com.xl.kffta.net.NetManager
 import com.xl.kffta.net.RequestBuilder
 import com.xl.kffta.net.ResponseCallback
@@ -58,5 +61,32 @@ object LocationManager {
             }
         }
         NetManager.manager.sendRequest(requestBuilder)
+    }
+
+    /**
+     * 开始执行任务，插入或者更新数据库
+     */
+    fun executeTaskInSql(id: Long, executeState: Int, codeName: String, startTaskTime: Long) {
+        // 先插入一条数据
+        try {
+            val taskInfo = TaskInfo()
+            taskInfo.codeName = codeName
+            taskInfo.executeTime = startTaskTime
+            taskInfo.excutionStatus = executeState
+            taskInfo.pageCode = 0
+            taskInfo.objectId = id
+
+            // 首先查询有没有改数据
+            val result = App.daoSession?.taskInfoDao?.queryBuilder()?.where(TaskInfoDao.Properties.ObjectId.eq(id),
+                    TaskInfoDao.Properties.CodeName.eq(codeName))?.build()?.list()
+            if (!result.isNullOrEmpty()) {
+                // 有数据，那就update
+                App.daoSession?.taskInfoDao?.update(taskInfo)
+            } else {
+                // 没有数据，插入
+                App.daoSession?.taskInfoDao?.insert(taskInfo)
+            }
+        } catch (ignored: Exception) {
+        }
     }
 }
