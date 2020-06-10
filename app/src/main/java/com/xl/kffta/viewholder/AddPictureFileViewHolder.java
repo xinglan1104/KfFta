@@ -2,7 +2,6 @@ package com.xl.kffta.viewholder;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +27,7 @@ import com.xl.kffta.model.CommonFileBean;
 import com.xl.kffta.net.taskmanager.FilesNetManager;
 import com.xl.kffta.util.GlideEngine;
 import com.xl.kffta.widget.FullyGridLayoutManager;
+import com.xl.kffta.widget.LoadingView;
 import com.yalantis.ucrop.util.ScreenUtils;
 
 import java.lang.ref.WeakReference;
@@ -47,6 +47,7 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
     private Context mContext;
     private RecyclerView mRecyclerView;
     private GridImageAdapter mAdapter;
+    private LoadingView mLoadingView;
 
     private MyResultCallback myResultCallback;
     private UploadFileCallback mUpStateCallback;
@@ -59,13 +60,14 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
     public AddPictureFileViewHolder(@NonNull View itemView, int type) {
         super(itemView);
         mContext = itemView.getContext();
+        mLoadingView = itemView.findViewById(R.id.add_file_loading);
         mRecyclerView = itemView.findViewById(R.id.add_file_recycler);
         FullyGridLayoutManager manager = new FullyGridLayoutManager(mContext, 4, GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(4, ScreenUtils.dip2px(mContext, 8), false));
         mAdapter = new GridImageAdapter(mContext, onAddPicClickListener, type);
         mAdapter.setSelectMax(9);
-        myResultCallback = new MyResultCallback(mAdapter, mUpStateCallback);
+        myResultCallback = new MyResultCallback(mAdapter, this, mUpStateCallback);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener((v, position) -> {
             List<LocalMedia> selectList = mAdapter.getData();
@@ -213,18 +215,28 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
         }
     };
 
+    public void showProgress() {
+        mLoadingView.showLoading(false, R.color.btn_common_color);
+    }
+
+    public void hideProgress() {
+        mLoadingView.hide();
+    }
+
     /**
      * 返回结果回调
      */
     public static class MyResultCallback implements OnResultCallbackListener<LocalMedia> {
         public static final ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newCachedThreadPool());
         private WeakReference<GridImageAdapter> mAdapterWeakReference;
+        private WeakReference<AddPictureFileViewHolder> mViewHolderWeakReference;
         public List<LocalMedia> list = new ArrayList<>();
         private UploadFileCallback mUpFileCallback;
 
-        public MyResultCallback(GridImageAdapter adapter, UploadFileCallback callback) {
+        public MyResultCallback(GridImageAdapter adapter, AddPictureFileViewHolder viewHolder, UploadFileCallback callback) {
             super();
             this.mAdapterWeakReference = new WeakReference<>(adapter);
+            this.mViewHolderWeakReference = new WeakReference<>(viewHolder);
             this.mUpFileCallback = callback;
         }
 
@@ -242,27 +254,31 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
                 Log.i(TAG, "宽高: " + media.getWidth() + "x" + media.getHeight());
                 Log.i(TAG, "Size: " + media.getSize());
                 // TODO 可以通过PictureSelectorExternalUtils.getExifInterface();方法获取一些额外的资源信息，如旋转角度、经纬度等信息
-
+                list.add(media);
+                if (mAdapterWeakReference.get() != null) {
+                    mAdapterWeakReference.get().setList(list);
+                    mAdapterWeakReference.get().notifyDataSetChanged();
+                }
+                mViewHolderWeakReference.get().showProgress();
                 FilesNetManager.INSTANCE.uploadSingleFile(media.getPath(), new UploadFileCallback() {
                     @Override
                     public void uploadSuccss(boolean success) {
-                        if (success) {
-                            list.add(media);
-                            LifeCycleManager.getInstance().getTopActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (mAdapterWeakReference.get() != null) {
-                                        mAdapterWeakReference.get().setList(list);
-                                        mAdapterWeakReference.get().notifyDataSetChanged();
-
-                                    }
+                        LifeCycleManager.getInstance().getTopActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (!success) {
+                                    list.remove(media);
+                                    Toast.makeText(App.getContext(), "上传文件失败，不添加到展示", Toast.LENGTH_SHORT).show();
                                 }
-                            });
-                        } else {
-                            Looper.prepare();
-                            Toast.makeText(App.getContext(), "上传文件失败，不添加到展示", Toast.LENGTH_SHORT).show();
-                            Looper.loop();
-                        }
+                                mViewHolderWeakReference.get().hideProgress();
+                                if (mAdapterWeakReference.get() != null) {
+                                    mAdapterWeakReference.get().setList(list);
+                                    mAdapterWeakReference.get().notifyDataSetChanged();
+
+                                }
+                            }
+                        });
+
                         if (mUpFileCallback != null) {
                             mUpFileCallback.uploadSuccss(success);
                         }
