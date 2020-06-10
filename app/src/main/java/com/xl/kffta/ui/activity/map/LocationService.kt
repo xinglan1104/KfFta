@@ -8,6 +8,7 @@ import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.location.AMapLocationListener
 import com.xl.kffta.base.App
+import com.xl.kffta.greendao.TaskInfoDao
 import com.xl.kffta.model.LocationUploadBean
 import com.xl.kffta.model.sql.TaskInfo
 import com.xl.kffta.net.taskmanager.LocationManager
@@ -48,7 +49,7 @@ class LocationService : Service() {
 
     fun queryTaskList() {
         // 查询数据库
-        mTaskList = App.daoSession?.taskInfoDao?.queryBuilder()?.build()?.list()
+        mTaskList = App.daoSession?.taskInfoDao?.queryBuilder()?.where(TaskInfoDao.Properties.ExecuteTime.lt(System.currentTimeMillis()), TaskInfoDao.Properties.ExcutionStatus.eq(0))?.build()?.list()
         Log.i(TAG, "tasks.size==" + mTaskList?.size)
         if (!mTaskList.isNullOrEmpty()) {
             getPosition()
@@ -97,12 +98,13 @@ class LocationService : Service() {
             var uploadBean: LocationUploadBean = LocationUploadBean()
             uploadBean.alt = 0.0
             uploadBean.objectCodename = taskinfo.codeName
-            uploadBean.objectID = taskinfo.id.toInt()
+            uploadBean.objectID = taskinfo.objectId.toInt()
             uploadBean.objectPagecode = 0
-            uploadBean.positionDateTime = System.currentTimeMillis().toString()
+            uploadBean.positionDateTime = "/Date(${System.currentTimeMillis()})/"
             uploadBean.lat = latitude
             uploadBean.lng = longitude
             LocationManager.uploadLocationInfo(uploadBean)
+
         }
     }
 }
