@@ -8,10 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.luck.picture.lib.PictureSelector;
@@ -27,19 +23,17 @@ import com.xl.kffta.base.LifeCycleManager;
 import com.xl.kffta.model.CommonFileBean;
 import com.xl.kffta.net.taskmanager.FilesNetManager;
 import com.xl.kffta.util.GlideEngine;
-import com.xl.kffta.util.SysUtils;
 import com.xl.kffta.widget.FullyGridLayoutManager;
 import com.yalantis.ucrop.util.ScreenUtils;
 
-import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import static android.content.ContentValues.TAG;
 
@@ -248,28 +242,22 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
                 Log.i(TAG, "宽高: " + media.getWidth() + "x" + media.getHeight());
                 Log.i(TAG, "Size: " + media.getSize());
                 // TODO 可以通过PictureSelectorExternalUtils.getExifInterface();方法获取一些额外的资源信息，如旋转角度、经纬度等信息
-                RequestBody requestBody = new MultipartBody.Builder()
-                        .setType(MultipartBody.FORM)
-                        .addFormDataPart("file", media.getFileName(),
-                                RequestBody.create(MediaType.parse("multipart/form-data"), new File(media.getPath())))
-                        .build();
 
-
-                    FilesNetManager.INSTANCE.uploadSingleFile("", requestBody, new UploadFileCallback() {
-                        @Override
-                        public void uploadSuccss(boolean success) {
-                            if (success) {
-                                list.add(media);
-                            } else {
-                                Looper.prepare();
-                                Toast.makeText(App.getContext(), "上传文件失败，不添加到展示", Toast.LENGTH_SHORT).show();
-                                Looper.loop();
-                            }
-                            if (mUpFileCallback != null) {
-                                mUpFileCallback.uploadSuccss(success);
-                            }
+                FilesNetManager.INSTANCE.uploadSingleFile(media.getPath(), new UploadFileCallback() {
+                    @Override
+                    public void uploadSuccss(boolean success) {
+                        if (success) {
+                            list.add(media);
+                        } else {
+                            Looper.prepare();
+                            Toast.makeText(App.getContext(), "上传文件失败，不添加到展示", Toast.LENGTH_SHORT).show();
+                            Looper.loop();
                         }
-                    });
+                        if (mUpFileCallback != null) {
+                            mUpFileCallback.uploadSuccss(success);
+                        }
+                    }
+                });
             }
             if (mAdapterWeakReference.get() != null) {
                 mAdapterWeakReference.get().setList(list);
