@@ -40,7 +40,7 @@ class LocationService : Service() {
     override fun onCreate() {
         super.onCreate()
         initLocation()
-        executorService.scheduleAtFixedRate(executors, 0, 4, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(executors, 0, 10, TimeUnit.SECONDS);
     }
 
     var executors: Runnable = Runnable {
