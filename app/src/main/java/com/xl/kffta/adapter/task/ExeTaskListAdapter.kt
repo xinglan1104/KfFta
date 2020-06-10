@@ -80,7 +80,7 @@ class ExeTaskListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerVi
                     val activity = SysUtils.getActivity(context)
                     activity?.let { parentActivity ->
                         // 点击了开始执法，表示开始执法了，插入一条数据库
-                        LocationManager.executeTaskInSql(dataBean.id, 0, FilesNetManager.TASK_CODENAME, System.currentTimeMillis())
+                        LocationManager.executeTaskInSql(dataBean.id, FilesNetManager.TASK_CODENAME, System.currentTimeMillis())
 
                         intent.setClass(parentActivity, TaskInfoDetailActivity::class.java)
                         intent.putExtra(TaskInfoDetailActivity.TASK_ID, dataBean.id)

@@ -66,13 +66,13 @@ object LocationManager {
     /**
      * 开始执行任务，插入或者更新数据库
      */
-    fun executeTaskInSql(id: Long, executeState: Int, codeName: String, startTaskTime: Long) {
+    fun executeTaskInSql(id: Long, codeName: String, startTaskTime: Long) {
         // 先插入一条数据
         try {
             val taskInfo = TaskInfo()
             taskInfo.codeName = codeName
             taskInfo.executeTime = startTaskTime
-            taskInfo.excutionStatus = executeState
+            taskInfo.excutionStatus = 0
             taskInfo.pageCode = 0
             taskInfo.objectId = id
 
@@ -85,6 +85,27 @@ object LocationManager {
             } else {
                 // 没有数据，插入
                 App.daoSession?.taskInfoDao?.insert(taskInfo)
+            }
+        } catch (ignored: Exception) {
+        }
+    }
+
+    /**
+     * 结束或取消任务，把状态改成1
+     */
+    fun finishOrCancelTask(id: Long, codeName: String) {
+        // 查询有没有对应数据
+        try {
+            val taskInfo = TaskInfo()
+            taskInfo.objectId = id
+            taskInfo.codeName = codeName
+            taskInfo.excutionStatus = 1
+
+            val result = App.daoSession?.taskInfoDao?.queryBuilder()?.where(TaskInfoDao.Properties.ObjectId.eq(id),
+                    TaskInfoDao.Properties.CodeName.eq(codeName))?.build()?.list()
+            if (!result.isNullOrEmpty()) {
+                // 有数据，那就update
+                App.daoSession?.taskInfoDao?.update(taskInfo)
             }
         } catch (ignored: Exception) {
         }

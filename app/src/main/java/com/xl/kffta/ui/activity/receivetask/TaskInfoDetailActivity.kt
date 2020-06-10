@@ -13,6 +13,7 @@ import com.xl.kffta.model.TaskInfoBean
 import com.xl.kffta.model.TaskItemInfo
 import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.net.taskmanager.FilesNetManager
+import com.xl.kffta.net.taskmanager.LocationManager
 import com.xl.kffta.net.taskmanager.TaskNetManager
 import com.xl.kffta.presenter.impl.TaskInfoDetailImpl
 import com.xl.kffta.ui.activity.lawcase.LawCaseInfoDetailActivity
@@ -113,6 +114,8 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                 task_info_back.visibility = View.GONE
             }
             HANDLER_START_SUCCESS -> {
+                // 完成执法
+                LocationManager.finishOrCancelTask(taskId, FilesNetManager.TASK_CODENAME)
                 finish()
             }
         }

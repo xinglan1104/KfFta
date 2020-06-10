@@ -15,6 +15,7 @@ import com.xl.kffta.model.JointTaskInfoItem
 import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.net.taskmanager.FilesNetManager
 import com.xl.kffta.net.taskmanager.JointTaskManager
+import com.xl.kffta.net.taskmanager.LocationManager
 import com.xl.kffta.ui.activity.lawcase.LawCaseInfoDetailActivity
 import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.util.DialogUtil
@@ -94,6 +95,8 @@ class JointTaskInfoActivity : BaseActivity() {
                 }
             }
             HANDLER_START_JOINT_TASK_SUCCESS -> {
+                // 任务完成
+                LocationManager.finishOrCancelTask(mId.toLong(), FilesNetManager.JOINT_TASK_CODENAME)
                 finish()
             }
         }
@@ -228,13 +231,13 @@ class JointTaskInfoActivity : BaseActivity() {
                                 if (tipStr.isNotEmpty()) {
                                     DialogUtil.showSingleCommonDialog(context = this@JointTaskInfoActivity, msg = tipStr)
                                 } else {
+                                    jointTaskInfoBean.data.acceptStatus = JointTaskManager.AcceptStatusApproved
                                     JointTaskManager.updateJointTaskState(jointTaskInfoBean, object : ResponseObjectCallback {
                                         override fun onError(msg: String) {
                                             myToast(msg)
                                         }
 
                                         override fun onSuccess(obj: Any) {
-                                            jointTaskInfoBean.data.acceptStatus = JointTaskManager.AcceptStatusApproved
                                             mHandler.obtainMessage(HANDLER_START_JOINT_TASK_SUCCESS).sendToTarget()
                                             myToast("已完成执行检查任务")
                                         }

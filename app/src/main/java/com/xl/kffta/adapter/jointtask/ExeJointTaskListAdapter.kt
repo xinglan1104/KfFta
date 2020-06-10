@@ -106,7 +106,7 @@ class ExeJointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recyc
                     val activity = SysUtils.getActivity(context)
                     activity?.let { parentActivity ->
                         // 点击了开始执法，表示开始执法了，插入一条数据库
-                        LocationManager.executeTaskInSql(data.id.toLong(), 0, FilesNetManager.JOINT_TASK_CODENAME, System.currentTimeMillis())
+                        LocationManager.executeTaskInSql(data.id.toLong(), FilesNetManager.JOINT_TASK_CODENAME, System.currentTimeMillis())
 
                         intent.setClass(parentActivity, JointTaskInfoActivity::class.java)
                         intent.putExtra(JointTaskInfoActivity.JOINT_TASK_ID, data.id)
