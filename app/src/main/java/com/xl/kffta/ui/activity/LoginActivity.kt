@@ -8,6 +8,7 @@ import android.view.View
 import android.view.WindowManager
 import com.xl.kffta.R
 import com.xl.kffta.base.BaseActivity
+import com.xl.kffta.net.taskmanager.TaskNetManager
 import com.xl.kffta.presenter.impl.LoginPresenterImpl
 import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.view.ILoginView
@@ -35,16 +36,18 @@ class LoginActivity : BaseActivity(), ILoginView {
         super.initViews()
 
         // 如果有token，就直接进入主界面
-        login_main.visibility = if (ApplicationParams.TOKEN.isNullOrEmpty()) {
+        login_main.visibility = if (ApplicationParams.TOKEN.isEmpty() || ApplicationParams.USER_NAME.isEmpty() || ApplicationParams.USER_PWD.isEmpty()) {
             View.VISIBLE
         } else {
             View.GONE
         }
 
-        if (!ApplicationParams.TOKEN.isNullOrEmpty()) {
+        if (ApplicationParams.TOKEN.isNotEmpty() && ApplicationParams.USER_NAME.isNotEmpty() && ApplicationParams.USER_PWD.isNotEmpty()) {
             mHandler.postDelayed({
                 // 直接登陆
                 startActivity<MainActivity>()
+                // 默默调用登陆接口更新数据
+                TaskNetManager.loginRequestInBg(ApplicationParams.USER_NAME, ApplicationParams.USER_PWD, "kaifeng")
                 finish()
             }, 1000)
         }

@@ -55,6 +55,7 @@ class LoginPresenterImpl : ILoginPresenter {
                                 ApplicationParams.TOKEN = userInfoBean.token
                                 ApplicationParams.USER_ID = userInfoBean.user?.id ?: 0L
                                 ApplicationParams.USER_NAME = userInfoBean.user?.userName ?: ""
+                                ApplicationParams.USER_PWD = pwd
                                 ApplicationParams.USER_PHONE = userInfoBean.user?.mobilePhone ?: ""
                                 ApplicationParams.USER_ADDRESS = userInfoBean.user?.additionInfo
                                         ?: ""

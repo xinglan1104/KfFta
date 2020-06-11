@@ -122,9 +122,11 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             R.id.main_layout_8 -> startActivity(Intent(this@MainActivity, LegalProvisonActivity::class.java))
             R.id.login_out -> {
                 // 登出
-                DialogUtil.showCommonDialog(this, "确定注销改账户吗", object : DialogUtil.OnDialogOkClick {
+                DialogUtil.showCommonDialog(this, "确定注销该账户吗", object : DialogUtil.OnDialogOkClick {
                     override fun onDialogOkClick() {
                         ApplicationParams.TOKEN = ""
+                        ApplicationParams.USER_PWD = ""
+                        ApplicationParams.USER_NAME = ""
                         startActivity<LoginActivity>()
                         finish()
                     }
