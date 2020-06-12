@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <uses-sdk tools:overrideLibrary="androidx.camera.view,
     androidx.camera:camera-camera2,
     androidx.camera.camera2,androidx.camera.lifecycle,
@@ -119,11 +120,18 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <activity
+            android:name=".ui.activity.warn.WarnListActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
             android:name=".ui.activity.lawcase.LawCaseInfoDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <activity
             android:name=".ui.activity.legalprocision.LegalProvisonActivity"
@@ -149,13 +157,14 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="5573b2ba17ef4565ee5b723e158071e4" />
         <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
         <service android:name="com.amap.api.location.APSService" />
 
-        <service android:name=".ui.activity.map.LocationService"/>
+        <service android:name=".ui.activity.map.LocationService" />
 
     </application>
 

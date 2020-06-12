@@ -35,6 +35,7 @@
             android:background="@color/white"
             android:ellipsize="end"
             android:hint="搜索"
+            android:singleLine="true"
             android:imeOptions="actionDone"
             android:maxLines="1"
             android:textColor="@color/text_label"
