@@ -7,10 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.luck.picture.lib.PictureSelector;
@@ -35,6 +31,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import static android.content.ContentValues.TAG;
 
 /**
@@ -50,12 +50,7 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
     private LoadingView mLoadingView;
 
     private MyResultCallback myResultCallback;
-    private UploadFileCallback mUpStateCallback;
 
-
-    public void setUploadFileCallback(UploadFileCallback callback) {
-        this.mUpStateCallback = callback;
-    }
 
     public AddPictureFileViewHolder(@NonNull View itemView, int type) {
         super(itemView);
@@ -67,7 +62,7 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
         mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(4, ScreenUtils.dip2px(mContext, 8), false));
         mAdapter = new GridImageAdapter(mContext, onAddPicClickListener, type);
         mAdapter.setSelectMax(9);
-        myResultCallback = new MyResultCallback(mAdapter, this, mUpStateCallback);
+        myResultCallback = new MyResultCallback(mAdapter, this);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener((v, position) -> {
             List<LocalMedia> selectList = mAdapter.getData();
@@ -105,6 +100,12 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
+    }
+
+    public void setUploadFileCallback(UploadFileCallback callback) {
+        if (myResultCallback != null) {
+            myResultCallback.setUploadFileCallback(callback);
+        }
     }
 
     public void setList(List<LocalMedia> list) {
@@ -233,10 +234,13 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
         public List<LocalMedia> list = new ArrayList<>();
         private UploadFileCallback mUpFileCallback;
 
-        public MyResultCallback(GridImageAdapter adapter, AddPictureFileViewHolder viewHolder, UploadFileCallback callback) {
+        public MyResultCallback(GridImageAdapter adapter, AddPictureFileViewHolder viewHolder) {
             super();
             this.mAdapterWeakReference = new WeakReference<>(adapter);
             this.mViewHolderWeakReference = new WeakReference<>(viewHolder);
+        }
+
+        public void setUploadFileCallback(UploadFileCallback callback) {
             this.mUpFileCallback = callback;
         }
 
@@ -276,12 +280,11 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
                                     mAdapterWeakReference.get().notifyDataSetChanged();
 
                                 }
+                                if (mUpFileCallback != null) {
+                                    mUpFileCallback.uploadSuccss(success);
+                                }
                             }
                         });
-
-                        if (mUpFileCallback != null) {
-                            mUpFileCallback.uploadSuccss(success);
-                        }
                     }
                 });
             }
