@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.adapter.task.TaskInfoDetailAdapter
 import com.xl.kffta.base.BaseActivity
-import com.xl.kffta.model.CommonFileBean
 import com.xl.kffta.model.GetFilepathBean
 import com.xl.kffta.model.TaskInfoBean
 import com.xl.kffta.model.TaskItemInfo
@@ -424,19 +423,19 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
      * 请求id对应的文件
      */
     private fun requestFiles(ids: ArrayList<Long>) {
-        FilesNetManager.getFiles(ids, object : ResponseObjectCallback {
+        FilesNetManager.getFileUrls(ids, object : ResponseObjectCallback {
             override fun onError(msg: String) {
 
             }
 
             override fun onSuccess(obj: Any) {
-                if (obj is CommonFileBean) {
+                if (obj is ArrayList<*>) {
                     runOnUiThread {
                         var position = 0
                         mDatas?.let {
                             it.forEachIndexed { index, taskItemInfo ->
                                 if (taskItemInfo.label == "附件") {
-                                    taskItemInfo.commonFileBean = obj
+                                    taskItemInfo.urls = obj as ArrayList<String>
                                     position = index
                                     return@forEachIndexed
                                 }

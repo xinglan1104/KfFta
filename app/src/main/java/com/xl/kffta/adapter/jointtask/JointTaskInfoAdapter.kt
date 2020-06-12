@@ -107,7 +107,7 @@ class JointTaskInfoAdapter(val context: Context, private val fileOnlyShow: Boole
                     holder.setUploadFileCallback { success ->
                         mHasAddFile = success
                     }
-                    holder.setCommonFiles(jointTaskInfoItem.commonFileBean)
+                    holder.setFileUrls(jointTaskInfoItem.urls)
                 }
             }
         }

@@ -51,7 +51,6 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
 
     private MyResultCallback myResultCallback;
 
-
     public AddPictureFileViewHolder(@NonNull View itemView, int type) {
         super(itemView);
         mContext = itemView.getContext();
@@ -139,6 +138,13 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
             }
         }
         setList(showList);
+    }
+
+    public void setFileUrls(ArrayList<String> urls) {
+        if (urls == null || urls.size() < 1) {
+            return;
+        }
+
     }
 
     private GridImageAdapter.onAddPicClickListener onAddPicClickListener = new GridImageAdapter.onAddPicClickListener() {

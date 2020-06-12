@@ -20,5 +20,5 @@ data class TaskItemInfo(
         var isLocationAble: Boolean = false,
         var needUpLoadFile: Boolean = false,
         var upLoadFileEnable: Boolean = false,
-        var commonFileBean: CommonFileBean? = null
+        var urls: ArrayList<String>? = null
 )

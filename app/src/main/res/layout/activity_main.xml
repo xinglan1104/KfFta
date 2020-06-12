@@ -258,7 +258,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/divider_color" />
+                android:background="@color/transparent" />
 
             <RelativeLayout
                 android:id="@+id/main_layout_7"
@@ -298,7 +298,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/divider_color" />
+                android:background="@color/transparent" />
 
             <RelativeLayout
                 android:id="@+id/main_layout_8"
@@ -338,7 +338,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/divider_color" />
+                android:background="@color/transparent" />
 
             <RelativeLayout
                 android:id="@+id/main_layout_9"

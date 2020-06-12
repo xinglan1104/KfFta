@@ -145,7 +145,7 @@ class TaskInfoDetailAdapter(var context: Context, var fileOnlyShow: Boolean) : R
                     holder.setUploadFileCallback { success ->
                         mHasUpLoadFile = success
                     }
-                    holder.setCommonFiles(it.commonFileBean)
+                    holder.setFileUrls(it.urls)
                 }
                 else -> {
 
