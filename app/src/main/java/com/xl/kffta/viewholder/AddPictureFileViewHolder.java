@@ -166,7 +166,7 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
                     .closeAndroidQChangeVideoWH(true)// 如果视频有旋转角度则对换宽高,默认为false
                     //.isAndroidQTransform(false)// 是否需要处理Android Q 拷贝至应用沙盒的操作，只针对compress(false); && .isEnableCrop(false);有效,默认处理
                     .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)// 设置相册Activity方向，不设置默认使用系统
-                    .isOriginalImageControl(true)// 是否显示原图控制按钮，如果设置为true则用户可以自由选择是否使用原图，压缩、裁剪功能将会失效
+                    .isOriginalImageControl(false)// 是否显示原图控制按钮，如果设置为true则用户可以自由选择是否使用原图，压缩、裁剪功能将会失效
                     //.bindCustomPlayVideoCallback(new MyVideoSelectedPlayCallback(getContext()))// 自定义视频播放回调控制，用户可以使用自己的视频播放界面
                     //.bindCustomPreviewCallback(new MyCustomPreviewInterfaceListener())// 自定义图片预览回调接口
                     //.bindCustomCameraInterfaceListener(new MyCustomCameraInterfaceListener())// 提供给用户的一些额外的自定义操作回调
@@ -185,7 +185,7 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
                     //.imageFormat(PictureMimeType.PNG)// 拍照保存图片格式后缀,默认jpeg,Android Q使用PictureMimeType.PNG_Q
                     .isEnableCrop(false)// 是否裁剪
                     //.basicUCropConfig()//对外提供所有UCropOptions参数配制，但如果PictureSelector原本支持设置的还是会使用原有的设置
-                    .isCompress(false)// 是否压缩
+                    .isCompress(true)// 是否压缩
                     //.compressQuality(80)// 图片压缩后输出质量 0~ 100
                     .synOrAsy(true)//同步true或异步false 压缩 默认同步
                     //.queryMaxFileSize(10)// 只查多少M以内的图片、视频、音频  单位M
@@ -264,7 +264,7 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
                     mAdapterWeakReference.get().notifyDataSetChanged();
                 }
                 mViewHolderWeakReference.get().showProgress();
-                FilesNetManager.INSTANCE.uploadSingleFile(media.getPath(), new UploadFileCallback() {
+                FilesNetManager.INSTANCE.uploadSingleFile(media.getCompressPath(), new UploadFileCallback() {
                     @Override
                     public void uploadSuccss(boolean success) {
                         LifeCycleManager.getInstance().getTopActivity().runOnUiThread(new Runnable() {
