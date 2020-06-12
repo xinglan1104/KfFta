@@ -26,7 +26,7 @@ object WarnManager {
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
-        paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentLegalCase"
+        paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentWarning"
         paramsMap["PageCode"] = pageCode
         paramsMap["Skip"] = "0"
         paramsMap["Take"] = pageSize.toString()
