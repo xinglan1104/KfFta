@@ -264,7 +264,7 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
                     mAdapterWeakReference.get().notifyDataSetChanged();
                 }
                 mViewHolderWeakReference.get().showProgress();
-                FilesNetManager.INSTANCE.uploadSingleFile(media.getCompressPath(), new UploadFileCallback() {
+                FilesNetManager.INSTANCE.uploadSingleFile(media.isCompressed() ? media.getCompressPath() : media.getPath(), new UploadFileCallback() {
                     @Override
                     public void uploadSuccss(boolean success) {
                         LifeCycleManager.getInstance().getTopActivity().runOnUiThread(new Runnable() {
