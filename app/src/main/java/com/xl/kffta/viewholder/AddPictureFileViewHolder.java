@@ -7,6 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.luck.picture.lib.PictureSelector;
@@ -30,10 +34,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import static android.content.ContentValues.TAG;
 
@@ -134,7 +134,7 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
             if (TextUtils.isEmpty(type)) {
                 return;
             } else if (type.startsWith("video") || type.startsWith("image")) {
-                media.setPath(file.getStorePath());
+                media.setPath(file.getDownloadUrl());
                 showList.add(media);
             }
         }

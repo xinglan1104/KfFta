@@ -1,5 +1,6 @@
 package com.xl.kffta.net.taskmanager
 
+import android.net.Uri
 import android.text.TextUtils
 import android.util.Log
 import com.google.gson.Gson
@@ -196,8 +197,9 @@ object FilesNetManager {
                                 // success
                                 // 手动添加url字段
                                 if (!simpleResponse.files.isNullOrEmpty()) {
+                                    val tokenString = Uri.encode(ApplicationParams.TOKEN);
                                     simpleResponse.files.forEach { fileBean ->
-                                        fileBean.downloadUrl = "https://test.dynamictier.com/services2/serviceapi/web/DownloadFile?Token=${ApplicationParams.TOKEN}&id=${fileBean.id}"
+                                        fileBean.downloadUrl = "https://test.dynamictier.com/services2/serviceapi/web/DownloadFile?Token=${tokenString}&id=${fileBean.id}"
                                     }
                                 }
                                 callback.onSuccess(simpleResponse)
