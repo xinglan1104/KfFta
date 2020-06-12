@@ -5,6 +5,7 @@ import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.xl.kffta.model.CommonFileBean
 import com.xl.kffta.model.lawcase.LawCaseByIdBean
 import com.xl.kffta.model.lawcase.LawCaseItemBean
 import com.xl.kffta.net.ResponseObjectCallback
@@ -103,19 +104,19 @@ class LawCaseDetailFragment : LawCaseBaseFragment() {
      * 请求id对应的文件
      */
     private fun requestFiles(ids: ArrayList<Long>) {
-        FilesNetManager.getFileUrls(ids, object : ResponseObjectCallback {
+        FilesNetManager.getFiles(ids, object : ResponseObjectCallback {
             override fun onError(msg: String) {
 
             }
 
             override fun onSuccess(obj: Any) {
-                if (obj is ArrayList<*>) {
+                if (obj is CommonFileBean) {
                     runOnUiThread {
                         var position = 0
                         mDatas?.let {
                             it.forEachIndexed { index, taskItemInfo ->
                                 if (taskItemInfo.label == "附件") {
-                                    taskItemInfo.urls = obj as ArrayList<String>
+                                    taskItemInfo.commonFileBean = obj
                                     position = index
                                     return@forEachIndexed
                                 }

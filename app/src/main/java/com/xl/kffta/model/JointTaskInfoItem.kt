@@ -15,5 +15,5 @@ class JointTaskInfoItem(
         var isEditable: Boolean = false,
         var isDatePicker: Boolean = false,
         var needUpLoad: Boolean = false,
-        var urls: ArrayList<String>? = null
+        var commonFileBean: CommonFileBean? = null
 )

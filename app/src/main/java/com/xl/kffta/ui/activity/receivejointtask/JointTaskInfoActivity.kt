@@ -8,6 +8,7 @@ import com.xl.kffta.R
 import com.xl.kffta.adapter.jointtask.JointTaskInfoAdapter
 import com.xl.kffta.adapter.jointtask.JointTaskListAdapter
 import com.xl.kffta.base.BaseActivity
+import com.xl.kffta.model.CommonFileBean
 import com.xl.kffta.model.GetFilepathBean
 import com.xl.kffta.model.JointTaskInfoBean
 import com.xl.kffta.model.JointTaskInfoItem
@@ -401,22 +402,22 @@ class JointTaskInfoActivity : BaseActivity() {
     }
 
     /**
-     * 拼接id对应的文件路径
+     * 请求id对应的文件
      */
     private fun requestFiles(ids: ArrayList<Long>) {
-        FilesNetManager.getFileUrls(ids, object : ResponseObjectCallback {
+        FilesNetManager.getFiles(ids, object : ResponseObjectCallback {
             override fun onError(msg: String) {
 
             }
 
             override fun onSuccess(obj: Any) {
-                if (obj is ArrayList<*>) {
+                if (obj is CommonFileBean) {
                     runOnUiThread {
                         var position = 0
                         mDatas?.let {
                             it.forEachIndexed { index, taskItemInfo ->
                                 if (taskItemInfo.label == "附件") {
-                                    taskItemInfo.urls = obj as ArrayList<String>
+                                    taskItemInfo.commonFileBean = obj
                                     position = index
                                     return@forEachIndexed
                                 }
