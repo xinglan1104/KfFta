@@ -195,8 +195,10 @@ object FilesNetManager {
                             } else {
                                 // success
                                 // 手动添加url字段
-                                ids.forEach {
-                                    simpleResponse.urls.add("https://test.dynamictier.com/services2/serviceapi/web/DownloadFile?Token=${ApplicationParams.TOKEN}&id=$it")
+                                if (!simpleResponse.files.isNullOrEmpty()) {
+                                    simpleResponse.files.forEach { fileBean ->
+                                        fileBean.downloadUrl = "https://test.dynamictier.com/services2/serviceapi/web/DownloadFile?Token=${ApplicationParams.TOKEN}&id=${fileBean.id}"
+                                    }
                                 }
                                 callback.onSuccess(simpleResponse)
                             }
