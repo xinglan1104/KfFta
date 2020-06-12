@@ -1,6 +1,7 @@
 package com.xl.kffta.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,6 +17,16 @@ public class CommonFileBean implements Serializable {
     private Object EncryptionData;
     private Object AESEncryptionKey;
     private List<FilesBean> Files;
+
+    private ArrayList<String> urls = new ArrayList<>();
+
+    public ArrayList<String> getUrls() {
+        return urls;
+    }
+
+    public void setUrls(ArrayList<String> urls) {
+        this.urls = urls;
+    }
 
     public String getError() {
         return Error;

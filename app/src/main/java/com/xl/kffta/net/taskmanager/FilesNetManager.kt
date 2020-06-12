@@ -194,6 +194,10 @@ object FilesNetManager {
                                 callback.onError("解析错误")
                             } else {
                                 // success
+                                // 手动添加url字段
+                                ids.forEach {
+                                    simpleResponse.urls.add("https://test.dynamictier.com/services2/serviceapi/web/DownloadFile?Token=${ApplicationParams.TOKEN}&id=$it")
+                                }
                                 callback.onSuccess(simpleResponse)
                             }
                         }
