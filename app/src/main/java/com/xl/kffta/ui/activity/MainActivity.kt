@@ -17,7 +17,7 @@ import com.xl.kffta.ui.activity.executejointtask.ExecuteJointTaskListActivity
 import com.xl.kffta.ui.activity.executetask.ExecuteListActivity
 import com.xl.kffta.ui.activity.lawcase.LawcaseListActivity
 import com.xl.kffta.ui.activity.legalprocision.LegalProvisonActivity
-import com.xl.kffta.ui.activity.map.LocationService
+import com.xl.kffta.ui.activity.map.JobHandleService
 import com.xl.kffta.ui.activity.receivejointtask.JointTaskListActivity
 import com.xl.kffta.ui.activity.receivetask.TakeOrderActivity
 import com.xl.kffta.util.ApplicationParams
@@ -37,7 +37,7 @@ import kotlin.system.exitProcess
 class MainActivity : BaseActivity(), View.OnClickListener {
     private var mForceQuit = false
 
-    private var locationService: Intent? = null
+    private var jobHandleService:Intent?=null
 
     override val loggerTag: String
         get() = "MainActivity"
@@ -168,7 +168,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        locationService?.let { stopService(it) }
+        jobHandleService?.let { stopService(it) }
         if (mForceQuit) {
             exitProcess(0)
         }
@@ -177,8 +177,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     @NeedsPermission(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
     fun onlyCheckLocationPermission() {
         debug("获取定位权限")
-        locationService = Intent(this@MainActivity, LocationService::class.java)
-        startService(locationService)
+        jobHandleService = Intent(this@MainActivity,JobHandleService::class.java)
+        startService(jobHandleService)
     }
 
     /**

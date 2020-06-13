@@ -1,6 +1,6 @@
 package com.xl.kffta.ui.activity.map
 
-import android.app.Service
+import android.app.*
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
@@ -15,6 +15,13 @@ import com.xl.kffta.net.taskmanager.LocationManager
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
+import android.content.Context
+import android.graphics.BitmapFactory
+import android.os.Build
+import androidx.core.app.NotificationCompat
+import com.xl.kffta.R
+import com.xl.kffta.ui.activity.MainActivity
+
 
 class LocationService : Service() {
     companion object {
@@ -31,7 +38,9 @@ class LocationService : Service() {
     var executorService: ScheduledExecutorService = Executors.newScheduledThreadPool(1)
 
     var mTaskList: MutableList<TaskInfo>? = null
-
+    var notification: Notification? = null
+    var CHANNEL_ID = "com.example.recyclerviewtest.N1"
+    var CHANNEL_NAME = "TEST"
     override fun onBind(intent: Intent): IBinder? {
         // TODO: Return the communication channel to the service.
         throw UnsupportedOperationException("Not yet implemented")
@@ -39,6 +48,26 @@ class LocationService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            var notificationChannel:NotificationChannel ? = null
+            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+                notificationChannel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH)
+                var notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+            var intent = Intent(this, MainActivity::class.java)
+            var pendingIntent= PendingIntent.getActivity(this,0, intent, 0);
+
+            var notification = NotificationCompat.Builder(this,CHANNEL_ID).
+                    setContentTitle("").
+                    setContentText("").
+                    setWhen(System.currentTimeMillis()).
+                    setSmallIcon(R.mipmap.icon_app_logo).
+                    setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher)).
+                    setContentIntent(pendingIntent).build();
+            startForeground(1, notification);
+        }
         initLocation()
         executorService.scheduleAtFixedRate(executors, 0, 10, TimeUnit.SECONDS);
     }
@@ -106,5 +135,10 @@ class LocationService : Service() {
             LocationManager.uploadLocationInfo(uploadBean)
 
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i(TAG, "onDestroy")
     }
 }
