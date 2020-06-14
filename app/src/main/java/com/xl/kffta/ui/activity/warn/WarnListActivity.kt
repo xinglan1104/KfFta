@@ -21,6 +21,7 @@ import com.xl.kffta.viewholder.NoDataViewHolder
 import kotlinx.android.synthetic.main.activity_lawcase_list.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
 import org.jetbrains.anko.find
+import org.jetbrains.anko.startActivity
 
 /**
  * @author created by zhanghaochen
@@ -69,7 +70,9 @@ class WarnListActivity : BaseActivity() {
 
     override fun initListener() {
         // 新增预警
-
+        title_add.setOnClickListener {
+            startActivity<WarnInfoDetailActivity>(WarnInfoDetailActivity.WARN_SOURCE to WarnInfoDetailActivity.WARN_FROM_ADD_COMMON)
+        }
         // 搜索预警
         lawcase_search.doOnTextChanged { text, start, before, count ->
             // 避免频繁操作输入框，先把之前的消息都remove掉
@@ -93,8 +96,8 @@ class WarnListActivity : BaseActivity() {
     }
 
     private fun sendRequest() {
-        WarnManager.queryLawCaseObjects("0", PAGE_SIZE, lawcase_search?.text?.toString()
-            ?: "", object : ResponseObjectCallback {
+        WarnManager.queryWarnObjects("0", PAGE_SIZE, lawcase_search?.text?.toString()
+                ?: "", object : ResponseObjectCallback {
             override fun onError(msg: String) {
                 myToast(msg)
             }
@@ -130,7 +133,7 @@ class WarnListActivity : BaseActivity() {
             val bottom = top + v.height
             val right = left + v.width
             return if (event.x > left && event.x < right
-                && event.y > top && event.y < bottom) {
+                    && event.y > top && event.y < bottom) {
                 false
             } else {
                 true
@@ -162,7 +165,10 @@ class WarnListActivity : BaseActivity() {
                 is MyViewHolder -> {
                     val data = mDatas[position]
                     holder.name.text = data.content ?: ""
-
+                    holder.itemView.setOnClickListener {
+                        context.startActivity<WarnInfoDetailActivity>(WarnInfoDetailActivity.WARN_SOURCE to WarnInfoDetailActivity.WARN_FROM_WARN_LIST,
+                                WarnInfoDetailActivity.WARN_ID to data.id)
+                    }
                 }
 
                 is NoDataViewHolder -> {

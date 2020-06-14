@@ -129,6 +129,13 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <activity
+            android:name=".ui.activity.warn.WarnInfoDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+
+        <activity
             android:name=".ui.activity.lawcase.LawCaseInfoDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"

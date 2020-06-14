@@ -21,7 +21,7 @@ object WarnManager {
     /**
      * 查询所有的预警信息
      */
-    fun queryLawCaseObjects(pageCode: String, pageSize: Int, searchStr: String, callback: ResponseObjectCallback) {
+    fun queryWarnObjects(pageCode: String, pageSize: Int, searchStr: String, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()

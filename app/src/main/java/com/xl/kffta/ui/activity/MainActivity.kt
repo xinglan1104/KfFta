@@ -20,6 +20,7 @@ import com.xl.kffta.ui.activity.legalprocision.LegalProvisonActivity
 import com.xl.kffta.ui.activity.map.JobHandleService
 import com.xl.kffta.ui.activity.receivejointtask.JointTaskListActivity
 import com.xl.kffta.ui.activity.receivetask.TakeOrderActivity
+import com.xl.kffta.ui.activity.warn.WarnListActivity
 import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.util.DialogUtil
 import org.jetbrains.anko.debug
@@ -118,6 +119,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.main_layout_7 -> startActivity(Intent(this@MainActivity, LawcaseListActivity::class.java))
             R.id.main_layout_9 -> {
+                startActivity<WarnListActivity>()
             }
             R.id.main_layout_8 -> startActivity(Intent(this@MainActivity, LegalProvisonActivity::class.java))
             R.id.login_out -> {
