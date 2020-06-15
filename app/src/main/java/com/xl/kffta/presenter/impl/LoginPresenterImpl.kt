@@ -59,6 +59,7 @@ class LoginPresenterImpl : ILoginPresenter {
                                 ApplicationParams.USER_PHONE = userInfoBean.user?.mobilePhone ?: ""
                                 ApplicationParams.USER_ADDRESS = userInfoBean.user?.additionInfo
                                         ?: ""
+                                ApplicationParams.USER_INFO_BEAN = userInfoBean
                                 // 获取用户属于的部门
                                 val departments = userInfoBean.user?.department
                                 if (!departments.isNullOrEmpty()) {

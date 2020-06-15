@@ -19,6 +19,7 @@ object TaskNetManager {
     const val TAG = "TaskNetManager"
     const val TASK_EXCUTIONSTATUS_PENDING = 0
     const val TASK_EXCUTIONSTATUS_APPROVED = 1
+
     /**
      * 根据id查询事件清单详情
      */
@@ -285,6 +286,7 @@ object TaskNetManager {
                                 ApplicationParams.USER_PHONE = userInfoBean.user?.mobilePhone ?: ""
                                 ApplicationParams.USER_ADDRESS = userInfoBean.user?.additionInfo
                                         ?: ""
+                                ApplicationParams.USER_INFO_BEAN = userInfoBean
                                 // 获取用户属于的部门
                                 val departments = userInfoBean.user?.department
                                 if (!departments.isNullOrEmpty()) {
