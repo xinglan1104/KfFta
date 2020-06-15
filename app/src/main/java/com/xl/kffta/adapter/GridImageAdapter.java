@@ -175,7 +175,7 @@ public class GridImageAdapter extends
                     // 这里有时会返回-1造成数据下标越界,具体可参考getAdapterPosition()源码，
                     // 通过源码分析应该是bindViewHolder()暂未绘制完成导致，知道原因的也可联系我~感谢
                     if (index != RecyclerView.NO_POSITION && list.size() > index) {
-                        FilesNetManager.INSTANCE.deleteUploadSingleFile(storePathMap.get(media.getPath()), new AddPictureFileViewHolder.DeleteUploadFileCallback() {
+                        FilesNetManager.INSTANCE.deleteUploadSingleFile(storePathMap.get(media.getPath()), media.isCompressed() ? media.getCompressPath() : media.getPath(), new AddPictureFileViewHolder.DeleteUploadFileCallback() {
                             @Override
                             public void deleteSuccss(boolean success) {
                                 LifeCycleManager.getInstance().getTopActivity().runOnUiThread(new Runnable() {
@@ -186,7 +186,7 @@ public class GridImageAdapter extends
                                             storePathMap.remove(media.getPath());
                                             notifyItemRemoved(index);
                                             notifyItemRangeChanged(index, list.size());
-                                        }else{
+                                        } else {
                                             Toast.makeText(App.getContext(), "删除文件失败，不删除展示", Toast.LENGTH_SHORT).show();
                                         }
                                     }

@@ -44,7 +44,7 @@ object FilesNetManager {
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {
-                Log.e(TAG, msg ?: "执行出错")
+                Log.e(TAG, "onError " + (msg ?: "执行出错"))
             }
 
             override fun onSuccess(jsonString: String) {
@@ -79,7 +79,7 @@ object FilesNetManager {
         NetManager.manager.sendRequestWithHeader(requestBuilder, filePath)
     }
 
-    fun deleteUploadSingleFile(filePath: String, callback: AddPictureFileViewHolder.DeleteUploadFileCallback) {
+    fun deleteUploadSingleFile(filePath: String, fileName: String, callback: AddPictureFileViewHolder.DeleteUploadFileCallback) {
         if (filePath.isEmpty()) {
             callback.deleteSuccss(false)
             return
@@ -88,12 +88,14 @@ object FilesNetManager {
         val paramsMap = hashMapOf<String, String>()
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/DeleteTempFile?format=json"
         paramsMap["Token"] = ApplicationParams.TOKEN
-        paramsMap["FilePath"] = filePath
-        Log.e(TAG, "deleteUploadSingleFile FilePath = " + filePath)
+        paramsMap["FileName"] = filePath
+        paramsMap["FilePath"] = fileName
+        Log.e(TAG, "deleteUploadSingleFile FilePath = " + fileName)
+        Log.e(TAG, "deleteUploadSingleFile FileName = " + filePath)
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {
-                Log.e(TAG, msg ?: "执行出错")
+                Log.e(TAG, "onError " + (msg ?: "执行出错"))
             }
 
             override fun onSuccess(jsonString: String) {

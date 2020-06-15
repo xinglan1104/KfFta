@@ -279,7 +279,8 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
                                     list.remove(media);
                                     Toast.makeText(App.getContext(), "上传文件失败，不添加到展示", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    storePathMap.put(media.getPath(), storeFilePath);
+                                    String filePath = storeFilePath.substring(0, storeFilePath.indexOf("@"));
+                                    storePathMap.put(media.getPath(), filePath);
                                 }
                                 if (mAdapterWeakReference.get() != null) {
                                     mAdapterWeakReference.get().setList(list);
