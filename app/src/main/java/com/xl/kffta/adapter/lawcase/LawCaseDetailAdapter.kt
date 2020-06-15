@@ -9,12 +9,11 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.list.ItemListener
 import com.xl.kffta.R
+import com.xl.kffta.model.DepartmentInfoBean
 import com.xl.kffta.model.lawcase.LawCaseItemBean
-import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.viewholder.AddPictureFileViewHolder
+import com.xl.kffta.viewholder.AutoCompleteViewHolder
 import com.xl.kffta.viewholder.SelectBusniessViewHolder
 import com.xl.kffta.widget.SelectBusinessLayout
 import org.jetbrains.anko.find
@@ -30,6 +29,7 @@ class LawCaseDetailAdapter(val context: Context?, private val fileOnlyShow: Bool
         private const val ITEM_TITLE = 11
         private const val ITEM_EDITABLE = 12
         private const val ITEM_UPLOAD_FILE = 13
+        private const val ITEM_AUTO_DEPARTMENT = 16
         private const val ITEM_BUSINESS = 14
     }
 
@@ -61,6 +61,10 @@ class LawCaseDetailAdapter(val context: Context?, private val fileOnlyShow: Bool
                 val view = SelectBusinessLayout(parent.context)
                 SelectBusniessViewHolder(view)
             }
+            ITEM_AUTO_DEPARTMENT -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.holder_autocomplete, parent, false)
+                AutoCompleteViewHolder(view)
+            }
             else -> {
                 val normalView = LayoutInflater.from(parent.context).inflate(R.layout.item_taskinfo_detail, parent, false)
                 CaseDetailNormalHolder(normalView)
@@ -85,22 +89,16 @@ class LawCaseDetailAdapter(val context: Context?, private val fileOnlyShow: Bool
                 holder.label.text = data.label
                 holder.value.text = data.value
                 mCommonCaseResultMap[data.label] = data.value
-                if (data.isShowSelector) {
-                    // 如果是选择部门，之前的value无法作为最终输出
-                    mCommonCaseResultMap[data.label] = ""
-                    holder.value.setOnClickListener {
-                        // 搞个选择弹窗
-                        context?.let {
-                            DialogUtil.showSelectedDialog(context, object : ItemListener {
-                                override fun invoke(dialog: MaterialDialog, index: Int, text: CharSequence) {
-                                    holder.value.text = text.toString()
-                                    mCommonCaseResultMap[data.label] = text.toString()
-                                }
-                            })
-                        }
+            }
+            is AutoCompleteViewHolder -> {
+                val data = mDatas[position]
+                holder.mAutoCompleteTv.hint = data.editHintStr
+                holder.mAutoCompleteTv.setText(data.value)
+                mCommonCaseResultMap[data.label] = data.value
+                holder.mOnDepartmentChangeListener = object : AutoCompleteViewHolder.OnDepartmentChangeListener {
+                    override fun onDepartmentChangeListener(departmentDataBean: DepartmentInfoBean.DataBean) {
+                        mCommonCaseResultMap[data.label] = departmentDataBean.name
                     }
-                } else {
-                    holder.value.setOnClickListener(null)
                 }
             }
             is CaseDetailEditHolder -> {
@@ -142,6 +140,7 @@ class LawCaseDetailAdapter(val context: Context?, private val fileOnlyShow: Bool
             caseItem.isTitle -> ITEM_TITLE
             caseItem.isEditable -> ITEM_EDITABLE
             caseItem.needUpload -> ITEM_UPLOAD_FILE
+            caseItem.isShowSelector -> ITEM_AUTO_DEPARTMENT
             caseItem.isEditAutoComplete -> ITEM_BUSINESS
             else -> ITEM_NORMAL
         }

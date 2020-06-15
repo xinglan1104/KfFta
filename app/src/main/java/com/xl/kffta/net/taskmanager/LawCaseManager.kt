@@ -212,10 +212,10 @@ object LawCaseManager {
      */
     fun queryAllDepartment(searchStr: String, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjectInfo?format=json"
+        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
-        paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Directory.Business"
+        paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Common.Department"
         paramsMap["PageCode"] = "0"
         paramsMap["Skip"] = "0"
         paramsMap["Take"] = "20"
