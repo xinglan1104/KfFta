@@ -32,7 +32,9 @@ import com.yalantis.ucrop.util.ScreenUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
 
 import static android.content.ContentValues.TAG;
@@ -232,6 +234,7 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
         private WeakReference<GridImageAdapter> mAdapterWeakReference;
         private WeakReference<AddPictureFileViewHolder> mViewHolderWeakReference;
         public List<LocalMedia> list = new ArrayList<>();
+        public Map<String, String> storePathMap = new HashMap<>();
         private UploadFileCallback mUpFileCallback;
 
         public MyResultCallback(GridImageAdapter adapter, AddPictureFileViewHolder viewHolder) {
@@ -258,33 +261,39 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
                 Log.i(TAG, "宽高: " + media.getWidth() + "x" + media.getHeight());
                 Log.i(TAG, "Size: " + media.getSize());
                 // TODO 可以通过PictureSelectorExternalUtils.getExifInterface();方法获取一些额外的资源信息，如旋转角度、经纬度等信息
+                list = mAdapterWeakReference.get().getData();
+                storePathMap = mAdapterWeakReference.get().getStorePathMap();
                 list.add(media);
                 if (mAdapterWeakReference.get() != null) {
                     mAdapterWeakReference.get().setList(list);
                     mAdapterWeakReference.get().notifyDataSetChanged();
                 }
                 mViewHolderWeakReference.get().showProgress();
-                FilesNetManager.INSTANCE.uploadSingleFile(media.isCompressed() ? media.getCompressPath() : media.getPath(), new UploadFileCallback() {
+                FilesNetManager.INSTANCE.uploadSingleFile(media.isCompressed() ? media.getCompressPath() : media.getPath(), new UploadFileWithPathCallback() {
                     @Override
-                    public void uploadSuccss(boolean success) {
+                    public void uploadSuccss(boolean success, String storeFilePath) {
                         LifeCycleManager.getInstance().getTopActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 if (!success) {
                                     list.remove(media);
                                     Toast.makeText(App.getContext(), "上传文件失败，不添加到展示", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    storePathMap.put(media.getPath(), storeFilePath);
                                 }
-                                mViewHolderWeakReference.get().hideProgress();
                                 if (mAdapterWeakReference.get() != null) {
                                     mAdapterWeakReference.get().setList(list);
                                     mAdapterWeakReference.get().notifyDataSetChanged();
-
+                                    mAdapterWeakReference.get().setStorePathList(storePathMap);
                                 }
+                                mViewHolderWeakReference.get().hideProgress();
+
                                 if (mUpFileCallback != null) {
                                     mUpFileCallback.uploadSuccss(success);
                                 }
                             }
                         });
+
                     }
                 });
             }
@@ -301,5 +310,11 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
         void uploadSuccss(boolean success);
     }
 
+    public interface UploadFileWithPathCallback {
+        void uploadSuccss(boolean success, String storeFilePath);
+    }
 
+    public interface DeleteUploadFileCallback {
+        void deleteSuccss(boolean success);
+    }
 }

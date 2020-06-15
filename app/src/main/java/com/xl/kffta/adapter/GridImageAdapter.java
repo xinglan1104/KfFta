@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,11 +20,16 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnItemClickListener;
 import com.luck.picture.lib.tools.DateUtils;
 import com.xl.kffta.R;
+import com.xl.kffta.base.App;
+import com.xl.kffta.base.LifeCycleManager;
+import com.xl.kffta.net.taskmanager.FilesNetManager;
 import com.xl.kffta.viewholder.AddPictureFileViewHolder;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -38,6 +44,7 @@ public class GridImageAdapter extends
     public static final int TYPE_PICTURE = 2;
     private LayoutInflater mInflater;
     private List<LocalMedia> list = new ArrayList<>();
+    private Map<String, String> storePathMap = new HashMap<>();
     private int selectMax = 9;
     private int showType;
 
@@ -84,6 +91,14 @@ public class GridImageAdapter extends
         return list == null ? new ArrayList<>() : list;
     }
 
+    public void setStorePathList(Map<String, String> list) {
+        this.storePathMap = list;
+    }
+
+    public Map<String, String> getStorePathMap() {
+        return storePathMap == null ? new HashMap<>() : storePathMap;
+    }
+
     public void remove(int position) {
         if (list != null && position < list.size()) {
             list.remove(position);
@@ -93,11 +108,13 @@ public class GridImageAdapter extends
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView mImg;
+        ImageView mIvDel;
         TextView tvDuration;
 
         public ViewHolder(View view) {
             super(view);
             mImg = view.findViewById(R.id.fiv);
+            mIvDel = view.findViewById(R.id.iv_del);
             tvDuration = view.findViewById(R.id.tv_duration);
         }
     }
@@ -150,6 +167,35 @@ public class GridImageAdapter extends
             if (media == null
                     || TextUtils.isEmpty(media.getPath())) {
                 return;
+            }
+            if (showType == AddPictureFileViewHolder.TYPE_SELECT) {
+                viewHolder.mIvDel.setVisibility(View.VISIBLE);
+                viewHolder.mIvDel.setOnClickListener(view -> {
+                    int index = viewHolder.getAdapterPosition();
+                    // 这里有时会返回-1造成数据下标越界,具体可参考getAdapterPosition()源码，
+                    // 通过源码分析应该是bindViewHolder()暂未绘制完成导致，知道原因的也可联系我~感谢
+                    if (index != RecyclerView.NO_POSITION && list.size() > index) {
+                        FilesNetManager.INSTANCE.deleteUploadSingleFile(storePathMap.get(media.getPath()), new AddPictureFileViewHolder.DeleteUploadFileCallback() {
+                            @Override
+                            public void deleteSuccss(boolean success) {
+                                LifeCycleManager.getInstance().getTopActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (success) {
+                                            list.remove(index);
+                                            storePathMap.remove(media.getPath());
+                                            notifyItemRemoved(index);
+                                            notifyItemRangeChanged(index, list.size());
+                                        }else{
+                                            Toast.makeText(App.getContext(), "删除文件失败，不删除展示", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
+                        });
+
+                    }
+                });
             }
             int chooseModel = media.getChooseModel();
             String path = "";

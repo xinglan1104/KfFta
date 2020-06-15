@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.xl.kffta.model.CommonFileBean
 import com.xl.kffta.model.GetFilepathBean
 import com.xl.kffta.model.SimpleResponseBean
+import com.xl.kffta.model.UploadedFileBean
 import com.xl.kffta.net.NetManager
 import com.xl.kffta.net.RequestBuilder
 import com.xl.kffta.net.ResponseCallback
@@ -30,9 +31,9 @@ object FilesNetManager {
      * 上传单个文件，
      * @param filePath 文件路径，不是上传路径
      */
-    fun uploadSingleFile(filePath: String, callback: AddPictureFileViewHolder.UploadFileCallback) {
+    fun uploadSingleFile(filePath: String, callback: AddPictureFileViewHolder.UploadFileWithPathCallback) {
         if (ApplicationParams.TEMP_FILE_PATH.isEmpty()) {
-            callback.uploadSuccss(false)
+            callback.uploadSuccss(false, "")
             return
         }
         val requestBuilder = RequestBuilder()
@@ -43,7 +44,56 @@ object FilesNetManager {
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {
-                Log.e(LocationManager.TAG, msg ?: "执行出错")
+                Log.e(TAG, msg ?: "执行出错")
+            }
+
+            override fun onSuccess(jsonString: String) {
+                if (!TextUtils.isEmpty(jsonString)) {
+                    // 直接把Json转换成javaBean
+                    try {
+                        val simpleResponse: UploadedFileBean? = Gson().fromJson(jsonString, UploadedFileBean::class.java)
+                        if (simpleResponse == null) {
+                            Log.e(TAG, "解析错误 simpleResponse == null")
+                            callback.uploadSuccss(false, "")
+                        } else {
+                            // 获取ErrorCode,<0时错误
+                            if (simpleResponse.errorCode < 0) {
+                                Log.e(LocationManager.TAG, "解析错误 获取ErrorCode<0")
+                                callback.uploadSuccss(false, "")
+                            } else {
+                                // success
+                                Log.e(TAG, "Success")
+                                callback.uploadSuccss(true, simpleResponse.fileNames[0])
+                            }
+                        }
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Gson解析错误")
+                        callback.uploadSuccss(false, "")
+                    }
+                } else {
+                    Log.e(TAG, "解析错误 返回string isEmpty")
+                    callback.uploadSuccss(false, "")
+                }
+            }
+        }
+        NetManager.manager.sendRequestWithHeader(requestBuilder, filePath)
+    }
+
+    fun deleteUploadSingleFile(filePath: String, callback: AddPictureFileViewHolder.DeleteUploadFileCallback) {
+        if (filePath.isEmpty()) {
+            callback.deleteSuccss(false)
+            return
+        }
+        val requestBuilder = RequestBuilder()
+        val paramsMap = hashMapOf<String, String>()
+        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/DeleteTempFile?format=json"
+        paramsMap["Token"] = ApplicationParams.TOKEN
+        paramsMap["FilePath"] = filePath
+        Log.e(TAG, "deleteUploadSingleFile FilePath = " + filePath)
+        requestBuilder.addParams(paramsMap)
+        requestBuilder.callback = object : ResponseCallback {
+            override fun onError(msg: String?) {
+                Log.e(TAG, msg ?: "执行出错")
             }
 
             override fun onSuccess(jsonString: String) {
@@ -53,29 +103,31 @@ object FilesNetManager {
                         val simpleResponse: SimpleResponseBean? = Gson().fromJson(jsonString, SimpleResponseBean::class.java)
                         if (simpleResponse == null) {
                             Log.e(TAG, "解析错误 simpleResponse == null")
-                            callback.uploadSuccss(false)
+                            callback.deleteSuccss(false)
                         } else {
                             // 获取ErrorCode,<0时错误
                             if (simpleResponse.errorCode < 0) {
                                 Log.e(LocationManager.TAG, "解析错误 获取ErrorCode<0")
-                                callback.uploadSuccss(false)
+                                callback.deleteSuccss(false)
                             } else {
                                 // success
                                 Log.e(TAG, "Success")
-                                callback.uploadSuccss(true)
+                                callback.deleteSuccss(true)
                             }
                         }
                     } catch (e: Exception) {
                         Log.e(TAG, "Gson解析错误")
-                        callback.uploadSuccss(false)
+                        callback.deleteSuccss(false)
                     }
                 } else {
                     Log.e(TAG, "解析错误 返回string isEmpty")
-                    callback.uploadSuccss(false)
+                    callback.deleteSuccss(false)
                 }
             }
         }
-        NetManager.manager.sendRequestWithHeader(requestBuilder, filePath)
+        NetManager.manager.sendRequest(requestBuilder)
+
+
     }
 
     /**
