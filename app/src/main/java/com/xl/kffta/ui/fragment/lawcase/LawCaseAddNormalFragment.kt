@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.xl.kffta.model.GetFilepathBean
+import com.xl.kffta.model.common.BusinessBean
 import com.xl.kffta.model.lawcase.LawCaseByIdBean
 import com.xl.kffta.model.lawcase.LawCaseItemBean
 import com.xl.kffta.net.ResponseObjectCallback
@@ -160,7 +161,7 @@ class LawCaseAddNormalFragment : LawCaseBaseFragment() {
     private fun getNewCaseBean(hashMap: LinkedHashMap<String, String>): LawCaseByIdBean {
         val lawCaseByIdBean = LawCaseByIdBean()
         lawCaseByIdBean.data = LawCaseByIdBean.DataBean()
-        lawCaseByIdBean.data.business = LawCaseByIdBean.DataBean.BusinessBean()
+        lawCaseByIdBean.data.business = BusinessBean()
         lawCaseByIdBean.data.department = LawCaseByIdBean.DataBean.DepartmentBeanX()
         lawCaseByIdBean.data.name = hashMap["案件名称"]
         lawCaseByIdBean.data.source = hashMap["案件来源"]

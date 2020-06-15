@@ -95,6 +95,14 @@ class WarnDetailAdapter(val context: Context?, private val fileOnlyShow: Boolean
         }
     }
 
+    fun notifyDataChange(warnItems: ArrayList<WarnItemBean>) {
+        if (!warnItems.isNullOrEmpty()) {
+            mDatas.clear()
+            mDatas.addAll(warnItems)
+            notifyDataSetChanged()
+        }
+    }
+
     /**
      * 普通的条目holder
      */

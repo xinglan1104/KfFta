@@ -1,7 +1,6 @@
 package com.xl.kffta.ui.fragment.warn
 
 import android.os.Bundle
-import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +23,7 @@ abstract class WarnInfoBaseFragment : BaseFragment() {
     protected var mIsFileOnlyShow: Boolean = true
     protected var mId = 0
 
-    private val mAdapter by lazy {
+    protected val mAdapter by lazy {
         WarnDetailAdapter(context, mIsFileOnlyShow)
     }
 
@@ -49,10 +48,6 @@ abstract class WarnInfoBaseFragment : BaseFragment() {
         }
 
         mRecyclerView.adapter = mAdapter
-    }
-
-    override fun handleMessage(message: Message) {
-
     }
 
     abstract fun initDataItems(bean: Any)

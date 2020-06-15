@@ -1,16 +1,27 @@
-package com.xl.kffta.model.lawcase;
+package com.xl.kffta.model.warn;
 
 import com.xl.kffta.model.common.BusinessBean;
+import com.xl.kffta.model.common.DepartmentBean;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author created by zhanghaochen
- * @date 2020-06-03 15:56
- * 描述：根据id查询出来的案件详情
+ * @date 2020-06-15 17:01
+ * 描述：预警详情
  */
-public class LawCaseByIdBean implements Serializable {
+public class WarnByIdBean implements Serializable {
+
+    /**
+     * Blocks : null
+     * Data : {"__type":"CloudEasy.ERP.BL.Model.Government.GovermentWarning, CloudEasy.ERP.BL.Model","ID":1,"Code":"0001","CompanyID":4578,"Note":"","LastModifyByID":10423,"Timestamp":"/Date(1591948067052)/","AdditionInfo":null,"Files":"4578|CloudEasy.ERP.BL.Model.Government.GovermentWarning|CloudEasy.ERP.BL.Model.Government.GovermentWarning_20200612_d1e80bf818c24ac894de4903edbaeea2|2912","DF1":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null,"CreateTime":"/Date(1591948067052)/","CreatorID":10423,"Creator":{"Desc":null,"RealName":null,"AccountCode":null,"Password":"96e79218965eb72c92a549dd5a330112","Email":"76834423@qq.com","MobilePhone":null,"Status":0,"UserType":0,"Level":null,"Files":null,"R1":null,"R2":null,"DF1":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":"6643443","AdditionInfo":null,"UpperAccountID":0,"UpperAccount":null,"ResetPassOnNextLogin":false,"ParentPath":[0,10423],"RoleIDs":[982],"Role":[{"ID":982,"CompanyID":4578,"Name":"admin","Desc":null,"Status":1,"Operations":[],"LastModifyByID":-1,"Timestamp":"/Date(1587370700796)/","PageCode":0,"CreatorID":-1,"CreateTime":"/Date(1587370700796)/","AdditionInfo":null,"DF1":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null}],"Operation":null,"ModuleIDs":null,"DepartmentIDs":[903],"Department":[{"ID":903,"CompanyID":4578,"Name":"Admin","DepartmentCode":"admin","ParentID":0,"Parent":null,"ParentPath":[0,903],"Status":1,"OrganizationType":0,"LastModifyByID":10423,"Timestamp":"/Date(1591768922112)/","Labels":[],"DepartmentManagerIDs":[],"DepartmentManager":[],"ColorCode":null,"PageCode":0,"BusinessAreaIDs":[1430],"BusinessArea":[],"CreatorID":-1,"CreateTime":"/Date(1587370697568)/","AdditionInfo":null,"DF1":"刘强","DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null}],"GroupIDs":[],"Group":[],"LabelIDs":[],"SessionInfo":[{"Key":"lmafx5nrcmtwxg5amim4uvzf","Value":"222.67.12.195","ValuePage":"","Direction":0,"ExtraInfo":null,"InnerReference":null}],"LastActivityTime":"/Date(1592206212932)/","Delegator":null,"ChannelAdmin":null,"UploadFileFolder":null,"TempUploadFileFolder":null,"WorkflowPrivilegeMode":false,"ThemeID":0,"InitPassword":null,"IgnoreLangTranslation":false,"RoundDecimal":2,"CurrencyRoundDecimal":2,"CurrencySumRoundDecimal":2,"RateRoundDecimal":5,"CurrencyComparisonRoundDecimal":2,"ComparisonRoundDecimal":2,"IsOwner":true,"PageCode":0,"CreatorID":-1,"CreateTime":"/Date(1587370703644)/","LastModifyByID":-1,"Timestamp":"/Date(1592206276135)/","CheckReleaseNoteDate":"/Date(1591113600000)/","IsChannelManager":false,"ID":10423,"UserName":"admin","DisplayName":"admin","CompanyID":4578,"Representative":null,"Lang":"zh-CN","TimezoneStr":null,"Timezone":null,"InvisibleMode":false,"CurrentProductTemplateInfo":null},"PageCode":0,"Content":"wewr","DepartmentID":912,"Department":{"ID":912,"CompanyID":4578,"Name":"办公室","DepartmentCode":"000000007","ParentID":0,"Parent":null,"ParentPath":[0,912],"Status":1,"OrganizationType":0,"LastModifyByID":10423,"Timestamp":"/Date(1588926629613)/","Labels":[],"DepartmentManagerIDs":[],"DepartmentManager":[],"ColorCode":null,"PageCode":0,"BusinessAreaIDs":[1431],"BusinessArea":[{"ID":1431,"AttrID":1431,"CompanyID":4578,"Name":"初级食用农产品、蔬菜、水果、预包装食品","AttrType":6,"Status":1,"R1":null,"R2":null,"Parent":null,"ParentID":0,"ParentPath":[0,1431],"AdditionInfo":null,"CreateTime":"/Date(1587447215399)/","CreatorID":10423,"DF1":null,"DF10":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"LastModifyByID":10423,"PageCode":0,"Timestamp":"/Date(1587447215399)/"}],"CreatorID":10423,"CreateTime":"/Date(1587433071679)/","AdditionInfo":null,"DF1":"乐菱","DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null},"BusinessID":0,"Business":null}
+     * Error : null
+     * ErrorCode : 0
+     * ResponseStatus : null
+     * EncryptionData : null
+     * AESEncryptionKey : null
+     */
 
     private DataBean Data;
     private String Error;
@@ -41,8 +52,10 @@ public class LawCaseByIdBean implements Serializable {
     }
 
     public static class DataBean {
+
         private String __type;
         private int ID;
+        private String Code;
         private int CompanyID;
         private String Note;
         private int LastModifyByID;
@@ -63,20 +76,11 @@ public class LawCaseByIdBean implements Serializable {
         private int CreatorID;
         private CreatorBean Creator;
         private int PageCode;
-        private String Name;
-        private String Source;
+        private String Content;
         private int DepartmentID;
-        private DepartmentBeanX Department;
-        private String ContactName;
-        private String ContactPhone;
-        private String ContactAddress;
+        private DepartmentBean Department;
         private int BusinessID;
         private BusinessBean Business;
-        private String Content;
-        private int Flag;
-        private String FlowFlag;
-        private List<?> Reference;
-        private List<Integer> WorkflowIDs;
 
         public String get__type() {
             return __type;
@@ -92,6 +96,14 @@ public class LawCaseByIdBean implements Serializable {
 
         public void setID(int ID) {
             this.ID = ID;
+        }
+
+        public String getCode() {
+            return Code;
+        }
+
+        public void setCode(String Code) {
+            this.Code = Code;
         }
 
         public int getCompanyID() {
@@ -254,20 +266,12 @@ public class LawCaseByIdBean implements Serializable {
             this.PageCode = PageCode;
         }
 
-        public String getName() {
-            return Name;
+        public String getContent() {
+            return Content;
         }
 
-        public void setName(String Name) {
-            this.Name = Name;
-        }
-
-        public String getSource() {
-            return Source;
-        }
-
-        public void setSource(String Source) {
-            this.Source = Source;
+        public void setContent(String Content) {
+            this.Content = Content;
         }
 
         public int getDepartmentID() {
@@ -278,36 +282,12 @@ public class LawCaseByIdBean implements Serializable {
             this.DepartmentID = DepartmentID;
         }
 
-        public DepartmentBeanX getDepartment() {
+        public DepartmentBean getDepartment() {
             return Department;
         }
 
-        public void setDepartment(DepartmentBeanX Department) {
+        public void setDepartment(DepartmentBean Department) {
             this.Department = Department;
-        }
-
-        public String getContactName() {
-            return ContactName;
-        }
-
-        public void setContactName(String ContactName) {
-            this.ContactName = ContactName;
-        }
-
-        public String getContactPhone() {
-            return ContactPhone;
-        }
-
-        public void setContactPhone(String ContactPhone) {
-            this.ContactPhone = ContactPhone;
-        }
-
-        public String getContactAddress() {
-            return ContactAddress;
-        }
-
-        public void setContactAddress(String ContactAddress) {
-            this.ContactAddress = ContactAddress;
         }
 
         public int getBusinessID() {
@@ -326,68 +306,101 @@ public class LawCaseByIdBean implements Serializable {
             this.Business = Business;
         }
 
-        public String getContent() {
-            return Content;
-        }
-
-        public void setContent(String Content) {
-            this.Content = Content;
-        }
-
-        public int getFlag() {
-            return Flag;
-        }
-
-        public void setFlag(int Flag) {
-            this.Flag = Flag;
-        }
-
-        public String getFlowFlag() {
-            return FlowFlag;
-        }
-
-        public void setFlowFlag(String FlowFlag) {
-            this.FlowFlag = FlowFlag;
-        }
-
-        public List<?> getReference() {
-            return Reference;
-        }
-
-        public void setReference(List<?> Reference) {
-            this.Reference = Reference;
-        }
-
-        public List<Integer> getWorkflowIDs() {
-            return WorkflowIDs;
-        }
-
-        public void setWorkflowIDs(List<Integer> WorkflowIDs) {
-            this.WorkflowIDs = WorkflowIDs;
-        }
-
         public static class CreatorBean {
-            private String Desc;
-            private String RealName;
-            private String AccountCode;
+            /**
+             * Desc : null
+             * RealName : null
+             * AccountCode : null
+             * Password : 96e79218965eb72c92a549dd5a330112
+             * Email : 76834423@qq.com
+             * MobilePhone : null
+             * Status : 0
+             * UserType : 0
+             * Level : null
+             * Files : null
+             * R1 : null
+             * R2 : null
+             * DF1 : null
+             * DF2 : null
+             * DF3 : null
+             * DF4 : null
+             * DF5 : null
+             * DF6 : null
+             * DF7 : null
+             * DF8 : null
+             * DF9 : null
+             * DF10 : 6643443
+             * AdditionInfo : null
+             * UpperAccountID : 0
+             * UpperAccount : null
+             * ResetPassOnNextLogin : false
+             * ParentPath : [0,10423]
+             * RoleIDs : [982]
+             * Role : [{"ID":982,"CompanyID":4578,"Name":"admin","Desc":null,"Status":1,"Operations":[],"LastModifyByID":-1,"Timestamp":"/Date(1587370700796)/","PageCode":0,"CreatorID":-1,"CreateTime":"/Date(1587370700796)/","AdditionInfo":null,"DF1":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null}]
+             * Operation : null
+             * ModuleIDs : null
+             * DepartmentIDs : [903]
+             * Department : [{"ID":903,"CompanyID":4578,"Name":"Admin","DepartmentCode":"admin","ParentID":0,"Parent":null,"ParentPath":[0,903],"Status":1,"OrganizationType":0,"LastModifyByID":10423,"Timestamp":"/Date(1591768922112)/","Labels":[],"DepartmentManagerIDs":[],"DepartmentManager":[],"ColorCode":null,"PageCode":0,"BusinessAreaIDs":[1430],"BusinessArea":[],"CreatorID":-1,"CreateTime":"/Date(1587370697568)/","AdditionInfo":null,"DF1":"刘强","DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null}]
+             * GroupIDs : []
+             * Group : []
+             * LabelIDs : []
+             * SessionInfo : [{"Key":"lmafx5nrcmtwxg5amim4uvzf","Value":"222.67.12.195","ValuePage":"","Direction":0,"ExtraInfo":null,"InnerReference":null}]
+             * LastActivityTime : /Date(1592206212932)/
+             * Delegator : null
+             * ChannelAdmin : null
+             * UploadFileFolder : null
+             * TempUploadFileFolder : null
+             * WorkflowPrivilegeMode : false
+             * ThemeID : 0
+             * InitPassword : null
+             * IgnoreLangTranslation : false
+             * RoundDecimal : 2
+             * CurrencyRoundDecimal : 2
+             * CurrencySumRoundDecimal : 2
+             * RateRoundDecimal : 5
+             * CurrencyComparisonRoundDecimal : 2
+             * ComparisonRoundDecimal : 2
+             * IsOwner : true
+             * PageCode : 0
+             * CreatorID : -1
+             * CreateTime : /Date(1587370703644)/
+             * LastModifyByID : -1
+             * Timestamp : /Date(1592206276135)/
+             * CheckReleaseNoteDate : /Date(1591113600000)/
+             * IsChannelManager : false
+             * ID : 10423
+             * UserName : admin
+             * DisplayName : admin
+             * CompanyID : 4578
+             * Representative : null
+             * Lang : zh-CN
+             * TimezoneStr : null
+             * Timezone : null
+             * InvisibleMode : false
+             * CurrentProductTemplateInfo : null
+             */
+
+            private Object Desc;
+            private Object RealName;
+            private Object AccountCode;
             private String Password;
             private String Email;
-            private String MobilePhone;
+            private Object MobilePhone;
             private int Status;
             private int UserType;
-            private String Level;
-            private String Files;
-            private String R1;
-            private String R2;
-            private String DF1;
-            private String DF2;
-            private String DF3;
-            private String DF4;
-            private String DF5;
-            private String DF6;
-            private String DF7;
-            private String DF8;
-            private String DF9;
+            private Object Level;
+            private Object Files;
+            private Object R1;
+            private Object R2;
+            private Object DF1;
+            private Object DF2;
+            private Object DF3;
+            private Object DF4;
+            private Object DF5;
+            private Object DF6;
+            private Object DF7;
+            private Object DF8;
+            private Object DF9;
             private String DF10;
             private Object AdditionInfo;
             private int UpperAccountID;
@@ -438,27 +451,27 @@ public class LawCaseByIdBean implements Serializable {
             private List<?> LabelIDs;
             private List<SessionInfoBean> SessionInfo;
 
-            public String getDesc() {
+            public Object getDesc() {
                 return Desc;
             }
 
-            public void setDesc(String Desc) {
+            public void setDesc(Object Desc) {
                 this.Desc = Desc;
             }
 
-            public String getRealName() {
+            public Object getRealName() {
                 return RealName;
             }
 
-            public void setRealName(String RealName) {
+            public void setRealName(Object RealName) {
                 this.RealName = RealName;
             }
 
-            public String getAccountCode() {
+            public Object getAccountCode() {
                 return AccountCode;
             }
 
-            public void setAccountCode(String AccountCode) {
+            public void setAccountCode(Object AccountCode) {
                 this.AccountCode = AccountCode;
             }
 
@@ -478,11 +491,11 @@ public class LawCaseByIdBean implements Serializable {
                 this.Email = Email;
             }
 
-            public String getMobilePhone() {
+            public Object getMobilePhone() {
                 return MobilePhone;
             }
 
-            public void setMobilePhone(String MobilePhone) {
+            public void setMobilePhone(Object MobilePhone) {
                 this.MobilePhone = MobilePhone;
             }
 
@@ -502,107 +515,107 @@ public class LawCaseByIdBean implements Serializable {
                 this.UserType = UserType;
             }
 
-            public String getLevel() {
+            public Object getLevel() {
                 return Level;
             }
 
-            public void setLevel(String Level) {
+            public void setLevel(Object Level) {
                 this.Level = Level;
             }
 
-            public String getFiles() {
+            public Object getFiles() {
                 return Files;
             }
 
-            public void setFiles(String Files) {
+            public void setFiles(Object Files) {
                 this.Files = Files;
             }
 
-            public String getR1() {
+            public Object getR1() {
                 return R1;
             }
 
-            public void setR1(String R1) {
+            public void setR1(Object R1) {
                 this.R1 = R1;
             }
 
-            public String getR2() {
+            public Object getR2() {
                 return R2;
             }
 
-            public void setR2(String R2) {
+            public void setR2(Object R2) {
                 this.R2 = R2;
             }
 
-            public String getDF1() {
+            public Object getDF1() {
                 return DF1;
             }
 
-            public void setDF1(String DF1) {
+            public void setDF1(Object DF1) {
                 this.DF1 = DF1;
             }
 
-            public String getDF2() {
+            public Object getDF2() {
                 return DF2;
             }
 
-            public void setDF2(String DF2) {
+            public void setDF2(Object DF2) {
                 this.DF2 = DF2;
             }
 
-            public String getDF3() {
+            public Object getDF3() {
                 return DF3;
             }
 
-            public void setDF3(String DF3) {
+            public void setDF3(Object DF3) {
                 this.DF3 = DF3;
             }
 
-            public String getDF4() {
+            public Object getDF4() {
                 return DF4;
             }
 
-            public void setDF4(String DF4) {
+            public void setDF4(Object DF4) {
                 this.DF4 = DF4;
             }
 
-            public String getDF5() {
+            public Object getDF5() {
                 return DF5;
             }
 
-            public void setDF5(String DF5) {
+            public void setDF5(Object DF5) {
                 this.DF5 = DF5;
             }
 
-            public String getDF6() {
+            public Object getDF6() {
                 return DF6;
             }
 
-            public void setDF6(String DF6) {
+            public void setDF6(Object DF6) {
                 this.DF6 = DF6;
             }
 
-            public String getDF7() {
+            public Object getDF7() {
                 return DF7;
             }
 
-            public void setDF7(String DF7) {
+            public void setDF7(Object DF7) {
                 this.DF7 = DF7;
             }
 
-            public String getDF8() {
+            public Object getDF8() {
                 return DF8;
             }
 
-            public void setDF8(String DF8) {
+            public void setDF8(Object DF8) {
                 this.DF8 = DF8;
             }
 
-            public String getDF9() {
+            public Object getDF9() {
                 return DF9;
             }
 
-            public void setDF9(String DF9) {
+            public void setDF9(Object DF9) {
                 this.DF9 = DF9;
             }
 
@@ -1236,7 +1249,7 @@ public class LawCaseByIdBean implements Serializable {
                  * Status : 1
                  * OrganizationType : 0
                  * LastModifyByID : 10423
-                 * Timestamp : /Date(1588918252470)/
+                 * Timestamp : /Date(1591768922112)/
                  * Labels : []
                  * DepartmentManagerIDs : []
                  * DepartmentManager : []
@@ -1542,7 +1555,7 @@ public class LawCaseByIdBean implements Serializable {
 
             public static class SessionInfoBean {
                 /**
-                 * Key : m2y10fwybeh4i1mxnoexgny4
+                 * Key : lmafx5nrcmtwxg5amim4uvzf
                  * Value : 222.67.12.195
                  * ValuePage :
                  * Direction : 0
@@ -1603,598 +1616,6 @@ public class LawCaseByIdBean implements Serializable {
 
                 public void setInnerReference(Object InnerReference) {
                     this.InnerReference = InnerReference;
-                }
-            }
-        }
-
-        public static class DepartmentBeanX {
-            /**
-             * ID : 910
-             * CompanyID : 4578
-             * Name : 企业个体私营注册处
-             * DepartmentCode : 000000005
-             * ParentID : 0
-             * Parent : null
-             * ParentPath : [0,910]
-             * Status : 1
-             * OrganizationType : 0
-             * LastModifyByID : 10423
-             * Timestamp : /Date(1590570805611)/
-             * Labels : []
-             * DepartmentManagerIDs : []
-             * DepartmentManager : []
-             * ColorCode : null
-             * PageCode : 0
-             * BusinessAreaIDs : [1432,1433]
-             * BusinessArea : [{"ID":1432,"AttrID":1432,"CompanyID":4578,"Name":"计算机软件技术开发","AttrType":6,"Status":1,"R1":null,"R2":null,"Parent":null,"ParentID":0,"ParentPath":[0,1432],"AdditionInfo":null,"CreateTime":"/Date(1587447219608)/","CreatorID":10423,"DF1":null,"DF10":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"LastModifyByID":10423,"PageCode":0,"Timestamp":"/Date(1587447219608)/"},{"ID":1433,"AttrID":1433,"CompanyID":4578,"Name":"锂离子电池技术开发","AttrType":6,"Status":1,"R1":null,"R2":null,"Parent":null,"ParentID":0,"ParentPath":[0,1433],"AdditionInfo":null,"CreateTime":"/Date(1587447229491)/","CreatorID":10423,"DF1":null,"DF10":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"LastModifyByID":10423,"PageCode":0,"Timestamp":"/Date(1587447229491)/"}]
-             * CreatorID : 10423
-             * CreateTime : /Date(1587433053062)/
-             * AdditionInfo : null
-             * DF1 : bbb
-             * DF2 : null
-             * DF3 : null
-             * DF4 : null
-             * DF5 : null
-             * DF6 : null
-             * DF7 : null
-             * DF8 : null
-             * DF9 : null
-             * DF10 : null
-             */
-
-            private int ID;
-            private int CompanyID;
-            private String Name;
-            private String DepartmentCode;
-            private int ParentID;
-            private Object Parent;
-            private int Status;
-            private int OrganizationType;
-            private int LastModifyByID;
-            private String Timestamp;
-            private Object ColorCode;
-            private int PageCode;
-            private int CreatorID;
-            private String CreateTime;
-            private Object AdditionInfo;
-            private String DF1;
-            private Object DF2;
-            private Object DF3;
-            private Object DF4;
-            private Object DF5;
-            private Object DF6;
-            private Object DF7;
-            private Object DF8;
-            private Object DF9;
-            private Object DF10;
-            private List<Integer> ParentPath;
-            private List<?> Labels;
-            private List<?> DepartmentManagerIDs;
-            private List<?> DepartmentManager;
-            private List<Integer> BusinessAreaIDs;
-            private List<BusinessAreaBean> BusinessArea;
-
-            public int getID() {
-                return ID;
-            }
-
-            public void setID(int ID) {
-                this.ID = ID;
-            }
-
-            public int getCompanyID() {
-                return CompanyID;
-            }
-
-            public void setCompanyID(int CompanyID) {
-                this.CompanyID = CompanyID;
-            }
-
-            public String getName() {
-                return Name;
-            }
-
-            public void setName(String Name) {
-                this.Name = Name;
-            }
-
-            public String getDepartmentCode() {
-                return DepartmentCode;
-            }
-
-            public void setDepartmentCode(String DepartmentCode) {
-                this.DepartmentCode = DepartmentCode;
-            }
-
-            public int getParentID() {
-                return ParentID;
-            }
-
-            public void setParentID(int ParentID) {
-                this.ParentID = ParentID;
-            }
-
-            public Object getParent() {
-                return Parent;
-            }
-
-            public void setParent(Object Parent) {
-                this.Parent = Parent;
-            }
-
-            public int getStatus() {
-                return Status;
-            }
-
-            public void setStatus(int Status) {
-                this.Status = Status;
-            }
-
-            public int getOrganizationType() {
-                return OrganizationType;
-            }
-
-            public void setOrganizationType(int OrganizationType) {
-                this.OrganizationType = OrganizationType;
-            }
-
-            public int getLastModifyByID() {
-                return LastModifyByID;
-            }
-
-            public void setLastModifyByID(int LastModifyByID) {
-                this.LastModifyByID = LastModifyByID;
-            }
-
-            public String getTimestamp() {
-                return Timestamp;
-            }
-
-            public void setTimestamp(String Timestamp) {
-                this.Timestamp = Timestamp;
-            }
-
-            public Object getColorCode() {
-                return ColorCode;
-            }
-
-            public void setColorCode(Object ColorCode) {
-                this.ColorCode = ColorCode;
-            }
-
-            public int getPageCode() {
-                return PageCode;
-            }
-
-            public void setPageCode(int PageCode) {
-                this.PageCode = PageCode;
-            }
-
-            public int getCreatorID() {
-                return CreatorID;
-            }
-
-            public void setCreatorID(int CreatorID) {
-                this.CreatorID = CreatorID;
-            }
-
-            public String getCreateTime() {
-                return CreateTime;
-            }
-
-            public void setCreateTime(String CreateTime) {
-                this.CreateTime = CreateTime;
-            }
-
-            public Object getAdditionInfo() {
-                return AdditionInfo;
-            }
-
-            public void setAdditionInfo(Object AdditionInfo) {
-                this.AdditionInfo = AdditionInfo;
-            }
-
-            public String getDF1() {
-                return DF1;
-            }
-
-            public void setDF1(String DF1) {
-                this.DF1 = DF1;
-            }
-
-            public Object getDF2() {
-                return DF2;
-            }
-
-            public void setDF2(Object DF2) {
-                this.DF2 = DF2;
-            }
-
-            public Object getDF3() {
-                return DF3;
-            }
-
-            public void setDF3(Object DF3) {
-                this.DF3 = DF3;
-            }
-
-            public Object getDF4() {
-                return DF4;
-            }
-
-            public void setDF4(Object DF4) {
-                this.DF4 = DF4;
-            }
-
-            public Object getDF5() {
-                return DF5;
-            }
-
-            public void setDF5(Object DF5) {
-                this.DF5 = DF5;
-            }
-
-            public Object getDF6() {
-                return DF6;
-            }
-
-            public void setDF6(Object DF6) {
-                this.DF6 = DF6;
-            }
-
-            public Object getDF7() {
-                return DF7;
-            }
-
-            public void setDF7(Object DF7) {
-                this.DF7 = DF7;
-            }
-
-            public Object getDF8() {
-                return DF8;
-            }
-
-            public void setDF8(Object DF8) {
-                this.DF8 = DF8;
-            }
-
-            public Object getDF9() {
-                return DF9;
-            }
-
-            public void setDF9(Object DF9) {
-                this.DF9 = DF9;
-            }
-
-            public Object getDF10() {
-                return DF10;
-            }
-
-            public void setDF10(Object DF10) {
-                this.DF10 = DF10;
-            }
-
-            public List<Integer> getParentPath() {
-                return ParentPath;
-            }
-
-            public void setParentPath(List<Integer> ParentPath) {
-                this.ParentPath = ParentPath;
-            }
-
-            public List<?> getLabels() {
-                return Labels;
-            }
-
-            public void setLabels(List<?> Labels) {
-                this.Labels = Labels;
-            }
-
-            public List<?> getDepartmentManagerIDs() {
-                return DepartmentManagerIDs;
-            }
-
-            public void setDepartmentManagerIDs(List<?> DepartmentManagerIDs) {
-                this.DepartmentManagerIDs = DepartmentManagerIDs;
-            }
-
-            public List<?> getDepartmentManager() {
-                return DepartmentManager;
-            }
-
-            public void setDepartmentManager(List<?> DepartmentManager) {
-                this.DepartmentManager = DepartmentManager;
-            }
-
-            public List<Integer> getBusinessAreaIDs() {
-                return BusinessAreaIDs;
-            }
-
-            public void setBusinessAreaIDs(List<Integer> BusinessAreaIDs) {
-                this.BusinessAreaIDs = BusinessAreaIDs;
-            }
-
-            public List<BusinessAreaBean> getBusinessArea() {
-                return BusinessArea;
-            }
-
-            public void setBusinessArea(List<BusinessAreaBean> BusinessArea) {
-                this.BusinessArea = BusinessArea;
-            }
-
-            public static class BusinessAreaBean {
-                /**
-                 * ID : 1432
-                 * AttrID : 1432
-                 * CompanyID : 4578
-                 * Name : 计算机软件技术开发
-                 * AttrType : 6
-                 * Status : 1
-                 * R1 : null
-                 * R2 : null
-                 * Parent : null
-                 * ParentID : 0
-                 * ParentPath : [0,1432]
-                 * AdditionInfo : null
-                 * CreateTime : /Date(1587447219608)/
-                 * CreatorID : 10423
-                 * DF1 : null
-                 * DF10 : null
-                 * DF2 : null
-                 * DF3 : null
-                 * DF4 : null
-                 * DF5 : null
-                 * DF6 : null
-                 * DF7 : null
-                 * DF8 : null
-                 * DF9 : null
-                 * LastModifyByID : 10423
-                 * PageCode : 0
-                 * Timestamp : /Date(1587447219608)/
-                 */
-
-                private int ID;
-                private int AttrID;
-                private int CompanyID;
-                private String Name;
-                private int AttrType;
-                private int Status;
-                private Object R1;
-                private Object R2;
-                private Object Parent;
-                private int ParentID;
-                private Object AdditionInfo;
-                private String CreateTime;
-                private int CreatorID;
-                private Object DF1;
-                private Object DF10;
-                private Object DF2;
-                private Object DF3;
-                private Object DF4;
-                private Object DF5;
-                private Object DF6;
-                private Object DF7;
-                private Object DF8;
-                private Object DF9;
-                private int LastModifyByID;
-                private int PageCode;
-                private String Timestamp;
-                private List<Integer> ParentPath;
-
-                public int getID() {
-                    return ID;
-                }
-
-                public void setID(int ID) {
-                    this.ID = ID;
-                }
-
-                public int getAttrID() {
-                    return AttrID;
-                }
-
-                public void setAttrID(int AttrID) {
-                    this.AttrID = AttrID;
-                }
-
-                public int getCompanyID() {
-                    return CompanyID;
-                }
-
-                public void setCompanyID(int CompanyID) {
-                    this.CompanyID = CompanyID;
-                }
-
-                public String getName() {
-                    return Name;
-                }
-
-                public void setName(String Name) {
-                    this.Name = Name;
-                }
-
-                public int getAttrType() {
-                    return AttrType;
-                }
-
-                public void setAttrType(int AttrType) {
-                    this.AttrType = AttrType;
-                }
-
-                public int getStatus() {
-                    return Status;
-                }
-
-                public void setStatus(int Status) {
-                    this.Status = Status;
-                }
-
-                public Object getR1() {
-                    return R1;
-                }
-
-                public void setR1(Object R1) {
-                    this.R1 = R1;
-                }
-
-                public Object getR2() {
-                    return R2;
-                }
-
-                public void setR2(Object R2) {
-                    this.R2 = R2;
-                }
-
-                public Object getParent() {
-                    return Parent;
-                }
-
-                public void setParent(Object Parent) {
-                    this.Parent = Parent;
-                }
-
-                public int getParentID() {
-                    return ParentID;
-                }
-
-                public void setParentID(int ParentID) {
-                    this.ParentID = ParentID;
-                }
-
-                public Object getAdditionInfo() {
-                    return AdditionInfo;
-                }
-
-                public void setAdditionInfo(Object AdditionInfo) {
-                    this.AdditionInfo = AdditionInfo;
-                }
-
-                public String getCreateTime() {
-                    return CreateTime;
-                }
-
-                public void setCreateTime(String CreateTime) {
-                    this.CreateTime = CreateTime;
-                }
-
-                public int getCreatorID() {
-                    return CreatorID;
-                }
-
-                public void setCreatorID(int CreatorID) {
-                    this.CreatorID = CreatorID;
-                }
-
-                public Object getDF1() {
-                    return DF1;
-                }
-
-                public void setDF1(Object DF1) {
-                    this.DF1 = DF1;
-                }
-
-                public Object getDF10() {
-                    return DF10;
-                }
-
-                public void setDF10(Object DF10) {
-                    this.DF10 = DF10;
-                }
-
-                public Object getDF2() {
-                    return DF2;
-                }
-
-                public void setDF2(Object DF2) {
-                    this.DF2 = DF2;
-                }
-
-                public Object getDF3() {
-                    return DF3;
-                }
-
-                public void setDF3(Object DF3) {
-                    this.DF3 = DF3;
-                }
-
-                public Object getDF4() {
-                    return DF4;
-                }
-
-                public void setDF4(Object DF4) {
-                    this.DF4 = DF4;
-                }
-
-                public Object getDF5() {
-                    return DF5;
-                }
-
-                public void setDF5(Object DF5) {
-                    this.DF5 = DF5;
-                }
-
-                public Object getDF6() {
-                    return DF6;
-                }
-
-                public void setDF6(Object DF6) {
-                    this.DF6 = DF6;
-                }
-
-                public Object getDF7() {
-                    return DF7;
-                }
-
-                public void setDF7(Object DF7) {
-                    this.DF7 = DF7;
-                }
-
-                public Object getDF8() {
-                    return DF8;
-                }
-
-                public void setDF8(Object DF8) {
-                    this.DF8 = DF8;
-                }
-
-                public Object getDF9() {
-                    return DF9;
-                }
-
-                public void setDF9(Object DF9) {
-                    this.DF9 = DF9;
-                }
-
-                public int getLastModifyByID() {
-                    return LastModifyByID;
-                }
-
-                public void setLastModifyByID(int LastModifyByID) {
-                    this.LastModifyByID = LastModifyByID;
-                }
-
-                public int getPageCode() {
-                    return PageCode;
-                }
-
-                public void setPageCode(int PageCode) {
-                    this.PageCode = PageCode;
-                }
-
-                public String getTimestamp() {
-                    return Timestamp;
-                }
-
-                public void setTimestamp(String Timestamp) {
-                    this.Timestamp = Timestamp;
-                }
-
-                public List<Integer> getParentPath() {
-                    return ParentPath;
-                }
-
-                public void setParentPath(List<Integer> ParentPath) {
-                    this.ParentPath = ParentPath;
                 }
             }
         }
