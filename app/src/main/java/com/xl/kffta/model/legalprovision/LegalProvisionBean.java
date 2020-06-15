@@ -138,10 +138,15 @@ public class LegalProvisionBean implements Serializable {
         private int CreatorID;
         private int ID;
         private String Name;
+        private String LegalBasis;
+        private String Priviledge;
+        private String Reason;
+        private String Note;
         private int PageCode;
         private String Penalties;
         private List<DepartmentBean> Department;
         private List<Integer> DepartmentIDs;
+        private List<ImplementationDepartmentBean> ImplementationDepartment;
 
         public int getCompanyID() {
             return CompanyID;
@@ -149,6 +154,14 @@ public class LegalProvisionBean implements Serializable {
 
         public void setCompanyID(int CompanyID) {
             this.CompanyID = CompanyID;
+        }
+
+        public String getLegalBasis() {
+            return LegalBasis;
+        }
+
+        public void setLegalBasis(String legalBasis) {
+            LegalBasis = legalBasis;
         }
 
         public String getCreateTime() {
@@ -223,6 +236,38 @@ public class LegalProvisionBean implements Serializable {
             this.DepartmentIDs = DepartmentIDs;
         }
 
+        public String getPriviledge() {
+            return Priviledge;
+        }
+
+        public void setPriviledge(String priviledge) {
+            Priviledge = priviledge;
+        }
+
+        public String getReason() {
+            return Reason;
+        }
+
+        public void setReason(String reason) {
+            Reason = reason;
+        }
+
+        public String getNote() {
+            return Note;
+        }
+
+        public void setNote(String note) {
+            Note = note;
+        }
+
+        public List<ImplementationDepartmentBean> getImplementationDepartment() {
+            return ImplementationDepartment;
+        }
+
+        public void setImplementationDepartment(List<ImplementationDepartmentBean> implementationDepartment) {
+            ImplementationDepartment = implementationDepartment;
+        }
+
         public static class CreatorBean implements Serializable {
             /**
              * DisplayName : admin
@@ -255,6 +300,27 @@ public class LegalProvisionBean implements Serializable {
              * Name : 市场合同规范管理科
              */
 
+            private int ID;
+            private String Name;
+
+            public int getID() {
+                return ID;
+            }
+
+            public void setID(int ID) {
+                this.ID = ID;
+            }
+
+            public String getName() {
+                return Name;
+            }
+
+            public void setName(String Name) {
+                this.Name = Name;
+            }
+        }
+
+        public static class ImplementationDepartmentBean implements Serializable {
             private int ID;
             private String Name;
 
