@@ -1,12 +1,14 @@
 package com.xl.kffta.ui.activity.map
 
 import android.Manifest
-import android.content.Intent
-import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.Message
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.amap.api.location.AMapLocationClient
@@ -25,11 +27,12 @@ import org.jetbrains.anko.debug
 import permissions.dispatcher.*
 
 @RuntimePermissions
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 class MapViewActivity : BaseActivity() {
 
     private var aMap: AMap? = null
 
-    private var myLocationStyle: MyLocationStyle? = null
+//    private var myLocationStyle: MyLocationStyle? = null
 
     //声明AMapLocationClient类对象
     private var mLocationClient: AMapLocationClient? = null
@@ -37,6 +40,11 @@ class MapViewActivity : BaseActivity() {
     //声明AMapLocationClientOption对象
     private var mLocationOption: AMapLocationClientOption? = null
     private var address: String = ""
+    private var currentAddress: String = ""
+    private var startLat: Double = 0.0
+    private var startLon: Double = 0.0
+    private var endLat: Double = 0.0
+    private var endLon: Double = 0.0
     override fun getLayoutId(): Int {
         return R.layout.mapview_layout;
     }
@@ -56,6 +64,7 @@ class MapViewActivity : BaseActivity() {
         super.initViews()
         title_name.text = "地图"
         title_left.setOnClickListener { finish() }
+        go_btn.setOnClickListener { showDialog() }
         aMap = map_view?.map
         //设置显示定位按钮 并且可以点击
         val settings: UiSettings? = aMap?.uiSettings
@@ -72,9 +81,8 @@ class MapViewActivity : BaseActivity() {
         debug("获取定位权限")
         if (!TextUtils.isEmpty(address)) {
             getLocation(address)
-        } else {
-            startLocation()
         }
+        startLocation()
     }
 
     /**
@@ -126,15 +134,12 @@ class MapViewActivity : BaseActivity() {
 
     fun startLocation() {
         // 是否可触发定位并显示定位层
-        aMap?.setMyLocationEnabled(true)
-        myLocationStyle = MyLocationStyle() //初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
-
-        myLocationStyle?.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.navi_map_gps_locked)) // 设置小蓝点的图标
-        myLocationStyle?.strokeColor(Color.argb(0, 0, 0, 0));// 设置圆形的边框颜色
-        myLocationStyle?.radiusFillColor(Color.argb(0, 0, 0, 0));// 设置圆形的填充颜色
-
-        aMap?.setMyLocationStyle(myLocationStyle) //设置定位蓝点的Style
-        aMap?.moveCamera(CameraUpdateFactory.zoomTo(18f))
+        aMap?.setMyLocationEnabled(false)
+//        myLocationStyle = MyLocationStyle() //初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
+//        myLocationStyle?.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.navi_map_gps_locked)) // 设置小蓝点的图标
+//        myLocationStyle?.strokeColor(Color.argb(0, 0, 0, 0));// 设置圆形的边框颜色
+//        myLocationStyle?.radiusFillColor(Color.argb(0, 0, 0, 0));// 设置圆形的填充颜色
+//        aMap?.setMyLocationStyle(myLocationStyle) //设置定位蓝点的Style
         //初始化定位
         mLocationClient = AMapLocationClient(applicationContext)
         //设置定位回调监听
@@ -153,6 +158,9 @@ class MapViewActivity : BaseActivity() {
         if (amapLocation != null) {
             if (amapLocation.errorCode == 0) {
                 Log.d("MapViewActivity", "amapLocation.getLan==" + amapLocation.latitude + ",amapLocation.getLon==" + amapLocation.longitude)
+                startLat = amapLocation.latitude
+                startLon = amapLocation.longitude
+                currentAddress = amapLocation.address
             } else {
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
                 Log.e("MapViewActivity", "location Error, ErrCode:"
@@ -195,6 +203,41 @@ class MapViewActivity : BaseActivity() {
         marker?.showInfoWindow()
     }
 
+    private fun showDialog() {
+        val mapDialog: MapDialog = object : MapDialog(this@MapViewActivity) {
+            override fun onClick(v: View) {
+                when (v.id) {
+                    R.id.gaode_btn -> {
+                        if (MapUtil.isGdMapInstalled) {
+                            address?.let { MapUtil.openGaoDeNavi(this@MapViewActivity, startLat, startLon, currentAddress, endLat, endLon, address) }
+                        } else {
+                            //这里必须要写逻辑，不然如果手机没安装该应用，程序会闪退，这里可以实现下载安装该地图应用
+                            Toast.makeText(this@MapViewActivity, "尚未安装高德地图", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    R.id.baidu_btn -> {
+                        if (MapUtil.isBaiduMapInstalled) {
+                            address?.let { MapUtil.openBaiDuNavi(this@MapViewActivity, startLat, startLon, currentAddress, endLat, endLon, address) }
+                        } else {
+                            //这里必须要写逻辑，不然如果手机没安装该应用，程序会闪退，这里可以实现下载安装该地图应用
+                            Toast.makeText(this@MapViewActivity, "尚未安装百度地图", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    R.id.tencent_btn -> {
+                        if (MapUtil.isTencentMapInstalled) {
+                            address?.let { MapUtil.openTencentMap(this@MapViewActivity, startLat, startLon, currentAddress, endLat, endLon, address) }
+                        } else {
+                            //这里必须要写逻辑，不然如果手机没安装该应用，程序会闪退，这里可以实现下载安装该地图应用
+                            Toast.makeText(this@MapViewActivity, "尚未安装腾讯地图", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+                super.onClick(v)
+            }
+        }
+        mapDialog.show()
+    }
+
     override fun handleMessage(message: Message) {
         TODO("Not yet implemented")
     }
@@ -217,5 +260,4 @@ class MapViewActivity : BaseActivity() {
         //在activity执行onPause时执行mMapView.onPause ()，暂停地图的绘制
         map_view.onPause()
     }
-
 }

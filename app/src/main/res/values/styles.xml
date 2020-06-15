@@ -48,4 +48,10 @@
         <item name="android:paddingTop">10dp</item>
         <item name="android:lineSpacingMultiplier">1.2</item>
     </style>
+    <style name="MyDialogTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:windowFrame">@null</item><!-- 边框 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item><!-- 外部变灰 -->
+        <item name="android:windowContentOverlay">@null</item><!-- 内部阴影 -->
+    </style>
 </resources>

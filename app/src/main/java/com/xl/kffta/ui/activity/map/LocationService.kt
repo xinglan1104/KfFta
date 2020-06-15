@@ -94,6 +94,8 @@ class LocationService : Service() {
         mLocationOption?.locationMode = AMapLocationClientOption.AMapLocationMode.Hight_Accuracy
         // 获取一次定位结果： //该方法默认为false。
         mLocationOption?.isOnceLocation = true
+        //设置是否允许模拟位置,默认为false，不允许模拟位置
+        mLocationOption?.setMockEnable(false)
         //给定位客户端对象设置定位参数
         mLocationClient?.setLocationOption(mLocationOption)
         // 设置定位回调监听
