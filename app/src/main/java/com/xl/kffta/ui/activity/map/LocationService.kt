@@ -60,7 +60,7 @@ class LocationService : Service() {
             var pendingIntent= PendingIntent.getActivity(this,0, intent, 0);
 
             var notification = NotificationCompat.Builder(this,CHANNEL_ID).
-                    setContentTitle("").
+                    setContentTitle("定位中").
                     setContentText("").
                     setWhen(System.currentTimeMillis()).
                     setSmallIcon(R.mipmap.icon_app_logo).
