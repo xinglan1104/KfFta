@@ -13,7 +13,9 @@ data class WarnItemBean(
         var isEditAble: Boolean = false,
         var editHint: String = "",
         var isTimeSelect: Boolean = false,
-        var isSelectDepart: Boolean = false,
         var isUploadFile: Boolean = false,
-        var commonFileBean: CommonFileBean? = null
+        var commonFileBean: CommonFileBean? = null,
+        var isBusinessAutoComplete: Boolean = false,
+        var editAutoCompleteSingleLine: Boolean = true,
+        var isDepartmentAutoComplete: Boolean = false// 部门的自动完成文本
 )

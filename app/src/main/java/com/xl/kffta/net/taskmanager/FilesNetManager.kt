@@ -26,6 +26,7 @@ object FilesNetManager {
     const val LAWCASE_CODENAME = "CloudEasy.ERP.BL.Model.Government.GovermentLegalCase"
     const val TASK_CODENAME = "CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask"
     const val JOINT_TASK_CODENAME = "CloudEasy.ERP.BL.Model.Government.GovermentJointSupervisionTask"
+    const val WARN_CODENAME = "CloudEasy.ERP.BL.Model.Government.GovermentWarning"
 
     /**
      * 上传单个文件，

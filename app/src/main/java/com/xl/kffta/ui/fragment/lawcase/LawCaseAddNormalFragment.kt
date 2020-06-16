@@ -43,7 +43,7 @@ class LawCaseAddNormalFragment : LawCaseBaseFragment() {
 
         common_bottom_layout.visibility = View.VISIBLE
         common_left_btn.text = "提交"
-        common_right_btn.text = "返回"
+        common_right_btn.text = "取消"
         common_right_btn.setOnClickListener {
             activity?.finish()
         }
@@ -93,8 +93,8 @@ class LawCaseAddNormalFragment : LawCaseBaseFragment() {
             mDatas.clear()
             mDatas.add(LawCaseItemBean(label = "案件名称", isEditable = true, editHintStr = "请输入案件名称"))
             mDatas.add(LawCaseItemBean(label = "案件来源", isEditable = true, editHintStr = "请输入案件来源"))
-            mDatas.add(LawCaseItemBean(isEditAutoComplete = true))
-            mDatas.add(LawCaseItemBean(label = "部门", editHintStr = "请输入部门", isShowSelector = true))
+            mDatas.add(LawCaseItemBean(isBusinessAutoComplete = true, editAutoCompleteSingleLine = false))
+            mDatas.add(LawCaseItemBean(label = "部门", editHintStr = "请输入部门", isDepartmentAutoComplete = true))
             mDatas.add(LawCaseItemBean(label = "线索(举报)内容", isEditable = true, editHintStr = "请输入线索或举报内容"))
             mDatas.add(LawCaseItemBean(label = "备注", isEditable = true, editHintStr = "请输入备注信息"))
             if (!TextUtils.isEmpty(ApplicationParams.TEMP_FILE_PATH)) {

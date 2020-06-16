@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,25 +20,25 @@
             android:paddingLeft="15dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
+            android:text=""
             android:textColor="@color/text_label"
-            android:textSize="14sp"
-            android:text="当事企业"/>
+            android:textSize="14sp" />
 
         <AutoCompleteTextView
-            android:background="@color/white"
             android:id="@+id/bus_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:hint="请输入当事企业"
+            android:background="@color/white"
+            android:completionThreshold="1"
+            android:dropDownWidth="match_parent"
+            android:dropDownHeight="wrap_content"
+            android:dropDownHorizontalOffset="5dp"
+            android:hint=""
             android:lineSpacingMultiplier="1.2"
+            android:paddingTop="10dp"
             android:paddingRight="15dp"
             android:paddingBottom="10dp"
-            android:completionThreshold="1"
-            android:dropDownHorizontalOffset="5dp"
             android:textColor="@color/text_value"
-            android:dropDownHeight="wrap_content"
-            android:dropDownWidth="match_parent"
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -47,39 +48,47 @@
         android:background="#2f959595" />
 
     <LinearLayout
+        android:id="@+id/bus_layout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:visibility="gone">
 
-        <TextView
-            android:id="@+id/bus2_label"
-            android:layout_width="@dimen/label_width"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start"
-            android:lineSpacingMultiplier="1.2"
-            android:paddingLeft="15dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:textColor="@color/text_label"
-            android:textSize="14sp"
-            android:text="统一社会信用代码"/>
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/bus2_value"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/text_value"
-            android:lineSpacingMultiplier="1.2"
-            android:paddingTop="10dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="10dp"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/bus2_label"
+                android:layout_width="@dimen/label_width"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:lineSpacingMultiplier="1.2"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="统一社会信用代码"
+                android:textColor="@color/text_label"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/bus2_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:lineSpacingMultiplier="1.2"
+                android:paddingTop="10dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/text_value"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#2f959595" />
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#2f959595" />
 </LinearLayout>

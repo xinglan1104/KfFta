@@ -33,7 +33,10 @@ class AutoCompleteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         mAdapter = ArrayAdapter<String>(itemView.context, android.R.layout.simple_dropdown_item_1line, mNames)
         mAutoCompleteTv.setAdapter(mAdapter)
         mAutoCompleteTv.doOnTextChanged { text, start, before, count ->
-            sendRequest(text.toString())
+            itemView.postDelayed({
+                sendRequest(text.toString())
+            }, 200)
+
         }
         mAutoCompleteTv.setOnItemClickListener { parent, view, position, id ->
             mDepartmentInfoBean?.data?.let {

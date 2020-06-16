@@ -9,20 +9,17 @@ import java.util.List;
  * 描述：企业信息
  */
 public class BusinessInfoBean implements Serializable {
-
-    private DataBean Data;
+    private FieldsBean Fields;
     private String Error;
     private int ErrorCode;
-    private Object ResponseStatus;
-    private Object EncryptionData;
-    private Object AESEncryptionKey;
+    private List<DataBean> Data;
 
-    public DataBean getData() {
-        return Data;
+    public FieldsBean getFields() {
+        return Fields;
     }
 
-    public void setData(DataBean Data) {
-        this.Data = Data;
+    public void setFields(FieldsBean Fields) {
+        this.Fields = Fields;
     }
 
     public String getError() {
@@ -41,167 +38,246 @@ public class BusinessInfoBean implements Serializable {
         this.ErrorCode = ErrorCode;
     }
 
-    public Object getResponseStatus() {
-        return ResponseStatus;
+    public List<DataBean> getData() {
+        return Data;
     }
 
-    public void setResponseStatus(Object ResponseStatus) {
-        this.ResponseStatus = ResponseStatus;
+    public void setData(List<DataBean> Data) {
+        this.Data = Data;
     }
 
-    public Object getEncryptionData() {
-        return EncryptionData;
-    }
+    public static class FieldsBean {
+        private String BusinessName;
+        private String BusinessLicenseRegistrationNumber;
+        private String Representative;
+        private String BusinessTypeIDs;
+        private String BusinessRegistrationStatus;
+        private String RegisteredCapital;
+        private String BusinessLocalAssociationDepartmentID;
+        private String ExtraDepartmentIDs;
+        private String UnClaimDepartmentIDs;
 
-    public void setEncryptionData(Object EncryptionData) {
-        this.EncryptionData = EncryptionData;
-    }
+        public String getBusinessName() {
+            return BusinessName;
+        }
 
-    public Object getAESEncryptionKey() {
-        return AESEncryptionKey;
-    }
+        public void setBusinessName(String BusinessName) {
+            this.BusinessName = BusinessName;
+        }
 
-    public void setAESEncryptionKey(Object AESEncryptionKey) {
-        this.AESEncryptionKey = AESEncryptionKey;
+        public String getBusinessLicenseRegistrationNumber() {
+            return BusinessLicenseRegistrationNumber;
+        }
+
+        public void setBusinessLicenseRegistrationNumber(String BusinessLicenseRegistrationNumber) {
+            this.BusinessLicenseRegistrationNumber = BusinessLicenseRegistrationNumber;
+        }
+
+        public String getRepresentative() {
+            return Representative;
+        }
+
+        public void setRepresentative(String Representative) {
+            this.Representative = Representative;
+        }
+
+        public String getBusinessTypeIDs() {
+            return BusinessTypeIDs;
+        }
+
+        public void setBusinessTypeIDs(String BusinessTypeIDs) {
+            this.BusinessTypeIDs = BusinessTypeIDs;
+        }
+
+        public String getBusinessRegistrationStatus() {
+            return BusinessRegistrationStatus;
+        }
+
+        public void setBusinessRegistrationStatus(String BusinessRegistrationStatus) {
+            this.BusinessRegistrationStatus = BusinessRegistrationStatus;
+        }
+
+        public String getRegisteredCapital() {
+            return RegisteredCapital;
+        }
+
+        public void setRegisteredCapital(String RegisteredCapital) {
+            this.RegisteredCapital = RegisteredCapital;
+        }
+
+        public String getBusinessLocalAssociationDepartmentID() {
+            return BusinessLocalAssociationDepartmentID;
+        }
+
+        public void setBusinessLocalAssociationDepartmentID(String BusinessLocalAssociationDepartmentID) {
+            this.BusinessLocalAssociationDepartmentID = BusinessLocalAssociationDepartmentID;
+        }
+
+        public String getExtraDepartmentIDs() {
+            return ExtraDepartmentIDs;
+        }
+
+        public void setExtraDepartmentIDs(String ExtraDepartmentIDs) {
+            this.ExtraDepartmentIDs = ExtraDepartmentIDs;
+        }
+
+        public String getUnClaimDepartmentIDs() {
+            return UnClaimDepartmentIDs;
+        }
+
+        public void setUnClaimDepartmentIDs(String UnClaimDepartmentIDs) {
+            this.UnClaimDepartmentIDs = UnClaimDepartmentIDs;
+        }
     }
 
     public static class DataBean {
-        /**
-         * Codename : CloudEasy.ERP.BL.Model.Directory.Business
-         * Blocks : null
-         * FieldNames : ["BusinessName","BusinessLicenseRegistrationNumber","Representative","_BusinessTypeIDs","<BusinessTypeIDs+{0}",">BusinessType.Name","BusinessRegistrationStatus","RegisteredCapital","_BusinessLocalAssociationDepartmentID","<BusinessLocalAssociationDepartmentID+{0}",">BusinessLocalAssociationDepartment.Name","_ExtraDepartmentIDs","<ExtraDepartmentIDs+{0}",">ExtraDepartment.Name","_UnClaimDepartmentIDs","<UnClaimDepartmentIDs+{0}",">UnClainDepartment.Name","_ID","_CompanyID"]
-         * Values : [{"BusinessLicenseRegistrationNumber":"141000027475392315","BusinessLocalAssociationDepartment":{"ID":912,"Name":"办公室"},"BusinessLocalAssociationDepartmentID":912,"BusinessName":"开封光诺建筑劳务有限公司","BusinessRegistrationStatus":0,"BusinessType":[],"BusinessTypeIDs":[-3],"CompanyID":4578,"ExtraDepartmentIDs":[],"ID":4227,"PageCode":0,"RegisteredCapital":200,"Representative":"尚金胜","UnClaimDepartmentIDs":[],"UnClainDepartment":[{"ID":0,"Name":"全公司"}]}]
-         * AttachedValues : null
-         */
+        private String BusinessLicenseRegistrationNumber;
+        private BusinessLocalAssociationDepartmentBean BusinessLocalAssociationDepartment;
+        private int BusinessLocalAssociationDepartmentID;
+        private String BusinessName;
+        private int BusinessRegistrationStatus;
+        private int CompanyID;
+        private int ID;
+        private int PageCode;
+        private int RegisteredCapital;
+        private String Representative;
+        private List<?> BusinessType;
+        private List<Integer> BusinessTypeIDs;
+        private List<?> ExtraDepartmentIDs;
+        private List<?> UnClaimDepartmentIDs;
+        private List<UnClainDepartmentBean> UnClainDepartment;
 
-        private String Codename;
-        private Object Blocks;
-        private Object AttachedValues;
-        private List<String> FieldNames;
-        private List<ValuesBean> Values;
-
-        public String getCodename() {
-            return Codename;
+        public String getBusinessLicenseRegistrationNumber() {
+            return BusinessLicenseRegistrationNumber;
         }
 
-        public void setCodename(String Codename) {
-            this.Codename = Codename;
+        public void setBusinessLicenseRegistrationNumber(String BusinessLicenseRegistrationNumber) {
+            this.BusinessLicenseRegistrationNumber = BusinessLicenseRegistrationNumber;
         }
 
-        public Object getBlocks() {
-            return Blocks;
+        public BusinessLocalAssociationDepartmentBean getBusinessLocalAssociationDepartment() {
+            return BusinessLocalAssociationDepartment;
         }
 
-        public void setBlocks(Object Blocks) {
-            this.Blocks = Blocks;
+        public void setBusinessLocalAssociationDepartment(BusinessLocalAssociationDepartmentBean BusinessLocalAssociationDepartment) {
+            this.BusinessLocalAssociationDepartment = BusinessLocalAssociationDepartment;
         }
 
-        public Object getAttachedValues() {
-            return AttachedValues;
+        public int getBusinessLocalAssociationDepartmentID() {
+            return BusinessLocalAssociationDepartmentID;
         }
 
-        public void setAttachedValues(Object AttachedValues) {
-            this.AttachedValues = AttachedValues;
+        public void setBusinessLocalAssociationDepartmentID(int BusinessLocalAssociationDepartmentID) {
+            this.BusinessLocalAssociationDepartmentID = BusinessLocalAssociationDepartmentID;
         }
 
-        public List<String> getFieldNames() {
-            return FieldNames;
+        public String getBusinessName() {
+            return BusinessName;
         }
 
-        public void setFieldNames(List<String> FieldNames) {
-            this.FieldNames = FieldNames;
+        public void setBusinessName(String BusinessName) {
+            this.BusinessName = BusinessName;
         }
 
-        public List<ValuesBean> getValues() {
-            return Values;
+        public int getBusinessRegistrationStatus() {
+            return BusinessRegistrationStatus;
         }
 
-        public void setValues(List<ValuesBean> Values) {
-            this.Values = Values;
+        public void setBusinessRegistrationStatus(int BusinessRegistrationStatus) {
+            this.BusinessRegistrationStatus = BusinessRegistrationStatus;
         }
 
-        public static class ValuesBean {
+        public int getCompanyID() {
+            return CompanyID;
+        }
+
+        public void setCompanyID(int CompanyID) {
+            this.CompanyID = CompanyID;
+        }
+
+        public int getID() {
+            return ID;
+        }
+
+        public void setID(int ID) {
+            this.ID = ID;
+        }
+
+        public int getPageCode() {
+            return PageCode;
+        }
+
+        public void setPageCode(int PageCode) {
+            this.PageCode = PageCode;
+        }
+
+        public int getRegisteredCapital() {
+            return RegisteredCapital;
+        }
+
+        public void setRegisteredCapital(int RegisteredCapital) {
+            this.RegisteredCapital = RegisteredCapital;
+        }
+
+        public String getRepresentative() {
+            return Representative;
+        }
+
+        public void setRepresentative(String Representative) {
+            this.Representative = Representative;
+        }
+
+        public List<?> getBusinessType() {
+            return BusinessType;
+        }
+
+        public void setBusinessType(List<?> BusinessType) {
+            this.BusinessType = BusinessType;
+        }
+
+        public List<Integer> getBusinessTypeIDs() {
+            return BusinessTypeIDs;
+        }
+
+        public void setBusinessTypeIDs(List<Integer> BusinessTypeIDs) {
+            this.BusinessTypeIDs = BusinessTypeIDs;
+        }
+
+        public List<?> getExtraDepartmentIDs() {
+            return ExtraDepartmentIDs;
+        }
+
+        public void setExtraDepartmentIDs(List<?> ExtraDepartmentIDs) {
+            this.ExtraDepartmentIDs = ExtraDepartmentIDs;
+        }
+
+        public List<?> getUnClaimDepartmentIDs() {
+            return UnClaimDepartmentIDs;
+        }
+
+        public void setUnClaimDepartmentIDs(List<?> UnClaimDepartmentIDs) {
+            this.UnClaimDepartmentIDs = UnClaimDepartmentIDs;
+        }
+
+        public List<UnClainDepartmentBean> getUnClainDepartment() {
+            return UnClainDepartment;
+        }
+
+        public void setUnClainDepartment(List<UnClainDepartmentBean> UnClainDepartment) {
+            this.UnClainDepartment = UnClainDepartment;
+        }
+
+        public static class BusinessLocalAssociationDepartmentBean {
+        }
+
+        public static class UnClainDepartmentBean {
             /**
-             * BusinessLicenseRegistrationNumber : 141000027475392315
-             * BusinessLocalAssociationDepartment : {"ID":912,"Name":"办公室"}
-             * BusinessLocalAssociationDepartmentID : 912
-             * BusinessName : 开封光诺建筑劳务有限公司
-             * BusinessRegistrationStatus : 0
-             * BusinessType : []
-             * BusinessTypeIDs : [-3]
-             * CompanyID : 4578
-             * ExtraDepartmentIDs : []
-             * ID : 4227
-             * PageCode : 0
-             * RegisteredCapital : 200
-             * Representative : 尚金胜
-             * UnClaimDepartmentIDs : []
-             * UnClainDepartment : [{"ID":0,"Name":"全公司"}]
+             * ID : 0
+             * Name : 全公司
              */
 
-            private String BusinessLicenseRegistrationNumber;
-            private BusinessLocalAssociationDepartmentBean BusinessLocalAssociationDepartment;
-            private int BusinessLocalAssociationDepartmentID;
-            private String BusinessName;
-            private int BusinessRegistrationStatus;
-            private int CompanyID;
             private int ID;
-            private int PageCode;
-            private int RegisteredCapital;
-            private String Representative;
-            private List<?> BusinessType;
-            private List<Integer> BusinessTypeIDs;
-            private List<?> ExtraDepartmentIDs;
-            private List<?> UnClaimDepartmentIDs;
-            private List<UnClainDepartmentBean> UnClainDepartment;
-
-            public String getBusinessLicenseRegistrationNumber() {
-                return BusinessLicenseRegistrationNumber;
-            }
-
-            public void setBusinessLicenseRegistrationNumber(String BusinessLicenseRegistrationNumber) {
-                this.BusinessLicenseRegistrationNumber = BusinessLicenseRegistrationNumber;
-            }
-
-            public BusinessLocalAssociationDepartmentBean getBusinessLocalAssociationDepartment() {
-                return BusinessLocalAssociationDepartment;
-            }
-
-            public void setBusinessLocalAssociationDepartment(BusinessLocalAssociationDepartmentBean BusinessLocalAssociationDepartment) {
-                this.BusinessLocalAssociationDepartment = BusinessLocalAssociationDepartment;
-            }
-
-            public int getBusinessLocalAssociationDepartmentID() {
-                return BusinessLocalAssociationDepartmentID;
-            }
-
-            public void setBusinessLocalAssociationDepartmentID(int BusinessLocalAssociationDepartmentID) {
-                this.BusinessLocalAssociationDepartmentID = BusinessLocalAssociationDepartmentID;
-            }
-
-            public String getBusinessName() {
-                return BusinessName;
-            }
-
-            public void setBusinessName(String BusinessName) {
-                this.BusinessName = BusinessName;
-            }
-
-            public int getBusinessRegistrationStatus() {
-                return BusinessRegistrationStatus;
-            }
-
-            public void setBusinessRegistrationStatus(int BusinessRegistrationStatus) {
-                this.BusinessRegistrationStatus = BusinessRegistrationStatus;
-            }
-
-            public int getCompanyID() {
-                return CompanyID;
-            }
-
-            public void setCompanyID(int CompanyID) {
-                this.CompanyID = CompanyID;
-            }
+            private String Name;
 
             public int getID() {
                 return ID;
@@ -211,120 +287,12 @@ public class BusinessInfoBean implements Serializable {
                 this.ID = ID;
             }
 
-            public int getPageCode() {
-                return PageCode;
+            public String getName() {
+                return Name;
             }
 
-            public void setPageCode(int PageCode) {
-                this.PageCode = PageCode;
-            }
-
-            public int getRegisteredCapital() {
-                return RegisteredCapital;
-            }
-
-            public void setRegisteredCapital(int RegisteredCapital) {
-                this.RegisteredCapital = RegisteredCapital;
-            }
-
-            public String getRepresentative() {
-                return Representative;
-            }
-
-            public void setRepresentative(String Representative) {
-                this.Representative = Representative;
-            }
-
-            public List<?> getBusinessType() {
-                return BusinessType;
-            }
-
-            public void setBusinessType(List<?> BusinessType) {
-                this.BusinessType = BusinessType;
-            }
-
-            public List<Integer> getBusinessTypeIDs() {
-                return BusinessTypeIDs;
-            }
-
-            public void setBusinessTypeIDs(List<Integer> BusinessTypeIDs) {
-                this.BusinessTypeIDs = BusinessTypeIDs;
-            }
-
-            public List<?> getExtraDepartmentIDs() {
-                return ExtraDepartmentIDs;
-            }
-
-            public void setExtraDepartmentIDs(List<?> ExtraDepartmentIDs) {
-                this.ExtraDepartmentIDs = ExtraDepartmentIDs;
-            }
-
-            public List<?> getUnClaimDepartmentIDs() {
-                return UnClaimDepartmentIDs;
-            }
-
-            public void setUnClaimDepartmentIDs(List<?> UnClaimDepartmentIDs) {
-                this.UnClaimDepartmentIDs = UnClaimDepartmentIDs;
-            }
-
-            public List<UnClainDepartmentBean> getUnClainDepartment() {
-                return UnClainDepartment;
-            }
-
-            public void setUnClainDepartment(List<UnClainDepartmentBean> UnClainDepartment) {
-                this.UnClainDepartment = UnClainDepartment;
-            }
-
-            public static class BusinessLocalAssociationDepartmentBean {
-                /**
-                 * ID : 912
-                 * Name : 办公室
-                 */
-
-                private int ID;
-                private String Name;
-
-                public int getID() {
-                    return ID;
-                }
-
-                public void setID(int ID) {
-                    this.ID = ID;
-                }
-
-                public String getName() {
-                    return Name;
-                }
-
-                public void setName(String Name) {
-                    this.Name = Name;
-                }
-            }
-
-            public static class UnClainDepartmentBean {
-                /**
-                 * ID : 0
-                 * Name : 全公司
-                 */
-
-                private int ID;
-                private String Name;
-
-                public int getID() {
-                    return ID;
-                }
-
-                public void setID(int ID) {
-                    this.ID = ID;
-                }
-
-                public String getName() {
-                    return Name;
-                }
-
-                public void setName(String Name) {
-                    this.Name = Name;
-                }
+            public void setName(String Name) {
+                this.Name = Name;
             }
         }
     }

@@ -28,7 +28,7 @@ class SelectBusinessLayout : LinearLayout {
     private val mNames = mutableListOf<String>()
 
     interface OnBusinessChangeListener {
-        fun onBusinessChangeListener(businessName: String, businessCode: String)
+        fun onBusinessChangeListener(businessData: BusinessInfoBean.DataBean)
     }
 
     var mOnBusinessChangeListener: OnBusinessChangeListener? = null
@@ -39,17 +39,32 @@ class SelectBusinessLayout : LinearLayout {
         mAdapter = ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, mNames)
         bus_value.setAdapter(mAdapter)
         bus_value.doOnTextChanged { text, start, before, count ->
-            sendRequest(text.toString())
+            postDelayed({
+                sendRequest(text.toString())
+            }, 200)
         }
         bus_value.setOnItemClickListener { parent, view, position, id ->
-            mBusinessInfoBean?.data?.values?.let {
-                if (position < it.size) {
+            mBusinessInfoBean?.data?.let { dataItem ->
+                if (position < dataItem.size) {
                     // 选择完了，直接给社会代码赋值
-                    bus2_value.text = it[position].businessLicenseRegistrationNumber
-                    mOnBusinessChangeListener?.onBusinessChangeListener(bus_value.text.toString(), bus2_value.text.toString())
+                    bus2_value.text = dataItem[position].businessLicenseRegistrationNumber
+                    mOnBusinessChangeListener?.onBusinessChangeListener(dataItem[position])
                 }
             }
         }
+    }
+
+    /**
+     * 是否显示第二行的公司代码
+     */
+    fun setMode(isSingleLine: Boolean, label1: String, hint1: String) {
+        if (isSingleLine) {
+            bus_layout2.visibility = View.GONE
+        } else {
+            bus_layout2.visibility = View.VISIBLE
+        }
+        bus_label.text = label1
+        bus_value.hint = hint1
     }
 
     fun sendRequest(searchStr: String) {
@@ -63,10 +78,10 @@ class SelectBusinessLayout : LinearLayout {
                     if (obj is BusinessInfoBean) {
                         mBusinessInfoBean = obj
 
-                        val values = mBusinessInfoBean?.data?.values
-                        if (!values.isNullOrEmpty()) {
+                        val data = mBusinessInfoBean?.data
+                        if (!data.isNullOrEmpty()) {
                             mNames.clear()
-                            values.forEach {
+                            data.forEach {
                                 mNames.add(it.businessName)
                             }
                             mAdapter = ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, mNames)

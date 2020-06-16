@@ -11,10 +11,11 @@ data class LawCaseItemBean(
         var label: String = "",
         var value: String = "",
         var isEditable: Boolean = false,
-        var isEditAutoComplete: Boolean = false,
+        var isBusinessAutoComplete: Boolean = false,// 企业的自动完成文本
+        var editAutoCompleteSingleLine: Boolean = true,// 企业自动文本是否单行，第二行是企业代码
         var editHintStr: String = "",
         var editContent: String = "",
-        var isShowSelector: Boolean = false,
+        var isDepartmentAutoComplete: Boolean = false,// 部门的自动完成文本
         var isTitle: Boolean = false,
         var titleName: String = "",
         var needUpload: Boolean = false,

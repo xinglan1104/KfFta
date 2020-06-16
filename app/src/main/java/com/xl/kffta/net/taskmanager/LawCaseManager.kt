@@ -165,13 +165,14 @@ object LawCaseManager {
      */
     fun queryAllBusinesses(searchStr: String, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjectInfo?format=json"
+        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Directory.Business"
         paramsMap["PageCode"] = "0"
         paramsMap["Skip"] = "0"
-        paramsMap["Take"] = "20"
+        paramsMap["Take"] = "10"
+        paramsMap["PageType"] = "1"
         paramsMap["CommonSearchKey"] = searchStr
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
@@ -219,6 +220,7 @@ object LawCaseManager {
         paramsMap["PageCode"] = "0"
         paramsMap["Skip"] = "0"
         paramsMap["Take"] = "20"
+        paramsMap["PageType"] = "1"
         paramsMap["CommonSearchKey"] = searchStr
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {

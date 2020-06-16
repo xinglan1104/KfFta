@@ -1,6 +1,7 @@
 package com.xl.kffta.adapter.warn
 
 import android.content.Context
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +10,13 @@ import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
+import com.xl.kffta.model.BusinessInfoBean
+import com.xl.kffta.model.DepartmentInfoBean
 import com.xl.kffta.model.warn.WarnItemBean
 import com.xl.kffta.viewholder.AddPictureFileViewHolder
+import com.xl.kffta.viewholder.AutoCompleteViewHolder
+import com.xl.kffta.viewholder.SelectBusniessViewHolder
+import com.xl.kffta.widget.SelectBusinessLayout
 import org.jetbrains.anko.find
 
 /**
@@ -23,6 +29,8 @@ class WarnDetailAdapter(val context: Context?, private val fileOnlyShow: Boolean
         private const val ITEM_NORMAL = 20
         private const val ITEM_EDITABLE = 22
         private const val ITEM_UPLOAD_FILE = 23
+        private const val ITEM_DEPARTMENT = 24
+        private const val ITEM_BUSINESS = 25
     }
 
     val mWarnResultMap = LinkedHashMap<String, String>()
@@ -44,6 +52,14 @@ class WarnDetailAdapter(val context: Context?, private val fileOnlyShow: Boolean
                 } else {
                     AddPictureFileViewHolder.TYPE_SELECT
                 })
+            }
+            ITEM_BUSINESS -> {
+                val view = SelectBusinessLayout(parent.context)
+                SelectBusniessViewHolder(view)
+            }
+            ITEM_DEPARTMENT -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.holder_autocomplete, parent, false)
+                AutoCompleteViewHolder(view)
             }
             else -> {
                 val normalView = LayoutInflater.from(parent.context).inflate(R.layout.item_taskinfo_detail, parent, false)
@@ -77,6 +93,28 @@ class WarnDetailAdapter(val context: Context?, private val fileOnlyShow: Boolean
                     mWarnResultMap[data.label] = text.toString().trim()
                 }
             }
+            is SelectBusniessViewHolder -> {
+                val businessView = holder.itemView
+                if (businessView is SelectBusinessLayout) {
+                    businessView.setMode(true, "企业名称", "请输入企业名称")
+                    businessView.mOnBusinessChangeListener = object : SelectBusinessLayout.OnBusinessChangeListener {
+                        override fun onBusinessChangeListener(businessData: BusinessInfoBean.DataBean) {
+                            mWarnResultMap["企业名称"] = businessData.businessName
+                        }
+
+                    }
+                }
+            }
+            is AutoCompleteViewHolder -> {
+                holder.mAutoCompleteTv.hint = data.editHint
+                holder.mAutoCompleteTv.setText(data.value)
+                mWarnResultMap[data.label] = data.value
+                holder.mOnDepartmentChangeListener = object : AutoCompleteViewHolder.OnDepartmentChangeListener {
+                    override fun onDepartmentChangeListener(departmentDataBean: DepartmentInfoBean.DataBean) {
+                        mWarnResultMap[data.label] = departmentDataBean.name
+                    }
+                }
+            }
             is AddPictureFileViewHolder -> {
                 holder.setUploadFileCallback { success ->
                     this.mIsUploaded = success
@@ -91,6 +129,8 @@ class WarnDetailAdapter(val context: Context?, private val fileOnlyShow: Boolean
         return when {
             warnItem.isEditAble -> ITEM_EDITABLE
             warnItem.isUploadFile -> ITEM_UPLOAD_FILE
+            warnItem.isBusinessAutoComplete -> ITEM_BUSINESS
+            warnItem.isDepartmentAutoComplete -> ITEM_DEPARTMENT
             else -> ITEM_NORMAL
         }
     }
@@ -101,6 +141,25 @@ class WarnDetailAdapter(val context: Context?, private val fileOnlyShow: Boolean
             mDatas.addAll(warnItems)
             notifyDataSetChanged()
         }
+    }
+
+    /**
+     * 获取没有输入的部分
+     */
+    fun getCommonNoEnterString(): String {
+        loop@ for ((key, value) in mWarnResultMap) {
+            if (TextUtils.isEmpty(value)) {
+                return when (key) {
+                    "企业名称", "预警部门" -> {
+                        "请正确输入$key"
+                    }
+                    else -> {
+                        "请输入$key"
+                    }
+                }
+            }
+        }
+        return ""
     }
 
     /**

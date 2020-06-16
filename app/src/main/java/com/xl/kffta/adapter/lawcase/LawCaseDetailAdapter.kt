@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
+import com.xl.kffta.model.BusinessInfoBean
 import com.xl.kffta.model.DepartmentInfoBean
 import com.xl.kffta.model.lawcase.LawCaseItemBean
 import com.xl.kffta.viewholder.AddPictureFileViewHolder
@@ -116,10 +117,11 @@ class LawCaseDetailAdapter(val context: Context?, private val fileOnlyShow: Bool
             is SelectBusniessViewHolder -> {
                 val businessView = holder.itemView
                 if (businessView is SelectBusinessLayout) {
+                    businessView.setMode(false, "当事企业", "请输入当事企业")
                     businessView.mOnBusinessChangeListener = object : SelectBusinessLayout.OnBusinessChangeListener {
-                        override fun onBusinessChangeListener(businessName: String, businessCode: String) {
-                            mCommonCaseResultMap["当事企业"] = businessName
-                            mCommonCaseResultMap["统一社会信用代码"] = businessCode
+                        override fun onBusinessChangeListener(businessData: BusinessInfoBean.DataBean) {
+                            mCommonCaseResultMap["当事企业"] = businessData.businessName
+                            mCommonCaseResultMap["统一社会信用代码"] = businessData.businessLicenseRegistrationNumber
                         }
 
                     }
@@ -140,8 +142,8 @@ class LawCaseDetailAdapter(val context: Context?, private val fileOnlyShow: Bool
             caseItem.isTitle -> ITEM_TITLE
             caseItem.isEditable -> ITEM_EDITABLE
             caseItem.needUpload -> ITEM_UPLOAD_FILE
-            caseItem.isShowSelector -> ITEM_AUTO_DEPARTMENT
-            caseItem.isEditAutoComplete -> ITEM_BUSINESS
+            caseItem.isDepartmentAutoComplete -> ITEM_AUTO_DEPARTMENT
+            caseItem.isBusinessAutoComplete -> ITEM_BUSINESS
             else -> ITEM_NORMAL
         }
     }

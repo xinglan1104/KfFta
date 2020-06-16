@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.xl.kffta.R
 import com.xl.kffta.base.BaseActivity
+import com.xl.kffta.ui.fragment.warn.WarnAddNormalFragment
 import com.xl.kffta.ui.fragment.warn.WarnDetailFragment
 import kotlinx.android.synthetic.main.layout_title_bar.*
 
@@ -72,9 +73,9 @@ class WarnInfoDetailActivity : BaseActivity() {
             WARN_FROM_ADD_COMMON -> {
                 // 普通的新增预警
                 title_name.text = "预警"
-                val warnDetailFragment = WarnDetailFragment()
+                val warnDetailFragment = WarnAddNormalFragment()
                 val bundle = Bundle()
-                bundle.putInt("id", mId)
+                bundle.putBoolean("showUserInfo", true)
                 bundle.putBoolean("fileOnlyShow", false)
                 warnDetailFragment.arguments = bundle
                 fragmentTransition.replace(R.id.common_case_content, warnDetailFragment)

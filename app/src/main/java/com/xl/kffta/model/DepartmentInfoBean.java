@@ -47,14 +47,13 @@ public class DepartmentInfoBean implements Serializable {
     }
 
     public static class FieldsBean {
+
         private String DepartmentCode;
         private String Name;
-        private String ParentID;
-        private String DepartmentManagerIDs;
         private String BusinessAreaIDs;
         private String DF1;
+        private String Timestamp;
         private String Status;
-        private String CreateTime;
 
         public String getDepartmentCode() {
             return DepartmentCode;
@@ -70,22 +69,6 @@ public class DepartmentInfoBean implements Serializable {
 
         public void setName(String Name) {
             this.Name = Name;
-        }
-
-        public String getParentID() {
-            return ParentID;
-        }
-
-        public void setParentID(String ParentID) {
-            this.ParentID = ParentID;
-        }
-
-        public String getDepartmentManagerIDs() {
-            return DepartmentManagerIDs;
-        }
-
-        public void setDepartmentManagerIDs(String DepartmentManagerIDs) {
-            this.DepartmentManagerIDs = DepartmentManagerIDs;
         }
 
         public String getBusinessAreaIDs() {
@@ -104,6 +87,14 @@ public class DepartmentInfoBean implements Serializable {
             this.DF1 = DF1;
         }
 
+        public String getTimestamp() {
+            return Timestamp;
+        }
+
+        public void setTimestamp(String Timestamp) {
+            this.Timestamp = Timestamp;
+        }
+
         public String getStatus() {
             return Status;
         }
@@ -111,31 +102,19 @@ public class DepartmentInfoBean implements Serializable {
         public void setStatus(String Status) {
             this.Status = Status;
         }
-
-        public String getCreateTime() {
-            return CreateTime;
-        }
-
-        public void setCreateTime(String CreateTime) {
-            this.CreateTime = CreateTime;
-        }
     }
 
     public static class DataBean {
         private int CompanyID;
-        private String CreateTime;
         private String DepartmentCode;
         private String DF1;
         private int ID;
         private String Name;
         private int PageCode;
-        private ParentBean Parent;
-        private int ParentID;
         private int Status;
+        private String Timestamp;
         private List<BusinessAreaBean> BusinessArea;
         private List<Integer> BusinessAreaIDs;
-        private List<?> DepartmentManager;
-        private List<?> DepartmentManagerIDs;
 
         public int getCompanyID() {
             return CompanyID;
@@ -143,14 +122,6 @@ public class DepartmentInfoBean implements Serializable {
 
         public void setCompanyID(int CompanyID) {
             this.CompanyID = CompanyID;
-        }
-
-        public String getCreateTime() {
-            return CreateTime;
-        }
-
-        public void setCreateTime(String CreateTime) {
-            this.CreateTime = CreateTime;
         }
 
         public String getDepartmentCode() {
@@ -193,28 +164,20 @@ public class DepartmentInfoBean implements Serializable {
             this.PageCode = PageCode;
         }
 
-        public ParentBean getParent() {
-            return Parent;
-        }
-
-        public void setParent(ParentBean Parent) {
-            this.Parent = Parent;
-        }
-
-        public int getParentID() {
-            return ParentID;
-        }
-
-        public void setParentID(int ParentID) {
-            this.ParentID = ParentID;
-        }
-
         public int getStatus() {
             return Status;
         }
 
         public void setStatus(int Status) {
             this.Status = Status;
+        }
+
+        public String getTimestamp() {
+            return Timestamp;
+        }
+
+        public void setTimestamp(String Timestamp) {
+            this.Timestamp = Timestamp;
         }
 
         public List<BusinessAreaBean> getBusinessArea() {
@@ -231,25 +194,6 @@ public class DepartmentInfoBean implements Serializable {
 
         public void setBusinessAreaIDs(List<Integer> BusinessAreaIDs) {
             this.BusinessAreaIDs = BusinessAreaIDs;
-        }
-
-        public List<?> getDepartmentManager() {
-            return DepartmentManager;
-        }
-
-        public void setDepartmentManager(List<?> DepartmentManager) {
-            this.DepartmentManager = DepartmentManager;
-        }
-
-        public List<?> getDepartmentManagerIDs() {
-            return DepartmentManagerIDs;
-        }
-
-        public void setDepartmentManagerIDs(List<?> DepartmentManagerIDs) {
-            this.DepartmentManagerIDs = DepartmentManagerIDs;
-        }
-
-        public static class ParentBean {
         }
 
         public static class BusinessAreaBean {

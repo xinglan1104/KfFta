@@ -10,6 +10,7 @@ import com.xl.kffta.R
 import com.xl.kffta.adapter.warn.WarnDetailAdapter
 import com.xl.kffta.base.BaseFragment
 import com.xl.kffta.model.warn.WarnItemBean
+import kotlinx.android.synthetic.main.fragment_case_common.*
 import org.jetbrains.anko.support.v4.find
 
 /**
@@ -48,6 +49,8 @@ abstract class WarnInfoBaseFragment : BaseFragment() {
         }
 
         mRecyclerView.adapter = mAdapter
+        mRecyclerView.animation = null
+        common_bottom_layout.visibility = View.GONE
     }
 
     abstract fun initDataItems(bean: Any)
