@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.xl.kffta.model.GetFilepathBean
 import com.xl.kffta.model.TaskInfoBean
 import com.xl.kffta.model.common.BusinessBean
+import com.xl.kffta.model.common.DepartmentBean
 import com.xl.kffta.model.lawcase.LawCaseByIdBean
 import com.xl.kffta.model.lawcase.LawCaseItemBean
 import com.xl.kffta.net.ResponseObjectCallback
@@ -54,6 +55,13 @@ class LawCaseAddTaskFragment : LawCaseBaseFragment() {
                 myToast(noEnterTip)
             } else {
                 // 提交案件
+                if (mAdapter.mIsDepartmentChanged) {
+                    // 编辑过部门，需要校验部门信息
+                    if (mAdapter.mDepartmentInfoData == null || mAdapter.mDepartmentStr.trim() != mAdapter.mDepartmentInfoData?.name?.trim()) {
+                        myToast("请正确输入部门的信息")
+                        return@setOnClickListener
+                    }
+                }
                 context?.let { context ->
                     DialogUtil.showCommonDialog(context, "确定要新增立案吗", object : DialogUtil.OnDialogOkClick {
                         override fun onDialogOkClick() {
@@ -129,7 +137,7 @@ class LawCaseAddTaskFragment : LawCaseBaseFragment() {
                     ?: ""))
             mDatas.add(LawCaseItemBean(label = "统一社会信用代码", value = bean.data?.business?.businessLicenseRegistrationNumber
                     ?: ""))
-            mDatas.add(LawCaseItemBean(label = "部门", value = "请选择部门", isDepartmentAutoComplete = true))
+            mDatas.add(LawCaseItemBean(label = "部门", editHintStr = "请输入部门", isDepartmentAutoComplete = true, value = ApplicationParams.USER_DEPARTMENT))
             mDatas.add(LawCaseItemBean(label = "线索(举报)内容", isEditable = true, editHintStr = "请输入线索或举报内容"))
             mDatas.add(LawCaseItemBean(label = "备注", isEditable = true, editHintStr = "请输入备注信息"))
             if (!TextUtils.isEmpty(ApplicationParams.TEMP_FILE_PATH)) {
@@ -161,17 +169,26 @@ class LawCaseAddTaskFragment : LawCaseBaseFragment() {
         val lawCaseByIdBean = LawCaseByIdBean()
         lawCaseByIdBean.data = LawCaseByIdBean.DataBean()
         lawCaseByIdBean.data.business = BusinessBean()
-        lawCaseByIdBean.data.department = LawCaseByIdBean.DataBean.DepartmentBeanX()
+        lawCaseByIdBean.data.department = DepartmentBean()
         lawCaseByIdBean.data.name = hashMap["案件名称"]
         lawCaseByIdBean.data.source = hashMap["案件来源"]
         lawCaseByIdBean.data.business.businessName = hashMap["当事企业"]
         lawCaseByIdBean.data.business.businessLicenseRegistrationNumber = hashMap["统一社会信用代码"]
-        lawCaseByIdBean.data.department.name = hashMap["部门"]
         lawCaseByIdBean.data.content = hashMap["线索(举报)内容"]
         lawCaseByIdBean.data.note = hashMap["备注"]
         lawCaseByIdBean.data.contactName = hashMap["提供者姓名"]
         lawCaseByIdBean.data.contactPhone = hashMap["提供者联系方式"]
         lawCaseByIdBean.data.contactAddress = hashMap["提供者地址"]
+
+        lawCaseByIdBean.data.businessID = mTaskInfoBean?.data?.businessID?.toInt() ?: 0
+
+        if (mAdapter.mIsDepartmentChanged) {
+            lawCaseByIdBean.data.department.name = hashMap["部门"]
+            lawCaseByIdBean.data.departmentID = mAdapter.mDepartmentInfoData?.id?.toInt() ?: 0
+        } else {
+            lawCaseByIdBean.data.department.name = ApplicationParams.USER_DEPARTMENT
+            lawCaseByIdBean.data.departmentID = ApplicationParams.USER_DEPARTMENT_ID.toInt()
+        }
 
         // 附件部分，先看看有没有上传
         val filePath = if (mAdapter?.mIsUploaded) {

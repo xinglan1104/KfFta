@@ -39,6 +39,7 @@ class LawCaseDetailAdapter(val context: Context?, private val fileOnlyShow: Bool
     val mCommonCaseResultMap = LinkedHashMap<String, String>()
 
     var mIsUploaded = false
+    var mIsDepartmentChanged = false
 
     var mDepartmentInfoData: DepartmentInfoBean.DataBean? = null
     var mBusinessInfoData: BusinessInfoBean.DataBean? = null
@@ -101,6 +102,7 @@ class LawCaseDetailAdapter(val context: Context?, private val fileOnlyShow: Bool
                 holder.mAutoCompleteTv.hint = data.editHintStr
                 holder.mAutoCompleteTv.setText(data.value)
                 mCommonCaseResultMap[data.label] = data.value
+                mDepartmentStr = data.value
                 holder.mOnDepartmentChangeListener = object : AutoCompleteViewHolder.OnDepartmentChangeListener {
                     override fun onDepartmentChangeListener(departmentDataBean: DepartmentInfoBean.DataBean) {
                         mCommonCaseResultMap[data.label] = departmentDataBean.name
@@ -108,6 +110,7 @@ class LawCaseDetailAdapter(val context: Context?, private val fileOnlyShow: Bool
                     }
 
                     override fun onTextChanged(text: String) {
+                        mIsDepartmentChanged = true
                         mDepartmentStr = text
                     }
                 }
