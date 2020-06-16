@@ -29,6 +29,7 @@ class SelectBusinessLayout : LinearLayout {
 
     interface OnBusinessChangeListener {
         fun onBusinessChangeListener(businessData: BusinessInfoBean.DataBean)
+        fun onTextChanged(text: String)
     }
 
     var mOnBusinessChangeListener: OnBusinessChangeListener? = null
@@ -39,6 +40,7 @@ class SelectBusinessLayout : LinearLayout {
         mAdapter = ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, mNames)
         bus_value.setAdapter(mAdapter)
         bus_value.doOnTextChanged { text, start, before, count ->
+            mOnBusinessChangeListener?.onTextChanged(text.toString())
             postDelayed({
                 sendRequest(text.toString())
             }, 200)

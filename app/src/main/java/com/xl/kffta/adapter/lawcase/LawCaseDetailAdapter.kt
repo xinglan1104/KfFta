@@ -40,6 +40,11 @@ class LawCaseDetailAdapter(val context: Context?, private val fileOnlyShow: Bool
 
     var mIsUploaded = false
 
+    var mDepartmentInfoData: DepartmentInfoBean.DataBean? = null
+    var mBusinessInfoData: BusinessInfoBean.DataBean? = null
+    var mBusinessStr: String = ""
+    var mDepartmentStr: String = ""
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ITEM_TITLE -> {
@@ -99,6 +104,11 @@ class LawCaseDetailAdapter(val context: Context?, private val fileOnlyShow: Bool
                 holder.mOnDepartmentChangeListener = object : AutoCompleteViewHolder.OnDepartmentChangeListener {
                     override fun onDepartmentChangeListener(departmentDataBean: DepartmentInfoBean.DataBean) {
                         mCommonCaseResultMap[data.label] = departmentDataBean.name
+                        mDepartmentInfoData = departmentDataBean
+                    }
+
+                    override fun onTextChanged(text: String) {
+                        mDepartmentStr = text
                     }
                 }
             }
@@ -122,6 +132,11 @@ class LawCaseDetailAdapter(val context: Context?, private val fileOnlyShow: Bool
                         override fun onBusinessChangeListener(businessData: BusinessInfoBean.DataBean) {
                             mCommonCaseResultMap["当事企业"] = businessData.businessName
                             mCommonCaseResultMap["统一社会信用代码"] = businessData.businessLicenseRegistrationNumber
+                            mBusinessInfoData = businessData
+                        }
+
+                        override fun onTextChanged(text: String) {
+                            mBusinessStr = text
                         }
 
                     }

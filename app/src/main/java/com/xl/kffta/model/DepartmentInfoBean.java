@@ -108,7 +108,7 @@ public class DepartmentInfoBean implements Serializable {
         private int CompanyID;
         private String DepartmentCode;
         private String DF1;
-        private int ID;
+        private long ID;
         private String Name;
         private int PageCode;
         private int Status;
@@ -140,11 +140,11 @@ public class DepartmentInfoBean implements Serializable {
             this.DF1 = DF1;
         }
 
-        public int getID() {
+        public long getID() {
             return ID;
         }
 
-        public void setID(int ID) {
+        public void setID(long ID) {
             this.ID = ID;
         }
 

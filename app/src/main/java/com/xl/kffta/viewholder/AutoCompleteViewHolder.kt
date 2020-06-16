@@ -25,6 +25,7 @@ class AutoCompleteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     interface OnDepartmentChangeListener {
         fun onDepartmentChangeListener(departmentDataBean: DepartmentInfoBean.DataBean)
+        fun onTextChanged(text: String)
     }
 
     var mOnDepartmentChangeListener: OnDepartmentChangeListener? = null
@@ -33,6 +34,7 @@ class AutoCompleteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         mAdapter = ArrayAdapter<String>(itemView.context, android.R.layout.simple_dropdown_item_1line, mNames)
         mAutoCompleteTv.setAdapter(mAdapter)
         mAutoCompleteTv.doOnTextChanged { text, start, before, count ->
+            mOnDepartmentChangeListener?.onTextChanged(text.toString())
             itemView.postDelayed({
                 sendRequest(text.toString())
             }, 200)

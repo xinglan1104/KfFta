@@ -6,11 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.xl.kffta.model.GetFilepathBean
+import com.xl.kffta.model.upload.WarnUploadBean
 import com.xl.kffta.model.warn.WarnByIdBean
 import com.xl.kffta.model.warn.WarnItemBean
 import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.net.taskmanager.FilesNetManager
+import com.xl.kffta.net.taskmanager.WarnManager
 import com.xl.kffta.util.ApplicationParams
+import com.xl.kffta.util.DialogUtil
+import com.xl.kffta.util.SysUtils
 import kotlinx.android.synthetic.main.fragment_case_common.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 
@@ -46,7 +50,35 @@ class WarnAddNormalFragment : WarnInfoBaseFragment() {
             if (noEnterTip.isNotEmpty()) {
                 myToast(noEnterTip)
             } else {
-                // 提交案件
+                // 提交预警
+                if (mAdapter.mDepartmentInfoData == null || mAdapter.mDepartmentStr.trim() != mAdapter.mDepartmentInfoData?.name?.trim()) {
+                    myToast("请正确输入部门的信息")
+                } else if (mAdapter.mBusinessInfoData == null || mAdapter.mBusinessStr != mAdapter.mBusinessInfoData?.businessName?.trim()) {
+                    myToast("请正确输入企业信息")
+                } else {
+                    context?.let { context ->
+                        DialogUtil.showCommonDialog(context, "确定要新增预警吗", object : DialogUtil.OnDialogOkClick {
+                            override fun onDialogOkClick() {
+                                WarnManager.addNewWarning(getWarnByIdBean(), object : ResponseObjectCallback {
+                                    override fun onError(msg: String) {
+                                        runOnUiThread {
+                                            DialogUtil.showSingleCommonDialog(context = context, msg = msg)
+                                        }
+                                    }
+
+                                    override fun onSuccess(obj: Any) {
+                                        myToast("新增预警成功")
+                                        runOnUiThread {
+                                            activity?.finish()
+                                        }
+                                    }
+                                })
+                            }
+
+                        })
+                    }
+                }
+
             }
         }
     }
@@ -105,5 +137,36 @@ class WarnAddNormalFragment : WarnInfoBaseFragment() {
 
     override fun handleMessage(message: Message) {
 
+    }
+
+    /**
+     * 把输入的内容包装成预警data
+     */
+    private fun getWarnByIdBean(): WarnUploadBean {
+        val warnUploadBean = WarnUploadBean()
+        warnUploadBean.department = WarnUploadBean.DepartmentBean()
+        warnUploadBean.business = WarnUploadBean.BusinessBean()
+
+        warnUploadBean.department.id = mAdapter.mDepartmentInfoData?.id?.toInt() ?: 0
+        warnUploadBean.department.name = mAdapter.mDepartmentInfoData?.name
+        warnUploadBean.departmentID = mAdapter.mDepartmentInfoData?.id ?: 0
+
+        warnUploadBean.business.id = mAdapter.mBusinessInfoData?.id?.toInt() ?: 0
+        warnUploadBean.business.businessName = mAdapter.mBusinessInfoData?.businessName
+        warnUploadBean.businessID = mAdapter.mBusinessInfoData?.id ?: 0
+
+        warnUploadBean.content = mAdapter.mWarnResultMap["预警信息"]
+        warnUploadBean.note = mAdapter.mWarnResultMap["备注"]
+
+        // 附件部分，先看看有没有上传
+        val filePath = if (mAdapter?.mIsUploaded) {
+            SysUtils.getAppendAddFilePath(ApplicationParams.TEMP_FILE_PATH)
+        } else {
+            ApplicationParams.TEMP_FILE_PATH
+        }
+
+        warnUploadBean.files = filePath
+
+        return warnUploadBean
     }
 }

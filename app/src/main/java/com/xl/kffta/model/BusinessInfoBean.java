@@ -137,7 +137,7 @@ public class BusinessInfoBean implements Serializable {
         private String BusinessName;
         private int BusinessRegistrationStatus;
         private int CompanyID;
-        private int ID;
+        private long ID;
         private int PageCode;
         private int RegisteredCapital;
         private String Representative;
@@ -195,11 +195,11 @@ public class BusinessInfoBean implements Serializable {
             this.CompanyID = CompanyID;
         }
 
-        public int getID() {
+        public long getID() {
             return ID;
         }
 
-        public void setID(int ID) {
+        public void setID(long ID) {
             this.ID = ID;
         }
 

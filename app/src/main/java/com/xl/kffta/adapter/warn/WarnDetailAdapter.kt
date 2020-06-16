@@ -37,6 +37,11 @@ class WarnDetailAdapter(val context: Context?, private val fileOnlyShow: Boolean
 
     var mIsUploaded = false
 
+    var mDepartmentInfoData: DepartmentInfoBean.DataBean? = null
+    var mBusinessInfoData: BusinessInfoBean.DataBean? = null
+    var mBusinessStr: String = ""
+    var mDepartmentStr: String = ""
+
     private var mDatas = ArrayList<WarnItemBean>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -100,8 +105,12 @@ class WarnDetailAdapter(val context: Context?, private val fileOnlyShow: Boolean
                     businessView.mOnBusinessChangeListener = object : SelectBusinessLayout.OnBusinessChangeListener {
                         override fun onBusinessChangeListener(businessData: BusinessInfoBean.DataBean) {
                             mWarnResultMap["企业名称"] = businessData.businessName
+                            mBusinessInfoData = businessData
                         }
 
+                        override fun onTextChanged(text: String) {
+                            mBusinessStr = text
+                        }
                     }
                 }
             }
@@ -112,6 +121,11 @@ class WarnDetailAdapter(val context: Context?, private val fileOnlyShow: Boolean
                 holder.mOnDepartmentChangeListener = object : AutoCompleteViewHolder.OnDepartmentChangeListener {
                     override fun onDepartmentChangeListener(departmentDataBean: DepartmentInfoBean.DataBean) {
                         mWarnResultMap[data.label] = departmentDataBean.name
+                        mDepartmentInfoData = departmentDataBean
+                    }
+
+                    override fun onTextChanged(text: String) {
+                        mDepartmentStr = text
                     }
                 }
             }

@@ -91,19 +91,23 @@ class WarnListActivity : BaseActivity() {
         lawcase_recycler.adapter = mAdapter
     }
 
-    override fun initData() {
+    override fun onResume() {
+        super.onResume()
         sendRequest()
     }
 
     private fun sendRequest() {
+        showProgress()
         WarnManager.queryWarnObjects("0", PAGE_SIZE, lawcase_search?.text?.toString()
-                ?: "", object : ResponseObjectCallback {
+            ?: "", object : ResponseObjectCallback {
             override fun onError(msg: String) {
                 myToast(msg)
+                hideProgress()
             }
 
             override fun onSuccess(obj: Any) {
                 mHandler.obtainMessage(HANDLER_REFRESH_SUCCESS, obj).sendToTarget()
+                hideProgress()
             }
 
         })
@@ -133,7 +137,7 @@ class WarnListActivity : BaseActivity() {
             val bottom = top + v.height
             val right = left + v.width
             return if (event.x > left && event.x < right
-                    && event.y > top && event.y < bottom) {
+                && event.y > top && event.y < bottom) {
                 false
             } else {
                 true
@@ -167,7 +171,7 @@ class WarnListActivity : BaseActivity() {
                     holder.name.text = data.content ?: ""
                     holder.itemView.setOnClickListener {
                         context.startActivity<WarnInfoDetailActivity>(WarnInfoDetailActivity.WARN_SOURCE to WarnInfoDetailActivity.WARN_FROM_WARN_LIST,
-                                WarnInfoDetailActivity.WARN_ID to data.id)
+                            WarnInfoDetailActivity.WARN_ID to data.id)
                     }
                 }
 
