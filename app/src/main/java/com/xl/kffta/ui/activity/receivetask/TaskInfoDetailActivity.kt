@@ -17,6 +17,7 @@ import com.xl.kffta.net.taskmanager.LocationManager
 import com.xl.kffta.net.taskmanager.TaskNetManager
 import com.xl.kffta.presenter.impl.TaskInfoDetailImpl
 import com.xl.kffta.ui.activity.lawcase.LawCaseInfoDetailActivity
+import com.xl.kffta.ui.activity.warn.WarnInfoDetailActivity
 import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.util.SysUtils
@@ -463,7 +464,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
             }
 
             override fun onWarnClick() {
-
+                startActivity<WarnInfoDetailActivity>(WarnInfoDetailActivity.WARN_SOURCE to WarnInfoDetailActivity.WARN_FROM_ADD_NORMAL_TASK)
             }
 
             override fun onCancelClick() {

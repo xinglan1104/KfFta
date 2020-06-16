@@ -51,9 +51,14 @@ class WarnAddNormalFragment : WarnInfoBaseFragment() {
                 myToast(noEnterTip)
             } else {
                 // 提交预警
-                if (mAdapter.mDepartmentInfoData == null || mAdapter.mDepartmentStr.trim() != mAdapter.mDepartmentInfoData?.name?.trim()) {
-                    myToast("请正确输入部门的信息")
-                } else if (mAdapter.mBusinessInfoData == null || mAdapter.mBusinessStr != mAdapter.mBusinessInfoData?.businessName?.trim()) {
+                if (mAdapter.mIsDepartmentChanged) {
+                    // 编辑过部门，需要交验部门信息
+                    if (mAdapter.mDepartmentInfoData == null || mAdapter.mDepartmentStr.trim() != mAdapter.mDepartmentInfoData?.name?.trim()) {
+                        myToast("请正确输入部门的信息")
+                        return@setOnClickListener
+                    }
+                }
+                if (mAdapter.mBusinessInfoData == null || mAdapter.mBusinessStr != mAdapter.mBusinessInfoData?.businessName?.trim()) {
                     myToast("请正确输入企业信息")
                 } else {
                     context?.let { context ->
@@ -86,7 +91,7 @@ class WarnAddNormalFragment : WarnInfoBaseFragment() {
     override fun initDataItems(bean: Any) {
         mDatas.clear()
         mDatas.add(WarnItemBean(label = "企业名称", editHint = "请输入企业名称", isBusinessAutoComplete = true, editAutoCompleteSingleLine = true))
-        mDatas.add(WarnItemBean(label = "预警部门", isDepartmentAutoComplete = true, editHint = "请输入预警部门"))
+        mDatas.add(WarnItemBean(label = "预警部门", isDepartmentAutoComplete = true, editHint = "请输入预警部门", value = ApplicationParams.USER_DEPARTMENT))
         mDatas.add(WarnItemBean(label = "预警信息", isEditAble = true, editHint = "请输入预警信息"))
         mDatas.add(WarnItemBean(label = "备注", isEditAble = true, editHint = "请输入备注"))
         if (ApplicationParams.TEMP_FILE_PATH.isNotEmpty()) {
@@ -147,9 +152,15 @@ class WarnAddNormalFragment : WarnInfoBaseFragment() {
         warnUploadBean.department = WarnUploadBean.DepartmentBean()
         warnUploadBean.business = WarnUploadBean.BusinessBean()
 
-        warnUploadBean.department.id = mAdapter.mDepartmentInfoData?.id?.toInt() ?: 0
-        warnUploadBean.department.name = mAdapter.mDepartmentInfoData?.name
-        warnUploadBean.departmentID = mAdapter.mDepartmentInfoData?.id ?: 0
+        if (mAdapter.mIsDepartmentChanged) {
+            warnUploadBean.department.id = mAdapter.mDepartmentInfoData?.id ?: 0
+            warnUploadBean.department.name = mAdapter.mDepartmentInfoData?.name
+            warnUploadBean.departmentID = mAdapter.mDepartmentInfoData?.id ?: 0
+        } else {
+            warnUploadBean.department.id = ApplicationParams.USER_DEPARTMENT_ID
+            warnUploadBean.department.name = ApplicationParams.USER_DEPARTMENT
+            warnUploadBean.departmentID = ApplicationParams.USER_DEPARTMENT_ID
+        }
 
         warnUploadBean.business.id = mAdapter.mBusinessInfoData?.id?.toInt() ?: 0
         warnUploadBean.business.businessName = mAdapter.mBusinessInfoData?.businessName

@@ -17,6 +17,7 @@ import com.xl.kffta.net.taskmanager.FilesNetManager
 import com.xl.kffta.net.taskmanager.JointTaskManager
 import com.xl.kffta.net.taskmanager.LocationManager
 import com.xl.kffta.ui.activity.lawcase.LawCaseInfoDetailActivity
+import com.xl.kffta.ui.activity.warn.WarnInfoDetailActivity
 import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.util.SysUtils
@@ -443,7 +444,7 @@ class JointTaskInfoActivity : BaseActivity() {
             }
 
             override fun onWarnClick() {
-
+                startActivity<WarnInfoDetailActivity>(WarnInfoDetailActivity.WARN_SOURCE to WarnInfoDetailActivity.WARN_FROM_ADD_JOINT_TASK)
             }
 
             override fun onCancelClick() {

@@ -71,14 +71,14 @@ public class WarnUploadBean {
     }
 
     public static final class DepartmentBean {
-        private int ID;
+        private long ID;
         private String Name;
 
-        public int getID() {
+        public long getID() {
             return ID;
         }
 
-        public void setID(int ID) {
+        public void setID(long ID) {
             this.ID = ID;
         }
 

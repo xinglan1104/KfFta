@@ -83,22 +83,20 @@ class WarnInfoDetailActivity : BaseActivity() {
             WARN_FROM_ADD_NORMAL_TASK -> {
                 // 执法的新增预警
                 title_name.text = "预警"
-                val warnDetailFragment = WarnDetailFragment()
+                val warnDetailFragment = WarnAddNormalFragment()
                 val bundle = Bundle()
-                bundle.putInt("id", mId)
-                bundle.putBoolean("fileOnlyShow", false)
                 bundle.putBoolean("showUserInfo", true)
+                bundle.putBoolean("fileOnlyShow", false)
                 warnDetailFragment.arguments = bundle
                 fragmentTransition.replace(R.id.common_case_content, warnDetailFragment)
             }
             WARN_FROM_ADD_JOINT_TASK -> {
                 // 普通的新增预警
                 title_name.text = "预警"
-                val warnDetailFragment = WarnDetailFragment()
+                val warnDetailFragment = WarnAddNormalFragment()
                 val bundle = Bundle()
-                bundle.putInt("id", mId)
-                bundle.putBoolean("fileOnlyShow", false)
                 bundle.putBoolean("showUserInfo", true)
+                bundle.putBoolean("fileOnlyShow", false)
                 warnDetailFragment.arguments = bundle
                 fragmentTransition.replace(R.id.common_case_content, warnDetailFragment)
             }

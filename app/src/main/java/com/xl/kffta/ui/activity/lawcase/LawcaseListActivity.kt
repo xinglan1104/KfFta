@@ -93,19 +93,23 @@ class LawcaseListActivity : BaseActivity() {
         lawcase_recycler.adapter = mAdapter
     }
 
-    override fun initData() {
+    override fun onResume() {
+        super.onResume()
         sendRequest()
     }
 
     private fun sendRequest() {
+        showProgress()
         LawCaseManager.queryLawCaseObjects("0", PAGE_SIZE, lawcase_search?.text?.toString()
                 ?: "", object : ResponseObjectCallback {
             override fun onError(msg: String) {
                 myToast(msg)
+                hideProgress()
             }
 
             override fun onSuccess(obj: Any) {
                 mHandler.obtainMessage(HANDLER_REFRESH_SUCCESS, obj).sendToTarget()
+                hideProgress()
             }
 
         })

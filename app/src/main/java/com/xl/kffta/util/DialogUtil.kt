@@ -7,8 +7,6 @@ import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
-import com.afollestad.materialdialogs.list.ItemListener
-import com.afollestad.materialdialogs.list.listItems
 import com.xl.kffta.R
 import org.jetbrains.anko.find
 
@@ -134,21 +132,6 @@ object DialogUtil {
             customView.find<TextView>(R.id.dialog_cancel).setOnClickListener {
                 this.dismiss()
                 callback.onCancelClick()
-            }
-        }
-    }
-
-    fun showSelectedDialog(context: Context, callback: ItemListener) {
-        context.setTheme(R.style.AppTheme_NoActionBar)
-        // 处理字符串
-        val listStr = ApplicationParams.USER_DEPARTMENTS
-        if (!listStr.isNullOrEmpty()) {
-            val strs = listStr.split("|")
-            val items = strs.toList()
-            MaterialDialog(context).show {
-                this.cornerRadius(10f)
-                title(text = "请选择部门")
-                listItems(items = items, selection = callback)
             }
         }
     }

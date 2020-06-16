@@ -14,8 +14,9 @@ object ApplicationParams {
     var USER_PWD: String by SpUtil("userPwd", "")
     var USER_PHONE: String = ""
     var USER_ADDRESS: String = ""
-    var USER_DEPARTMENTS: String by SpUtil(USER_ID.toString(), "")
     var USER_INFO_BEAN: UserInfoBean? = null
+    var USER_DEPARTMENT: String = ""
+    var USER_DEPARTMENT_ID: Long = 0
 
     /**
      * 方便起见，文件的路径直接保存全局变量，未经处理的完整路径

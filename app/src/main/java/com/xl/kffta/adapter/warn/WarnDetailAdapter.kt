@@ -36,6 +36,7 @@ class WarnDetailAdapter(val context: Context?, private val fileOnlyShow: Boolean
     val mWarnResultMap = LinkedHashMap<String, String>()
 
     var mIsUploaded = false
+    var mIsDepartmentChanged = false
 
     var mDepartmentInfoData: DepartmentInfoBean.DataBean? = null
     var mBusinessInfoData: BusinessInfoBean.DataBean? = null
@@ -100,6 +101,7 @@ class WarnDetailAdapter(val context: Context?, private val fileOnlyShow: Boolean
             }
             is SelectBusniessViewHolder -> {
                 val businessView = holder.itemView
+                mBusinessStr = data.value
                 if (businessView is SelectBusinessLayout) {
                     businessView.setMode(true, "企业名称", "请输入企业名称")
                     businessView.mOnBusinessChangeListener = object : SelectBusinessLayout.OnBusinessChangeListener {
@@ -118,6 +120,7 @@ class WarnDetailAdapter(val context: Context?, private val fileOnlyShow: Boolean
                 holder.mAutoCompleteTv.hint = data.editHint
                 holder.mAutoCompleteTv.setText(data.value)
                 mWarnResultMap[data.label] = data.value
+                mDepartmentStr = data.value
                 holder.mOnDepartmentChangeListener = object : AutoCompleteViewHolder.OnDepartmentChangeListener {
                     override fun onDepartmentChangeListener(departmentDataBean: DepartmentInfoBean.DataBean) {
                         mWarnResultMap[data.label] = departmentDataBean.name
@@ -125,6 +128,7 @@ class WarnDetailAdapter(val context: Context?, private val fileOnlyShow: Boolean
                     }
 
                     override fun onTextChanged(text: String) {
+                        mIsDepartmentChanged = true
                         mDepartmentStr = text
                     }
                 }
