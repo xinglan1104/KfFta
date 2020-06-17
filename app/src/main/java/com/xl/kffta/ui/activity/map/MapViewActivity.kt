@@ -178,12 +178,12 @@ class MapViewActivity : BaseActivity() {
                 if (i == 1000) {
                     if (geocodeResult != null && geocodeResult.getGeocodeAddressList() != null && geocodeResult.getGeocodeAddressList().size > 0) {
                         val geocodeAddress: GeocodeAddress = geocodeResult.getGeocodeAddressList().get(0)
-                        val latitude: Double = geocodeAddress.getLatLonPoint().getLatitude() //纬度
-                        val longititude: Double = geocodeAddress.getLatLonPoint().getLongitude() //经度
-                        val cameraPosition = CameraPosition(LatLng(latitude, longititude), 18f, 0f, 0f)
+                        endLat = geocodeAddress.getLatLonPoint().getLatitude() //纬度
+                        endLon = geocodeAddress.getLatLonPoint().getLongitude() //经度
+                        val cameraPosition = CameraPosition(LatLng(endLat, endLon), 18f, 0f, 0f)
                         val cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition)
                         aMap?.moveCamera(cameraUpdate)
-                        drawMarkers(latitude, longititude)
+                        drawMarkers(endLat, endLon)
                     }
                 }
             }
