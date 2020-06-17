@@ -30,8 +30,11 @@
 #Okio
 -dontwarn org.codehaus.mojo.animal_sniffer.*
 
-# 不混淆某个包所有的类
+# 不混淆某个包所有的类和内部类
+-keepattributes Exceptions,InnerClasses
 -keep class com.xl.kffta.model.** { *; }
+-keep class com.xl.kffta.model.TaskInfoBean$*{ *; }
+-keep class com.xl.kffta.model.TaskInfoBean$DataBean { *; }
 
 -keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
 public static java.lang.String TABLENAME;
