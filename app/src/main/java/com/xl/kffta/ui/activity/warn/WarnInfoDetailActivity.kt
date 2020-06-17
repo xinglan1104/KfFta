@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.xl.kffta.R
 import com.xl.kffta.base.BaseActivity
+import com.xl.kffta.model.TaskInfoBean
 import com.xl.kffta.ui.fragment.warn.WarnAddNormalFragment
 import com.xl.kffta.ui.fragment.warn.WarnDetailFragment
 import kotlinx.android.synthetic.main.layout_title_bar.*
@@ -27,6 +28,8 @@ class WarnInfoDetailActivity : BaseActivity() {
 
         const val WARN_ID = "warnCaseId"
 
+        const val TASK_INFO_BEAN = "taskInfoBean"
+
         /**
          * 预警详情界面
          */
@@ -44,6 +47,8 @@ class WarnInfoDetailActivity : BaseActivity() {
 
     private var mId = 0
 
+    private var mTaskInfoBean: TaskInfoBean? = null
+
     override fun getLayoutId(): Int {
         return R.layout.activity_lawcase_detail
     }
@@ -51,6 +56,8 @@ class WarnInfoDetailActivity : BaseActivity() {
     override fun initParams() {
         mWarnSource = intent.getIntExtra(WARN_SOURCE, 0)
         mId = intent.getIntExtra(WARN_ID, 0)
+        // 执法的新增案件
+        mTaskInfoBean = intent.getSerializableExtra(TASK_INFO_BEAN) as TaskInfoBean?
     }
 
     override fun handleMessage(message: Message) {
@@ -86,6 +93,7 @@ class WarnInfoDetailActivity : BaseActivity() {
                 val warnDetailFragment = WarnAddNormalFragment()
                 val bundle = Bundle()
                 bundle.putBoolean("showUserInfo", true)
+                bundle.putSerializable(TASK_INFO_BEAN, mTaskInfoBean)
                 bundle.putBoolean("fileOnlyShow", false)
                 warnDetailFragment.arguments = bundle
                 fragmentTransition.replace(R.id.common_case_content, warnDetailFragment)

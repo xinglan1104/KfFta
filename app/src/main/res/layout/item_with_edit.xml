@@ -9,32 +9,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="horizontal"
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
+
         <TextView
             android:id="@+id/info_detail_et_label"
             android:layout_width="@dimen/label_width"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:paddingLeft="15dp"
             android:lineSpacingMultiplier="1.2"
+            android:paddingLeft="15dp"
             android:textColor="@color/text_label"
             android:textSize="14sp"
             tools:text="企业名称" />
+
         <EditText
             android:id="@+id/info_detail_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
             android:layout_toRightOf="@id/info_detail_et_label"
             android:background="@color/white"
-            android:imeOptions="actionGo"
             android:gravity="top|start"
-            android:textColor="@color/text_value"
-            android:layout_marginRight="15dp"
+            android:imeOptions="actionGo"
             android:lineSpacingMultiplier="1.2"
-            android:paddingRight="15dp"
             android:maxLines="3"
+            android:paddingRight="15dp"
+            android:textColor="@color/text_value"
             android:textSize="14sp"
             tools:text="手的是的分手的分的分手的ss的分手的" />
     </LinearLayout>

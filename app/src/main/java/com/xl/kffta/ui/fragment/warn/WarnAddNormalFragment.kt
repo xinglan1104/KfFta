@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.xl.kffta.model.GetFilepathBean
+import com.xl.kffta.model.TaskInfoBean
 import com.xl.kffta.model.upload.WarnUploadBean
 import com.xl.kffta.model.warn.WarnByIdBean
 import com.xl.kffta.model.warn.WarnItemBean
 import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.net.taskmanager.FilesNetManager
 import com.xl.kffta.net.taskmanager.WarnManager
+import com.xl.kffta.ui.activity.warn.WarnInfoDetailActivity
 import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.util.SysUtils
@@ -27,9 +29,12 @@ class WarnAddNormalFragment : WarnInfoBaseFragment() {
     // 是否要填充自己的信息
     private var mNeedFitUserInfo: Boolean = true
 
+    private var mTaskInfoBean: TaskInfoBean? = null
+
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         mNeedFitUserInfo = arguments?.getBoolean("showUserInfo", true) ?: true
         mIsFileOnlyShow = arguments?.getBoolean("fileOnlyShow", true) ?: true
+        mTaskInfoBean = arguments?.getSerializable(WarnInfoDetailActivity.TASK_INFO_BEAN) as TaskInfoBean?
         return super.initView(inflater, container, savedInstanceState)
     }
 
@@ -90,7 +95,13 @@ class WarnAddNormalFragment : WarnInfoBaseFragment() {
 
     override fun initDataItems(bean: Any) {
         mDatas.clear()
-        mDatas.add(WarnItemBean(label = "企业名称", editHint = "请输入企业名称", isBusinessAutoComplete = true, editAutoCompleteSingleLine = true))
+        // 根据有没有taskinfobean，判断企业名称是否赋值
+        if (mTaskInfoBean == null) {
+            mDatas.add(WarnItemBean(label = "企业名称", editHint = "请输入企业名称", isBusinessAutoComplete = true, editAutoCompleteSingleLine = true))
+        } else {
+            mDatas.add(WarnItemBean(label = "企业名称", value = mTaskInfoBean?.data?.business?.businessName
+                ?: ""))
+        }
         mDatas.add(WarnItemBean(label = "预警部门", isDepartmentAutoComplete = true, editHint = "请输入预警部门", value = ApplicationParams.USER_DEPARTMENT))
         mDatas.add(WarnItemBean(label = "预警信息", isEditAble = true, editHint = "请输入预警信息", isSingleLine = false))
         mDatas.add(WarnItemBean(label = "备注", isEditAble = true, editHint = "请输入备注", isSingleLine = false))
@@ -162,9 +173,16 @@ class WarnAddNormalFragment : WarnInfoBaseFragment() {
             warnUploadBean.departmentID = ApplicationParams.USER_DEPARTMENT_ID
         }
 
-        warnUploadBean.business.id = mAdapter.mBusinessInfoData?.id?.toInt() ?: 0
-        warnUploadBean.business.businessName = mAdapter.mBusinessInfoData?.businessName
-        warnUploadBean.businessID = mAdapter.mBusinessInfoData?.id ?: 0
+        // 企业部分要区分有没有taskinfobean
+        if (mTaskInfoBean == null) {
+            warnUploadBean.business.id = mAdapter.mBusinessInfoData?.id?.toInt() ?: 0
+            warnUploadBean.business.businessName = mAdapter.mBusinessInfoData?.businessName
+            warnUploadBean.businessID = mAdapter.mBusinessInfoData?.id ?: 0
+        } else {
+            warnUploadBean.business.id = mTaskInfoBean?.data?.business?.id ?: 0
+            warnUploadBean.business.businessName = mTaskInfoBean?.data?.business?.businessName ?: ""
+            warnUploadBean.businessID = mTaskInfoBean?.data?.businessID ?: 0
+        }
 
         warnUploadBean.content = mAdapter.mWarnResultMap["预警信息"]
         warnUploadBean.note = mAdapter.mWarnResultMap["备注"]

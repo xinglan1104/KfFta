@@ -464,7 +464,8 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
             }
 
             override fun onWarnClick() {
-                startActivity<WarnInfoDetailActivity>(WarnInfoDetailActivity.WARN_SOURCE to WarnInfoDetailActivity.WARN_FROM_ADD_NORMAL_TASK)
+                startActivity<WarnInfoDetailActivity>(WarnInfoDetailActivity.WARN_SOURCE to WarnInfoDetailActivity.WARN_FROM_ADD_NORMAL_TASK,
+                        WarnInfoDetailActivity.TASK_INFO_BEAN to mTaskInfoBean)
             }
 
             override fun onCancelClick() {
