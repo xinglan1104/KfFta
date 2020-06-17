@@ -23,5 +23,6 @@ data class LawCaseItemBean(
         var businessName: String = "",
         var businessCode: String = "",
         var isLocationAble: Boolean = false,
+        var isSingleLine: Boolean = true,// 是否显示单行的高度
         var commonFileBean: CommonFileBean? = null
 )

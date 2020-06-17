@@ -1,5 +1,7 @@
 package com.xl.kffta.model.warn;
 
+import com.xl.kffta.model.common.BusinessBean;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -122,6 +124,7 @@ public class WarnObjectsBean implements Serializable {
         private CreatorBean Creator;
         private int CreatorID;
         private DepartmentBean Department;
+        private BusinessBean Business;
         private int DepartmentID;
         private String Files;
         private int ID;
@@ -130,6 +133,14 @@ public class WarnObjectsBean implements Serializable {
 
         public String getCode() {
             return Code;
+        }
+
+        public BusinessBean getBusiness() {
+            return Business;
+        }
+
+        public void setBusiness(BusinessBean business) {
+            Business = business;
         }
 
         public void setCode(String Code) {

@@ -154,7 +154,7 @@ class WarnListActivity : BaseActivity() {
         var mHasNotified = false
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_lawcase_main, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_warn_list, parent, false)
             val noDataView = LayoutInflater.from(parent.context).inflate(R.layout.item_no_data, parent, false)
 
             return if (viewType == 0) {
@@ -168,7 +168,10 @@ class WarnListActivity : BaseActivity() {
             when (holder) {
                 is MyViewHolder -> {
                     val data = mDatas[position]
-                    holder.name.text = data.content ?: ""
+                    holder.label1.text = "编号"
+                    holder.label2.text = "企业名称"
+                    holder.value1.text = data.code
+                    holder.value2.text = data.business?.businessName ?: ""
                     holder.itemView.setOnClickListener {
                         context.startActivity<WarnInfoDetailActivity>(WarnInfoDetailActivity.WARN_SOURCE to WarnInfoDetailActivity.WARN_FROM_WARN_LIST,
                             WarnInfoDetailActivity.WARN_ID to data.id)
@@ -219,7 +222,10 @@ class WarnListActivity : BaseActivity() {
 
 
     private class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name = itemView.find<TextView>(R.id.lawcase_name)
+        val label1 = itemView.find<TextView>(R.id.warn_label1)
+        val value1 = itemView.find<TextView>(R.id.warn_value1)
+        val label2 = itemView.find<TextView>(R.id.warn_label2)
+        val value2 = itemView.find<TextView>(R.id.warn_value2)
     }
 
 }

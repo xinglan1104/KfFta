@@ -13,6 +13,7 @@ import com.xl.kffta.R
 import com.xl.kffta.model.BusinessInfoBean
 import com.xl.kffta.model.DepartmentInfoBean
 import com.xl.kffta.model.lawcase.LawCaseItemBean
+import com.xl.kffta.util.SysUtils
 import com.xl.kffta.viewholder.AddPictureFileViewHolder
 import com.xl.kffta.viewholder.AutoCompleteViewHolder
 import com.xl.kffta.viewholder.SelectBusniessViewHolder
@@ -117,6 +118,12 @@ class LawCaseDetailAdapter(val context: Context?, private val fileOnlyShow: Bool
             }
             is CaseDetailEditHolder -> {
                 val data = mDatas[position]
+                // 设置输入框的高度
+                if (data.isSingleLine) {
+                    holder.edit.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                } else {
+                    holder.edit.layoutParams.height = SysUtils.convertDpToPixel(70f)
+                }
                 holder.label.text = data.label
                 holder.edit.hint = data.editHintStr
                 holder.edit.setText(data.value)

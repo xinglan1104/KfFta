@@ -31,12 +31,12 @@
             android:imeOptions="actionGo"
             android:gravity="top|start"
             android:textColor="@color/text_value"
+            android:layout_marginRight="15dp"
             android:lineSpacingMultiplier="1.2"
             android:paddingRight="15dp"
-            android:lines="3"
             android:maxLines="3"
             android:textSize="14sp"
-            tools:text="阿打的分手的分手手的是的分手的阿打的分手的分手手的是的分手的分手的分手手的是dsdd的分手的ss的分手的" />
+            tools:text="手的是的分手的分的分手的ss的分手的" />
     </LinearLayout>
 
     <View

@@ -138,8 +138,8 @@ class LawCaseAddTaskFragment : LawCaseBaseFragment() {
             mDatas.add(LawCaseItemBean(label = "统一社会信用代码", value = bean.data?.business?.businessLicenseRegistrationNumber
                     ?: ""))
             mDatas.add(LawCaseItemBean(label = "部门", editHintStr = "请输入部门", isDepartmentAutoComplete = true, value = ApplicationParams.USER_DEPARTMENT))
-            mDatas.add(LawCaseItemBean(label = "线索(举报)内容", isEditable = true, editHintStr = "请输入线索或举报内容"))
-            mDatas.add(LawCaseItemBean(label = "备注", isEditable = true, editHintStr = "请输入备注信息"))
+            mDatas.add(LawCaseItemBean(label = "线索(举报)内容", isEditable = true, editHintStr = "请输入线索或举报内容", isSingleLine = false))
+            mDatas.add(LawCaseItemBean(label = "备注", isEditable = true, editHintStr = "请输入备注信息", isSingleLine = false))
             if (!TextUtils.isEmpty(ApplicationParams.TEMP_FILE_PATH)) {
                 mDatas.add(LawCaseItemBean(label = "附件", needUpload = true))
             }
