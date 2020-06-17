@@ -2,6 +2,7 @@ package com.xl.kffta.util;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.os.Build;
@@ -10,6 +11,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.xl.kffta.base.App;
 
@@ -346,7 +348,7 @@ public class SysUtils {
         time = time.replace("Date", "");
         long timestamp = SysUtils.parseLong(time);
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         Date sdDate = new Date(timestamp);
         return simpleDateFormat.format(sdDate);
     }
@@ -360,7 +362,7 @@ public class SysUtils {
         }
         try {
             String res;
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             Date date = simpleDateFormat.parse(s);
             long ts = date.getTime();
             res = String.valueOf(ts);
@@ -374,12 +376,25 @@ public class SysUtils {
         // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
         new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            public void onDateSet(DatePicker view, int yearPick, int monthOfYear, int dayOfMonth) {
                 // 此处得到选择的时间，可以进行你想要的操作
-                tv.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+
+                // 选完了年月日，就搞个时间弹窗
+                new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minutePicker) {
+                        // 给文本赋值
+                        tv.setText(String.format("%04d", yearPick) + "-" +
+                                String.format("%02d", monthOfYear + 1) + "-" +
+                                String.format("%02d", dayOfMonth) + " " +
+                                String.format("%02d", hourOfDay) + ":" +
+                                String.format("%02d", minutePicker));
+                    }
+                }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
             }
 
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+
     }
 
 
