@@ -21,6 +21,10 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.xl.kffta.R
 import com.xl.kffta.ui.activity.MainActivity
+import com.xl.kffta.util.ApplicationParams
+import android.app.ActivityManager
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 
 class LocationService : Service() {
@@ -38,7 +42,6 @@ class LocationService : Service() {
     var executorService: ScheduledExecutorService = Executors.newScheduledThreadPool(1)
 
     var mTaskList: MutableList<TaskInfo>? = null
-    var notification: Notification? = null
     var CHANNEL_ID = "com.example.recyclerviewtest.N1"
     var CHANNEL_NAME = "TEST"
     override fun onBind(intent: Intent): IBinder? {
@@ -50,8 +53,8 @@ class LocationService : Service() {
         super.onCreate()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            var notificationChannel:NotificationChannel ? = null
-            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+            var notificationChannel: NotificationChannel? = null
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 notificationChannel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH)
                 var notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
                 notificationManager.createNotificationChannel(notificationChannel);
@@ -73,7 +76,11 @@ class LocationService : Service() {
     }
 
     var executors: Runnable = Runnable {
-        queryTaskList()
+        if (ApplicationParams.TOKEN.isEmpty()) {
+            stopSelf()
+        } else {
+            queryTaskList()
+        }
     }
 
     fun queryTaskList() {
@@ -140,7 +147,9 @@ class LocationService : Service() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         Log.i(TAG, "onDestroy")
+        executorService.shutdownNow()
+        mLocationClient?.stopLocation()
+        super.onDestroy()
     }
 }

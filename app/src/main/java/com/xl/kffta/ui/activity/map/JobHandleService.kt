@@ -11,15 +11,14 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.util.Log
-
-
+import kotlinx.coroutines.newFixedThreadPoolContext
 
 
 @SuppressLint("NewApi")
 class JobHandleService : JobService() {
     private val TAG = "JobHandleService"
     private var kJobId = 10
-
+    private var locationService:Intent?=null
     //间隔时间--周期
     val jobInfo: JobInfo
         get() {
@@ -53,17 +52,22 @@ class JobHandleService : JobService() {
     }
 
     override fun onDestroy() {
+        Log.i(TAG,"onDestroy")
+        stopService(locationService)
         super.onDestroy()
     }
 
     override fun onStartJob(params: JobParameters): Boolean {
         val isLocalServiceWork = isServiceWork("com.xl.kffta.ui.activity.map.LocationService")
         Log.i(TAG, "isRunning==" + isLocalServiceWork)
+        if (locationService == null) {
+            locationService = Intent(this, LocationService::class.java)
+        }
         if (!isLocalServiceWork) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startForegroundService( Intent(this, LocationService::class.java))
+                startForegroundService(locationService)
             } else {
-                startService( Intent(this, LocationService::class.java))
+                startService(locationService)
             }
         }
         jobFinished(params, true)
@@ -86,6 +90,7 @@ class JobHandleService : JobService() {
         val tm = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
         tm?.schedule(t)
     }
+
     /**
      * 判断某个服务是否正在运行的方法
      *
