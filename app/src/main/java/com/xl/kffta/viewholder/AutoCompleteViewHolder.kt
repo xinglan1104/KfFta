@@ -3,6 +3,7 @@ package com.xl.kffta.viewholder
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
@@ -18,6 +19,7 @@ import org.jetbrains.anko.find
  */
 class AutoCompleteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val mAutoCompleteTv = itemView.find<AutoCompleteTextView>(R.id.department_value)
+    val mLabelTv = itemView.find<TextView>(R.id.department_label)
 
     private var mDepartmentInfoBean: DepartmentInfoBean? = null
     private var mAdapter: ArrayAdapter<String>? = null
@@ -47,6 +49,10 @@ class AutoCompleteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
                 }
             }
         }
+    }
+
+    fun setLabelText(label: String) {
+        mLabelTv.text = label
     }
 
     fun sendRequest(searchStr: String) {

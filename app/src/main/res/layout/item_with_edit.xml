@@ -29,11 +29,14 @@
             android:layout_toRightOf="@id/info_detail_et_label"
             android:background="@color/white"
             android:imeOptions="actionGo"
+            android:gravity="top|start"
             android:textColor="@color/text_value"
             android:lineSpacingMultiplier="1.2"
             android:paddingRight="15dp"
+            android:lines="3"
+            android:maxLines="3"
             android:textSize="14sp"
-            tools:text="阿打的分手的分手手的是的分手的" />
+            tools:text="阿打的分手的分手手的是的分手的阿打的分手的分手手的是的分手的分手的分手手的是dsdd的分手的ss的分手的" />
     </LinearLayout>
 
     <View

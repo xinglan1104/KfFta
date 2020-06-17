@@ -92,8 +92,8 @@ class WarnAddNormalFragment : WarnInfoBaseFragment() {
         mDatas.clear()
         mDatas.add(WarnItemBean(label = "企业名称", editHint = "请输入企业名称", isBusinessAutoComplete = true, editAutoCompleteSingleLine = true))
         mDatas.add(WarnItemBean(label = "预警部门", isDepartmentAutoComplete = true, editHint = "请输入预警部门", value = ApplicationParams.USER_DEPARTMENT))
-        mDatas.add(WarnItemBean(label = "预警信息", isEditAble = true, editHint = "请输入预警信息"))
-        mDatas.add(WarnItemBean(label = "备注", isEditAble = true, editHint = "请输入备注"))
+        mDatas.add(WarnItemBean(label = "预警信息", isEditAble = true, editHint = "请输入预警信息", isSingleLine = false))
+        mDatas.add(WarnItemBean(label = "备注", isEditAble = true, editHint = "请输入备注", isSingleLine = false))
         if (ApplicationParams.TEMP_FILE_PATH.isNotEmpty()) {
             mDatas.add(WarnItemBean(label = "附件", isUploadFile = true))
         }

@@ -13,6 +13,7 @@ import com.xl.kffta.R
 import com.xl.kffta.model.BusinessInfoBean
 import com.xl.kffta.model.DepartmentInfoBean
 import com.xl.kffta.model.warn.WarnItemBean
+import com.xl.kffta.util.SysUtils
 import com.xl.kffta.viewholder.AddPictureFileViewHolder
 import com.xl.kffta.viewholder.AutoCompleteViewHolder
 import com.xl.kffta.viewholder.SelectBusniessViewHolder
@@ -90,6 +91,12 @@ class WarnDetailAdapter(val context: Context?, private val fileOnlyShow: Boolean
                 mWarnResultMap[data.label] = data.value
             }
             is WarnEditHolder -> {
+                // 设置输入框的高度
+                if (data.isSingleLine) {
+                    holder.edit.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                } else {
+                    holder.edit.layoutParams.height = SysUtils.convertDpToPixel(70f)
+                }
                 holder.label.text = data.label
                 holder.edit.hint = data.editHint
                 holder.edit.setText(data.value)
@@ -117,6 +124,7 @@ class WarnDetailAdapter(val context: Context?, private val fileOnlyShow: Boolean
                 }
             }
             is AutoCompleteViewHolder -> {
+                holder.setLabelText(data.label)
                 holder.mAutoCompleteTv.hint = data.editHint
                 holder.mAutoCompleteTv.setText(data.value)
                 mWarnResultMap[data.label] = data.value

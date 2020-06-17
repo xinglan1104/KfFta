@@ -17,5 +17,6 @@ data class WarnItemBean(
         var commonFileBean: CommonFileBean? = null,
         var isBusinessAutoComplete: Boolean = false,
         var editAutoCompleteSingleLine: Boolean = true,
+        var isSingleLine: Boolean = true,// 输入框是否显示单行高度
         var isDepartmentAutoComplete: Boolean = false// 部门的自动完成文本
 )
