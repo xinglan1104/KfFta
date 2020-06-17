@@ -20,5 +20,6 @@ data class TaskItemInfo(
         var isLocationAble: Boolean = false,
         var needUpLoadFile: Boolean = false,
         var upLoadFileEnable: Boolean = false,
-        var commonFileBean: CommonFileBean? = null
+        var commonFileBean: CommonFileBean? = null,
+        var isSingleLine: Boolean = true //是否显示单行
 )

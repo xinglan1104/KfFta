@@ -368,8 +368,8 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                 } else {
                     // 待执行
                     mDatas.add(TaskItemInfo(label = "执法时间", isDatePicker = true))
-                    mDatas.add(TaskItemInfo(label = "检查结果", isEditable = true))
-                    mDatas.add(TaskItemInfo(label = "备注", isEditable = true))
+                    mDatas.add(TaskItemInfo(label = "检查结果", isEditable = true, isSingleLine = false))
+                    mDatas.add(TaskItemInfo(label = "备注", isEditable = true, isSingleLine = false))
                     mDatas.add(TaskItemInfo(label = "附件", needUpLoadFile = true, upLoadFileEnable = true))
 
                     // 等待执行的，不管如何，先清除对应的附件缓存

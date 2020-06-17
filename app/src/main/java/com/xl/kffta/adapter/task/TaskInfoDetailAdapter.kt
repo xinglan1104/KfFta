@@ -128,6 +128,12 @@ class TaskInfoDetailAdapter(var context: Context, var fileOnlyShow: Boolean) : R
                     }
                 }
                 is TaskInfoDetailEditHolder -> {
+                    // 设置输入框的高度
+                    if (it.isSingleLine) {
+                        holder.edit.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                    } else {
+                        holder.edit.layoutParams.height = SysUtils.convertDpToPixel(70f)
+                    }
                     // 编辑框的holder
                     holder.label.text = it.label
                     holder.edit.hint = "添加${it.label}"
