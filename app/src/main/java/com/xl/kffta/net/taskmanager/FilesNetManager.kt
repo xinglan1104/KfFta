@@ -230,6 +230,7 @@ object FilesNetManager {
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryFile?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
+        paramsMap["RequiredVideoThumbnail"] = "true"
         paramsMap["FileIDs"] = Gson().toJson(ids)
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
@@ -252,7 +253,7 @@ object FilesNetManager {
                                 // success
                                 // 手动添加url字段
                                 if (!simpleResponse.files.isNullOrEmpty()) {
-                                    val tokenString = Uri.encode(ApplicationParams.TOKEN);
+                                    val tokenString = Uri.encode(ApplicationParams.TOKEN)
                                     simpleResponse.files.forEach { fileBean ->
                                         fileBean.downloadUrl = "https://test.dynamictier.com/services2/serviceapi/web/DownloadFile?Token=${tokenString}&id=${fileBean.id}"
                                     }
