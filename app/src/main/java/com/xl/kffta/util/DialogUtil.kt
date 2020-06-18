@@ -1,6 +1,9 @@
 package com.xl.kffta.util
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -136,6 +139,28 @@ object DialogUtil {
         }
     }
 
+    /**
+     * 选择拨号界面
+     */
+    fun showBottomCallDialog(context: Context) {
+        context.setTheme(R.style.Dialog_Trans_Background)
+        val dialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_call, null)
+        MaterialDialog(context).show {
+            customView(view = dialogView, noVerticalPadding = true)
+            cornerRadius(0f)
+
+            window?.setGravity(Gravity.BOTTOM)
+            val customView = getCustomView()
+            customView.find<TextView>(R.id.dialog_call_cancel).setOnClickListener {
+                this.dismiss()
+            }
+            customView.find<TextView>(R.id.dialog_call_1).setOnClickListener {
+                this.dismiss()
+                call(context, (it as TextView).text.toString().trim())
+            }
+        }
+    }
+
     fun showSingleCommonDialog(context: Context?, title: String = "系统提示", msg: String) {
         context?.setTheme(R.style.AppTheme_NoActionBar)
         context?.let {
@@ -145,5 +170,14 @@ object DialogUtil {
                 positiveButton(text = "确定")
             }
         }
+    }
+
+    /**
+     * 调用拨号功能
+     * @param phone 电话号码
+     */
+    fun call(context: Context, phoneNumber: String) {
+        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:$phoneNumber"))
+        context.startActivity(intent)
     }
 }

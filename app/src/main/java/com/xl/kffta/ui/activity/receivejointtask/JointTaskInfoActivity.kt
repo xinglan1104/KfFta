@@ -119,6 +119,7 @@ class JointTaskInfoActivity : BaseActivity() {
         when (mInfoType) {
             JOINT_TASK_TYPE_RECEIVE -> {
                 title_name.text = "待领取项目检查任务详情"
+                title_media_layout.visibility = View.GONE
 
                 // 根据领取状态显示底部按钮
                 if (mTaskState == JointTaskListAdapter.TASK_HAS_TAKE) {
@@ -139,10 +140,21 @@ class JointTaskInfoActivity : BaseActivity() {
                 title_name.text = "执行项目检查任务详情"
                 if (mExeTaskState == JOINT_TASK_EXE_STATE_COMPLETE) {
                     joint_info_bottom_layout.visibility = View.GONE
+                    title_media_layout.visibility = View.GONE
                 } else {
+                    title_media_layout.visibility = View.VISIBLE
+                    // 设置拨号和直播
+                    title_phone.setOnClickListener {
+                        // 拨号
+                        DialogUtil.showBottomCallDialog(this)
+                    }
+                    title_live.setOnClickListener {
+                        // 直播
+                    }
+
                     joint_info_bottom_layout.visibility = View.VISIBLE
                     joint_info_back.text = "其他执法"
-                    joint_info_get.text = "执法完成"
+                    joint_info_get.text = "执法完毕"
                 }
             }
         }

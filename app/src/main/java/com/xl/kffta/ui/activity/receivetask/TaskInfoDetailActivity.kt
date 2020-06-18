@@ -142,6 +142,8 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                 task_info_get.text = "领取"
                 task_info_back.text = "退回"
 
+                title_media_layout.visibility = View.GONE
+
                 // 根据是否已经领取，搞最下面的按钮
                 if (taskGetState == GET_TASK_OK) {
                     // 已领取
@@ -163,13 +165,24 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                 // 根据是否执行了，搞下面的按钮
                 if (mTaskExeState == TASK_EXE_STATE_OVER) {
                     // 已领取
+                    title_media_layout.visibility = View.GONE
                     task_info_get.isEnabled = false
                     task_info_get.text = "已执行"
                     task_bottom_empty.visibility = View.GONE
                     task_info_back.visibility = View.GONE
                 } else {
+                    // 待执行完毕
+                    title_media_layout.visibility = View.VISIBLE
+                    // 设置拨号和直播
+                    title_phone.setOnClickListener {
+                        // 拨号
+                        DialogUtil.showBottomCallDialog(this)
+                    }
+                    title_live.setOnClickListener {
+                        // 直播
+                    }
                     task_info_get.isEnabled = true
-                    task_info_get.text = "执法完成"
+                    task_info_get.text = "执法完毕"
                     task_bottom_empty.visibility = View.VISIBLE
                     task_info_back.visibility = View.VISIBLE
                 }

@@ -12,9 +12,9 @@
         android:layout_alignParentRight="true"
         android:paddingLeft="20dp"
         android:paddingRight="14dp"
-        android:visibility="gone"
         android:scaleType="centerInside"
-        android:src="@drawable/icon_add" />
+        android:src="@drawable/icon_add"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/title_name"
@@ -37,4 +37,30 @@
         android:text="返回"
         android:textColor="@color/white"
         android:textSize="16sp" />
+
+    <LinearLayout
+        android:id="@+id/title_media_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/title_live"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_live" />
+
+        <ImageView
+            android:id="@+id/title_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="18dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_phone" />
+    </LinearLayout>
 </RelativeLayout>
