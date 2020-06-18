@@ -172,6 +172,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         super.onDestroy()
         jobHandleService?.let { stopService(it) }
         if (mForceQuit) {
+            ApplicationParams.TOKEN = ""
+            ApplicationParams.USER_PWD = ""
+            ApplicationParams.USER_NAME = ""
             exitProcess(0)
         }
     }
