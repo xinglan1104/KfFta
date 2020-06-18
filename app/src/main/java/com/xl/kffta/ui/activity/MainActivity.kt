@@ -23,8 +23,8 @@ import com.xl.kffta.ui.activity.receivetask.TakeOrderActivity
 import com.xl.kffta.ui.activity.warn.WarnListActivity
 import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.util.DialogUtil
+import kotlinx.android.synthetic.main.layout_title_bar.*
 import org.jetbrains.anko.debug
-import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import permissions.dispatcher.*
 import kotlin.system.exitProcess
@@ -38,14 +38,17 @@ import kotlin.system.exitProcess
 class MainActivity : BaseActivity(), View.OnClickListener {
     private var mForceQuit = false
 
-    private var jobHandleService:Intent?=null
+    private var jobHandleService: Intent? = null
 
     override val loggerTag: String
         get() = "MainActivity"
 
     override fun initViews() {
-        findViewById<View>(R.id.title_left).visibility = View.GONE
+        findViewById<View>(R.id.title_left).visibility = View.VISIBLE
         (findViewById<View>(R.id.title_name) as TextView).text = "智慧执法"
+
+        title_left.text = "退出"
+        title_left.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_logout, 0, 0, 0)
     }
 
     override fun initListener() {
@@ -59,8 +62,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         findViewById<View>(R.id.main_layout_8).setOnClickListener(this)
         findViewById<View>(R.id.main_layout_9).setOnClickListener(this)
 
-        find<TextView>(R.id.login_out).setOnClickListener(this)
-
+        title_left.setOnClickListener(this)
         // 获取权限
         onlyCheckLocationPermissionWithPermissionCheck()
     }
@@ -122,7 +124,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 startActivity<WarnListActivity>()
             }
             R.id.main_layout_8 -> startActivity(Intent(this@MainActivity, LegalProvisonActivity::class.java))
-            R.id.login_out -> {
+            R.id.title_left -> {
                 // 登出
                 DialogUtil.showCommonDialog(this, "确定注销该账户吗", object : DialogUtil.OnDialogOkClick {
                     override fun onDialogOkClick() {
@@ -179,7 +181,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     @NeedsPermission(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
     fun onlyCheckLocationPermission() {
         debug("获取定位权限")
-        jobHandleService = Intent(this@MainActivity,JobHandleService::class.java)
+        jobHandleService = Intent(this@MainActivity, JobHandleService::class.java)
         startService(jobHandleService)
     }
 

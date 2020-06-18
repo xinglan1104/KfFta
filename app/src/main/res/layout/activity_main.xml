@@ -374,20 +374,6 @@
                     android:textSize="16sp"
                     tools:text="20" />
             </RelativeLayout>
-
-
-            <TextView
-                android:id="@+id/login_out"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="30sp"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/shape_grey_btn"
-                android:gravity="center"
-                android:text="登出"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
