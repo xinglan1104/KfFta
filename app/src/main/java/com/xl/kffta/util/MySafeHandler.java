@@ -44,11 +44,11 @@ import java.lang.ref.WeakReference;
 /**
  * 安全的handler
  */
-public class HtscSafeHandler extends Handler {
+public class MySafeHandler extends Handler {
 
     private final WeakReference<HandlerUser> handlerUser;
 
-    public HtscSafeHandler(HandlerUser callback) {
+    public MySafeHandler(HandlerUser callback) {
         handlerUser = new WeakReference<>(callback);
     }
 

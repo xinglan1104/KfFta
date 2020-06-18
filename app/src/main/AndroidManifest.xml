@@ -57,6 +57,12 @@
         </activity>
 
         <activity
+            android:name=".ui.activity.MobileLoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+
+        <activity
             android:name=".ui.activity.ForgetPwdActivity"
             android:exported="false"
             android:screenOrientation="portrait"
