@@ -21,7 +21,7 @@ object LegalLawManager {
     /**
      * 根据pagecode查询不同类型的法律条文
      */
-    fun queryLegalProvision(pageCode: String, pageSize: Int, callback: ResponseObjectCallback) {
+    fun queryLegalProvision(pageCode: String, searchStr: String, pageSize: Int, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
         requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()
@@ -29,6 +29,7 @@ object LegalLawManager {
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.LegalProvision"
         paramsMap["PageCode"] = pageCode
         paramsMap["Take"] = pageSize.toString()
+        paramsMap["CommonSearchKey"] = searchStr
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {
