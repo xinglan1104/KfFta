@@ -73,6 +73,11 @@ class LoginActivity : BaseActivity(), ILoginView {
             startActivity<ForgetPwdActivity>()
         }
 
+        // 手机登陆
+        login_mobile.setOnClickListener {
+            startActivity<MobileLoginActivity>()
+        }
+
 //        addLayoutListener(login_main, login_btn)
     }
 

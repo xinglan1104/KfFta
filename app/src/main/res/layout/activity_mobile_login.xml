@@ -106,12 +106,11 @@
                 android:background="@drawable/shape_login_et"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.xl.kffta.widget.CountDownTextView
                     android:id="@+id/mobile_get"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="获取验证码"
                     android:textColor="@color/btn_common_color"
                     android:textSize="14sp" />
             </LinearLayout>
