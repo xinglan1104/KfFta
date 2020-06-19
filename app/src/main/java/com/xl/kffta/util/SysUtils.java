@@ -5,13 +5,19 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import androidx.annotation.ColorRes;
+import androidx.core.content.ContextCompat;
 
 import com.xl.kffta.base.App;
 
@@ -24,9 +30,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import androidx.annotation.ColorRes;
-import androidx.core.content.ContextCompat;
 
 public class SysUtils {
 
@@ -530,5 +533,14 @@ public class SysUtils {
         }
 
         return ids;
+    }
+
+    /**
+     * 把Base64字符串转换成bitmap
+     */
+    public static Bitmap base64ToBitmap(String base64String) {
+        byte[] decode = Base64.decode(base64String, Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(decode, 0, decode.length);
+        return bitmap;
     }
 }

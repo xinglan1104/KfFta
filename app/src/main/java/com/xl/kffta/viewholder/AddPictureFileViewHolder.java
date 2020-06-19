@@ -137,6 +137,10 @@ public class AddPictureFileViewHolder extends RecyclerView.ViewHolder {
                 return;
             } else if (type.startsWith("video") || type.startsWith("image")) {
                 media.setPath(file.getDownloadUrl());
+                media.setMimeType(type);
+                if (type.startsWith("video")) {
+                    media.setParentFolderName(file.getPrivateURL());//用于储存服务器给的缩略图 暂用该值
+                }
                 showList.add(media);
             }
         }

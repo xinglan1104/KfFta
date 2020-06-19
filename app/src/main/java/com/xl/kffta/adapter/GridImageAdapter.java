@@ -1,6 +1,7 @@
 package com.xl.kffta.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,8 +24,10 @@ import com.xl.kffta.R;
 import com.xl.kffta.base.App;
 import com.xl.kffta.base.LifeCycleManager;
 import com.xl.kffta.net.taskmanager.FilesNetManager;
+import com.xl.kffta.util.SysUtils;
 import com.xl.kffta.viewholder.AddPictureFileViewHolder;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -246,6 +249,14 @@ public class GridImageAdapter extends
             if (chooseModel == PictureMimeType.ofAudio()) {
                 viewHolder.mImg.setImageResource(R.drawable.picture_audio_placeholder);
             } else {
+                if (showType == AddPictureFileViewHolder.TYPE_SHOW && PictureMimeType.isHasVideo(media.getMimeType())) {
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    Bitmap bitmap = SysUtils.base64ToBitmap(media.getParentFolderName());
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                    byte[] bytes = baos.toByteArray();
+                    Glide.with(viewHolder.itemView.getContext()).load(bytes).into(viewHolder.mImg);
+                    return;
+                }
                 if (showType == AddPictureFileViewHolder.TYPE_SHOW) {
                     path = media.getPath();
                 }
