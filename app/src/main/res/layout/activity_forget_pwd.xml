@@ -2,60 +2,91 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_bg"
+    android:background="@drawable/login_new_bg"
     android:orientation="vertical">
 
     <include layout="@layout/layout_title_bar" />
 
-    <EditText
-        android:id="@+id/pwd_comcode_et"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="@dimen/login_left_right_margin"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="240dp"
         android:layout_marginRight="@dimen/login_left_right_margin"
-        android:background="@drawable/login_et_bg"
-        android:hint="公司编号"
-        android:maxLines="1"
-        android:paddingLeft="15dp" />
+        android:background="@drawable/shape_login_et"
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/pwd_name_et"
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_user" />
+
+        <EditText
+            android:id="@+id/pwd_name_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="25dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:hint="输入用户名"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="@dimen/login_left_right_margin"
         android:layout_marginTop="20dp"
         android:layout_marginRight="@dimen/login_left_right_margin"
-        android:background="@drawable/login_et_bg"
-        android:hint="用户名"
-        android:maxLines="1"
-        android:paddingLeft="15dp" />
+        android:background="@drawable/shape_login_et"
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/pwd_email_et"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="@dimen/login_left_right_margin"
-        android:background="@drawable/login_et_bg"
-        android:hint="邮箱"
-        android:maxLines="1"
-        android:paddingLeft="15dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_pwd" />
+
+        <EditText
+            android:id="@+id/pwd_email_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="25dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:hint="输入邮箱"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/pwd_submit_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="@dimen/login_left_right_margin"
         android:layout_marginTop="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/selector_common_btn"
-        android:enabled="false"
+        android:layout_marginRight="@dimen/login_left_right_margin"
+        android:background="@drawable/shape_login_btn_bg"
+        android:gravity="center"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:text="提  交"
         android:textColor="@color/white"
-        android:textSize="20sp" />
-
+        android:textSize="18sp" />
 </LinearLayout>

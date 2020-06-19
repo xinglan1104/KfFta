@@ -38,9 +38,18 @@ class MobileLoginActivity : BaseActivity() {
             }
 
         }
+
+        mobile_login_mobile.setOnClickListener {
+            finish()
+        }
+
         mobile_get.setOnClickListener {
             it as CountDownTextView
             it.startCountDown(60)
         }
+    }
+
+    override fun initStateBar() {
+        setStatusBarTransparent()
     }
 }

@@ -32,21 +32,15 @@ class ForgetPwdActivity : BaseActivity() {
         }
 
         pwd_name_et.doOnTextChanged { text, start, before, count ->
-            if (!TextUtils.isEmpty(pwd_comcode_et.text.toString().trim()) && !TextUtils.isEmpty(pwd_email_et.text.toString().trim())) {
+            if (!TextUtils.isEmpty(pwd_email_et.text.toString().trim())) {
                 pwd_submit_btn.isEnabled = !TextUtils.isEmpty(text)
             } else {
                 pwd_submit_btn.isEnabled = false
             }
         }
-        pwd_comcode_et.doOnTextChanged { text, start, before, count ->
-            if (!TextUtils.isEmpty(pwd_name_et.text.toString().trim()) && !TextUtils.isEmpty(pwd_email_et.text.toString().trim())) {
-                pwd_submit_btn.isEnabled = !TextUtils.isEmpty(text)
-            } else {
-                pwd_submit_btn.isEnabled = false
-            }
-        }
+
         pwd_email_et.doOnTextChanged { text, start, before, count ->
-            if (!TextUtils.isEmpty(pwd_name_et.text.toString().trim()) && !TextUtils.isEmpty(pwd_comcode_et.text.toString().trim())) {
+            if (!TextUtils.isEmpty(pwd_name_et.text.toString().trim())) {
                 pwd_submit_btn.isEnabled = !TextUtils.isEmpty(text)
             } else {
                 pwd_submit_btn.isEnabled = false

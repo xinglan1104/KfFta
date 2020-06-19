@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="160dp"
             android:scaleType="centerInside"
             android:src="@drawable/login_new_logo" />
 
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="@dimen/login_left_right_margin"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="100dp"
             android:layout_marginRight="@dimen/login_left_right_margin"
             android:background="@drawable/shape_login_et"
             android:orientation="horizontal">
@@ -51,7 +51,7 @@
                 android:gravity="center_vertical"
                 android:hint="输入手机号"
                 android:imeOptions="actionDone"
-                android:inputType="text"
+                android:inputType="number"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="@color/black"
@@ -89,7 +89,7 @@
                     android:layout_marginRight="25dp"
                     android:background="@color/white"
                     android:gravity="center_vertical"
-                    android:hint="输入密码"
+                    android:hint="输入验证码"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:maxLines="1"
@@ -142,9 +142,9 @@
                 android:id="@+id/mobile_login_mobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/login_mobile"
+                android:drawableLeft="@drawable/login_account"
                 android:padding="10dp"
-                android:text="账号登录"
+                android:text="用户名密码登录"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
         </RelativeLayout>

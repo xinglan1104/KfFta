@@ -44,11 +44,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         get() = "MainActivity"
 
     override fun initViews() {
-        findViewById<View>(R.id.title_left).visibility = View.VISIBLE
+        title_left.visibility = View.GONE
+        title_logout.visibility = View.VISIBLE
         (findViewById<View>(R.id.title_name) as TextView).text = "智慧执法"
 
-        title_left.text = "退出"
-        title_left.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_logout, 0, 0, 0)
     }
 
     override fun initListener() {
@@ -62,7 +61,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         findViewById<View>(R.id.main_layout_8).setOnClickListener(this)
         findViewById<View>(R.id.main_layout_9).setOnClickListener(this)
 
-        title_left.setOnClickListener(this)
+        title_logout.setOnClickListener(this)
         // 获取权限
         onlyCheckLocationPermissionWithPermissionCheck()
     }
@@ -124,7 +123,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 startActivity<WarnListActivity>()
             }
             R.id.main_layout_8 -> startActivity(Intent(this@MainActivity, LegalProvisonActivity::class.java))
-            R.id.title_left -> {
+            R.id.title_logout -> {
                 // 登出
                 DialogUtil.showCommonDialog(this, "确定注销该账户吗", object : DialogUtil.OnDialogOkClick {
                     override fun onDialogOkClick() {
