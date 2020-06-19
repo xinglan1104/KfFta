@@ -76,7 +76,15 @@ class JointTaskInfoAdapter(val context: Context, private val fileOnlyShow: Boole
                     } else if (jointTaskInfoItem.isDatePicker) {
                         // 时间选择器
                         // 如果是时间选择器
-                        holder.value.text = "请选择日期"
+//                        holder.value.text = "请选择日期"
+                        // 默认使用当前时间
+                        holder.value.text = if (jointTaskInfoItem.value.isEmpty()) {
+                            mDateSelected = ""
+                            "请选择日期"
+                        } else {
+                            mDateSelected = jointTaskInfoItem.value
+                            jointTaskInfoItem.value
+                        }
                         holder.value.setTextColor(context.resources.getColorStateList(R.color.text_value))
                         holder.value.doOnTextChanged { text, start, before, count ->
                             mDateSelected = text.toString().trim()

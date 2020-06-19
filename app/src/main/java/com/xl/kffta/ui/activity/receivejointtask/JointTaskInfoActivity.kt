@@ -352,7 +352,7 @@ class JointTaskInfoActivity : BaseActivity() {
                     }
 
                 } else {
-                    mDatas.add(JointTaskInfoItem(label = "执法时间", isDatePicker = true))
+                    mDatas.add(JointTaskInfoItem(label = "执法时间", value = SysUtils.getFormatTime(System.currentTimeMillis()), isDatePicker = true))
                     mDatas.add(JointTaskInfoItem(label = "检查结果", isEditable = true))
                     mDatas.add(JointTaskInfoItem(label = "备注", isEditable = true))
 

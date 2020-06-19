@@ -353,6 +353,18 @@ public class SysUtils {
         return simpleDateFormat.format(sdDate);
     }
 
+    /**
+     * 时间戳转换为时间
+     *
+     * @param millionSecond
+     * @return
+     */
+    public static String getFormatTime(long millionSecond) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+        Date sdDate = new Date(millionSecond);
+        return simpleDateFormat.format(sdDate);
+    }
+
     /*
      * 将时间转换为时间戳
      */
