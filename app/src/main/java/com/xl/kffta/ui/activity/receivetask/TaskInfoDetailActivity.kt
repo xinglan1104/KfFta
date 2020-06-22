@@ -259,7 +259,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                                 // 需要完整输入
                                 val tipStr = when {
                                     taskInfoBean.data.result.isNullOrEmpty() -> "请输入检查结果"
-                                    taskInfoBean.data.note.isNullOrEmpty() -> "请输入备注"
+//                                    taskInfoBean.data.note.isNullOrEmpty() -> "请输入备注" //备注非必填项
                                     mAdapter.mDateSelected.isEmpty() -> "请选择日期"
                                     else -> ""
                                 }

@@ -237,7 +237,7 @@ class JointTaskInfoActivity : BaseActivity() {
                                 // 需要完整输入
                                 val tipStr = when {
                                     jointTaskInfoBean.data.result.isNullOrEmpty() -> "请输入检查结果"
-                                    jointTaskInfoBean.data.note.isNullOrEmpty() -> "请输入备注"
+//                                    jointTaskInfoBean.data.note.isNullOrEmpty() -> "请输入备注" // 备注非必填项
                                     mAdapter.mDateSelected.isEmpty() -> "请选择日期"
                                     else -> ""
                                 }
