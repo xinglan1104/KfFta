@@ -200,6 +200,9 @@ class LawCaseDetailAdapter(val context: Context?, private val fileOnlyShow: Bool
                     "提供者地址" -> {
                         continue@loop
                     }
+                    "备注" -> {
+                        continue@loop
+                    }
                     else -> {
                         "请输入$key"
                     }
