@@ -134,7 +134,8 @@
                 android:text="@string/forget_pwd"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                android:textStyle="" />
+                android:textStyle=""
+                android:visibility="gone" />
         </RelativeLayout>
     </LinearLayout>
 </FrameLayout>

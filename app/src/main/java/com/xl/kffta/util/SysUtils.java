@@ -16,9 +16,6 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import androidx.annotation.ColorRes;
-import androidx.core.content.ContextCompat;
-
 import com.xl.kffta.base.App;
 
 import org.apache.commons.lang3.StringUtils;
@@ -30,6 +27,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import androidx.annotation.ColorRes;
+import androidx.core.content.ContextCompat;
+
+import static java.util.regex.Pattern.compile;
 
 public class SysUtils {
 
@@ -412,6 +414,12 @@ public class SysUtils {
 
     }
 
+    /**
+     * 校验手机号码
+     */
+    public static boolean validateMobilePhone(String in) {
+        return compile("^[1]\\d{10}$").matcher(in).matches();
+    }
 
     public static Activity getActivity(Context context) {
         while (context instanceof ContextWrapper) {

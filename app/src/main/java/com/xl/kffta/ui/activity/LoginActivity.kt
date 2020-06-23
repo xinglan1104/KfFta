@@ -33,7 +33,7 @@ class LoginActivity : BaseActivity(), ILoginView {
         super.initViews()
 
         // 如果有token，就直接进入主界面
-        login_main.visibility = if (ApplicationParams.TOKEN.isEmpty() || ApplicationParams.USER_NAME.isEmpty() || ApplicationParams.USER_PWD.isEmpty()) {
+        login_main.visibility = if (ApplicationParams.TOKEN.isEmpty() || ApplicationParams.USER_NAME.isEmpty()) {
             View.VISIBLE
         } else {
             View.GONE
@@ -45,6 +45,13 @@ class LoginActivity : BaseActivity(), ILoginView {
                 startActivity<MainActivity>()
                 // 默默调用登陆接口更新数据
                 TaskNetManager.loginRequestInBg(ApplicationParams.USER_NAME, ApplicationParams.USER_PWD, "kaifeng")
+                finish()
+            }, 1000)
+        } else if (login_main.visibility == View.GONE) {
+            // 如果之前是短信登陆，那就不调用接口更新数据，直接用保存本地的一些数据
+            mHandler.postDelayed({
+                // 直接登陆
+                startActivity<MainActivity>()
                 finish()
             }, 1000)
         }
@@ -73,6 +80,7 @@ class LoginActivity : BaseActivity(), ILoginView {
         // 手机登陆
         login_mobile.setOnClickListener {
             startActivity<MobileLoginActivity>()
+            finish()
         }
 
 //        addLayoutListener(login_main, login_btn)

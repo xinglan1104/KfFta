@@ -137,7 +137,7 @@ class CountDownTextView : AppCompatTextView, LifecycleObserver {
 
                 val l = tiemUint.convert(count, TimeUnit.MILLISECONDS)
 
-                val showTime = "${l}s"
+                val showTime = "重新发送${String.format("%02d", l)}s"
 
                 countDownListener?.onTick(l, showTime, this@CountDownTextView)
             }

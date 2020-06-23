@@ -307,4 +307,113 @@ object TaskNetManager {
         }
         NetManager.manager.sendRequest(requestBuilder)
     }
+
+    /**
+     * 调用发送验证码接口
+     */
+    fun requestVerifyCode(phoneNumber: String, ComCode: String, callback: ResponseObjectCallback) {
+        val requestBuilder = RequestBuilder()
+        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/SendLoginSmsCode?format=json"
+        val paramsMap = hashMapOf<String, String>()
+        paramsMap["CompanyCode"] = ComCode
+        paramsMap["PhoneNumber"] = phoneNumber
+        requestBuilder.addParams(paramsMap)
+        requestBuilder.callback = object : ResponseCallback {
+            override fun onError(msg: String?) {
+                callback.onError("请求失败")
+                Log.e(TAG, "请求失败")
+            }
+
+            override fun onSuccess(jsonString: String) {
+                if (!TextUtils.isEmpty(jsonString)) {
+                    // 直接把Json转换成javaBean
+                    try {
+                        val simpleResponse: SimpleResponseBean? = Gson().fromJson(jsonString, SimpleResponseBean::class.java)
+                        if (simpleResponse == null) {
+                            callback.onError("解析错误")
+                        } else {
+                            // 获取ErrorCode,<0时错误
+                            if (simpleResponse.errorCode < 0) {
+                                callback.onError(simpleResponse.error ?: "解析错误")
+                            } else {
+                                // success
+                                callback.onSuccess("success")
+                            }
+                        }
+                    } catch (e: Exception) {
+                        callback.onError(e.message ?: "解析错误")
+                    }
+                } else {
+                    callback.onError("请求返回为空")
+                }
+            }
+
+        }
+        NetManager.manager.sendRequest(requestBuilder)
+    }
+
+    /**
+     * 调用登陆接口，更新数据
+     */
+    fun loginRequestByMobile(phoneNumber: String, verifyCode: String, ComCode: String, callback: ResponseObjectCallback) {
+        val requestBuilder = RequestBuilder()
+        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/AccountSignIn?format=json"
+        val paramsMap = hashMapOf<String, String>()
+        paramsMap["PhoneNumber"] = phoneNumber
+        paramsMap["PhoneCode"] = verifyCode
+        paramsMap["CompanyCode"] = ComCode
+        requestBuilder.addParams(paramsMap)
+        requestBuilder.callback = object : ResponseCallback {
+            override fun onError(msg: String?) {
+                callback.onError(msg ?: "请求失败")
+                Log.e(TAG, "请求失败")
+            }
+
+            override fun onSuccess(jsonString: String) {
+                if (!TextUtils.isEmpty(jsonString)) {
+                    // 直接把Json转换成javaBean
+                    try {
+                        val userInfoBean: UserInfoBean? = Gson().fromJson(jsonString, UserInfoBean::class.java)
+                        if (userInfoBean == null) {
+                            callback.onError("请求失败")
+                            Log.e(TAG, "请求失败")
+                        } else {
+                            // 获取ErrorCode,<0时错误
+                            if (userInfoBean.errorCode < 0) {
+                                Log.e(TAG, "请求失败")
+                                callback.onError(userInfoBean.error ?: "请求失败")
+                            } else {
+                                // 请求成功，把token保存下来
+                                ApplicationParams.TOKEN = userInfoBean.token
+                                ApplicationParams.USER_ID = userInfoBean.user?.id ?: 0L
+                                ApplicationParams.USER_NAME = userInfoBean.user?.userName ?: ""
+                                // 如果是短信登陆，密码需要滞空
+                                ApplicationParams.USER_PWD = ""
+                                ApplicationParams.USER_PHONE = userInfoBean.user?.mobilePhone ?: ""
+                                ApplicationParams.USER_ADDRESS = userInfoBean.user?.additionInfo
+                                        ?: ""
+                                ApplicationParams.USER_INFO_BEAN = userInfoBean
+                                // 获取用户属于的部门
+                                val departments = userInfoBean.user?.department
+                                if (!departments.isNullOrEmpty()) {
+                                    ApplicationParams.USER_DEPARTMENT = departments[0].name
+                                    ApplicationParams.USER_DEPARTMENT_ID = departments[0].id.toLong()
+                                }
+                                callback.onSuccess(userInfoBean)
+                                Log.d("net", "TOKEN:${ApplicationParams.TOKEN}")
+                            }
+                        }
+                    } catch (e: Exception) {
+                        callback.onError("请求失败")
+                        Log.e(TAG, "请求失败")
+                    }
+                } else {
+                    callback.onError("请求失败")
+                    Log.e(TAG, "请求失败")
+                }
+            }
+
+        }
+        NetManager.manager.sendRequest(requestBuilder)
+    }
 }
