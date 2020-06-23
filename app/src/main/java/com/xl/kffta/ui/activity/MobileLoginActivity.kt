@@ -86,15 +86,12 @@ class MobileLoginActivity : BaseActivity() {
     }
 
     private fun sendVerifyCode(phoneNumber: String) {
-        showProgress()
         TaskNetManager.requestVerifyCode(phoneNumber, "kaifeng", object : ResponseObjectCallback {
             override fun onError(msg: String) {
-                hideProgress()
                 myToast(msg)
             }
 
             override fun onSuccess(obj: Any) {
-                hideProgress()
                 myToast("验证码已发送")
             }
 
