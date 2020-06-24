@@ -38,7 +38,7 @@ class ExecuteJointTaskListActivity : BaseActivity() {
 
 
     private var mPageIndex = 0
-    private var mPageSize = 50
+    private var mPageSize = 100
 
     private var mJointExeState = JOINT_EXE_TASK_PENDING
 

@@ -1,12 +1,19 @@
 package com.xl.kffta.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -15,6 +22,7 @@ import android.util.TypedValue;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.xl.kffta.base.App;
 
@@ -26,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.ColorRes;
@@ -431,6 +440,119 @@ public class SysUtils {
         }
 
         return null;
+    }
+
+    private static Intent getAppOpenIntentByPackageName(Context context, String packageName) {
+        //Activity完整名
+        String mainAct = null;
+        //根据包名寻找
+        PackageManager pkgMag = context.getPackageManager();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        intent.setFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        @SuppressLint("WrongConstant") List<ResolveInfo> list = pkgMag.queryIntentActivities(intent, PackageManager.GET_ACTIVITIES);
+        for (int i = 0; i < list.size(); i++) {
+            ResolveInfo info = list.get(i);
+            if (info.activityInfo.packageName.equals(packageName)) {
+                mainAct = info.activityInfo.name;
+                break;
+            }
+        }
+        if (TextUtils.isEmpty(mainAct)) {
+            return null;
+        }
+        intent.setComponent(new ComponentName(packageName, mainAct));
+        return intent;
+    }
+
+    private static Context getPackageContext(Context context, String packageName) {
+        Context pkgContext = null;
+        if (context.getPackageName().equals(packageName)) {
+            pkgContext = context;
+        } else {
+            // 创建第三方应用的上下文环境
+            try {
+                pkgContext = context.createPackageContext(packageName,
+                        Context.CONTEXT_IGNORE_SECURITY
+                                | Context.CONTEXT_INCLUDE_CODE);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        return pkgContext;
+    }
+
+    private static boolean openPackage(Context context, String packageName) {
+        Context pkgContext = getPackageContext(context, packageName);
+        Intent intent = getAppOpenIntentByPackageName(context, packageName);
+        if (pkgContext != null && intent != null) {
+            pkgContext.startActivity(intent);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 检查包是否存在
+     *
+     * @param packname
+     * @return
+     */
+    private static boolean checkPackInfo(Context context, String packname) {
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = context.getPackageManager().getPackageInfo(packname, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return packageInfo != null;
+    }
+
+    /**
+     * 通过包名 在应用商店打开应用
+     *
+     * @param context     上下文
+     * @param packageName 包名 com.cmcc.android.ysx
+     * @param url         下载App的官方链接 https://download.125339.com.cn
+     */
+    private static void openApplicationMarket(Context context, String packageName, String url) {
+        try {
+            String str = "market://details?id=" + packageName;
+            Intent localIntent = new Intent(Intent.ACTION_VIEW);
+            localIntent.setData(Uri.parse(str));
+            context.startActivity(localIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 调用系统浏览器进行下载
+            Toast.makeText(context, "打开应用商店失败", Toast.LENGTH_SHORT).show();
+            openLinkBySystem(context, url);
+        }
+    }
+
+    /**
+     * 调用系统浏览器打开网页或下载链接
+     *
+     * @param url 地址
+     */
+
+    private static void openLinkBySystem(Context context, String url) {
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        context.startActivity(intent);
+    }
+
+    public static void openYsxApp(Context context, String packname) {
+        if (checkPackInfo(context, packname)) {
+            openPackage(context, packname);
+        } else {
+            DialogUtil.INSTANCE.showCommonDialog(context, "您还未安装移动云视讯，是否前往商店下载", new DialogUtil.OnDialogOkClick() {
+                @Override
+                public void onDialogOkClick() {
+                    openApplicationMarket(context, "com.cmcc.android.ysx", "https://download.125339.com.cn");
+                }
+            });
+        }
     }
 
     public static byte[] readStream(String imagepath) throws Exception {

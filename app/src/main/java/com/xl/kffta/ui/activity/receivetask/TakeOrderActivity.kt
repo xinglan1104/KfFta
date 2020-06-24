@@ -76,7 +76,7 @@ class TakeOrderActivity : BaseActivity(), ITakeOrderView {
     }
 
     private fun sendRequest() {
-        mPresenter?.queryTask("0", "0", "50")
+        mPresenter?.queryTask("0", "0", "100")
         showProgress()
     }
 

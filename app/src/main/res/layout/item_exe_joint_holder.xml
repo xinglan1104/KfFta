@@ -100,11 +100,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/exe_joint_layout_4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:id="@+id/exe_joint_layout_4"
         android:orientation="horizontal">
 
         <TextView
@@ -133,11 +133,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/exe_joint_layout_5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:id="@+id/exe_joint_layout_5"
         android:orientation="horizontal">
 
         <TextView
@@ -165,19 +165,21 @@
             tools:text="随机抽取随机抽取随机抽取" />
     </LinearLayout>
 
-        <TextView
-            android:id="@+id/exe_joint_btn1"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/selector_common_btn"
-            android:enabled="true"
-            android:gravity="center"
-            android:text="执行"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+    <TextView
+        android:id="@+id/exe_joint_btn1"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_weight="1"
+        android:background="@drawable/selector_common_btn"
+        android:ellipsize="end"
+        android:enabled="true"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="开始执行项目检查任务"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
     <View
         android:layout_width="match_parent"

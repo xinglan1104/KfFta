@@ -150,6 +150,7 @@ class JointTaskInfoActivity : BaseActivity() {
                     }
                     title_live.setOnClickListener {
                         // 直播
+                        SysUtils.openYsxApp(this, "com.cmcc.android.ysx")
                     }
 
                     joint_info_bottom_layout.visibility = View.VISIBLE

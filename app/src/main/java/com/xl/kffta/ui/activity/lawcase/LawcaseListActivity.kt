@@ -30,7 +30,7 @@ import org.jetbrains.anko.startActivity
  */
 class LawcaseListActivity : BaseActivity() {
     companion object {
-        private const val PAGE_SIZE = 50
+        private const val PAGE_SIZE = 100
 
         private const val HANDLER_REFRESH_SUCCESS = 0x520
         private const val HANDLER_SEND_ET = 0x521

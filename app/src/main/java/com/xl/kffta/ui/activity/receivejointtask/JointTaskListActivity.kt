@@ -27,7 +27,7 @@ class JointTaskListActivity : BaseActivity() {
     }
 
     private var mPageIndex = 0
-    private var mPageSize = 50
+    private var mPageSize = 100
 
     override fun getLayoutId(): Int {
         // 直接套用领取任务的布局

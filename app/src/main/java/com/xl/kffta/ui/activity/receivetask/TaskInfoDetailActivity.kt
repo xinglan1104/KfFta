@@ -180,6 +180,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                     }
                     title_live.setOnClickListener {
                         // 直播
+                        SysUtils.openYsxApp(this, "com.cmcc.android.ysx")
                     }
                     task_info_get.isEnabled = true
                     task_info_get.text = "执法完毕"

@@ -117,7 +117,7 @@ class ExecuteListActivity : BaseActivity() {
      */
     private fun sendRequest() {
         showProgress()
-        TaskNetManager.queryExecuteTaskList(pageCode = 0, pageSize = 50, searchStr = exe_list_search?.text.toString()
+        TaskNetManager.queryExecuteTaskList(pageCode = 0, pageSize = 100, searchStr = exe_list_search?.text.toString()
                 ?: "", excutionStatus = if (mExeTaskType == EXE_TASK_PENDING) {
             "0"
         } else {

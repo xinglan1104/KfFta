@@ -30,7 +30,7 @@ class LegalProvisionListActivity : BaseActivity() {
         const val TITLE_STRING = "titleString"
         const val PAGE_CODE = "PageCode"
 
-        private const val PAGE_SIZE = 50
+        private const val PAGE_SIZE = 100
 
         private const val HANDLER_REFRESHALL_SUCCESS = 0x430
         private const val HANDLER_SEND_ET = 0x431
