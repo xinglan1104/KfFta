@@ -1,10 +1,15 @@
 package com.xl.kffta.net
 
 import android.util.Log
+import com.zhy.http.okhttp.OkHttpUtils
+import com.zhy.http.okhttp.https.HttpsUtils
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.File
 import java.io.IOException
+import java.util.concurrent.TimeUnit
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.SSLSession
 
 /**
  * @author created by zhanghaochen
@@ -13,13 +18,28 @@ import java.io.IOException
  */
 class NetManager private constructor() {
     private val client by lazy {
-        OkHttpClient()
+        val cli = OkHttpClient.Builder()
+                .connectTimeout(10000L, TimeUnit.MILLISECONDS)
+                .readTimeout(10000L, TimeUnit.MILLISECONDS)
+                .hostnameVerifier(object : HostnameVerifier {
+                    override fun verify(hostname: String?, session: SSLSession?): Boolean {
+                        return true
+                    }
+                })
+                .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
+                .build()
+        OkHttpUtils.initClient(cli)
+        return@lazy cli
     }
 
     companion object {
         val manager by lazy {
             NetManager()
         }
+    }
+
+    private val sslParams by lazy {
+        HttpsUtils.getSslSocketFactory(null, null, null)
     }
 
     fun sendRequest(req: RequestBuilder) {

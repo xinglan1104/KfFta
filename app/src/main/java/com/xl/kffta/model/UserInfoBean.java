@@ -1,5 +1,7 @@
 package com.xl.kffta.model;
 
+import com.xl.kffta.model.common.DepartmentBean;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,21 +12,9 @@ import java.util.List;
  */
 public class UserInfoBean implements Serializable {
 
-    /**
-     * Token : 10423@4578@MH5xmOlP2nuAmq3hVZkyjPr/q4vGQqmQYD49DFkPNiF9fH1U363yobpqazZsbrnS
-     * User : {"Desc":null,"RealName":null,"AccountCode":null,"Password":"96e79218965eb72c92a549dd5a330112","Email":"76834423@qq.com","MobilePhone":null,"Status":0,"UserType":0,"Level":null,"Files":null,"R1":null,"R2":null,"DF1":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":"6643443","AdditionInfo":null,"UpperAccountID":0,"UpperAccount":null,"ResetPassOnNextLogin":false,"ParentPath":[0,10423],"RoleIDs":[982],"Role":[{"ID":982,"CompanyID":4578,"Name":"admin","Desc":null,"Status":1,"Operations":[],"LastModifyByID":-1,"Timestamp":"/Date(1587370700796)/","PageCode":0,"CreatorID":-1,"CreateTime":"/Date(1587370700796)/","AdditionInfo":null,"DF1":null,"DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null}],"Operation":null,"ModuleIDs":null,"DepartmentIDs":[903],"Department":[{"ID":903,"CompanyID":4578,"Name":"Admin","DepartmentCode":"admin","ParentID":0,"Parent":null,"ParentPath":[0,903],"Status":1,"OrganizationType":0,"LastModifyByID":10423,"Timestamp":"/Date(1588918252470)/","Labels":[],"DepartmentManagerIDs":[],"DepartmentManager":[],"ColorCode":null,"PageCode":0,"BusinessAreaIDs":[1430],"BusinessArea":[],"CreatorID":-1,"CreateTime":"/Date(1587370697568)/","AdditionInfo":null,"DF1":"刘强","DF2":null,"DF3":null,"DF4":null,"DF5":null,"DF6":null,"DF7":null,"DF8":null,"DF9":null,"DF10":null}],"GroupIDs":[],"Group":[],"LabelIDs":[],"SessionInfo":[{"Key":"cx23vtds0bsz1z5aox5cag1r","Value":"222.67.12.195","ValuePage":"","Direction":0,"ExtraInfo":null,"InnerReference":null}],"LastActivityTime":"/Date(1589797810016)/","Delegator":null,"ChannelAdmin":null,"UploadFileFolder":null,"TempUploadFileFolder":null,"WorkflowPrivilegeMode":false,"ThemeID":0,"InitPassword":null,"IgnoreLangTranslation":false,"RoundDecimal":2,"CurrencyRoundDecimal":2,"CurrencySumRoundDecimal":2,"RateRoundDecimal":5,"CurrencyComparisonRoundDecimal":2,"ComparisonRoundDecimal":2,"IsOwner":true,"PageCode":0,"CreatorID":-1,"CreateTime":"/Date(1587370703644)/","LastModifyByID":-1,"Timestamp":"/Date(1589797846852)/","CheckReleaseNoteDate":"/Date(1588089600000)/","IsChannelManager":false,"ID":10423,"UserName":"admin","DisplayName":"admin","CompanyID":4578,"Representative":null,"Lang":"zh-CN","TimezoneStr":null,"Timezone":{"Id":null,"DisplayName":"","StandardName":"","DaylightName":"","BaseUtcOffset":"PT0S","SupportsDaylightSavingTime":false},"InvisibleMode":false,"CurrentProductTemplateInfo":null}
-     * BindType : null
-     * BindInfo : null
-     * CompanyName : kaifeng
-     * Error : null
-     * ErrorCode : 0
-     * ResponseStatus : null
-     * EncryptionData : null
-     * AESEncryptionKey : null
-     */
-
     private String Token;
     private UserBean User;
+    private int BaseUtcOffsetTotalSeconds;
     private String CompanyName;
     private String Error;
     private int ErrorCode;
@@ -43,6 +33,14 @@ public class UserInfoBean implements Serializable {
 
     public void setUser(UserBean User) {
         this.User = User;
+    }
+
+    public int getBaseUtcOffsetTotalSeconds() {
+        return BaseUtcOffsetTotalSeconds;
+    }
+
+    public void setBaseUtcOffsetTotalSeconds(int BaseUtcOffsetTotalSeconds) {
+        this.BaseUtcOffsetTotalSeconds = BaseUtcOffsetTotalSeconds;
     }
 
     public String getCompanyName() {
@@ -70,68 +68,50 @@ public class UserInfoBean implements Serializable {
     }
 
     public static class UserBean {
-        private String Desc;
-        private String RealName;
-        private String AccountCode;
+
         private String Password;
         private String Email;
         private String MobilePhone;
         private int Status;
         private int UserType;
-        private String Level;
-        private String Files;
+        private Object Level;
+        private Object Files;
+        private String DF10;
         private String AdditionInfo;
         private int UpperAccountID;
-        private String UpperAccount;
         private boolean ResetPassOnNextLogin;
-        private String Operation;
-        private String ModuleIDs;
-        private String LastActivityTime;
+        private boolean WorkflowPrivilegeMode;
         private int ThemeID;
-        private String InitPassword;
+        private Object InitPassword;
         private boolean IgnoreLangTranslation;
+        private int RoundDecimal;
+        private int CurrencyRoundDecimal;
+        private int CurrencySumRoundDecimal;
+        private int RateRoundDecimal;
+        private int CurrencyComparisonRoundDecimal;
+        private int ComparisonRoundDecimal;
         private boolean IsOwner;
+        private int PageCode;
         private int CreatorID;
         private String CreateTime;
+        private int LastModifyByID;
         private String Timestamp;
+        private String CheckReleaseNoteDate;
         private boolean IsChannelManager;
         private long ID;
         private String UserName;
         private String DisplayName;
         private int CompanyID;
-        private String Representative;
         private String Lang;
         private String TimezoneStr;
-        private TimezoneBean Timezone;
+        private String Timezone;
         private boolean InvisibleMode;
-        private String CurrentProductTemplateInfo;
+        private List<Integer> ParentPath;
+        private List<Integer> RoleIDs;
         private List<RoleBean> Role;
+        private List<Integer> DepartmentIDs;
         private List<DepartmentBean> Department;
         private List<SessionInfoBean> SessionInfo;
-
-        public String getDesc() {
-            return Desc;
-        }
-
-        public void setDesc(String Desc) {
-            this.Desc = Desc;
-        }
-
-        public String getRealName() {
-            return RealName;
-        }
-
-        public void setRealName(String RealName) {
-            this.RealName = RealName;
-        }
-
-        public String getAccountCode() {
-            return AccountCode;
-        }
-
-        public void setAccountCode(String AccountCode) {
-            this.AccountCode = AccountCode;
-        }
 
         public String getPassword() {
             return Password;
@@ -173,22 +153,29 @@ public class UserInfoBean implements Serializable {
             this.UserType = UserType;
         }
 
-        public String getLevel() {
+        public Object getLevel() {
             return Level;
         }
 
-        public void setLevel(String Level) {
+        public void setLevel(Object Level) {
             this.Level = Level;
         }
 
-        public String getFiles() {
+        public Object getFiles() {
             return Files;
         }
 
-        public void setFiles(String Files) {
+        public void setFiles(Object Files) {
             this.Files = Files;
         }
 
+        public String getDF10() {
+            return DF10;
+        }
+
+        public void setDF10(String DF10) {
+            this.DF10 = DF10;
+        }
 
         public String getAdditionInfo() {
             return AdditionInfo;
@@ -206,14 +193,6 @@ public class UserInfoBean implements Serializable {
             this.UpperAccountID = UpperAccountID;
         }
 
-        public String getUpperAccount() {
-            return UpperAccount;
-        }
-
-        public void setUpperAccount(String UpperAccount) {
-            this.UpperAccount = UpperAccount;
-        }
-
         public boolean isResetPassOnNextLogin() {
             return ResetPassOnNextLogin;
         }
@@ -222,28 +201,12 @@ public class UserInfoBean implements Serializable {
             this.ResetPassOnNextLogin = ResetPassOnNextLogin;
         }
 
-        public String getOperation() {
-            return Operation;
+        public boolean isWorkflowPrivilegeMode() {
+            return WorkflowPrivilegeMode;
         }
 
-        public void setOperation(String Operation) {
-            this.Operation = Operation;
-        }
-
-        public String getModuleIDs() {
-            return ModuleIDs;
-        }
-
-        public void setModuleIDs(String ModuleIDs) {
-            this.ModuleIDs = ModuleIDs;
-        }
-
-        public String getLastActivityTime() {
-            return LastActivityTime;
-        }
-
-        public void setLastActivityTime(String LastActivityTime) {
-            this.LastActivityTime = LastActivityTime;
+        public void setWorkflowPrivilegeMode(boolean WorkflowPrivilegeMode) {
+            this.WorkflowPrivilegeMode = WorkflowPrivilegeMode;
         }
 
         public int getThemeID() {
@@ -254,11 +217,11 @@ public class UserInfoBean implements Serializable {
             this.ThemeID = ThemeID;
         }
 
-        public String getInitPassword() {
+        public Object getInitPassword() {
             return InitPassword;
         }
 
-        public void setInitPassword(String InitPassword) {
+        public void setInitPassword(Object InitPassword) {
             this.InitPassword = InitPassword;
         }
 
@@ -270,12 +233,68 @@ public class UserInfoBean implements Serializable {
             this.IgnoreLangTranslation = IgnoreLangTranslation;
         }
 
+        public int getRoundDecimal() {
+            return RoundDecimal;
+        }
+
+        public void setRoundDecimal(int RoundDecimal) {
+            this.RoundDecimal = RoundDecimal;
+        }
+
+        public int getCurrencyRoundDecimal() {
+            return CurrencyRoundDecimal;
+        }
+
+        public void setCurrencyRoundDecimal(int CurrencyRoundDecimal) {
+            this.CurrencyRoundDecimal = CurrencyRoundDecimal;
+        }
+
+        public int getCurrencySumRoundDecimal() {
+            return CurrencySumRoundDecimal;
+        }
+
+        public void setCurrencySumRoundDecimal(int CurrencySumRoundDecimal) {
+            this.CurrencySumRoundDecimal = CurrencySumRoundDecimal;
+        }
+
+        public int getRateRoundDecimal() {
+            return RateRoundDecimal;
+        }
+
+        public void setRateRoundDecimal(int RateRoundDecimal) {
+            this.RateRoundDecimal = RateRoundDecimal;
+        }
+
+        public int getCurrencyComparisonRoundDecimal() {
+            return CurrencyComparisonRoundDecimal;
+        }
+
+        public void setCurrencyComparisonRoundDecimal(int CurrencyComparisonRoundDecimal) {
+            this.CurrencyComparisonRoundDecimal = CurrencyComparisonRoundDecimal;
+        }
+
+        public int getComparisonRoundDecimal() {
+            return ComparisonRoundDecimal;
+        }
+
+        public void setComparisonRoundDecimal(int ComparisonRoundDecimal) {
+            this.ComparisonRoundDecimal = ComparisonRoundDecimal;
+        }
+
         public boolean isIsOwner() {
             return IsOwner;
         }
 
         public void setIsOwner(boolean IsOwner) {
             this.IsOwner = IsOwner;
+        }
+
+        public int getPageCode() {
+            return PageCode;
+        }
+
+        public void setPageCode(int PageCode) {
+            this.PageCode = PageCode;
         }
 
         public int getCreatorID() {
@@ -294,12 +313,28 @@ public class UserInfoBean implements Serializable {
             this.CreateTime = CreateTime;
         }
 
+        public int getLastModifyByID() {
+            return LastModifyByID;
+        }
+
+        public void setLastModifyByID(int LastModifyByID) {
+            this.LastModifyByID = LastModifyByID;
+        }
+
         public String getTimestamp() {
             return Timestamp;
         }
 
         public void setTimestamp(String Timestamp) {
             this.Timestamp = Timestamp;
+        }
+
+        public String getCheckReleaseNoteDate() {
+            return CheckReleaseNoteDate;
+        }
+
+        public void setCheckReleaseNoteDate(String CheckReleaseNoteDate) {
+            this.CheckReleaseNoteDate = CheckReleaseNoteDate;
         }
 
         public boolean isIsChannelManager() {
@@ -342,14 +377,6 @@ public class UserInfoBean implements Serializable {
             this.CompanyID = CompanyID;
         }
 
-        public String getRepresentative() {
-            return Representative;
-        }
-
-        public void setRepresentative(String Representative) {
-            this.Representative = Representative;
-        }
-
         public String getLang() {
             return Lang;
         }
@@ -366,11 +393,11 @@ public class UserInfoBean implements Serializable {
             this.TimezoneStr = TimezoneStr;
         }
 
-        public TimezoneBean getTimezone() {
+        public String getTimezone() {
             return Timezone;
         }
 
-        public void setTimezone(TimezoneBean Timezone) {
+        public void setTimezone(String Timezone) {
             this.Timezone = Timezone;
         }
 
@@ -382,12 +409,20 @@ public class UserInfoBean implements Serializable {
             this.InvisibleMode = InvisibleMode;
         }
 
-        public String getCurrentProductTemplateInfo() {
-            return CurrentProductTemplateInfo;
+        public List<Integer> getParentPath() {
+            return ParentPath;
         }
 
-        public void setCurrentProductTemplateInfo(String CurrentProductTemplateInfo) {
-            this.CurrentProductTemplateInfo = CurrentProductTemplateInfo;
+        public void setParentPath(List<Integer> ParentPath) {
+            this.ParentPath = ParentPath;
+        }
+
+        public List<Integer> getRoleIDs() {
+            return RoleIDs;
+        }
+
+        public void setRoleIDs(List<Integer> RoleIDs) {
+            this.RoleIDs = RoleIDs;
         }
 
         public List<RoleBean> getRole() {
@@ -396,6 +431,14 @@ public class UserInfoBean implements Serializable {
 
         public void setRole(List<RoleBean> Role) {
             this.Role = Role;
+        }
+
+        public List<Integer> getDepartmentIDs() {
+            return DepartmentIDs;
+        }
+
+        public void setDepartmentIDs(List<Integer> DepartmentIDs) {
+            this.DepartmentIDs = DepartmentIDs;
         }
 
         public List<DepartmentBean> getDepartment() {
@@ -414,102 +457,10 @@ public class UserInfoBean implements Serializable {
             this.SessionInfo = SessionInfo;
         }
 
-        public static class TimezoneBean {
-            /**
-             * Id : null
-             * DisplayName :
-             * StandardName :
-             * DaylightName :
-             * BaseUtcOffset : PT0S
-             * SupportsDaylightSavingTime : false
-             */
-
-            private String Id;
-            private String DisplayName;
-            private String StandardName;
-            private String DaylightName;
-            private String BaseUtcOffset;
-            private boolean SupportsDaylightSavingTime;
-
-            public String getId() {
-                return Id;
-            }
-
-            public void setId(String Id) {
-                this.Id = Id;
-            }
-
-            public String getDisplayName() {
-                return DisplayName;
-            }
-
-            public void setDisplayName(String DisplayName) {
-                this.DisplayName = DisplayName;
-            }
-
-            public String getStandardName() {
-                return StandardName;
-            }
-
-            public void setStandardName(String StandardName) {
-                this.StandardName = StandardName;
-            }
-
-            public String getDaylightName() {
-                return DaylightName;
-            }
-
-            public void setDaylightName(String DaylightName) {
-                this.DaylightName = DaylightName;
-            }
-
-            public String getBaseUtcOffset() {
-                return BaseUtcOffset;
-            }
-
-            public void setBaseUtcOffset(String BaseUtcOffset) {
-                this.BaseUtcOffset = BaseUtcOffset;
-            }
-
-            public boolean isSupportsDaylightSavingTime() {
-                return SupportsDaylightSavingTime;
-            }
-
-            public void setSupportsDaylightSavingTime(boolean SupportsDaylightSavingTime) {
-                this.SupportsDaylightSavingTime = SupportsDaylightSavingTime;
-            }
-        }
-
         public static class RoleBean {
-            /**
-             * ID : 982
-             * CompanyID : 4578
-             * Name : admin
-             * Desc : null
-             * Status : 1
-             * Operations : []
-             * LastModifyByID : -1
-             * Timestamp : /Date(1587370700796)/
-             * PageCode : 0
-             * CreatorID : -1
-             * CreateTime : /Date(1587370700796)/
-             * AdditionInfo : null
-             * DF1 : null
-             * DF2 : null
-             * DF3 : null
-             * DF4 : null
-             * DF5 : null
-             * DF6 : null
-             * DF7 : null
-             * DF8 : null
-             * DF9 : null
-             * DF10 : null
-             */
-
             private int ID;
             private int CompanyID;
             private String Name;
-            private String Desc;
             private int Status;
             private int LastModifyByID;
             private String Timestamp;
@@ -539,14 +490,6 @@ public class UserInfoBean implements Serializable {
 
             public void setName(String Name) {
                 this.Name = Name;
-            }
-
-            public String getDesc() {
-                return Desc;
-            }
-
-            public void setDesc(String Desc) {
-                this.Desc = Desc;
             }
 
             public int getStatus() {
@@ -595,186 +538,13 @@ public class UserInfoBean implements Serializable {
 
             public void setCreateTime(String CreateTime) {
                 this.CreateTime = CreateTime;
-            }
-
-        }
-
-        public static class DepartmentBean {
-            /**
-             * ID : 903
-             * CompanyID : 4578
-             * Name : Admin
-             * DepartmentCode : admin
-             * ParentID : 0
-             * Parent : null
-             * ParentPath : [0,903]
-             * Status : 1
-             * OrganizationType : 0
-             * LastModifyByID : 10423
-             * Timestamp : /Date(1588918252470)/
-             * Labels : []
-             * DepartmentManagerIDs : []
-             * DepartmentManager : []
-             * ColorCode : null
-             * PageCode : 0
-             * BusinessAreaIDs : [1430]
-             * BusinessArea : []
-             * CreatorID : -1
-             * CreateTime : /Date(1587370697568)/
-             * AdditionInfo : null
-             * DF1 : 刘强
-             * DF2 : null
-             * DF3 : null
-             * DF4 : null
-             * DF5 : null
-             * DF6 : null
-             * DF7 : null
-             * DF8 : null
-             * DF9 : null
-             * DF10 : null
-             */
-
-            private int ID;
-            private int CompanyID;
-            private String Name;
-            private String DepartmentCode;
-            private int ParentID;
-            private String Parent;
-            private int Status;
-            private int OrganizationType;
-            private int LastModifyByID;
-            private String Timestamp;
-            private String ColorCode;
-            private int PageCode;
-            private int CreatorID;
-            private String CreateTime;
-            private String AdditionInfo;
-
-            public int getID() {
-                return ID;
-            }
-
-            public void setID(int ID) {
-                this.ID = ID;
-            }
-
-            public int getCompanyID() {
-                return CompanyID;
-            }
-
-            public void setCompanyID(int CompanyID) {
-                this.CompanyID = CompanyID;
-            }
-
-            public String getName() {
-                return Name;
-            }
-
-            public void setName(String Name) {
-                this.Name = Name;
-            }
-
-            public String getDepartmentCode() {
-                return DepartmentCode;
-            }
-
-            public void setDepartmentCode(String DepartmentCode) {
-                this.DepartmentCode = DepartmentCode;
-            }
-
-            public int getParentID() {
-                return ParentID;
-            }
-
-            public void setParentID(int ParentID) {
-                this.ParentID = ParentID;
-            }
-
-            public String getParent() {
-                return Parent;
-            }
-
-            public void setParent(String Parent) {
-                this.Parent = Parent;
-            }
-
-            public int getStatus() {
-                return Status;
-            }
-
-            public void setStatus(int Status) {
-                this.Status = Status;
-            }
-
-            public int getOrganizationType() {
-                return OrganizationType;
-            }
-
-            public void setOrganizationType(int OrganizationType) {
-                this.OrganizationType = OrganizationType;
-            }
-
-            public int getLastModifyByID() {
-                return LastModifyByID;
-            }
-
-            public void setLastModifyByID(int LastModifyByID) {
-                this.LastModifyByID = LastModifyByID;
-            }
-
-            public String getTimestamp() {
-                return Timestamp;
-            }
-
-            public void setTimestamp(String Timestamp) {
-                this.Timestamp = Timestamp;
-            }
-
-            public String getColorCode() {
-                return ColorCode;
-            }
-
-            public void setColorCode(String ColorCode) {
-                this.ColorCode = ColorCode;
-            }
-
-            public int getPageCode() {
-                return PageCode;
-            }
-
-            public void setPageCode(int PageCode) {
-                this.PageCode = PageCode;
-            }
-
-            public int getCreatorID() {
-                return CreatorID;
-            }
-
-            public void setCreatorID(int CreatorID) {
-                this.CreatorID = CreatorID;
-            }
-
-            public String getCreateTime() {
-                return CreateTime;
-            }
-
-            public void setCreateTime(String CreateTime) {
-                this.CreateTime = CreateTime;
-            }
-
-            public String getAdditionInfo() {
-                return AdditionInfo;
-            }
-
-            public void setAdditionInfo(String AdditionInfo) {
-                this.AdditionInfo = AdditionInfo;
             }
         }
 
         public static class SessionInfoBean {
             /**
-             * Key : cx23vtds0bsz1z5aox5cag1r
-             * Value : 222.67.12.195
+             * Key : 52wlshvpn0yq52ihmwmtbkgd
+             * Value : 61.177.128.130
              * ValuePage :
              * Direction : 0
              * ExtraInfo : null
@@ -785,6 +555,8 @@ public class UserInfoBean implements Serializable {
             private String Value;
             private String ValuePage;
             private int Direction;
+            private Object ExtraInfo;
+            private Object InnerReference;
 
             public String getKey() {
                 return Key;
@@ -816,6 +588,22 @@ public class UserInfoBean implements Serializable {
 
             public void setDirection(int Direction) {
                 this.Direction = Direction;
+            }
+
+            public Object getExtraInfo() {
+                return ExtraInfo;
+            }
+
+            public void setExtraInfo(Object ExtraInfo) {
+                this.ExtraInfo = ExtraInfo;
+            }
+
+            public Object getInnerReference() {
+                return InnerReference;
+            }
+
+            public void setInnerReference(Object InnerReference) {
+                this.InnerReference = InnerReference;
             }
         }
     }
