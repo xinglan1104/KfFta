@@ -73,7 +73,7 @@ class MapViewActivity : BaseActivity() {
         //禁止缩放
         settings?.setZoomGesturesEnabled(false)
         //禁止滑动手势
-        settings?.setScrollGesturesEnabled(false)
+        settings?.setScrollGesturesEnabled(true)
     }
 
     @NeedsPermission(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
