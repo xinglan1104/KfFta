@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.xl.kffta.R
+import com.xl.kffta.base.App
 import com.xl.kffta.base.BaseActivity
 import com.xl.kffta.model.QueryTaskCountBean
 import com.xl.kffta.net.ResponseObjectCallback
@@ -24,6 +25,7 @@ import com.xl.kffta.ui.activity.warn.WarnListActivity
 import com.xl.kffta.util.ApplicationParams
 import com.xl.kffta.util.DialogUtil
 import kotlinx.android.synthetic.main.layout_title_bar.*
+import me.leolin.shortcutbadger.ShortcutBadger
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.startActivity
 import permissions.dispatcher.*
@@ -82,6 +84,14 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                     (findViewById<View>(R.id.main_count_4) as TextView).text = bean.pendingExcutedProjectTaskCount.toString()
                     (findViewById<View>(R.id.main_count_5) as TextView).text = bean.excutedEnforcementTaskCount.toString()
                     (findViewById<View>(R.id.main_count_6) as TextView).text = bean.excutedProjectTaskCount.toString()
+
+                    // 更新桌面图标未读数
+                    val count = bean.pendingClaimedEnforcementTaskCount + bean.pendingExcutedEnforcementTaskCount + bean.pendingClaimedProjectTaskCount + bean.pendingExcutedProjectTaskCount
+                    if (count < 1) {
+                        ShortcutBadger.removeCount(App.instance)
+                    } else {
+                        ShortcutBadger.applyCount(App.instance, count)
+                    }
                 }
 
                 mHandler.removeMessages(HANDLER_REFRESH_COUNT)
