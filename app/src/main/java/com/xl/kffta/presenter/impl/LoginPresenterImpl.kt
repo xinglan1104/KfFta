@@ -27,7 +27,7 @@ class LoginPresenterImpl : ILoginPresenter {
 
     override fun loginRequest(name: String, pwd: String, ComCode: String) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/AccountSignIn?format=json"
+        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/AccountSignIn?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["CompanyCode"] = ComCode
         paramsMap["Username"] = name

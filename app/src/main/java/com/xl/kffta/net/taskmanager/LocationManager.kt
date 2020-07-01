@@ -23,7 +23,7 @@ object LocationManager {
 
     fun uploadLocationInfo(uploadLacation: LocationUploadBean) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/AddOrUpdateObject?format=json"
+        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/AddOrUpdateObject?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Common.ObjectPosition"

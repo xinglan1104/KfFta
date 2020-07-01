@@ -23,7 +23,7 @@ object LegalLawManager {
      */
     fun queryLegalProvision(pageCode: String, searchStr: String, pageSize: Int, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjects?format=json"
+        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.LegalProvision"

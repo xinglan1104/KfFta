@@ -33,7 +33,7 @@ object JointTaskManager {
      */
     fun queryJointTask(pageCode: Int, pageSize: Int, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjects?format=json"
+        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentJointSupervisionTask"
@@ -81,7 +81,7 @@ object JointTaskManager {
      */
     fun getOrCancelJointTask(id: String, get: Boolean, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/ClaimOrUnClaim?format=json"
+        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/ClaimOrUnClaim?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentJointSupervisionTask"
@@ -130,7 +130,7 @@ object JointTaskManager {
      */
     fun queryJointTaskById(id: String, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjectByID?format=json"
+        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/QueryObjectByID?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentJointSupervisionTask"
@@ -176,7 +176,7 @@ object JointTaskManager {
      */
     fun queryExecuteJointTaskList(pageCode: Int, pageSize: Int, searchStr: String, excutionStatus: String, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjects?format=json"
+        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentJointSupervisionTask"
@@ -225,7 +225,7 @@ object JointTaskManager {
      */
     fun updateJointTaskState(jointTaskBean: JointTaskInfoBean, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/AddOrUpdateObject?format=json"
+        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/AddOrUpdateObject?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentJointSupervisionTask"

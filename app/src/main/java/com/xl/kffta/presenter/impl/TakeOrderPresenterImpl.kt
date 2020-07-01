@@ -33,7 +33,7 @@ class TakeOrderPresenterImpl : ITakeOrderPresenter {
      */
     override fun queryTask(pageCode: String, skip: String, take: String) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://test.dynamictier.com/services2/serviceapi/web/QueryObjects?format=json"
+        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["PageCode"] = pageCode
