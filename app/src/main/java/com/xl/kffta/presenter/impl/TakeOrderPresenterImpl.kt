@@ -7,6 +7,7 @@ import com.xl.kffta.net.RequestBuilder
 import com.xl.kffta.net.ResponseCallback
 import com.xl.kffta.presenter.interf.ITakeOrderPresenter
 import com.xl.kffta.util.ApplicationParams
+import com.xl.kffta.util.ApplicationParams.HTTP_URL_HEAD
 import com.xl.kffta.view.ITakeOrderView
 
 /**
@@ -33,7 +34,7 @@ class TakeOrderPresenterImpl : ITakeOrderPresenter {
      */
     override fun queryTask(pageCode: String, skip: String, take: String) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/QueryObjects?format=json"
+        requestBuilder.url = "${HTTP_URL_HEAD}/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["PageCode"] = pageCode

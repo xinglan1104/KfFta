@@ -12,6 +12,7 @@ import com.xl.kffta.net.NetManager
 import com.xl.kffta.net.RequestBuilder
 import com.xl.kffta.net.ResponseCallback
 import com.xl.kffta.util.ApplicationParams
+import com.xl.kffta.util.ApplicationParams.HTTP_URL_HEAD
 
 /**
  * @author created by zhanghaochen
@@ -23,7 +24,7 @@ object LocationManager {
 
     fun uploadLocationInfo(uploadLacation: LocationUploadBean) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/AddOrUpdateObject?format=json"
+        requestBuilder.url = "${HTTP_URL_HEAD}/web/AddOrUpdateObject?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Common.ObjectPosition"

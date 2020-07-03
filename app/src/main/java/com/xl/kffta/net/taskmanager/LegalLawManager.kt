@@ -9,6 +9,7 @@ import com.xl.kffta.net.RequestBuilder
 import com.xl.kffta.net.ResponseCallback
 import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.util.ApplicationParams
+import com.xl.kffta.util.ApplicationParams.HTTP_URL_HEAD
 
 /**
  * @author created by zhanghaochen
@@ -23,7 +24,7 @@ object LegalLawManager {
      */
     fun queryLegalProvision(pageCode: String, searchStr: String, pageSize: Int, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/QueryObjects?format=json"
+        requestBuilder.url = "${HTTP_URL_HEAD}/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.LegalProvision"

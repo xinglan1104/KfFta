@@ -13,6 +13,7 @@ import com.xl.kffta.net.RequestBuilder
 import com.xl.kffta.net.ResponseCallback
 import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.util.ApplicationParams
+import com.xl.kffta.util.ApplicationParams.HTTP_URL_HEAD
 import com.xl.kffta.viewholder.AddPictureFileViewHolder
 
 /**
@@ -39,7 +40,7 @@ object FilesNetManager {
         }
         val requestBuilder = RequestBuilder()
         val paramsMap = hashMapOf<String, String>()
-        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/AddFile?format=json"
+        requestBuilder.url = "${HTTP_URL_HEAD}/web/AddFile?format=json"
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["FilePath"] = ApplicationParams.TEMP_FILE_PATH
         requestBuilder.addParams(paramsMap)
@@ -87,7 +88,7 @@ object FilesNetManager {
         }
         val requestBuilder = RequestBuilder()
         val paramsMap = hashMapOf<String, String>()
-        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/DeleteTempFile?format=json"
+        requestBuilder.url = "${HTTP_URL_HEAD}/web/DeleteTempFile?format=json"
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["FileName"] = filePath
         paramsMap["FilePath"] = fileName
@@ -138,7 +139,7 @@ object FilesNetManager {
      */
     fun emptyTempFolder(filePath: String) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/EmptyTempFolder?format=json"
+        requestBuilder.url = "${HTTP_URL_HEAD}/web/EmptyTempFolder?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["FilePath"] = filePath
@@ -180,7 +181,7 @@ object FilesNetManager {
      */
     fun getUploadFilePath(codeName: String, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/GetFileUnic?format=json"
+        requestBuilder.url = "${HTTP_URL_HEAD}/web/GetFileUnic?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["CodeName"] = codeName
         paramsMap["Token"] = ApplicationParams.TOKEN
@@ -227,7 +228,7 @@ object FilesNetManager {
             return
         }
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/QueryFile?format=json"
+        requestBuilder.url = "${HTTP_URL_HEAD}/web/QueryFile?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["RequiredVideoThumbnail"] = "true"
@@ -255,7 +256,7 @@ object FilesNetManager {
                                 if (!simpleResponse.files.isNullOrEmpty()) {
                                     val tokenString = Uri.encode(ApplicationParams.TOKEN)
                                     simpleResponse.files.forEach { fileBean ->
-                                        fileBean.downloadUrl = "https://221.176.156.138/Services/serviceapi/web/DownloadFile?Token=${tokenString}&id=${fileBean.id}"
+                                        fileBean.downloadUrl = "${HTTP_URL_HEAD}/web/DownloadFile?Token=${tokenString}&id=${fileBean.id}"
                                     }
                                 }
                                 callback.onSuccess(simpleResponse)

@@ -9,6 +9,7 @@ import com.xl.kffta.net.RequestBuilder
 import com.xl.kffta.net.ResponseCallback
 import com.xl.kffta.presenter.interf.ILoginPresenter
 import com.xl.kffta.util.ApplicationParams
+import com.xl.kffta.util.ApplicationParams.HTTP_URL_HEAD
 import com.xl.kffta.view.ILoginView
 
 class LoginPresenterImpl : ILoginPresenter {
@@ -27,7 +28,7 @@ class LoginPresenterImpl : ILoginPresenter {
 
     override fun loginRequest(name: String, pwd: String, ComCode: String) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/AccountSignIn?format=json"
+        requestBuilder.url = "${HTTP_URL_HEAD}/web/AccountSignIn?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["CompanyCode"] = ComCode
         paramsMap["Username"] = name

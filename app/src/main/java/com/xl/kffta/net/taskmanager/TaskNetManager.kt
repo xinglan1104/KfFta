@@ -9,6 +9,7 @@ import com.xl.kffta.net.RequestBuilder
 import com.xl.kffta.net.ResponseCallback
 import com.xl.kffta.net.ResponseObjectCallback
 import com.xl.kffta.util.ApplicationParams
+import com.xl.kffta.util.ApplicationParams.HTTP_URL_HEAD
 
 /**
  * @author created by zhanghaochen
@@ -25,7 +26,7 @@ object TaskNetManager {
      */
     fun queryCheckListById(id: String, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/QueryObjectByID?format=json"
+        requestBuilder.url = "${HTTP_URL_HEAD}/web/QueryObjectByID?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.CheckList"
@@ -71,7 +72,7 @@ object TaskNetManager {
      */
     fun getOrCancelTask(id: String, get: Boolean, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/ClaimOrUnClaim?format=json"
+        requestBuilder.url = "${HTTP_URL_HEAD}/web/ClaimOrUnClaim?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask"
@@ -120,7 +121,7 @@ object TaskNetManager {
      */
     fun queryExecuteTaskList(pageCode: Int, pageSize: Int, searchStr: String, claimed: String = "true", excutionStatus: String = "0", callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/QueryObjects?format=json"
+        requestBuilder.url = "${HTTP_URL_HEAD}/web/QueryObjects?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask"
@@ -169,7 +170,7 @@ object TaskNetManager {
      */
     fun updateTaskState(taskInfoBean: TaskInfoBean, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/AddOrUpdateObject?format=json"
+        requestBuilder.url = "${HTTP_URL_HEAD}/web/AddOrUpdateObject?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         paramsMap["Codename"] = "CloudEasy.ERP.BL.Model.Government.GovermentEnforcementTask"
@@ -214,7 +215,7 @@ object TaskNetManager {
      */
     fun getMainCount(callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/QueryTaskCount?format=json"
+        requestBuilder.url = "${HTTP_URL_HEAD}/web/QueryTaskCount?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["Token"] = ApplicationParams.TOKEN
         requestBuilder.addParams(paramsMap)
@@ -255,7 +256,7 @@ object TaskNetManager {
      */
     fun loginRequestInBg(name: String, pwd: String, ComCode: String) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/AccountSignIn?format=json"
+        requestBuilder.url = "${HTTP_URL_HEAD}/web/AccountSignIn?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["CompanyCode"] = ComCode
         paramsMap["Username"] = name
@@ -313,7 +314,7 @@ object TaskNetManager {
      */
     fun requestVerifyCode(phoneNumber: String, ComCode: String, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/SendLoginSmsCode?format=json"
+        requestBuilder.url = "${HTTP_URL_HEAD}/web/SendLoginSmsCode?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["CompanyCode"] = ComCode
         paramsMap["PhoneNumber"] = phoneNumber
@@ -357,7 +358,7 @@ object TaskNetManager {
      */
     fun loginRequestByMobile(phoneNumber: String, verifyCode: String, ComCode: String, callback: ResponseObjectCallback) {
         val requestBuilder = RequestBuilder()
-        requestBuilder.url = "https://221.176.156.138/Services/serviceapi/web/AccountSignIn?format=json"
+        requestBuilder.url = "${HTTP_URL_HEAD}/web/AccountSignIn?format=json"
         val paramsMap = hashMapOf<String, String>()
         paramsMap["PhoneNumber"] = phoneNumber
         paramsMap["PhoneCode"] = verifyCode
