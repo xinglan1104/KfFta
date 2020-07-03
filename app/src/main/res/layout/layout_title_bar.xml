@@ -77,4 +77,15 @@
             android:scaleType="centerInside"
             android:src="@drawable/icon_phone" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/title_take_all"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_take_all"
+        android:visibility="gone" />
 </RelativeLayout>

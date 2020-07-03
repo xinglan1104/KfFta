@@ -1,13 +1,17 @@
 package com.xl.kffta.ui.activity.receivetask
 
 import android.os.Message
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xl.kffta.R
 import com.xl.kffta.adapter.task.TakeOrderAdapter
 import com.xl.kffta.base.BaseActivity
 import com.xl.kffta.model.TakeOrderBean
+import com.xl.kffta.net.ResponseObjectCallback
+import com.xl.kffta.net.taskmanager.TaskNetManager
 import com.xl.kffta.presenter.impl.TakeOrderPresenterImpl
+import com.xl.kffta.util.DialogUtil
 import com.xl.kffta.view.ITakeOrderView
 import kotlinx.android.synthetic.main.activity_takeorder.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
@@ -65,6 +69,17 @@ class TakeOrderActivity : BaseActivity(), ITakeOrderView {
         take_refresh_layout.setEnableLoadMore(false)
     }
 
+    override fun initListener() {
+        title_take_all.setOnClickListener {
+            DialogUtil.showCommonDialog(this@TakeOrderActivity, "确定要领取所有任务吗", object : DialogUtil.OnDialogOkClick {
+                override fun onDialogOkClick() {
+                    takeAllQuest()
+                }
+
+            })
+        }
+    }
+
     override fun initData() {
 
     }
@@ -85,10 +100,36 @@ class TakeOrderActivity : BaseActivity(), ITakeOrderView {
         mPresenter?.unBindView()
     }
 
+    /**
+     * 领取全部任务
+     */
+    private fun takeAllQuest() {
+        showProgress()
+        TaskNetManager.getOrCancelTask("-1", true, object : ResponseObjectCallback {
+            override fun onError(msg: String) {
+                hideProgress()
+                myToast("领取全部任务失败：$msg")
+            }
+
+            override fun onSuccess(obj: Any) {
+                hideProgress()
+                myToast("已领取全部任务")
+                mHandler.postDelayed({ sendRequest() }, 200)
+            }
+
+        })
+    }
+
     override fun refreshAllSuccess(takeOrderBean: TakeOrderBean) {
         hideProgress()
         runOnUiThread {
             mAdapter.notifyDataChange(takeOrderBean)
+            // 如果有任务，显示一键领取按钮
+            if (takeOrderBean.data?.size ?: 0 > 0) {
+                title_take_all.visibility = View.VISIBLE
+            } else {
+                title_take_all.visibility = View.GONE
+            }
         }
     }
 
