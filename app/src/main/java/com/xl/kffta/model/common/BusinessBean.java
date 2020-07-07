@@ -31,8 +31,8 @@ public class BusinessBean implements Serializable {
     private String OPFrom;
     private String RegistrationOrgnization;
     private String ApprDate;
-    private int BizAddrLatitude;
-    private int BizAddrLongitude;
+    private double BizAddrLatitude;
+    private double BizAddrLongitude;
     private String RegOrg;
     private int Grade;
     private int Score;
@@ -298,19 +298,19 @@ public class BusinessBean implements Serializable {
         this.ApprDate = ApprDate;
     }
 
-    public int getBizAddrLatitude() {
+    public double getBizAddrLatitude() {
         return BizAddrLatitude;
     }
 
-    public void setBizAddrLatitude(int BizAddrLatitude) {
+    public void setBizAddrLatitude(double BizAddrLatitude) {
         this.BizAddrLatitude = BizAddrLatitude;
     }
 
-    public int getBizAddrLongitude() {
+    public double getBizAddrLongitude() {
         return BizAddrLongitude;
     }
 
-    public void setBizAddrLongitude(int BizAddrLongitude) {
+    public void setBizAddrLongitude(double BizAddrLongitude) {
         this.BizAddrLongitude = BizAddrLongitude;
     }
 
