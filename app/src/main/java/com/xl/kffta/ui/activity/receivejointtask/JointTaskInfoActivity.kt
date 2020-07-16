@@ -127,11 +127,13 @@ class JointTaskInfoActivity : BaseActivity() {
                     joint_info_get.isEnabled = false
                     joint_info_back.visibility = View.GONE
                     joint_bottom_empty.visibility = View.GONE
+                    joint_info_bottom_layout.visibility = View.GONE
                 } else {
                     joint_info_get.text = "领取"
                     joint_info_get.isEnabled = true
                     joint_info_back.visibility = View.VISIBLE
                     joint_bottom_empty.visibility = View.VISIBLE
+                    joint_info_bottom_layout.visibility = View.VISIBLE
                 }
                 joint_info_back.text = "退回"
             }
@@ -335,9 +337,19 @@ class JointTaskInfoActivity : BaseActivity() {
                         mDatas.add(JointTaskInfoItem(label = "检查阶段", value = it.name, isClickable = true, checkStateName = it.name, deparmentName = departmentsStr.toString(), riskInfo = it.risk))
                     }
                 }
-                // 执法人
-                mDatas.add(JointTaskInfoItem(label = "执法人", value = infoBean.data?.owner?.userName
-                        ?: ""))
+                // 执法人，可能是多人
+                val owners = infoBean.data?.owner
+                if (!owners.isNullOrEmpty()) {
+                    val ownerNames = StringBuilder("")
+                    owners.forEach { owner ->
+                        ownerNames.append(owner.userName.toString())
+                        ownerNames.append(",")
+                    }
+                    if (owners.size > 1 && ownerNames.length > 2) {
+                        ownerNames.replace(ownerNames.length - 1, ownerNames.length, "")
+                    }
+                    mDatas.add(JointTaskInfoItem(label = "执法人", value = ownerNames.toString()))
+                }
 
                 // 下面三个在未执行的时候，是可以编辑的
                 if (mExeTaskState == JOINT_TASK_EXE_STATE_COMPLETE) {

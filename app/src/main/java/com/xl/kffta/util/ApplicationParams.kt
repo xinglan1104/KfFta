@@ -18,7 +18,8 @@ object ApplicationParams {
     var USER_DEPARTMENT: String = ""
     var USER_DEPARTMENT_ID: Long = 0
 
-    val HTTP_URL_HEAD: String = "https://221.176.156.138/Services/serviceapi"
+    //    val HTTP_URL_HEAD: String = "https://221.176.156.138/Services/serviceapi"
+    val HTTP_URL_HEAD: String = "https://kaifeng.dtbms.com/services/serviceapi"
 //    val HTTP_URL_HEAD: String = "https://test.dynamictier.com/services2/serviceapi"
     /**
      * 方便起见，文件的路径直接保存全局变量，未经处理的完整路径

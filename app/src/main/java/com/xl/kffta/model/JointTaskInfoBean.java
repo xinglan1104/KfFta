@@ -99,13 +99,15 @@ public class JointTaskInfoBean implements Serializable {
         private GovermentJointSupervisionSchemeBean GovermentJointSupervisionScheme;
         private long DeparmentID;
         private DeparmentBean Deparment;
-        private long OwnerID;
-        private OwnerBean Owner;
+        private List<Long> OwnerIDs;
+        private List<OwnerBean> Owner;
+        private List<OwnerBean> PendingOwner;
+        private List<Long> PendingOwnerIDs;
         private int AcceptStatus;
         private String CheckDate;
         private String Result;
         private int ExcutionStatus;
-        private List<?> Reference;
+        //        private List<?> Reference;
         private List<Long> GovermentProjectRiskIDs;
         private List<GovermentProjectRiskBean> GovermentProjectRisk;
 
@@ -123,6 +125,30 @@ public class JointTaskInfoBean implements Serializable {
 
         public void setID(long ID) {
             this.ID = ID;
+        }
+
+        public List<Long> getOwnerIDs() {
+            return OwnerIDs;
+        }
+
+        public void setOwnerIDs(List<Long> ownerIDs) {
+            OwnerIDs = ownerIDs;
+        }
+
+        public List<OwnerBean> getPendingOwner() {
+            return PendingOwner;
+        }
+
+        public void setPendingOwner(List<OwnerBean> pendingOwner) {
+            PendingOwner = pendingOwner;
+        }
+
+        public List<Long> getPendingOwnerIDs() {
+            return PendingOwnerIDs;
+        }
+
+        public void setPendingOwnerIDs(List<Long> pendingOwnerIDs) {
+            PendingOwnerIDs = pendingOwnerIDs;
         }
 
         public long getCompanyID() {
@@ -309,19 +335,19 @@ public class JointTaskInfoBean implements Serializable {
             this.Deparment = Deparment;
         }
 
-        public long getOwnerID() {
-            return OwnerID;
-        }
+//        public long getOwnerID() {
+//            return OwnerID;
+//        }
+//
+//        public void setOwnerID(long OwnerID) {
+//            this.OwnerID = OwnerID;
+//        }
 
-        public void setOwnerID(long OwnerID) {
-            this.OwnerID = OwnerID;
-        }
-
-        public OwnerBean getOwner() {
+        public List<OwnerBean> getOwner() {
             return Owner;
         }
 
-        public void setOwner(OwnerBean Owner) {
+        public void setOwner(List<OwnerBean> Owner) {
             this.Owner = Owner;
         }
 
@@ -357,13 +383,13 @@ public class JointTaskInfoBean implements Serializable {
             this.ExcutionStatus = ExcutionStatus;
         }
 
-        public List<?> getReference() {
-            return Reference;
-        }
-
-        public void setReference(List<?> Reference) {
-            this.Reference = Reference;
-        }
+//        public List<?> getReference() {
+//            return Reference;
+//        }
+//
+//        public void setReference(List<?> Reference) {
+//            this.Reference = Reference;
+//        }
 
         public List<Long> getGovermentProjectRiskIDs() {
             return GovermentProjectRiskIDs;

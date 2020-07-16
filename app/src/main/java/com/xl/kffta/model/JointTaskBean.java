@@ -203,12 +203,38 @@ public class JointTaskBean implements Serializable {
         private GovermentJointSupervisionSchemeBean GovermentJointSupervisionScheme;
         private int GovermentJointSupervisionSchemeID;
         private int ID;
-        private OwnerBean Owner;
-        private int OwnerID;
+        private List<OwnerBean> Owner;
+        private List<Long> OwnerIDs;
+        private List<OwnerBean> PendingOwner;
+        private List<Long> PendingOwnerIDs;
         private int PageCode;
         private String Result;
         private List<GovermentProjectRiskBean> GovermentProjectRisk;
-        private List<Integer> GovermentProjectRiskIDs;
+        private List<Long> GovermentProjectRiskIDs;
+
+        public List<Long> getOwnerIDs() {
+            return OwnerIDs;
+        }
+
+        public void setOwnerIDs(List<Long> ownerIDs) {
+            OwnerIDs = ownerIDs;
+        }
+
+        public List<OwnerBean> getPendingOwner() {
+            return PendingOwner;
+        }
+
+        public void setPendingOwner(List<OwnerBean> pendingOwner) {
+            PendingOwner = pendingOwner;
+        }
+
+        public List<Long> getPendingOwnerIDs() {
+            return PendingOwnerIDs;
+        }
+
+        public void setPendingOwnerIDs(List<Long> pendingOwnerIDs) {
+            PendingOwnerIDs = pendingOwnerIDs;
+        }
 
         public int getAcceptStatus() {
             return AcceptStatus;
@@ -290,20 +316,12 @@ public class JointTaskBean implements Serializable {
             this.ID = ID;
         }
 
-        public OwnerBean getOwner() {
+        public List<OwnerBean> getOwner() {
             return Owner;
         }
 
-        public void setOwner(OwnerBean Owner) {
+        public void setOwner(List<OwnerBean> Owner) {
             this.Owner = Owner;
-        }
-
-        public int getOwnerID() {
-            return OwnerID;
-        }
-
-        public void setOwnerID(int OwnerID) {
-            this.OwnerID = OwnerID;
         }
 
         public int getPageCode() {
@@ -330,11 +348,11 @@ public class JointTaskBean implements Serializable {
             this.GovermentProjectRisk = GovermentProjectRisk;
         }
 
-        public List<Integer> getGovermentProjectRiskIDs() {
+        public List<Long> getGovermentProjectRiskIDs() {
             return GovermentProjectRiskIDs;
         }
 
-        public void setGovermentProjectRiskIDs(List<Integer> GovermentProjectRiskIDs) {
+        public void setGovermentProjectRiskIDs(List<Long> GovermentProjectRiskIDs) {
             this.GovermentProjectRiskIDs = GovermentProjectRiskIDs;
         }
 
