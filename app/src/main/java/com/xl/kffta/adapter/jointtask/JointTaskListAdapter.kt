@@ -91,11 +91,13 @@ class JointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recycler
                     jointHolder.btn1.text = "已领取"
                     jointHolder.btn1.isEnabled = false
                     jointHolder.emptyView.visibility = View.GONE
+                    jointHolder.layout2.visibility = View.GONE
                     jointHolder.btn2.visibility = View.GONE
                 }
                 TASK_HAS_NOT_TAKE -> {
                     jointHolder.btn1.text = "领取"
                     jointHolder.btn1.isEnabled = true
+                    jointHolder.layout2.visibility = View.GONE
                     jointHolder.emptyView.visibility = View.VISIBLE
                     jointHolder.btn2.visibility = View.VISIBLE
                 }
@@ -194,6 +196,8 @@ class JointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recycler
         val value1 = itemView.find<TextView>(R.id.take_1_value)
         val value2 = itemView.find<TextView>(R.id.take_2_value)
         val value3 = itemView.find<TextView>(R.id.take_3_value)
+
+        val layout2 = itemView.find<ViewGroup>(R.id.joint_pending_layout2)
 
         val btn1 = itemView.find<TextView>(R.id.take_btn1)
         val btn2 = itemView.find<TextView>(R.id.take_btn2)
