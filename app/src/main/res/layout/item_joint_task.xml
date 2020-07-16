@@ -110,6 +110,7 @@
         android:id="@+id/take_info_layout1"
         android:layout_width="match_parent"
         android:layout_height="35dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:orientation="horizontal">
