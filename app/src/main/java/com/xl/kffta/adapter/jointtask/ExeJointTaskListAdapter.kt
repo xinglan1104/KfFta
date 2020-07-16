@@ -74,6 +74,7 @@ class ExeJointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recyc
                 holder.value2.text = "执行时间"
                 holder.value2.text = SysUtils.getDateTimestamp(data.checkDate)
                 holder.btn1.visibility = View.GONE
+                holder.layout2.visibility = View.VISIBLE
                 holder.layout3.visibility = View.GONE
                 holder.layout4.visibility = View.GONE
                 holder.layout5.visibility = View.GONE
@@ -96,9 +97,10 @@ class ExeJointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recyc
                 holder.value2.text = "检查时间"
                 holder.value2.text = SysUtils.getDateTimestamp(data.checkDate)
                 holder.btn1.visibility = View.VISIBLE
-                holder.layout3.visibility = View.VISIBLE
-                holder.layout4.visibility = View.VISIBLE
-                holder.layout5.visibility = View.VISIBLE
+                holder.layout2.visibility = View.GONE
+                holder.layout3.visibility = View.GONE
+                holder.layout4.visibility = View.GONE
+                holder.layout5.visibility = View.GONE
                 holder.itemView.setOnClickListener(null)
                 holder.btn1.setOnClickListener {
                     // 跳转到执行项目检查任务的详情页
@@ -153,6 +155,7 @@ class ExeJointTaskListAdapter(val context: Context) : RecyclerView.Adapter<Recyc
         val value4 = itemView.find<TextView>(R.id.exe_joint_4_value)
         val value5 = itemView.find<TextView>(R.id.exe_joint_5_value)
 
+        val layout2 = itemView.find<ViewGroup>(R.id.exe_joint_layout_2)
         val layout3 = itemView.find<ViewGroup>(R.id.exe_joint_layout_3)
         val layout4 = itemView.find<ViewGroup>(R.id.exe_joint_layout_4)
         val layout5 = itemView.find<ViewGroup>(R.id.exe_joint_layout_5)

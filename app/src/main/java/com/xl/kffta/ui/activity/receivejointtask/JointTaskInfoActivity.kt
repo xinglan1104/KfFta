@@ -248,6 +248,7 @@ class JointTaskInfoActivity : BaseActivity() {
                                     DialogUtil.showSingleCommonDialog(context = this@JointTaskInfoActivity, msg = tipStr)
                                 } else {
                                     jointTaskInfoBean.data.acceptStatus = JointTaskManager.AcceptStatusApproved
+                                    jointTaskInfoBean.data.excutionStatus = JointTaskManager.ExcutionStatus_Complete
                                     JointTaskManager.updateJointTaskState(jointTaskInfoBean, object : ResponseObjectCallback {
                                         override fun onError(msg: String) {
                                             myToast(msg)
@@ -342,7 +343,7 @@ class JointTaskInfoActivity : BaseActivity() {
                 if (!owners.isNullOrEmpty()) {
                     val ownerNames = StringBuilder("")
                     owners.forEach { owner ->
-                        ownerNames.append(owner.userName.toString())
+                        ownerNames.append(owner.displayName.toString())
                         ownerNames.append(",")
                     }
                     if (owners.size > 1 && ownerNames.length > 2) {

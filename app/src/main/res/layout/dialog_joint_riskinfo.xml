@@ -87,6 +87,8 @@
             android:lineSpacingMultiplier="1.2"
             android:textColor="@color/text_value"
             android:textSize="14sp"
+            android:maxLines="12"
+            android:scrollbars="vertical"
             tools:text="撒打算打算打算打算撒打算打算打算打算撒打算大" />
     </LinearLayout>
 

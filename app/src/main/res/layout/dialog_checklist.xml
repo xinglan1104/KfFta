@@ -66,6 +66,8 @@
         android:layout_marginRight="14dp"
         android:lineSpacingMultiplier="1.2"
         android:textColor="@color/text_value"
+        android:maxLines="12"
+        android:scrollbars="vertical"
         android:textSize="14sp"
         tools:text="dsadasdasdasdasdasdasdasdasdasda撒打算打算打算打算打算的打算打算打算打打算" />
 

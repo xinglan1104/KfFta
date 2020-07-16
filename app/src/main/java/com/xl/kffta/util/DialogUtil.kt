@@ -3,6 +3,7 @@ package com.xl.kffta.util
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.text.method.ScrollingMovementMethod
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -62,6 +63,7 @@ object DialogUtil {
             this.cornerRadius(10f)
             cancelOnTouchOutside(false)
             val customView = getCustomView()
+            customView.find<TextView>(R.id.dialog_check_content).movementMethod = object : ScrollingMovementMethod() {}
             customView.find<TextView>(R.id.dialog_check_title).text = title
             customView.find<TextView>(R.id.dialog_check_provide).text = provide
             customView.find<TextView>(R.id.dialog_check_content).text = detail
@@ -83,6 +85,7 @@ object DialogUtil {
             cancelOnTouchOutside(false)
 
             val customView = getCustomView()
+            customView.find<TextView>(R.id.dialog_joint_risk_info).movementMethod = object : ScrollingMovementMethod() {}
             customView.find<TextView>(R.id.dialog_joint_risk_stage).text = stage
             customView.find<TextView>(R.id.dialog_joint_department).text = department
             customView.find<TextView>(R.id.dialog_joint_risk_info).text = riskInfo
