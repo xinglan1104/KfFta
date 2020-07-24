@@ -32,6 +32,7 @@ object LocationManager {
         paramsMap["IsUpdateReference"] = "false"
         paramsMap["Data"] = Gson().toJson(uploadLacation)
         requestBuilder.addParams(paramsMap)
+        Log.e(TAG, "上传定位:$paramsMap")
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {
                 Log.e(TAG, msg ?: "执行出错")
@@ -76,10 +77,11 @@ object LocationManager {
             taskInfo.excutionStatus = 0
             taskInfo.pageCode = 0
             taskInfo.objectId = id
+            taskInfo.token = ApplicationParams.TOKEN
 
             // 首先查询有没有改数据
             val result = App.daoSession?.taskInfoDao?.queryBuilder()?.where(TaskInfoDao.Properties.ObjectId.eq(id),
-                    TaskInfoDao.Properties.CodeName.eq(codeName))?.build()?.list()
+                    TaskInfoDao.Properties.CodeName.eq(codeName), TaskInfoDao.Properties.Token.eq(ApplicationParams.TOKEN))?.build()?.list()
             if (!result.isNullOrEmpty()) {
                 // 有数据，那就update
                 App.daoSession?.taskInfoDao?.update(taskInfo)
@@ -101,9 +103,10 @@ object LocationManager {
             taskInfo.objectId = id
             taskInfo.codeName = codeName
             taskInfo.excutionStatus = 1
+            taskInfo.token = ApplicationParams.TOKEN
 
             val result = App.daoSession?.taskInfoDao?.queryBuilder()?.where(TaskInfoDao.Properties.ObjectId.eq(id),
-                    TaskInfoDao.Properties.CodeName.eq(codeName))?.build()?.list()
+                    TaskInfoDao.Properties.CodeName.eq(codeName), TaskInfoDao.Properties.Token.eq(ApplicationParams.TOKEN))?.build()?.list()
             if (!result.isNullOrEmpty()) {
                 // 有数据，那就update
                 App.daoSession?.taskInfoDao?.update(taskInfo)

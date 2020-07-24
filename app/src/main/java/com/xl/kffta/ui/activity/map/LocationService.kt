@@ -1,30 +1,29 @@
 package com.xl.kffta.ui.activity.map
 
-import android.app.*
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.Service
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.location.AMapLocationListener
+import com.xl.kffta.R
 import com.xl.kffta.base.App
 import com.xl.kffta.greendao.TaskInfoDao
 import com.xl.kffta.model.LocationUploadBean
 import com.xl.kffta.model.sql.TaskInfo
 import com.xl.kffta.net.taskmanager.LocationManager
+import com.xl.kffta.ui.activity.MainActivity
+import com.xl.kffta.util.ApplicationParams
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
-import android.content.Context
-import android.graphics.BitmapFactory
-import android.os.Build
-import androidx.core.app.NotificationCompat
-import com.xl.kffta.R
-import com.xl.kffta.ui.activity.MainActivity
-import com.xl.kffta.util.ApplicationParams
-import android.app.ActivityManager
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 
 class LocationService : Service() {
@@ -60,15 +59,9 @@ class LocationService : Service() {
                 notificationManager.createNotificationChannel(notificationChannel);
             }
             var intent = Intent(this, MainActivity::class.java)
-            var pendingIntent= PendingIntent.getActivity(this,0, intent, 0);
+            var pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
-            var notification = NotificationCompat.Builder(this,CHANNEL_ID).
-                    setContentTitle("定位中").
-                    setContentText("").
-                    setWhen(System.currentTimeMillis()).
-                    setSmallIcon(R.mipmap.icon_app_logo).
-                    setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher)).
-                    setContentIntent(pendingIntent).build();
+            var notification = NotificationCompat.Builder(this, CHANNEL_ID).setContentTitle("定位中").setContentText("").setWhen(System.currentTimeMillis()).setSmallIcon(R.mipmap.icon_app_logo).setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)).setContentIntent(pendingIntent).build();
             startForeground(1, notification);
         }
         initLocation()
@@ -85,7 +78,8 @@ class LocationService : Service() {
 
     fun queryTaskList() {
         // 查询数据库
-        mTaskList = App.daoSession?.taskInfoDao?.queryBuilder()?.where(TaskInfoDao.Properties.ExecuteTime.lt(System.currentTimeMillis()), TaskInfoDao.Properties.ExcutionStatus.eq(0))?.build()?.list()
+        mTaskList = App.daoSession?.taskInfoDao?.queryBuilder()?.where(TaskInfoDao.Properties.ExecuteTime.lt(System.currentTimeMillis()),
+                TaskInfoDao.Properties.ExcutionStatus.eq(0), TaskInfoDao.Properties.Token.eq(ApplicationParams.TOKEN))?.build()?.list()
         Log.i(TAG, "tasks.size==" + mTaskList?.size)
         if (!mTaskList.isNullOrEmpty()) {
             getPosition()

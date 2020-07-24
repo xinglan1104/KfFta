@@ -53,10 +53,13 @@ public class TaskInfo {
     @NotNull
     private int pageCode;
 
-    @Generated(hash = 662729545)
+    @NotNull
+    private String token;
+
+    @Generated(hash = 942005553)
     public TaskInfo(long id, long objectId, long executeTime,
-            @NotNull String codeName, int excutionStatus, int companyId,
-            int pageCode) {
+                    @NotNull String codeName, int excutionStatus, int companyId,
+                    int pageCode, @NotNull String token) {
         this.id = id;
         this.objectId = objectId;
         this.executeTime = executeTime;
@@ -64,6 +67,7 @@ public class TaskInfo {
         this.excutionStatus = excutionStatus;
         this.companyId = companyId;
         this.pageCode = pageCode;
+        this.token = token;
     }
 
     @Generated(hash = 2022720704)
@@ -124,6 +128,14 @@ public class TaskInfo {
 
     public void setPageCode(int pageCode) {
         this.pageCode = pageCode;
+    }
+
+    public String getToken() {
+        return this.token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
 }
