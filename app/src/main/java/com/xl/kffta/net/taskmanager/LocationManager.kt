@@ -83,13 +83,17 @@ object LocationManager {
             val result = App.daoSession?.taskInfoDao?.queryBuilder()?.where(TaskInfoDao.Properties.ObjectId.eq(id),
                     TaskInfoDao.Properties.CodeName.eq(codeName), TaskInfoDao.Properties.Token.eq(ApplicationParams.TOKEN))?.build()?.list()
             if (!result.isNullOrEmpty()) {
-                // 有数据，那就update
-                App.daoSession?.taskInfoDao?.update(taskInfo)
+                // 有数据，那就先删除，再插入
+                result.forEach {
+                    App.daoSession?.taskInfoDao?.delete(it)
+                }
+                App.daoSession?.taskInfoDao?.insert(taskInfo)
             } else {
                 // 没有数据，插入
                 App.daoSession?.taskInfoDao?.insert(taskInfo)
             }
         } catch (ignored: Exception) {
+            Log.e("zhc", ignored.message)
         }
     }
 

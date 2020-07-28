@@ -16,7 +16,7 @@ public class TaskInfo {
      * 主键id
      */
     @Id(autoincrement = true)
-    private long id;
+    private Long id = null;
 
     /**
      * 任务的id
@@ -56,8 +56,8 @@ public class TaskInfo {
     @NotNull
     private String token;
 
-    @Generated(hash = 942005553)
-    public TaskInfo(long id, long objectId, long executeTime,
+    @Generated(hash = 2110125038)
+    public TaskInfo(Long id, long objectId, long executeTime,
                     @NotNull String codeName, int excutionStatus, int companyId,
                     int pageCode, @NotNull String token) {
         this.id = id;
@@ -74,11 +74,11 @@ public class TaskInfo {
     public TaskInfo() {
     }
 
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -137,5 +137,4 @@ public class TaskInfo {
     public void setToken(String token) {
         this.token = token;
     }
-
 }

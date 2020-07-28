@@ -78,8 +78,7 @@ class LocationService : Service() {
 
     fun queryTaskList() {
         // 查询数据库
-        mTaskList = App.daoSession?.taskInfoDao?.queryBuilder()?.where(TaskInfoDao.Properties.ExecuteTime.lt(System.currentTimeMillis()),
-                TaskInfoDao.Properties.ExcutionStatus.eq(0), TaskInfoDao.Properties.Token.eq(ApplicationParams.TOKEN))?.build()?.list()
+        mTaskList = App.daoSession?.taskInfoDao?.queryBuilder()?.where(TaskInfoDao.Properties.ExcutionStatus.eq(0), TaskInfoDao.Properties.Token.eq(ApplicationParams.TOKEN))?.build()?.list()
         Log.i(TAG, "tasks.size==" + mTaskList?.size)
         if (!mTaskList.isNullOrEmpty()) {
             getPosition()
