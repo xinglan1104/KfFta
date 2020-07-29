@@ -322,7 +322,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                 val peoples = taskInfoBean.data?.pendingOwner
                 val peoplesStr = StringBuilder("")
                 peoples?.forEach {
-                    peoplesStr.append(SysUtils.getSafeString(it.userName))
+                    peoplesStr.append(SysUtils.getSafeString(it.displayName))
                     peoplesStr.append("  ")
                 }
                 mDatas.add(TaskItemInfo("待接收执法人", peoplesStr.toString(), isTitle = false, isCheckList = false))
@@ -360,7 +360,7 @@ class TaskInfoDetailActivity : BaseActivity(), ITaskInfoDetailView {
                 val owners = taskInfoBean.data?.owner
                 val ownerStr = StringBuilder("")
                 owners?.forEach {
-                    ownerStr.append(SysUtils.getSafeString(it.userName))
+                    ownerStr.append(SysUtils.getSafeString(it.displayName))
                     ownerStr.append("  ")
                 }
                 mDatas.add(TaskItemInfo(label = "执法人", value = ownerStr.toString()))
