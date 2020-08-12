@@ -63,33 +63,40 @@ class WarnAddNormalFragment : WarnInfoBaseFragment() {
                         return@setOnClickListener
                     }
                 }
-                if (mAdapter.mBusinessInfoData == null || mAdapter.mBusinessStr != mAdapter.mBusinessInfoData?.businessName?.trim()) {
-                    myToast("请正确输入企业信息")
+                if (mTaskInfoBean != null) {
+                    submit()
                 } else {
-                    context?.let { context ->
-                        DialogUtil.showCommonDialog(context, "确定要新增预警吗", object : DialogUtil.OnDialogOkClick {
-                            override fun onDialogOkClick() {
-                                WarnManager.addNewWarning(getWarnByIdBean(), object : ResponseObjectCallback {
-                                    override fun onError(msg: String) {
-                                        runOnUiThread {
-                                            DialogUtil.showSingleCommonDialog(context = context, msg = msg)
-                                        }
-                                    }
-
-                                    override fun onSuccess(obj: Any) {
-                                        myToast("新增预警成功")
-                                        runOnUiThread {
-                                            activity?.finish()
-                                        }
-                                    }
-                                })
-                            }
-
-                        })
+                    if (mAdapter.mBusinessInfoData == null || mAdapter.mBusinessStr != mAdapter.mBusinessInfoData?.businessName?.trim()) {
+                        myToast("请正确输入企业信息")
+                    } else {
+                        submit()
                     }
                 }
-
             }
+        }
+    }
+
+    fun submit() {
+        context?.let { context ->
+            DialogUtil.showCommonDialog(context, "确定要新增预警吗", object : DialogUtil.OnDialogOkClick {
+                override fun onDialogOkClick() {
+                    WarnManager.addNewWarning(getWarnByIdBean(), object : ResponseObjectCallback {
+                        override fun onError(msg: String) {
+                            runOnUiThread {
+                                DialogUtil.showSingleCommonDialog(context = context, msg = msg)
+                            }
+                        }
+
+                        override fun onSuccess(obj: Any) {
+                            myToast("新增预警成功")
+                            runOnUiThread {
+                                activity?.finish()
+                            }
+                        }
+                    })
+                }
+
+            })
         }
     }
 
@@ -100,7 +107,7 @@ class WarnAddNormalFragment : WarnInfoBaseFragment() {
             mDatas.add(WarnItemBean(label = "企业名称", editHint = "请输入企业名称", isBusinessAutoComplete = true, editAutoCompleteSingleLine = true))
         } else {
             mDatas.add(WarnItemBean(label = "企业名称", value = mTaskInfoBean?.data?.business?.businessName
-                ?: ""))
+                    ?: ""))
         }
         mDatas.add(WarnItemBean(label = "预警部门", isDepartmentAutoComplete = true, editHint = "请输入预警部门", value = ApplicationParams.USER_DEPARTMENT))
         mDatas.add(WarnItemBean(label = "预警信息", isEditAble = true, editHint = "请输入预警信息", isSingleLine = false))

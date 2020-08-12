@@ -174,7 +174,8 @@ object LawCaseManager {
         paramsMap["Skip"] = "0"
         paramsMap["Take"] = "10"
         paramsMap["PageType"] = "1"
-        paramsMap["CommonSearchKey"] = searchStr
+//        paramsMap["CommonSearchKey"] = searchStr
+        paramsMap["SearchParam"] = "IsOwnBusiness=true&BusinessName=${searchStr}"
         requestBuilder.addParams(paramsMap)
         requestBuilder.callback = object : ResponseCallback {
             override fun onError(msg: String?) {
